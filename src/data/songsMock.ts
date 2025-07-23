@@ -1,8 +1,8 @@
  //MOCK
 import { type Song } from "../types/song"
-export const songsMockup: Song[] = [
+export const songsMock: Song[] = [
   {
-    id: 1,
+    id: '1',
     title: 'Canción 1',
     author: 'Song Autor',
     songSections: [
@@ -10,7 +10,7 @@ export const songsMockup: Song[] = [
     ]
   },
   {
-    id: 2,
+    id: '2',
     title: 'Canción 2',
     author: 'Song Autor 2',
     songSections: [

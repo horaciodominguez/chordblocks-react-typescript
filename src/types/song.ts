@@ -1,7 +1,6 @@
-//TYPES
 
 export interface Song {
-  id: number,
+  id: string,
   title: string,
   author: string,
   songSections: SectionType[]

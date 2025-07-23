@@ -1,10 +1,11 @@
+import type React from "react"
 import { type Song } from "../types/song"
 
 interface Props {
   songs: Song[]
 }
 
-export function SongList ({songs}: Props) {
+export const SongList: React.FC<Props> = ({songs}) => {
     return (
         <ul>
             {
