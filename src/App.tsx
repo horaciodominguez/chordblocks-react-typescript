@@ -22,7 +22,7 @@ function App() {
 
   return (
     <>
-      <h1>SongBlocks</h1>
+      <h1 className="text-amber-200">SongBlocks</h1>
       <SongList songs={songs} />
       <SongForm handleAddSong={handleAddSong} />
     </>
