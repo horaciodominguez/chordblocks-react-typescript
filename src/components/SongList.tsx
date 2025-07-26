@@ -7,12 +7,12 @@ interface Props {
 
 export const SongList: React.FC<Props> = ({songs}) => {
     return (
-        <ul>
+        <ul className="flex flex-col gap-4">
             {
             songs.map (
                 song =>(
-                    <li key={song.id} >
-                    <h3>{song.title}</h3>
+                    <li key={song.id} className="border-2 p-4" >
+                    <h3 className="font-medium">{song.title}</h3>
                     <p>{song.author}</p>
                     {
                     song.songSections.map (
