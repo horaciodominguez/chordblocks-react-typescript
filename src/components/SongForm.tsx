@@ -73,44 +73,50 @@ export const SongForm: React.FC<Props> = ({handleAddSong}) => {
 
     return (
         <div>
-            <h2>Agregar canción:</h2>
-            <div>
-            <div>
-                <label htmlFor="formTitle">Título</label>
-                <input value={newSongFormValues.title ?? ""} id="formTitle" type="text" onChange={handleChangeTitle} />
-            </div>
-            <div>
-                <label htmlFor="formAuthor">Autor</label>
-                <input value={newSongFormValues.author ?? ""} id="formAuthor" type="text" onChange={handleChangeAuthor} />
-            </div>
-            <div>
-                <label htmlFor="formSongSections">Song Blocks:</label>
-                <select value={newSongSection} id="formSongSections" onChange={handleChangeSections}>
-                <option value="">Seleccione tipo de bloque</option>
-                {
-                    SECTION_OPTIONS.map(
-                    section => (<option key={section}>{section}</option>)
-                    )
-                }
-                </select>
-                <div>Nueva sección: {newSongSection}</div>
+            <h2 >Agregar canción:</h2>
+            <div className="flex flex-col gap-4">
                 <div>
-                Secciones para agregar:
-                <ul>
-                    {
-                    formSections.map(
-                        (formSection, index) => (
-                        <li key={index}>{formSection}</li>
-                        )
-                    )
-                    }
-                </ul>
+                    <label htmlFor="formTitle">Título</label>
+                    <input value={newSongFormValues.title ?? ""} id="formTitle" type="text" onChange={handleChangeTitle} />
                 </div>
-                <button onClick={handleAddSection}>Agregar sección</button>
-            </div>
-            <div>
-                <button onClick={handleClickAdd}>Agregar</button>
-            </div>
+                <div>
+                    <label htmlFor="formAuthor">Autor</label>
+                    <input value={newSongFormValues.author ?? ""} id="formAuthor" type="text" onChange={handleChangeAuthor} />
+                </div>
+                <div>
+                    <label htmlFor="formSongSections">Song Blocks:</label>
+                    <select value={newSongSection} id="formSongSections" onChange={handleChangeSections}>
+                        <option value="">Seleccione tipo de bloque</option>
+                        {
+                            SECTION_OPTIONS.map(
+                            section => (<option key={section}>{section}</option>)
+                            )
+                        }
+                    </select>
+                    <div>Nueva sección: {newSongSection}</div>
+                    <div>
+                    Secciones para agregar:
+                    <ul>
+                        {
+                        formSections.map(
+                            (formSection, index) => (
+                            <li key={index}>{formSection}</li>
+                            )
+                        )
+                        }
+                    </ul>
+                    </div>
+                    <button 
+                    onClick={handleAddSection}
+                    className="bg-gray-800 px-4 py-2 rounded-4xl font-medium"
+                    >Agregar sección</button>
+                </div>
+                <div>
+                    <button 
+                    onClick={handleClickAdd}
+                    className="bg-gray-800 px-4 py-2 rounded-4xl font-medium"
+                    >Agregar</button>
+                </div>
             </div>
         </div>
     )
