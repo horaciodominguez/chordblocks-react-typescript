@@ -75,17 +75,34 @@ export const SongForm: React.FC<Props> = ({handleAddSong}) => {
         <div>
             <h2 >Agregar canción:</h2>
             <div className="flex flex-col gap-4">
-                <div>
-                    <label htmlFor="formTitle">Título</label>
-                    <input value={newSongFormValues.title ?? ""} id="formTitle" type="text" onChange={handleChangeTitle} />
+                <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="formTitle">Título</label>
+                    <input 
+                        value={newSongFormValues.title ?? ""} 
+                        id="formTitle" 
+                        type="text" 
+                        onChange={handleChangeTitle} 
+                        className="w-full border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    />
                 </div>
-                <div>
-                    <label htmlFor="formAuthor">Autor</label>
-                    <input value={newSongFormValues.author ?? ""} id="formAuthor" type="text" onChange={handleChangeAuthor} />
+                <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="formAuthor">Autor</label>
+                    <input 
+                        value={newSongFormValues.author ?? ""} 
+                        id="formAuthor" 
+                        type="text"
+                        onChange={handleChangeAuthor} 
+                        className="w-full border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        />
                 </div>
-                <div>
-                    <label htmlFor="formSongSections">Song Blocks:</label>
-                    <select value={newSongSection} id="formSongSections" onChange={handleChangeSections}>
+                <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="formSongSections">Song Blocks:</label>
+                    <select 
+                        value={newSongSection} 
+                        id="formSongSections" 
+                        onChange={handleChangeSections}
+                        className="w-full border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    >
                         <option value="">Seleccione tipo de bloque</option>
                         {
                             SECTION_OPTIONS.map(
@@ -108,13 +125,13 @@ export const SongForm: React.FC<Props> = ({handleAddSong}) => {
                     </div>
                     <button 
                     onClick={handleAddSection}
-                    className="bg-gray-800 px-4 py-2 rounded-4xl font-medium"
+                    className="bg-gray-800 px-4 py-2 rounded-4xl font-medium hover:bg-gray-700 transition-colors"
                     >Agregar sección</button>
                 </div>
-                <div>
+                <div className="mb-4">
                     <button 
                     onClick={handleClickAdd}
-                    className="bg-gray-800 px-4 py-2 rounded-4xl font-medium"
+                    className="bg-gray-800 px-4 py-2 rounded-4xl font-medium hover:bg-gray-700 transition-colors"
                     >Agregar</button>
                 </div>
             </div>
