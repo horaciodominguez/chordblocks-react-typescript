@@ -23,7 +23,11 @@ function App() {
   }
 
   return (
-    <main className="bg-gray-900 text-gray-400 flex flex-col justify-center align-middle h-full">
+    <main className="
+      max-w-3xl mx-auto px-4 py-8
+      flex flex-col justify-center align-middle 
+      min-h-screen"
+    >
       <Header />
       <SongList songs={songs} />
       <SongForm handleAddSong={handleAddSong} />
