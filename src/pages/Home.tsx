@@ -1,20 +1,12 @@
-import { type Song } from "../types/song"
-import { songsMock } from "../data/songsMock"
-import { useEffect, useState } from "react"
+
 import { SongList } from "../components/SongList"
+import type { Song } from "../types/song"
 
+type Props = {
+    songs: Song[]
+}
 
-
-export default function Home() {
-
-    const [songs, setSongs] = useState<Song[]>([])
-  
-    useEffect(()=>{
-        setSongs(songsMock)
-    }, [])
-
-    
-
+export default function Home({ songs }: Props) {
     return (
         <>
             <h2>Home</h2>
