@@ -13,7 +13,7 @@ export const SongList: React.FC<Props> = ({songs}) => {
                 song =>(
                     <li 
                         key={song.id} 
-                         className="border border-gray-300 rounded-md p-4 shadow-sm"
+                         className="border-[.1px] border-gray-700 bg-gray-50/5 rounded-md p-4 shadow-sm"
                         >
                     <h3 className="font-medium">{song.title}</h3>
                     <p>{song.author}</p>

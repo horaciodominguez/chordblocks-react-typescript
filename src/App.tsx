@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+/*import { useEffect, useState } from "react"
 import { type Song } from "./types/song"
 import { songsMock } from "./data/songsMock"
 import { Header } from "./components/Header"
@@ -34,6 +34,25 @@ function App() {
       <Footer />
     </main>
   )
+}*/
+
+import { BrowserRouter, Routes, Route } from "react-router-dom"
+import Home from "./pages/Home"
+import ViewSong from "./pages/ViewSong"
+import NewSong from "./pages/NewSong"
+import EditSong from "./pages/EditSong"
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/song/:id" element={<ViewSong />} />
+        <Route path="/song/:id/edit" element={<EditSong />} />
+        <Route path="/new" element={<NewSong />} />
+      </Routes>
+    </BrowserRouter>
+    )
 }
 
 export default App
