@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { type Song, type SectionType, SECTION_OPTIONS } from "../types/song"
 import { v4 as uuidv4 } from 'uuid'
+import Button from "./ui/Button"
 
 type Props = {
     handleAddSong: (NewSong: Song) => void
@@ -123,16 +124,11 @@ export const SongForm: React.FC<Props> = ({handleAddSong}) => {
                         }
                     </ul>
                     </div>
-                    <button 
-                    onClick={handleAddSection}
-                    className="bg-gray-800 px-4 py-2 rounded-4xl font-medium hover:bg-gray-700 transition-colors"
-                    >Agregar sección</button>
+                    <Button onClick={handleAddSection}>Agregar sección</Button>
+                    
                 </div>
                 <div className="mb-4">
-                    <button 
-                    onClick={handleClickAdd}
-                    className="bg-gray-800 px-4 py-2 rounded-4xl font-medium hover:bg-gray-700 transition-colors"
-                    >Agregar</button>
+                    <Button onClick={handleClickAdd}>Agregar canción</Button>
                 </div>
             </div>
         </div>
