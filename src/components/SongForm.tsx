@@ -2,6 +2,7 @@ import { useState } from "react"
 import { type Song, type SectionType, SECTION_OPTIONS } from "../types/song"
 import { v4 as uuidv4 } from 'uuid'
 import Button from "./ui/Button"
+import Input from "./ui/Input"
 
 type Props = {
     handleAddSong: (NewSong: Song) => void
@@ -13,9 +14,6 @@ export const SongForm: React.FC<Props> = ({handleAddSong}) => {
   
     const [newSongSection, setNewSongSection] = useState<SectionType | "">("")
     const [formSections, setFormSections]= useState<SectionType[]>([])
-
-    // EVENTS
-  
 
     const handleChangeTitle = (event:React.ChangeEvent<HTMLInputElement>) => {
         setNewSongFormValues(
@@ -64,37 +62,20 @@ export const SongForm: React.FC<Props> = ({handleAddSong}) => {
         }
 
         handleAddSong(newSong)
-
         setNewSongSection("")
         setFormSections([])
         setNewSongFormValues({})
-        
-
     }
 
     return (
         <div>
-            <h2 >Agregar canción:</h2>
+            
             <div className="flex flex-col gap-4">
                 <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="formTitle">Título</label>
-                    <input 
-                        value={newSongFormValues.title ?? ""} 
-                        id="formTitle" 
-                        type="text" 
-                        onChange={handleChangeTitle} 
-                        className="w-full border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                    />
+                    {<Input name="formTitle" label="Título" value={newSongFormValues.title ?? ""} onChange={handleChangeTitle} />}
                 </div>
                 <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="formAuthor">Autor</label>
-                    <input 
-                        value={newSongFormValues.author ?? ""} 
-                        id="formAuthor" 
-                        type="text"
-                        onChange={handleChangeAuthor} 
-                        className="w-full border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                        />
+                    {<Input name="formAuthor" label="Autor" value={newSongFormValues.author ?? ""} onChange={handleChangeAuthor} />}
                 </div>
                 <div className="mb-4">
                     <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="formSongSections">Song Blocks:</label>
@@ -111,18 +92,20 @@ export const SongForm: React.FC<Props> = ({handleAddSong}) => {
                             )
                         }
                     </select>
-                    <div>Nueva sección: {newSongSection}</div>
-                    <div>
-                    Secciones para agregar:
-                    <ul>
-                        {
-                        formSections.map(
-                            (formSection, index) => (
-                            <li key={index}>{formSection}</li>
+                    
+                    <div className="py-4">
+                        Secciones para agregar:
+                        <ul>
+                            {
+                            formSections.map(
+                                (formSection, index) => (
+                                <li 
+                                className="inline-block bg-blue-100 text-gray-800 px-2 py-1 rounded-full text-xs mr-2 mt-1" 
+                                key={index}>{formSection}</li>
+                                )
                             )
-                        )
-                        }
-                    </ul>
+                            }
+                        </ul>
                     </div>
                     <Button onClick={handleAddSection}>Agregar sección</Button>
                     
