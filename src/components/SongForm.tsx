@@ -1,9 +1,10 @@
 import { useState } from "react"
-import { useForm } from "react-hook-form"
+
 import { type Song, type SectionType, SECTION_OPTIONS } from "../types/song"
 import { v4 as uuidv4 } from 'uuid'
 import Button from "./ui/Button"
 import Input from "./ui/Input"
+
 
 type Props = {
     handleAddSong: (NewSong: Song) => void
@@ -11,22 +12,19 @@ type Props = {
 
 export const SongForm: React.FC<Props> = ({handleAddSong}) => {
 
-    const [newSongFormValues, setNewSongFormValues] = useState<Partial<Song>>({})
+    const [songValues, setSongValues] = useState<Partial<Song>>({})
   
     const [newSongSection, setNewSongSection] = useState<SectionType | "">("")
     const [formSections, setFormSections]= useState<SectionType[]>([])
 
-    const handleChangeTitle = (event:React.ChangeEvent<HTMLInputElement>) => {
-        setNewSongFormValues(
-            {...newSongFormValues, 
-                title: event.target.value}
-        )
-    }
-
-    const handleChangeAuthor = (event:React.ChangeEvent<HTMLInputElement>) => {
-        setNewSongFormValues(
-            {...newSongFormValues, 
-                author: event.target.value}
+    const handleChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = event.target
+        console.log(value)
+        setSongValues(
+            {
+                ...songValues,
+                [name]: value
+            }
         )
     }
 
@@ -43,40 +41,40 @@ export const SongForm: React.FC<Props> = ({handleAddSong}) => {
         setNewSongSection("")
     }
 
-    const handleClickAdd = () => {
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault()
 
-        if(!newSongFormValues.title) {
+        if(!songValues.title) {
             console.log("Debe ingresar un título")
             return
         }
 
-        if(!newSongFormValues.author) {
+        if(!songValues.author) {
             console.log("Debe ingresar un autor")
             return
         }
 
         const newSong = {
             id: uuidv4(),
-            title: newSongFormValues.title ?? '',
-            author: newSongFormValues.author ?? '',
+            title: songValues.title ?? '',
+            author: songValues.author ?? '',
             songSections: formSections
         }
 
         handleAddSong(newSong)
         setNewSongSection("")
         setFormSections([])
-        setNewSongFormValues({})
+        setSongValues({})
     }
 
     return (
-        <div>
-            
+        <form onSubmit={handleSubmit}>
             <div className="flex flex-col gap-4">
                 <div className="mb-4">
-                    {<Input name="formTitle" label="Título" value={newSongFormValues.title ?? ""} onChange={handleChangeTitle} />}
+                    {<Input name="title" label="Título" value={songValues.title ?? ""} onChange={handleChangeInput} />}
                 </div>
                 <div className="mb-4">
-                    {<Input name="formAuthor" label="Autor" value={newSongFormValues.author ?? ""} onChange={handleChangeAuthor} />}
+                    {<Input name="author" label="Autor" value={songValues.author ?? ""} onChange={handleChangeInput} />}
                 </div>
                 <div className="mb-4">
                     <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="formSongSections">Song Blocks:</label>
@@ -112,9 +110,9 @@ export const SongForm: React.FC<Props> = ({handleAddSong}) => {
                     
                 </div>
                 <div className="mb-4">
-                    <Button onClick={handleClickAdd}>Agregar canción</Button>
+                    <Button type="submit">Agregar canción</Button>
                 </div>
             </div>
-        </div>
+        </form>
     )
 }
