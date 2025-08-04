@@ -1,5 +1,6 @@
 import type React from "react"
 import { type Song } from "../types/song"
+import { SectionType } from "./SectionType"
 
 interface Props {
   songs: Song[]
@@ -26,11 +27,7 @@ export const SongList: React.FC<Props> = ({songs}) => {
                             key={sectionIndex}
                             
                             >
-                                <p className="inline-block bg-blue-100 text-gray-800 px-2 py-1 rounded-full text-xs mr-2 mt-1 mb-2">
-                                    {
-                                        section.type
-                                    }
-                                </p>
+                                <SectionType typeName={section.type} />
                                 <div className="flex flex-wrap justify-items-start mb-2">
                                     {section.blocks.map(
                                         block => (
