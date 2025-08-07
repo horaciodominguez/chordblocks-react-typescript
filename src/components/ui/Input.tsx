@@ -9,7 +9,7 @@ type Props = React.InputHTMLAttributes<HTMLInputElement> & {
 export default function Input ({ name, label, value, type="text", onChange } : Props) {
     return (
         <>
-            <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="formTitle">{label}</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor={name}>{label}</label>
             <input 
                 id={name} 
                 name={name}
