@@ -24,6 +24,7 @@ export const SongForm: React.FC<Props> = ({handleAddSong}) => {
     })
 
     const beatsPerMeasureValues = [1, 2, 3, 4, 6]
+    const noteValues = [2, 4, 8]
 
     const handleChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target
@@ -120,16 +121,16 @@ export const SongForm: React.FC<Props> = ({handleAddSong}) => {
                 <div className="mb-4">
                     <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="noteValue">noteValue:</label>
                     <select 
-                        name="beatsPerMeasure" 
-                        id="beatsPerMeasure"
+                        name="noteValue" 
+                        id="noteValue"
                         
                         value={timeSignature.noteValue}
                         onChange={handleTimeSignature}
                         className="w-full border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         >
                         {
-                            beatsPerMeasureValues.map(beatsPerMeasureValue=>(
-                                <option value={beatsPerMeasureValue}>{beatsPerMeasureValue}</option>
+                            noteValues.map(noteVal=>(
+                                <option key={noteVal} value={noteVal}>{noteVal}</option>
                             ))
                         }
                         
