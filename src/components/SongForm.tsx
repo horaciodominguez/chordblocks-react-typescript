@@ -1,6 +1,6 @@
-import { useState } from "react"
+import { useRef, useState } from "react"
 
-import { type Song, type SectionType, SECTION_OPTIONS } from "../types/song"
+import { type SectionType, type Song, type SongSection, SECTION_OPTIONS, type TimeSignature } from "../types/song"
 import { v4 as uuidv4 } from 'uuid'
 import Button from "./ui/Button"
 import Input from "./ui/Input"
@@ -14,8 +14,16 @@ export const SongForm: React.FC<Props> = ({handleAddSong}) => {
 
     const [songValues, setSongValues] = useState<Partial<Song>>({})
   
-    const [newSongSection, setNewSongSection] = useState<SectionType | "">("")
-    const [formSections, setFormSections]= useState<SectionType[]>([])
+    const selectSection = useRef<HTMLSelectElement>(null)
+
+    const [formSections, setFormSections]= useState<SongSection[]>([])
+
+    const [timeSignature, setTimeSignature] = useState<TimeSignature>({
+        beatsPerMeasure: 4,
+        noteValue: 4
+    })
+
+    const beatsPerMeasureValues = [1, 2, 3, 4, 6]
 
     const handleChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target
@@ -28,17 +36,31 @@ export const SongForm: React.FC<Props> = ({handleAddSong}) => {
         )
     }
 
-    const handleChangeSections = (event:React.ChangeEvent<HTMLSelectElement>) => {
-        setNewSongSection(event.target.value as SectionType)
+    const handleAddSection = () => {
+
+        const sectionValue = selectSection.current?.value as SectionType | ""
+        if(!sectionValue) return
+
+        const newSection = {
+            id: uuidv4(),
+            type: sectionValue as SectionType,
+            blocks: []
+        }
+
+        setFormSections([...formSections,  newSection])
+
+        if(selectSection.current){
+            selectSection.current.value = ""
+        }
+
     }
 
-    const handleAddSection = () => {
-        if(!newSongSection) return
-        setFormSections([
-        ...formSections,
-        newSongSection
-        ])
-        setNewSongSection("")
+    const handleTimeSignature = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const {name, value} = event.target
+        setTimeSignature(
+            {...timeSignature,
+            [name]: parseInt(value)}
+        )
     }
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -58,13 +80,14 @@ export const SongForm: React.FC<Props> = ({handleAddSong}) => {
             id: uuidv4(),
             title: songValues.title ?? '',
             author: songValues.author ?? '',
+            timeSignature: timeSignature,
             songSections: formSections
         }
 
         handleAddSong(newSong)
-        setNewSongSection("")
+        
         setFormSections([])
-        setSongValues({})
+        setSongValues({}) 
     }
 
     return (
@@ -77,36 +100,75 @@ export const SongForm: React.FC<Props> = ({handleAddSong}) => {
                     {<Input name="author" label="Autor" value={songValues.author ?? ""} onChange={handleChangeInput} />}
                 </div>
                 <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="beatsPerMeasure">beatsPerMeasure:</label>
+                    <select 
+                        name="beatsPerMeasure" 
+                        id="beatsPerMeasure"
+                        
+                        value={timeSignature.beatsPerMeasure}
+                        onChange={handleTimeSignature}
+                        className="w-full border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        >
+                        {
+                            beatsPerMeasureValues.map(beatsPerMeasureValue=>(
+                                <option key={beatsPerMeasureValue} value={beatsPerMeasureValue}>{beatsPerMeasureValue}</option>
+                            ))
+                        }
+                        
+                    </select>
+                </div>
+                <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="noteValue">noteValue:</label>
+                    <select 
+                        name="beatsPerMeasure" 
+                        id="beatsPerMeasure"
+                        
+                        value={timeSignature.noteValue}
+                        onChange={handleTimeSignature}
+                        className="w-full border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        >
+                        {
+                            beatsPerMeasureValues.map(beatsPerMeasureValue=>(
+                                <option value={beatsPerMeasureValue}>{beatsPerMeasureValue}</option>
+                            ))
+                        }
+                        
+                    </select>
+                </div>
+                <div className="mb-4">
                     <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="formSongSections">Song Blocks:</label>
                     <select 
-                        value={newSongSection} 
+                        ref={selectSection}
                         id="formSongSections" 
-                        onChange={handleChangeSections}
+                        defaultValue=""
+                        onChange={handleAddSection}
                         className="w-full border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     >
                         <option value="">Seleccione tipo de bloque</option>
                         {
                             SECTION_OPTIONS.map(
-                            section => (<option key={section}>{section}</option>)
+                                section => (<option key={section}>{section}</option>)
                             )
                         }
                     </select>
                     
-                    <div className="py-4">
+                    {
+                        <div className="py-4">
                         Secciones para agregar:
                         <ul>
                             {
-                            formSections.map(
-                                (formSection, index) => (
-                                <li 
-                                className="inline-block bg-blue-100 text-gray-800 px-2 py-1 rounded-full text-xs mr-2 mt-1" 
-                                key={index}>{formSection}</li>
+                                formSections.map(
+                                    (formSection, index) => (
+                                        <li className="inline-block bg-blue-100 text-gray-800 px-2 py-1 rounded-full text-xs mr-2 mt-1" 
+                                            key={index}>
+                                                {formSection.type}
+                                        </li>
+                                    )
                                 )
-                            )
                             }
                         </ul>
-                    </div>
-                    <Button onClick={handleAddSection}>Agregar sección</Button>
+                        </div>
+                    }
                     
                 </div>
                 <div className="mb-4">
