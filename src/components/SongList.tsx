@@ -1,12 +1,12 @@
-import type React from "react"
+
 import { type Song } from "../types/song"
-import { SectionType } from "./SectionType"
+import { SectionTag } from "./SectionTag"
 
 interface Props {
   songs: Song[]
 }
 
-export const SongList: React.FC<Props> = ({songs}) => {
+export const SongList = ({songs}: Props) => {
     return (
         <ul className="flex flex-col gap-4">
             {
@@ -27,7 +27,7 @@ export const SongList: React.FC<Props> = ({songs}) => {
                             key={sectionIndex}
                             
                             >
-                                <SectionType typeName={section.type} />
+                                <SectionTag typeName={section.type} />
                                 <div className="flex flex-wrap justify-items-start mb-2">
                                     {section.blocks.map(
                                         block => (

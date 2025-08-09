@@ -39,4 +39,8 @@ export const SECTION_OPTIONS = [
 
 export type SectionType = typeof SECTION_OPTIONS[number]
 
+export const beatsPerMeasureValues = [1, 2, 3, 4, 6]
+
+export const noteValues = [2, 4, 8]
+
 

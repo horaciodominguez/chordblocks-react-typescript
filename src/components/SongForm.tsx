@@ -1,16 +1,25 @@
 import { useRef, useState } from "react"
 
-import { type SectionType, type Song, type SongSection, SECTION_OPTIONS, type TimeSignature } from "../types/song"
+import { 
+    type SectionType, 
+    type TimeSignature, 
+    type Song, 
+    type SongSection, 
+    SECTION_OPTIONS, 
+    beatsPerMeasureValues,
+    noteValues } from "../types/song"
 import { v4 as uuidv4 } from 'uuid'
 import Button from "./ui/Button"
 import Input from "./ui/Input"
+import { Select } from "./ui/Select"
+import { SectionTag } from "./SectionTag"
 
 
 type Props = {
     handleAddSong: (NewSong: Song) => void
 }
 
-export const SongForm: React.FC<Props> = ({handleAddSong}) => {
+export const SongForm = ({handleAddSong}: Props) => {
 
     const [songValues, setSongValues] = useState<Partial<Song>>({})
   
@@ -23,8 +32,7 @@ export const SongForm: React.FC<Props> = ({handleAddSong}) => {
         noteValue: 4
     })
 
-    const beatsPerMeasureValues = [1, 2, 3, 4, 6]
-    const noteValues = [2, 4, 8]
+    
 
     const handleChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target
@@ -101,40 +109,22 @@ export const SongForm: React.FC<Props> = ({handleAddSong}) => {
                     {<Input name="author" label="Autor" value={songValues.author ?? ""} onChange={handleChangeInput} />}
                 </div>
                 <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="beatsPerMeasure">beatsPerMeasure:</label>
-                    <select 
-                        name="beatsPerMeasure" 
-                        id="beatsPerMeasure"
-                        
+                    <Select 
+                        name="beatsPerMeasure"
+                        label="Figuras"
                         value={timeSignature.beatsPerMeasure}
                         onChange={handleTimeSignature}
-                        className="w-full border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                        >
-                        {
-                            beatsPerMeasureValues.map(beatsPerMeasureValue=>(
-                                <option key={beatsPerMeasureValue} value={beatsPerMeasureValue}>{beatsPerMeasureValue}</option>
-                            ))
-                        }
-                        
-                    </select>
+                        options={beatsPerMeasureValues}
+                    />
                 </div>
                 <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="noteValue">noteValue:</label>
-                    <select 
-                        name="noteValue" 
-                        id="noteValue"
-                        
+                    <Select 
+                        name="noteValue"
+                        label="Notas"
                         value={timeSignature.noteValue}
                         onChange={handleTimeSignature}
-                        className="w-full border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                        >
-                        {
-                            noteValues.map(noteVal=>(
-                                <option key={noteVal} value={noteVal}>{noteVal}</option>
-                            ))
-                        }
-                        
-                    </select>
+                        options={noteValues}
+                    />
                 </div>
                 <div className="mb-4">
                     <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="formSongSections">Song Blocks:</label>
@@ -152,6 +142,13 @@ export const SongForm: React.FC<Props> = ({handleAddSong}) => {
                             )
                         }
                     </select>
+
+                    {/* <Select
+                        name="formSongSections"
+                        label="Song Block"
+                        onChange={handleAddSection}
+                        options={SECTION_OPTIONS}
+                    /> */}
                     
                     {
                         <div className="py-4">
@@ -159,11 +156,8 @@ export const SongForm: React.FC<Props> = ({handleAddSong}) => {
                         <ul>
                             {
                                 formSections.map(
-                                    (formSection, index) => (
-                                        <li className="inline-block bg-blue-100 text-gray-800 px-2 py-1 rounded-full text-xs mr-2 mt-1" 
-                                            key={index}>
-                                                {formSection.type}
-                                        </li>
+                                    formSection => (
+                                        <SectionTag key={formSection.id} typeName={formSection.type} />
                                     )
                                 )
                             }
