@@ -9,7 +9,7 @@ type Props = {
 export default function Home({ songs }: Props) {
     return (
         <>
-            <h2>Home</h2>
+            <h2>Listado de canciones</h2>
             <SongList songs={songs} />
         </>
     )
