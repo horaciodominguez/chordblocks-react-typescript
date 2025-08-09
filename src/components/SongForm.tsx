@@ -127,41 +127,28 @@ export const SongForm = ({handleAddSong}: Props) => {
                     />
                 </div>
                 <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="formSongSections">Song Blocks:</label>
-                    <select 
-                        ref={selectSection}
-                        id="formSongSections" 
-                        defaultValue=""
-                        onChange={handleAddSection}
-                        className="w-full border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                    >
-                        <option value="">Seleccione tipo de bloque</option>
-                        {
-                            SECTION_OPTIONS.map(
-                                section => (<option key={section}>{section}</option>)
-                            )
-                        }
-                    </select>
-
-                    {/* <Select
+                    
+                    <Select
                         name="formSongSections"
                         label="Song Block"
                         onChange={handleAddSection}
                         options={SECTION_OPTIONS}
-                    /> */}
+                        defaultValue=""
+                        ref={selectSection}
+                    />
                     
                     {
                         <div className="py-4">
-                        Secciones para agregar:
-                        <ul>
-                            {
-                                formSections.map(
-                                    formSection => (
-                                        <SectionTag key={formSection.id} typeName={formSection.type} />
+                            Secciones para agregar:
+                            <ul>
+                                {
+                                    formSections.map(
+                                        formSection => (
+                                            <SectionTag key={formSection.id} typeName={formSection.type} />
+                                        )
                                     )
-                                )
-                            }
-                        </ul>
+                                }
+                            </ul>
                         </div>
                     }
                     

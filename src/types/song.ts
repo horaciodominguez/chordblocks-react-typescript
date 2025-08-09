@@ -35,7 +35,7 @@ export const SECTION_OPTIONS = [
   "BRIDGE",
   "INSTRUMENTAL",
   "OUTRO"
-] as const
+] 
 
 export type SectionType = typeof SECTION_OPTIONS[number]
 
