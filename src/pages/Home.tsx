@@ -1,6 +1,6 @@
 
 import { SongList } from "../components/SongList"
-import type { Song } from "../types/song"
+import type { Song } from "../types/song.types"
 
 type Props = {
     songs: Song[]

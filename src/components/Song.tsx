@@ -1,5 +1,5 @@
-import type { Song as SongType } from "../types/song"
-import { Block } from "./Block"
+import type { Song as SongType } from "../types/song.types"
+import { Chord } from "./Chord"
 import { SectionTag } from "./SectionTag"
 
 type Props = {
@@ -22,15 +22,13 @@ export const Song = ({song}: Props) => {
                 <li key={sectionIndex} >
                     <SectionTag typeName={section.type} />
                     <div className="flex flex-wrap justify-items-start mb-2">
-                        {section.blocks.map(
-                            block => (
-                                block.chords.map(
-                                    (chord, i) => (
-                                        <Block key={i} song={song} chord={chord} />
-                                    )
+                        {
+                            section.chords.map(
+                                (chord, i) => (
+                                    <Chord key={i} timeSignature={song.timeSignature} chord={chord} />
                                 )
                             )
-                        )}
+                        }
                     </div>
                 </li>
                 )

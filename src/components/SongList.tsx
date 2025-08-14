@@ -1,7 +1,6 @@
 
 import { Link } from "react-router-dom"
-import { type Song as SongType } from "../types/song"
-import { Song } from "./Song"
+import { type Song as SongType } from "../types/song.types"
 
 interface Props {
   songs: SongType[]
@@ -17,7 +16,6 @@ export const SongList = ({songs}: Props) => {
                         <h2>
                             <Link className="block px-8 py-4" to={`/song/${song.id}`}>{song.title}</Link>
                         </h2>
-                        {/* <Song song={song} /> */}
                     </div>
                 )
             )

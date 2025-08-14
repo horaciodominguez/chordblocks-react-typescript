@@ -2,21 +2,21 @@
 import { Header } from "./components/Header"
 import { Footer } from "./components/Footer"
 import { useEffect, useState } from "react"
-import type { Song } from "./types/song"
+import type { Song } from "./types/song.types"
 
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Home from "./pages/Home"
 import ViewSong from "./pages/ViewSong"
 import NewSong from "./pages/NewSong"
 import EditSong from "./pages/EditSong"
-import { songsMock } from "./data/songsMock"
+import { songsData } from "./data/songs"
 
 function App() {
 
   const [songs, setSongs] = useState<Song[]>([])
 
   useEffect(()=>{
-      setSongs(songsMock)
+      setSongs(songsData)
   }, [])
 
   return (

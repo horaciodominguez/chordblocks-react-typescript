@@ -7,19 +7,17 @@ export interface Song {
   songSections: SongSection[]
 }
 
-export interface Chord {
-  name: string
-  beats: number
-}
-
-export interface ChordBlock {
-  chords: Chord[]
-}
-
 export interface SongSection {
   id: string
   type: SectionType
-  blocks: ChordBlock[]
+  chords: SongChord[]
+}
+
+export type SectionType = typeof SECTION_OPTIONS[number]
+
+export interface SongChord {
+  name: string
+  beats: number
 }
 
 export interface TimeSignature {
@@ -35,9 +33,7 @@ export const SECTION_OPTIONS = [
   "BRIDGE",
   "INSTRUMENTAL",
   "OUTRO"
-] 
-
-export type SectionType = typeof SECTION_OPTIONS[number]
+]
 
 export const beatsPerMeasureValues = [1, 2, 3, 4, 6]
 
