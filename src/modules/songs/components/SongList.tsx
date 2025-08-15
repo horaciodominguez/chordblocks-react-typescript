@@ -1,6 +1,6 @@
 
 import { Link } from "react-router-dom"
-import { type Song as SongType } from "../types/song.types"
+import { type Song as SongType } from "@/modules/songs/types/song.types"
 
 interface Props {
   songs: SongType[]

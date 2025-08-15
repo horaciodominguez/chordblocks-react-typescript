@@ -1,5 +1,5 @@
-import { Song } from "../components/Song";
-import type { Song as SongType } from "../types/song.types";
+import { Song } from "@/modules/songs/components/Song";
+import type { Song as SongType } from "@/modules/songs/types/song.types";
 import { useParams } from "react-router-dom";
 
 

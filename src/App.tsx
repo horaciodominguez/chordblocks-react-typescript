@@ -1,15 +1,18 @@
-
-import { Header } from "./components/Header"
-import { Footer } from "./components/Footer"
 import { useEffect, useState } from "react"
-import type { Song } from "./types/song.types"
+
+import { Header } from "@/components/common/Header"
+import { Footer } from "@/components/common/Footer"
+
+import type { Song } from "@/modules/songs/types/song.types"
 
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import Home from "./pages/Home"
-import ViewSong from "./pages/ViewSong"
-import NewSong from "./pages/NewSong"
-import EditSong from "./pages/EditSong"
-import { songsData } from "./data/songs"
+
+import Home from "@/pages/Home"
+import ViewSong from "@/pages/ViewSong"
+import NewSong from "@/pages/NewSong"
+import EditSong from "@/pages/EditSong"
+
+import { songsData } from "@/modules/songs/data/songs"
 
 function App() {
 

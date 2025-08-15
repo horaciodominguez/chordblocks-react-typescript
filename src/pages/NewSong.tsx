@@ -1,5 +1,5 @@
-import { SongForm } from "../components/SongForm"
-import type { Song } from "../types/song.types"
+import { SongForm } from "@/modules/songs/components/SongForm"
+import type { Song } from "@/modules/songs/types/song.types"
 
 type Props = {
     songs: Song[],

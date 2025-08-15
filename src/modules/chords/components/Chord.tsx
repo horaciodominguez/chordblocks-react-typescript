@@ -1,7 +1,6 @@
-import type { SongChord as SongChord, TimeSignature } from "../types/song.types"
+import type { SongChord as SongChord, TimeSignature } from "@/modules/songs/types/song.types"
 
 type Props = {
-    //song: SongType,
     timeSignature: TimeSignature,
     chord: SongChord
 }

@@ -1,6 +1,9 @@
-import type { Song as SongType } from "../types/song.types"
-import { Chord } from "./Chord"
-import { SectionTag } from "./SectionTag"
+
+import type { Song as SongType } from "@/modules/songs/types/song.types"
+import { SectionTag } from "@/modules/songs/components/SectionTag"
+
+import { Chord } from "@/modules/chords/components/Chord"
+
 
 type Props = {
     song: SongType

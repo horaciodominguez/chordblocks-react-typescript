@@ -1,6 +1,10 @@
 import { useState } from "react"
 import { v4 as uuidv4 } from 'uuid'
 
+import Button from "@/components/ui/Button"
+import Input from "@/components/ui/Input"
+import { Select } from "@/components/ui/Select"
+
 import { 
     type Song as SongType,
     type TimeSignature, 
@@ -12,16 +16,12 @@ import {
     noteValues,
     type SongChord,
     
-    } from "../types/song.types"
-    
+} from "@/modules/songs/types/song.types"
 
-import Button from "./ui/Button"
-import Input from "./ui/Input"
-import { Select } from "./ui/Select"
+import { SectionTag } from "@/modules/songs/components/SectionTag"
 
-import { SectionTag } from "./SectionTag"
-import { Chord } from "./Chord"
-import { chordsData } from "../data/chords"
+import { Chord } from "@/modules/chords/components/Chord"
+import { chordsData } from "@/modules/chords/data/chords"
 
 
 
@@ -165,7 +165,7 @@ export const SongForm = ({handleAddSong}: Props) => {
                     
                 </div>
                 {
-                    pendingSectionType ??
+                    pendingSectionType &&
                     <div className="mb-4">
                         <Select 
                             label="Acorde"
@@ -177,7 +177,7 @@ export const SongForm = ({handleAddSong}: Props) => {
                     </div>
                 }
                 {
-                    (pendingSectionType && pendingChordName) ??
+                    (pendingSectionType && pendingChordName) &&
                     <div className="mb-4">
                         <Select
                             label="Beats:"
@@ -189,17 +189,16 @@ export const SongForm = ({handleAddSong}: Props) => {
                     </div>
                 }
                 {
-                    (pendingSectionType && pendingChordName && pendingBeats) ?? 
+                    (pendingSectionType && pendingChordName && pendingBeats) &&
                     <div className="mb-4">
                         <Button type="button" variant="secondary" onClick={handleAddChord}>Agregar acorde</Button>
                     </div>
                 }
                 {
-                    (pendingSectionType && pendingChordName && pendingBeats && pendingChords) ?
+                    (pendingSectionType && pendingChordName && pendingBeats && pendingChords) &&
                     <div className="mb-4">
                         <Button type="button" variant="secondary" onClick={handleAddSection}>Agregar Sección</Button>
                     </div>
-                    : ""
                 }
 
                 
