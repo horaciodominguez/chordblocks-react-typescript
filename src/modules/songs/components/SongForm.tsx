@@ -7,21 +7,19 @@ import { Select } from "@/components/ui/Select"
 
 import { 
     type Song as SongType,
-    type TimeSignature, 
     type SongSection,
     type SectionType, 
 
     SECTION_OPTIONS, 
     beatsPerMeasureValues,
-    noteValues,
-    type SongChord,
+    noteValues
     
 } from "@/modules/songs/types/song.types"
 
-import { SectionTag } from "@/modules/songs/components/SectionTag"
-
-import { Chord } from "@/modules/chords/components/Chord"
 import { chordsData } from "@/modules/chords/data/chords"
+import { Song, type TemporarySong } from "@/modules/songs/components/Song"
+import { SectionTag } from "@/modules/songs/components/SectionTag"
+import { SectionChords } from "@/modules/songs/components/SectionChords"
 
 
 
@@ -32,32 +30,55 @@ type Props = {
 
 export const SongForm = ({handleAddSong}: Props) => {
 
+    const initialSongState: TemporarySong = {
+        id: uuidv4(),
+        title: '',
+        author: '',
+        timeSignature: { beatsPerMeasure: 4, noteValue: 4 },
+        songSections: []
+    }
+
     //TITULO Y AUTOR 
-    const [songValues, setSongValues] = useState<Partial<SongType>>({})
+    const [temporarySong, setTemporarySong] = useState<TemporarySong>(initialSongState)
 
-    //COMPÁS
-    const [timeSignature, setTimeSignature] = useState<TimeSignature>({beatsPerMeasure: 4, noteValue: 4})
-  
-    //SECCIONES ACUMULADAS
-    const [songSections, setSongSections]= useState<SongSection[]>([])
+    // SECCIONES
+    const [pendingSection, setPendingSection] = useState<Omit<SongSection, 'id'>>({
+        type: "" as SectionType,
+        chords: []
+    });
 
-    // NUEVO: flujo para agregar sección con acorde inicial
-    const [pendingSectionType, setPendingSectionType] = useState<SectionType | "">("")
+    //ACORDE
     const [pendingChordName, setPendingChordName] = useState<string>("")
-    const [pendingChords, setPendingChords] = useState<SongChord[]>([])
     const [pendingBeats, setPendingBeats] = useState<string>("4")
+
+    // ---------------- FUNCIONES --------------------
 
     //TITULO Y AUTOR INPUTS
     const handleChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target
-        console.log(value)
-        setSongValues({...songValues,[name]: value})
+        setTemporarySong({...temporarySong,[name]: value})
     }
 
     // COMPAS SELECTS
     const handleTimeSignature = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const {name, value} = event.target
-        setTimeSignature({...timeSignature,[name]: parseInt(value)})
+        setTemporarySong({
+            ...temporarySong,
+            timeSignature: {
+                ...temporarySong.timeSignature, 
+                [name]: parseInt(value)
+            }
+        })
+    }
+
+    //SELECT SECTION TYPE
+    const handleSelectSectionType = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setPendingSection(
+            {
+                ...pendingSection,
+                type: event.target.value
+            }
+        )
     }
 
     const handleAddChord = () => {
@@ -71,65 +92,66 @@ export const SongForm = ({handleAddSong}: Props) => {
             beats: beatsNum
         }
 
-        setPendingChords([...pendingChords,newChord])
+        setPendingSection({
+            ...pendingSection,
+            chords: [...pendingSection.chords, newChord]
+        });
+
+        //limpiar solo el estado del acorde para seguir agregando más
+        setPendingChordName("");
+        setPendingBeats("4");
 
     }
 
     // ADD SECTION AL ESTADO
     const handleAddSection = () => {
 
-        if (!pendingSectionType || !pendingChords) return
+        if (!pendingSection.type || pendingSection.chords.length === 0) return;
 
         const newSection = {
             id: uuidv4(),
-            type: pendingSectionType as SectionType,
-            chords: pendingChords
+            ...pendingSection
         }
 
-        setSongSections([...songSections,  newSection])
+        setTemporarySong({
+            ...temporarySong,
+            songSections: [...temporarySong.songSections, newSection]
+        });
 
-        setPendingSectionType("")
-        setPendingChords([])
-        setPendingBeats("4")
+        // Limpiar el estado de la sección pendiente para la próxima sección
+        setPendingSection({
+            type: "" as SectionType,
+            chords: []
+        });
 
     }
 
+    
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault()
+        event.preventDefault();
 
-        if(!songValues.title) {
-            console.log("Debe ingresar un título")
-            return
+        if (!temporarySong.title || !temporarySong.author) {
+            console.log("Debe ingresar un título y un autor");
+            return;
         }
 
-        if(!songValues.author) {
-            console.log("Debe ingresar un autor")
-            return
-        }
-
-        const newSong = {
-            id: uuidv4(),
-            title: songValues.title ?? '',
-            author: songValues.author ?? '',
-            timeSignature: timeSignature,
-            songSections: songSections
-        }
-
-        handleAddSong(newSong)
+        // La canción ya está lista para ser enviada.
+        // Asegúrate de que handleAddSong reciba un tipo 'SongType'
+        handleAddSong(temporarySong as SongType);
         
-        setSongSections([])
-        setSongValues({}) 
+        // Resetear el formulario después de enviar
+        setTemporarySong(initialSongState); 
     }
 
     return (
         <form onSubmit={handleSubmit}>
             <div className="flex flex-col gap-4">
                 <div className="mb-4">
-                    {<Input name="title" label="Título" value={songValues.title ?? ""} onChange={handleChangeInput} />}
+                    {<Input name="title" label="Título" value={temporarySong.title ?? ""} onChange={handleChangeInput} />}
                 </div>
                 <div className="mb-4">
-                    {<Input name="author" label="Autor" value={songValues.author ?? ""} onChange={handleChangeInput} />}
+                    {<Input name="author" label="Autor" value={temporarySong.author ?? ""} onChange={handleChangeInput} />}
                 </div>
                 <div className="mb-4">
                     <div className="flex gap-4">
@@ -137,7 +159,7 @@ export const SongForm = ({handleAddSong}: Props) => {
                             <Select 
                                 name="beatsPerMeasure"
                                 label="Figuras"
-                                value={timeSignature.beatsPerMeasure}
+                                value={temporarySong.timeSignature.beatsPerMeasure}
                                 onChange={handleTimeSignature}
                                 options={beatsPerMeasureValues}
                             />
@@ -146,7 +168,7 @@ export const SongForm = ({handleAddSong}: Props) => {
                             <Select 
                                 name="noteValue"
                                 label="Notas"
-                                value={timeSignature.noteValue}
+                                value={temporarySong.timeSignature.noteValue}
                                 onChange={handleTimeSignature}
                                 options={noteValues}
                             />
@@ -159,13 +181,13 @@ export const SongForm = ({handleAddSong}: Props) => {
                         label="Sección"
                         name="newSection"
                         options={SECTION_OPTIONS}
-                        value={pendingSectionType}
-                        onChange={(e) => setPendingSectionType(e.target.value as SectionType) }
+                        value={pendingSection.type}
+                        onChange={handleSelectSectionType}
                     />
                     
                 </div>
                 {
-                    pendingSectionType &&
+                    pendingSection.type &&
                     <div className="mb-4">
                         <Select 
                             label="Acorde"
@@ -177,7 +199,7 @@ export const SongForm = ({handleAddSong}: Props) => {
                     </div>
                 }
                 {
-                    (pendingSectionType && pendingChordName) &&
+                    (pendingSection.type && pendingChordName) &&
                     <div className="mb-4">
                         <Select
                             label="Beats:"
@@ -189,55 +211,33 @@ export const SongForm = ({handleAddSong}: Props) => {
                     </div>
                 }
                 {
-                    (pendingSectionType && pendingChordName && pendingBeats) &&
+                    (pendingSection.type && pendingChordName && pendingBeats) &&
                     <div className="mb-4">
                         <Button type="button" variant="secondary" onClick={handleAddChord}>Agregar acorde</Button>
                     </div>
                 }
-                {
-                    (pendingSectionType && pendingChordName && pendingBeats && pendingChords) &&
-                    <div className="mb-4">
-                        <Button type="button" variant="secondary" onClick={handleAddSection}>Agregar Sección</Button>
-                    </div>
-                }
+                
 
+                {
+                    (pendingSection.chords.length!==0) &&
+                    <>
+                        <h2>Temporary Section</h2>
+                        <SectionTag typeName={pendingSection.type} />
+                        <SectionChords section={pendingSection as SongSection} timeSignature={temporarySong.timeSignature} />
+                        <div className="mb-4">
+                            <Button type="button" variant="secondary" onClick={handleAddSection}>Agregar Sección</Button>
+                        </div>
+                    </>
+                    
+                }
                 
                 {
-                    songValues ?
-                    
-                    <div className="border-[.1px] border-gray-700 bg-gray-50/5 rounded-md p-4 shadow-sm"
-                        >
-                        <h3 className="font-medium">{songValues.title}</h3>
-                        <p>{songValues.author}</p>
-                        
-                        <ul>
-                        
-                        {
-                        songSections ?
-                        songSections.map (
-                            (section, sectionIndex) => (
-            
-                            <li key={sectionIndex} >
-                                <SectionTag typeName={section.type} />
-                                <div className="flex flex-wrap justify-items-start mb-2">
-                                    {
-                                        section.chords.map(
-                                            (chord, i) => (
-                                                <Chord key={i} timeSignature={timeSignature} chord={chord} />
-                                            )
-                                        )
-                                    }
-                                </div>
-                            </li>
-                            )
-                        ) : ""
-                        }
-                        </ul>
-                    </div>
-
-                    : ""
+                    temporarySong && 
+                    <>
+                        <h2>Temporary Song</h2>
+                        <Song song={temporarySong} />
+                    </>
                 }
-                    
                 
 
                 <div className="mb-4">
