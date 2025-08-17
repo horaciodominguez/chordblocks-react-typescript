@@ -1,6 +1,7 @@
 
 import type { Song as SongType } from "@/modules/songs/types/song.types"
 import { SectionTag } from "@/modules/songs/components/SectionTag"
+import { Sections } from "./Sections";
 
 
 
@@ -28,10 +29,10 @@ export const Song = ({song}: Props) => {
                 song.songSections.map (
                     (section, sectionIndex) => (
 
-                    <li key={sectionIndex} className=" border-2 border-amber-400" >
+                    <li key={sectionIndex} className=" " >
 
                         <SectionTag typeName={section.type} />
-                        
+                        <Sections section={section} timeSignature={song.timeSignature} />
                         
                     </li>
                     )

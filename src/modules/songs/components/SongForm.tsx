@@ -92,35 +92,37 @@ export const SongForm = ({handleAddSong}: Props) => {
         if (!pendingChordName || !pendingBeats) return
 
         const beatsNum = Math.max(1, parseInt(pendingBeats, 10) || 0)
-        const songBeatsPerMeasure = temporarySong.timeSignature.beatsPerMeasure
+        const bpm = temporarySong.timeSignature.beatsPerMeasure
 
-        // Nuevo acorde
         const newChord: BarChord = {
             id: uuidv4(),
             name: pendingChordName,
             duration: beatsNum,
         }
 
-        // Último compás de la sección
-        const lastBar = pendingSection.bars[pendingSection.bars.length - 1]
-        const remaining = lastBar ? getRemainingBeats(lastBar, songBeatsPerMeasure) : 0
+        const bars = pendingSection.bars
+        const lastBar = bars[bars.length - 1]
+        let updatedBars: Bar[]
 
-        let updatedBars
-
-        if (lastBar && beatsNum <= remaining) {
-            // El acorde entra en el compás actual
+        if (lastBar) {
+            const remaining = getRemainingBeats(lastBar, bpm)
+            if (beatsNum <= remaining) {
+            // entra en el compás actual
             const updatedLastBar: Bar = {
                 ...lastBar,
                 chords: [...lastBar.chords, newChord],
             }
-            updatedBars = [...pendingSection.bars.slice(0, -1), updatedLastBar]
-        } else {
-            // Hay que crear un compás nuevo
-            const newBar: Bar = {
-            id: uuidv4(),
-            chords: [newChord],
+            updatedBars = [...bars.slice(0, -1), updatedLastBar]
+            } else {
+            // no entra -> arranca compás nuevo
+            updatedBars = [
+                ...bars,
+                { id: uuidv4(), chords: [newChord] }
+            ]
             }
-            updatedBars = [...pendingSection.bars, newBar]
+        } else {
+            // no hay compases aún -> creamos el primero
+            updatedBars = [{ id: uuidv4(), chords: [newChord] }]
         }
 
         setPendingSection({
@@ -128,9 +130,21 @@ export const SongForm = ({handleAddSong}: Props) => {
             bars: updatedBars,
         })
 
+        // limpiar nombre acorde
         setPendingChordName("")
-        setPendingBeats("4")
+
+        // recalcular beats válidos para el próximo acorde
+        const newBars = updatedBars
+        const last = newBars[newBars.length - 1]
+        const remaining = getRemainingBeats(last, bpm)
+        const cap = remaining > 0 ? remaining : bpm
+        const opts = beatsPerMeasureValues.filter(v => v <= cap)
+
+        // si hay 4 en las opciones, usamos 4, sino usamos el mayor posible
+        const nextBeats = opts.includes(4) ? 4 : opts[opts.length - 1]
+        setPendingBeats(String(nextBeats))
     }
+
 
 
     // ADD SECTION AL ESTADO
@@ -233,18 +247,17 @@ export const SongForm = ({handleAddSong}: Props) => {
                         <Select
                             label="Beats:"
                             name="newBeats"
-                            options={
-                                (() => {
-                                    const lastBar = pendingSection.bars.at(-1)
-                                    const remaining = lastBar
-                                        ? getRemainingBeats(lastBar, temporarySong.timeSignature.beatsPerMeasure)
-                                        : temporarySong.timeSignature.beatsPerMeasure
-                                    return beatsPerMeasureValues.filter(v => v <= remaining)
-                                })()
-                            }
+                            options={(() => {
+                                const lastBar = pendingSection.bars.at(-1)
+                                const bpm = temporarySong.timeSignature.beatsPerMeasure
+                                const remaining = lastBar ? getRemainingBeats(lastBar, bpm) : bpm
+                                const cap = remaining > 0 ? remaining : bpm
+                                return beatsPerMeasureValues.filter(v => v <= cap)
+                            })()}
                             value={pendingBeats}
                             onChange={(e) => setPendingBeats(e.target.value)}
                         />
+
 
                     </div>
                 }

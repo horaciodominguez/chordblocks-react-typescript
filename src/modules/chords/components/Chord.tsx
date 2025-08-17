@@ -9,10 +9,8 @@ export const Chord = ({timeSignature, chord}: Props) => {
     
     const width = `${(chord.duration / timeSignature.beatsPerMeasure) * 100}%`
     return (
-        <div style={{width}} key={chord.id} className="border-2 border-green-400">
-            <small>d: {chord.duration}</small>
-            <small>w: {width}</small>
-            <p>{chord.name}</p>
+        <div className="py-2 px-4 font-bold text-white " style={{width}} key={chord.id}>
+            {chord.name}
         </div>
     )
     
