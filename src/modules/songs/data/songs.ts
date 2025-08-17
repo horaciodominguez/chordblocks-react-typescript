@@ -2,215 +2,121 @@ import { type Song } from "../types/song.types"
 
 export const songsData: Song[] = [
   {
-    id: '1',
-    title: 'Eres Mi Religión',
-    author: 'Maná',
-    timeSignature: { beatsPerMeasure: 4, noteValue: 4 },
+    id: "1",
+    title: "Knockin' on Heaven's Door",
+    author: "Bob Dylan",
+    timeSignature: { beatsPerMeasure: 4, noteValue: 4 }, // 4/4
     songSections: [
       {
-        id: 'intro-1',
-        type: "INTRO",
-        chords: [
-          { name: "E", beats: 4 },
-          { name: "B/#D", beats: 4 },
-          { name: "#Cm", beats: 8 }
-        ]
-      },
-      {
-        id: 'verse-1',
+        id: "sec1",
         type: "VERSE",
-        chords: [
-          { name: "#Fm", beats: 4 },
-          { name: "B", beats: 4 },
-          { name: "E", beats: 4 },
-          { name: "A", beats: 4 },
-          { name: "#Fm", beats: 4 },
-          { name: "B", beats: 4 },
-          { name: "E", beats: 8 }
+        bars: [
+          { id: "bar1", chords: [ { id: "c1", name: "G", duration: 4 } ] },
+          { id: "bar2", chords: [ { id: "c2", name: "D", duration: 4 } ] },
+          { id: "bar3", chords: [ { id: "c3", name: "Am", duration: 4 } ] },
+          { id: "bar4", chords: [ 
+            { id: "c4", name: "G", duration: 2 }, 
+            { id: "c5", name: "D", duration: 2 } 
+          ] }
         ]
       },
       {
-        id: 'pre-chorus-1',
-        type: "PRE-CHORUS",
-        chords: [
-          { name: "B", beats: 4 },
-          { name: "B", beats: 4 },
-          { name: "C#m", beats: 2 },
-          { name: "B", beats: 2 },
-          { name: "Bb", beats: 4 },
-          { name: "A", beats: 4 },
-          { name: "B", beats: 4 }
+        id: "sec2",
+        type: "CHORUS",
+        bars: [
+          { id: "bar5", chords: [ { id: "c6", name: "G", duration: 4 } ] },
+          { id: "bar6", chords: [ { id: "c7", name: "D", duration: 4 } ] },
+          { id: "bar7", chords: [ { id: "c8", name: "Am", duration: 4 } ] },
+          { id: "bar8", chords: [ { id: "c9", name: "C", duration: 2 }, { id: "c10", name: "G", duration: 2 } ] },
         ]
       }
     ]
   },
+
   {
-    id: '2',
-    title: 'Wonderwall',
-    author: 'Oasis',
-    timeSignature: { beatsPerMeasure: 4, noteValue: 4 },
+    id: "2",
+    title: "Hallelujah",
+    author: "Leonard Cohen",
+    timeSignature: { beatsPerMeasure: 6, noteValue: 8 }, // 6/8
     songSections: [
       {
-        id: 'intro-1',
-        type: "INTRO",
-        chords: [
-          { name: "Em7", beats: 4 },
-          { name: "G", beats: 4 },
-          { name: "Dsus4", beats: 4 },
-          { name: "A7sus4", beats: 4 }
-        ]
-      },
-      {
-        id: 'verse-1',
+        id: "sec1",
         type: "VERSE",
-        chords: [
-          { name: "Em7", beats: 4 },
-          { name: "G", beats: 4 },
-          { name: "Dsus4", beats: 4 },
-          { name: "A7sus4", beats: 4 },
-          { name: "Cadd9", beats: 8 },
-          { name: "Dsus4", beats: 4 },
-          { name: "A7sus4", beats: 4 }
+        bars: [
+          { id: "bar1", chords: [ { id: "c1", name: "C", duration: 6 } ] },
+          { id: "bar2", chords: [ { id: "c2", name: "Am", duration: 6 } ] },
+          { id: "bar3", chords: [ 
+            { id: "c3", name: "C", duration: 3 }, 
+            { id: "c4", name: "Am", duration: 3 } ] },
+          { id: "bar4", chords: [ { id: "c5", name: "F", duration: 6 } ] },
         ]
       },
       {
-        id: 'chorus-1',
+        id: "sec2",
         type: "CHORUS",
-        chords: [
-          { name: "Em7", beats: 4 },
-          { name: "G", beats: 4 },
-          { name: "Cadd9", beats: 4 },
-          { name: "Dsus4", beats: 4 }
+        bars: [
+          { id: "bar5", chords: [ { id: "c6", name: "C", duration: 6 } ] },
+          { id: "bar6", chords: [ { id: "c7", name: "F", duration: 6 } ] },
+          { id: "bar7", chords: [ { id: "c8", name: "Am", duration: 3 }, { id: "c9", name: "F", duration: 3 } ] },
+          { id: "bar8", chords: [ { id: "c10", name: "G", duration: 6 } ] },
         ]
       }
     ]
   },
+
   {
-    id: '3',
-    title: 'Knockin’ on Heaven’s Door',
-    author: 'Bob Dylan',
-    timeSignature: { beatsPerMeasure: 4, noteValue: 4 },
+    id: "3",
+    title: "Let It Be",
+    author: "The Beatles",
+    timeSignature: { beatsPerMeasure: 4, noteValue: 4 }, // 4/4
     songSections: [
       {
-        id: 'verse-1',
+        id: "sec1",
         type: "VERSE",
-        chords: [
-          { name: "G", beats: 4 },
-          { name: "D", beats: 4 },
-          { name: "Am7", beats: 8 },
-          { name: "G", beats: 4 },
-          { name: "D", beats: 4 },
-          { name: "C", beats: 8 }
+        bars: [
+          { id: "bar1", chords: [ { id: "c1", name: "C", duration: 4 } ] },
+          { id: "bar2", chords: [ { id: "c2", name: "G", duration: 4 } ] },
+          { id: "bar3", chords: [ { id: "c3", name: "Am", duration: 4 } ] },
+          { id: "bar4", chords: [ { id: "c4", name: "F", duration: 4 } ] },
         ]
       },
       {
-        id: 'chorus-1',
+        id: "sec2",
         type: "CHORUS",
-        chords: [
-          { name: "G", beats: 4 },
-          { name: "C", beats: 4 },
-          { name: "G", beats: 4 }
+        bars: [
+          { id: "bar5", chords: [ { id: "c5", name: "C", duration: 2 }, { id: "c6", name: "G", duration: 2 } ] },
+          { id: "bar6", chords: [ { id: "c7", name: "Am", duration: 4 } ] },
+          { id: "bar7", chords: [ { id: "c8", name: "F", duration: 2 }, { id: "c9", name: "C", duration: 2 } ] },
+          { id: "bar8", chords: [ { id: "c10", name: "C", duration: 4 } ] },
         ]
       }
     ]
   },
+
   {
-    id: '4',
-    title: 'Hotel California',
-    author: 'Eagles',
-    timeSignature: { beatsPerMeasure: 4, noteValue: 4 },
+    id: "4",
+    title: "La Cumparsita",
+    author: "Gerardo Matos Rodríguez",
+    timeSignature: { beatsPerMeasure: 2, noteValue: 4 }, // 2/4 (tango clásico)
     songSections: [
       {
-        id: 'intro-1',
+        id: "sec1",
         type: "INTRO",
-        chords: [
-          { name: "Bm", beats: 4 },
-          { name: "F#", beats: 4 },
-          { name: "A", beats: 4 },
-          { name: "E", beats: 4 },
-          { name: "G", beats: 4 },
-          { name: "D", beats: 4 },
-          { name: "Em", beats: 4 },
-          { name: "F#", beats: 4 }
+        bars: [
+          { id: "bar1", chords: [ { id: "c1", name: "Am", duration: 2 } ] },
+          { id: "bar2", chords: [ { id: "c2", name: "E7", duration: 2 } ] },
+          { id: "bar3", chords: [ { id: "c3", name: "Am", duration: 2 } ] },
+          { id: "bar4", chords: [ { id: "c4", name: "E7", duration: 2 } ] },
         ]
       },
       {
-        id: 'verse-1',
+        id: "sec2",
         type: "VERSE",
-        chords: [
-          { name: "Bm", beats: 4 },
-          { name: "F#", beats: 4 },
-          { name: "A", beats: 4 },
-          { name: "E", beats: 4 },
-          { name: "G", beats: 4 },
-          { name: "D", beats: 4 },
-          { name: "Em", beats: 4 },
-          { name: "F#", beats: 4 }
-        ]
-      },
-      {
-        id: 'chorus-1',
-        type: "CHORUS",
-        chords: [
-          { name: "G", beats: 4 },
-          { name: "D", beats: 4 },
-          { name: "Em", beats: 4 },
-          { name: "F#", beats: 4 }
-        ]
-      }
-    ]
-  },
-  {
-    id: '5',
-    title: 'El Vals del Ocaso',
-    author: 'Anónimo',
-    timeSignature: { beatsPerMeasure: 3, noteValue: 4 },
-    songSections: [
-      {
-        id: 'intro-1',
-        type: "INTRO",
-        chords: [
-          { name: "Am", beats: 3 },
-          { name: "E", beats: 3 },
-          { name: "Am", beats: 3 },
-          { name: "E", beats: 3 }
-        ]
-      },
-      {
-        id: 'verse-1',
-        type: "VERSE",
-        chords: [
-          { name: "Dm", beats: 3 },
-          { name: "Am", beats: 3 },
-          { name: "E", beats: 3 },
-          { name: "Am", beats: 3 },
-          { name: "Dm", beats: 3 },
-          { name: "Am", beats: 3 },
-          { name: "E", beats: 3 },
-          { name: "Am", beats: 3 }
-        ]
-      },
-      {
-        id: 'chorus-1',
-        type: "CHORUS",
-        chords: [
-          { name: "C", beats: 3 },
-          { name: "G", beats: 3 },
-          { name: "C", beats: 3 },
-          { name: "G", beats: 3 },
-          { name: "Am", beats: 3 },
-          { name: "E", beats: 3 },
-          { name: "Am", beats: 3 }
-        ]
-      },
-      {
-        id: 'bridge-1',
-        type: "BRIDGE",
-        chords: [
-          { name: "F", beats: 3 },
-          { name: "C", beats: 3 },
-          { name: "G", beats: 3 },
-          { name: "C", beats: 3 }
+        bars: [
+          { id: "bar5", chords: [ { id: "c5", name: "Am", duration: 1 }, { id: "c6", name: "E7", duration: 1 } ] },
+          { id: "bar6", chords: [ { id: "c7", name: "Am", duration: 2 } ] },
+          { id: "bar7", chords: [ { id: "c8", name: "Dm", duration: 2 } ] },
+          { id: "bar8", chords: [ { id: "c9", name: "E7", duration: 2 } ] },
         ]
       }
     ]

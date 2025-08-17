@@ -10,15 +10,26 @@ export interface Song {
 export interface SongSection {
   id: string
   type: SectionType
-  chords: SongChord[]
+  bars: Bar[]
 }
 
 export type SectionType = typeof SECTION_OPTIONS[number]
 
-export interface SongChord {
+export interface Bar {
+  id: string
+  chords: BarChord[] 
+}
+
+export interface BarChord {
+  id: string                // id único para keys estables en render
+  name: string              // nombre del acorde, p.ej. "E", "C#m", "B/#D"
+  duration: number          // duración en beats (entero positivo). Ej: 4 = redonda en 4/4
+}
+
+/* export interface SongChord {
   name: string
   beats: number
-}
+} */
 
 export interface TimeSignature {
   beatsPerMeasure: number

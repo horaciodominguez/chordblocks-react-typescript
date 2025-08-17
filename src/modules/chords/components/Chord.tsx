@@ -1,19 +1,19 @@
-import type { SongChord as SongChord, TimeSignature } from "@/modules/songs/types/song.types"
+import type { BarChord, TimeSignature } from "@/modules/songs/types/song.types"
 
 type Props = {
     timeSignature: TimeSignature,
-    chord: SongChord
+    chord: BarChord
 }
 
 export const Chord = ({timeSignature, chord}: Props) => {
+    
+    const width = `${(chord.duration / timeSignature.beatsPerMeasure) * 100}%`
     return (
-        <div
-            className="bg-blue-950 flex items-center justify-center py-4 mb-2"
-            style={{
-                width: `${(chord.beats / (timeSignature.beatsPerMeasure * timeSignature.noteValue)) * 100}%` // 4 compases por bloque
-            }}
-            >
-            {chord.name}
+        <div style={{width}} key={chord.id} className="border-2 border-green-400">
+            <small>d: {chord.duration}</small>
+            <small>w: {width}</small>
+            <p>{chord.name}</p>
         </div>
     )
+    
 }

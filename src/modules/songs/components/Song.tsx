@@ -1,7 +1,8 @@
 
 import type { Song as SongType } from "@/modules/songs/types/song.types"
 import { SectionTag } from "@/modules/songs/components/SectionTag"
-import { SectionChords } from "./SectionChords";
+
+
 
 
 export interface TemporarySong extends Omit<SongType, 'id'>  {
@@ -20,14 +21,18 @@ export const Song = ({song}: Props) => {
             >
             <h3 className="font-medium">{song.title}</h3>
             <p>{song.author}</p>
+            <p>Time Measure: {song.timeSignature.beatsPerMeasure} / {song.timeSignature.noteValue}</p>
             <ul>
             {
+                //SECCIONES DE LA CANCION
                 song.songSections.map (
                     (section, sectionIndex) => (
 
-                    <li key={sectionIndex} >
+                    <li key={sectionIndex} className=" border-2 border-amber-400" >
+
                         <SectionTag typeName={section.type} />
-                        <SectionChords section={section} timeSignature={song.timeSignature} />
+                        
+                        
                     </li>
                     )
                 )

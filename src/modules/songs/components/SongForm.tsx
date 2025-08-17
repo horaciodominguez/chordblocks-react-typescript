@@ -9,17 +9,18 @@ import {
     type Song as SongType,
     type SongSection,
     type SectionType, 
-
+    type Bar,
     SECTION_OPTIONS, 
     beatsPerMeasureValues,
-    noteValues
+    noteValues,
+    type BarChord
     
 } from "@/modules/songs/types/song.types"
 
 import { chordsData } from "@/modules/chords/data/chords"
 import { Song, type TemporarySong } from "@/modules/songs/components/Song"
 import { SectionTag } from "@/modules/songs/components/SectionTag"
-import { SectionChords } from "@/modules/songs/components/SectionChords"
+import { Sections } from "@/modules/songs/components/Sections"
 
 
 
@@ -38,13 +39,19 @@ export const SongForm = ({handleAddSong}: Props) => {
         songSections: []
     }
 
+    const getRemainingBeats = (bar: Omit<Bar, "id">, beatsPerMeasure: number) => {
+        const used = bar.chords.reduce((acc, chord) => acc + chord.duration, 0)
+        return beatsPerMeasure - used
+    }
+
+
     //TITULO Y AUTOR 
     const [temporarySong, setTemporarySong] = useState<TemporarySong>(initialSongState)
 
     // SECCIONES
     const [pendingSection, setPendingSection] = useState<Omit<SongSection, 'id'>>({
         type: "" as SectionType,
-        chords: []
+        bars: []
     });
 
     //ACORDE
@@ -82,31 +89,54 @@ export const SongForm = ({handleAddSong}: Props) => {
     }
 
     const handleAddChord = () => {
-
         if (!pendingChordName || !pendingBeats) return
 
         const beatsNum = Math.max(1, parseInt(pendingBeats, 10) || 0)
+        const songBeatsPerMeasure = temporarySong.timeSignature.beatsPerMeasure
 
-        const newChord = {
+        // Nuevo acorde
+        const newChord: BarChord = {
+            id: uuidv4(),
             name: pendingChordName,
-            beats: beatsNum
+            duration: beatsNum,
+        }
+
+        // Último compás de la sección
+        const lastBar = pendingSection.bars[pendingSection.bars.length - 1]
+        const remaining = lastBar ? getRemainingBeats(lastBar, songBeatsPerMeasure) : 0
+
+        let updatedBars
+
+        if (lastBar && beatsNum <= remaining) {
+            // El acorde entra en el compás actual
+            const updatedLastBar: Bar = {
+                ...lastBar,
+                chords: [...lastBar.chords, newChord],
+            }
+            updatedBars = [...pendingSection.bars.slice(0, -1), updatedLastBar]
+        } else {
+            // Hay que crear un compás nuevo
+            const newBar: Bar = {
+            id: uuidv4(),
+            chords: [newChord],
+            }
+            updatedBars = [...pendingSection.bars, newBar]
         }
 
         setPendingSection({
             ...pendingSection,
-            chords: [...pendingSection.chords, newChord]
-        });
+            bars: updatedBars,
+        })
 
-        //limpiar solo el estado del acorde para seguir agregando más
-        setPendingChordName("");
-        setPendingBeats("4");
-
+        setPendingChordName("")
+        setPendingBeats("4")
     }
+
 
     // ADD SECTION AL ESTADO
     const handleAddSection = () => {
 
-        if (!pendingSection.type || pendingSection.chords.length === 0) return;
+        if (!pendingSection.type || pendingSection.bars.length === 0) return;
 
         const newSection = {
             id: uuidv4(),
@@ -121,11 +151,10 @@ export const SongForm = ({handleAddSong}: Props) => {
         // Limpiar el estado de la sección pendiente para la próxima sección
         setPendingSection({
             type: "" as SectionType,
-            chords: []
+            bars: []
         });
 
     }
-
     
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -192,7 +221,7 @@ export const SongForm = ({handleAddSong}: Props) => {
                         <Select 
                             label="Acorde"
                             name="newChord"
-                            options={ Object.keys(chordsData)}
+                            options={ Object.keys(chordsData) }
                             value={pendingChordName}
                             onChange={(e) => setPendingChordName(e.target.value)}
                         />
@@ -204,10 +233,19 @@ export const SongForm = ({handleAddSong}: Props) => {
                         <Select
                             label="Beats:"
                             name="newBeats"
-                            options={beatsPerMeasureValues}
+                            options={
+                                (() => {
+                                    const lastBar = pendingSection.bars.at(-1)
+                                    const remaining = lastBar
+                                        ? getRemainingBeats(lastBar, temporarySong.timeSignature.beatsPerMeasure)
+                                        : temporarySong.timeSignature.beatsPerMeasure
+                                    return beatsPerMeasureValues.filter(v => v <= remaining)
+                                })()
+                            }
                             value={pendingBeats}
                             onChange={(e) => setPendingBeats(e.target.value)}
                         />
+
                     </div>
                 }
                 {
@@ -219,11 +257,11 @@ export const SongForm = ({handleAddSong}: Props) => {
                 
 
                 {
-                    (pendingSection.chords.length!==0) &&
+                    (pendingSection.bars.length!==0) &&
                     <>
                         <h2>Temporary Section</h2>
                         <SectionTag typeName={pendingSection.type} />
-                        <SectionChords section={pendingSection as SongSection} timeSignature={temporarySong.timeSignature} />
+                        <Sections section={pendingSection as SongSection} timeSignature={temporarySong.timeSignature} />
                         <div className="mb-4">
                             <Button type="button" variant="secondary" onClick={handleAddSection}>Agregar Sección</Button>
                         </div>
