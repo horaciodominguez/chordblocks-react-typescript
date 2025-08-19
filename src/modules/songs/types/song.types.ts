@@ -21,15 +21,10 @@ export interface Bar {
 }
 
 export interface BarChord {
-  id: string                // id único para keys estables en render
-  name: string              // nombre del acorde, p.ej. "E", "C#m", "B/#D"
-  duration: number          // duración en beats (entero positivo). Ej: 4 = redonda en 4/4
-}
-
-/* export interface SongChord {
+  id: string
   name: string
-  beats: number
-} */
+  duration: number
+}
 
 export interface TimeSignature {
   beatsPerMeasure: number
@@ -46,7 +41,7 @@ export const SECTION_OPTIONS = [
   "OUTRO"
 ]
 
-export const beatsPerMeasureValues = [1, 2, 3, 4, 6]
+export const beatsPerMeasureValues = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 export const noteValues = [2, 4, 8]
 

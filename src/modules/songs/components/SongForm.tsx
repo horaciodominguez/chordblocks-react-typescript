@@ -179,11 +179,7 @@ export const SongForm = ({handleAddSong}: Props) => {
             return;
         }
 
-        // La canción ya está lista para ser enviada.
-        // Asegúrate de que handleAddSong reciba un tipo 'SongType'
         handleAddSong(temporarySong as SongType);
-        
-        // Resetear el formulario después de enviar
         setTemporarySong(initialSongState); 
     }
 
@@ -254,7 +250,7 @@ export const SongForm = ({handleAddSong}: Props) => {
                                 const cap = remaining > 0 ? remaining : bpm
                                 return beatsPerMeasureValues.filter(v => v <= cap)
                             })()}
-                            value={pendingBeats}
+                            value={ Number(pendingBeats)  }
                             onChange={(e) => setPendingBeats(e.target.value)}
                         />
 
