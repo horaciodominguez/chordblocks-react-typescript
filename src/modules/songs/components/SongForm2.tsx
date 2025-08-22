@@ -1,40 +1,20 @@
-import { v4 as uuidv4 } from 'uuid'
-import { useReducer } from "react";
+
+
 
 import Input from "@/components/ui/Input";
-import type { Song, SongSection } from "../types/song.types";
+import type { Song } from "../types/song.types";
 
 import Button from "@/components/ui/Button";
 
-const initialState = {
-  id: uuidv4(),
-  title: "",
-  author: "",
-  timeSignature: {
-    beatsPerMeasure: 4,
-    noteValue: 4
-  },
-  songSections: [] as SongSection[]
-}
+import { useSongBuilder } from "../hooks/useSongBuilder";
 
-function reducer(state: typeof initialState, action: { type: string; payload: string }) {
-  switch (action.type) {
-    case "SET_TITLE":
-      return { ...state, title: action.payload };
-    case "SET_AUTHOR":
-      return { ...state, author: action.payload };
-    default:
-      return state;
-  }
-}
 
 type Props = {
   handleAddSong: (song: Song) => void;
 };
 
 export const SongForm2 = ({ handleAddSong }: Props) => {
-  
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const { state, dispatch } = useSongBuilder();
 
   return (
     <form onSubmit={(e) => {
