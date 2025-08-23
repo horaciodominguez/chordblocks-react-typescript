@@ -83,7 +83,7 @@ export const SongForm = ({handleAddSong}: Props) => {
         setPendingSection(
             {
                 ...pendingSection,
-                type: event.target.value
+                type: event.target.value as SectionType
             }
         )
     }

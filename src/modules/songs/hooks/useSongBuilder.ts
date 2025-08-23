@@ -1,8 +1,24 @@
-import { useReducer } from "react";
+import { useReducer } from "react"
 import { v4 as uuidv4 } from 'uuid'
-import type {Song as SongType, SongSection} from "@/modules/songs/types/song.types";
+import type {Song as SongType, SongSection, SectionType, Bar, TimeSignature, BarChord} from "@/modules/songs/types/song.types";
 
-const initialState: SongType = {
+//type TmpSong = SongType
+
+type State = {
+  song: SongType
+  pendingSection: SongSection
+  pendingChordName: string
+  pendingBeats: string
+}
+
+type Action =
+  | { type: "SET_TITLE"; v: string }
+  | { type: "SET_AUTHOR"; v: string }
+  | { type: "SET_TIME_SIGNATURE"; v: TimeSignature }
+  | { type: "ADD_SECTION_TYPE"; v: SectionType }
+
+
+const initialState: SongType  = {
   id: uuidv4(),
   title: "",
   author: "",
@@ -13,21 +29,40 @@ const initialState: SongType = {
   songSections: [] as SongSection[]
 }
 
-function reducer(state: typeof initialState, action: { type: string; payload: string }) {
+const reducer = (state: State, action: Action): State => {
   switch (action.type) {
     case "SET_TITLE":
-      return { ...state, title: action.payload };
+      return { ...state, song: { ...state.song, title: action.v } }
     case "SET_AUTHOR":
-      return { ...state, author: action.payload };
+      return { ...state, song: { ...state.song, author: action.v } }
+    case "SET_TIME_SIGNATURE":
+      return {
+        ...state,
+        song: {
+          ...state.song,
+          timeSignature: {
+            ...state.song.timeSignature,
+            ...action.v
+          }
+        }
+      }
+    case "ADD_SECTION_TYPE":
+      const newSection: SongSection = {
+        id: uuidv4(),
+        type: action.v,
+        bars: []
+      }
+      return {
+        ...state,
+        pendingSection: newSection
+      }
     default:
-      return state;
+      return state
   }
 }
 
-export function useSongBuilder() {
-  const [state, dispatch] = useReducer(reducer, initialState);
-  return { state, dispatch };
+export const useSongBuilder = () => {
+  const [state, dispatch] = useReducer(reducer, { song: initialState, pendingSection: { id: "", type: "VERSE", bars: [] }, pendingChordName: "", pendingBeats: "" })
+
+  return { state, dispatch }
 }
-
-
-

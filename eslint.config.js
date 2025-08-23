@@ -20,6 +20,7 @@ export default tseslint.config([
       globals: globals.browser,
     },
     rules: {
+      indent: ['error', 2],
       'react/prop-types': 'off',
       'react/react-in-jsx-scope': 'off'
     }

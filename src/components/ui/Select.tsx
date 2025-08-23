@@ -1,9 +1,8 @@
 
-
 type Props = {
     name: string,
     label: string,
-    options: Array<string | number>
+    options: readonly (string | number)[]
 
     value?: string | number,
     onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void,
