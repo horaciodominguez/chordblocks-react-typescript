@@ -14,6 +14,8 @@ type Action =
   | { type: "SET_AUTHOR"; v: string }
   | { type: "SET_TIME_SIGNATURE"; v: TimeSignature }
   | { type: "ADD_SECTION_TYPE"; v: SectionType }
+  | { type: "ADD_CHORD_NAME"; v: string }
+  | { type: "ADD_BEATS"; v: string }
 
 
 const initialState: SongType  = {
@@ -51,6 +53,10 @@ const reducer = (state: State, action: Action): State => {
         ...state,
         pendingSection: newSection
       }
+    case "ADD_CHORD_NAME":
+      return { ...state, pendingChordName: action.v }
+    case "ADD_BEATS":
+      return { ...state, pendingBeats: action.v }
     default:
       return state
   }

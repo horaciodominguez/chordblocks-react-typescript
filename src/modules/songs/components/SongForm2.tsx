@@ -8,6 +8,7 @@ import Button from "@/components/ui/Button"
 import { Select } from "@/components/ui/Select"
 
 import { useSongBuilder } from "../hooks/useSongBuilder"
+import { chordsData } from "@/modules/chords/data/chords"
 
 
 
@@ -75,9 +76,41 @@ export const SongForm2 = ({ handleAddSong }: Props) => {
                   dispatch({ type: "ADD_SECTION_TYPE", v: e.target.value as SectionType });
                 }
               }}
-              defaultValue=""
+              value={state.pendingSection.type}
             />
           </div>
+          {state.pendingSection.id !== "" && (
+            <div className="mb-4">
+              <div className="flex gap-4">
+                <div className="w-1/2">
+                  <Select
+                    name="addChordName"
+                    label="Add Chord"
+                    options={Object.keys(chordsData)}
+                    onChange={(e) => {
+                      if (e.target.value) {
+                        dispatch({ type: "ADD_CHORD_NAME", v: e.target.value });
+                      }
+                    }}
+                    value={state.pendingChordName}
+                  />
+                </div>
+                <div className="w-1/2">
+                  <Select
+                    name="addBeats"
+                    label="Beats"
+                    options={beatsPerMeasureValues}
+                    onChange={(e) => {
+                      if (e.target.value) {
+                        dispatch({ type: "ADD_BEATS", v: e.target.value });
+                      }
+                    }}
+                    value={state.pendingBeats}
+                    />
+                </div>
+              </div>
+            </div>
+          )}
           
           <div className="mb-4">
             <Button 
