@@ -1,6 +1,6 @@
 import { useReducer } from "react"
 import { v4 as uuidv4 } from 'uuid'
-import type {Song as SongType, SongSection, SectionType, Bar, TimeSignature, BarChord} from "@/modules/songs/types/song.types";
+import type {Song as SongType, SongSection, SectionType, TimeSignature} from "@/modules/songs/types/song.types";
 
 //type TmpSong = SongType
 
