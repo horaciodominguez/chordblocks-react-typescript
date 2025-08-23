@@ -2,8 +2,6 @@ import { useReducer } from "react"
 import { v4 as uuidv4 } from 'uuid'
 import type {Song as SongType, SongSection, SectionType, TimeSignature} from "@/modules/songs/types/song.types";
 
-//type TmpSong = SongType
-
 type State = {
   song: SongType
   pendingSection: SongSection
@@ -40,10 +38,7 @@ const reducer = (state: State, action: Action): State => {
         ...state,
         song: {
           ...state.song,
-          timeSignature: {
-            ...state.song.timeSignature,
-            ...action.v
-          }
+          timeSignature: { ...state.song.timeSignature, ...action.v }
         }
       }
     case "ADD_SECTION_TYPE":
