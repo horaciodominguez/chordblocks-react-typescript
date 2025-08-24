@@ -13,7 +13,7 @@ import { Song } from "./Song"
 import { SectionTag } from "./SectionTag"
 import { Sections } from "./Sections"
 
-
+import { PendingSectionDnd } from "./PendingSectionDnd"
 
 type Props = {
   handleAddSong: (song: SongType) => void
@@ -126,6 +126,43 @@ export const SongForm2 = ({ handleAddSong }: Props) => {
               >
                 Add Chord
               </Button>
+            </div>
+          )}
+
+          {state.pendingSection.bars.length > 0 && (
+            <div className="mb-4">
+              <h2>Pending Section</h2>
+
+              <SectionTag typeName={state.pendingSection.type} />
+
+              <PendingSectionDnd
+                section={state.pendingSection as SongSection}
+                timeSignature={state.song.timeSignature}
+                onReorder={({ barId, newOrderIds }) => {
+                  dispatch({ type: "REORDER_CHORDS_IN_BAR", barId, order: newOrderIds })
+                }}
+                renderChord={(id) => (
+                  <button
+                    type="button"
+                    className="ml-1 text-red-500 hover:text-red-700"
+                    onClick={() => dispatch({ type: "DELETE_CHORD", v: id })}
+                    aria-label="Delete chord"
+                    title="Delete chord"
+                  >
+                    &times;
+                  </button>
+                )}
+              />
+
+              <div className="mb-4">
+                <Button
+                  type="button"
+                  variant="primary"
+                  onClick={() => dispatch({ type: "FINALIZE_SECTION" })}
+                >
+                  Finalize Section
+                </Button>
+              </div>
             </div>
           )}
 

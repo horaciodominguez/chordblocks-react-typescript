@@ -20,6 +20,7 @@ type Action =
   | { type: "ADD_BEATS"; v: string }
   | { type: "ADD_CHORD" }
   | { type: "DELETE_CHORD"; v: string }
+  | { type: "REORDER_CHORDS_IN_BAR"; barId: string; order: string[] }
   | { type: "FINALIZE_SECTION" }
   | { type: "RESET" }
 
@@ -124,6 +125,22 @@ const reducer = (state: State, action: Action): State => {
         availableBeats: availableBeatsAfterDelete,
         pendingBeats: nextBeatsValue(availableBeatsAfterDelete)
       }
+
+    case "REORDER_CHORDS_IN_BAR":
+      const { barId, order } = action
+      return {
+        ...state,
+        pendingSection: {
+          ...state.pendingSection,
+          bars: state.pendingSection.bars.map(bar => {
+            if (bar.id !== barId) return bar
+            const byId = new Map(bar.chords.map(c => [c.id, c]))
+            return { ...bar, chords: order.map(id => byId.get(id)!).filter(Boolean) }
+          }),
+        },
+      }
+
+
     case "FINALIZE_SECTION":
       if (state.pendingSection.id === "") return state
       return {
