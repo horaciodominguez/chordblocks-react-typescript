@@ -2,18 +2,19 @@
 
 
 import Input from "@/components/ui/Input"
-import { beatsPerMeasureValues, noteValues, SECTION_OPTIONS, type SectionType, type Song } from "../types/song.types"
+import { beatsPerMeasureValues, noteValues, SECTION_OPTIONS, type SectionType, type Song as SongType } from "../types/song.types"
 
 import Button from "@/components/ui/Button"
 import { Select } from "@/components/ui/Select"
 
 import { useSongBuilder } from "../hooks/useSongBuilder"
 import { chordsData } from "@/modules/chords/data/chords"
+import { Song } from "./Song"
 
 
 
 type Props = {
-  handleAddSong: (song: Song) => void
+  handleAddSong: (song: SongType) => void
 };
 
 export const SongForm2 = ({ handleAddSong }: Props) => {
@@ -85,7 +86,7 @@ export const SongForm2 = ({ handleAddSong }: Props) => {
                 <div className="w-1/2">
                   <Select
                     name="addChordName"
-                    label="Add Chord"
+                    label="Chord Name"
                     options={Object.keys(chordsData)}
                     onChange={(e) => {
                       if (e.target.value) {
@@ -99,7 +100,7 @@ export const SongForm2 = ({ handleAddSong }: Props) => {
                   <Select
                     name="addBeats"
                     label="Beats"
-                    options={beatsPerMeasureValues}
+                    options={beatsPerMeasureValues.filter((v) => v <= state.availableBeats)}
                     onChange={(e) => {
                       if (e.target.value) {
                         dispatch({ type: "ADD_BEATS", v: e.target.value });
@@ -111,6 +112,65 @@ export const SongForm2 = ({ handleAddSong }: Props) => {
               </div>
             </div>
           )}
+
+          {state.pendingSection.id !== "" && state.pendingChordName !== "" && state.pendingBeats !== "" && (
+            <div className="mb-4">
+              <Button
+                type="button"
+                variant="secondary"
+                onClick={() => {
+                  dispatch({ type: "ADD_CHORD" });
+                }}
+              >
+                Add Chord
+              </Button>
+            </div>
+          )}
+
+          {state.pendingSection.bars.length > 0 && (
+            <div className="mb-4">
+              <div className="border border-gray-300 p-4 rounded-md">
+                <h3 className="text-lg font-medium mb-2">Pending Section: {state.pendingSection.type}</h3>
+                {state.pendingSection.bars.map((bar, barIndex) => (
+                  <div key={bar.id} className="mb-2">
+                    <div className="flex items-center mb-1">
+                      <span className="font-semibold mr-2">Bar {barIndex + 1}:</span>
+                      {bar.chords.map((chord) => (
+                        <div key={chord.id} className="flex items-center mr-2">
+                          <span>{chord.name} ({chord.duration})</span>
+                          <button
+                            type="button"
+                            className="ml-1 text-red-500 hover:text-red-700"
+                            onClick={() => dispatch({ type: "DELETE_CHORD", v: chord.id })}
+                          >
+                            &times;
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+                <div>
+                  <Button
+                    type="button"
+                    variant="primary"
+                    onClick={() => {
+                      dispatch({ type: "FINALIZE_SECTION" });
+                    }}
+                  >
+                    Finalize Section
+                  </Button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {state.song.songSections.length > 0 && 
+            <>
+                <h2>Temporary Song</h2>
+                <Song song={song} />
+            </>
+          }
           
           <div className="mb-4">
             <Button 
