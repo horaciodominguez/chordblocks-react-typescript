@@ -2,7 +2,7 @@
 
 
 import Input from "@/components/ui/Input"
-import { beatsPerMeasureValues, noteValues, SECTION_OPTIONS, type SectionType, type Song as SongType } from "../types/song.types"
+import { beatsPerMeasureValues, noteValues, SECTION_OPTIONS, type SectionType, type SongSection, type Song as SongType } from "../types/song.types"
 
 import Button from "@/components/ui/Button"
 import { Select } from "@/components/ui/Select"
@@ -10,6 +10,8 @@ import { Select } from "@/components/ui/Select"
 import { useSongBuilder } from "../hooks/useSongBuilder"
 import { chordsData } from "@/modules/chords/data/chords"
 import { Song } from "./Song"
+import { SectionTag } from "./SectionTag"
+import { Sections } from "./Sections"
 
 
 
@@ -128,29 +130,25 @@ export const SongForm2 = ({ handleAddSong }: Props) => {
           )}
 
           {state.pendingSection.bars.length > 0 && (
+
             <div className="mb-4">
-              <div className="border border-gray-300 p-4 rounded-md">
-                <h3 className="text-lg font-medium mb-2">Pending Section: {state.pendingSection.type}</h3>
-                {state.pendingSection.bars.map((bar, barIndex) => (
-                  <div key={bar.id} className="mb-2">
-                    <div className="flex items-center mb-1">
-                      <span className="font-semibold mr-2">Bar {barIndex + 1}:</span>
-                      {bar.chords.map((chord) => (
-                        <div key={chord.id} className="flex items-center mr-2">
-                          <span>{chord.name} ({chord.duration})</span>
-                          <button
-                            type="button"
-                            className="ml-1 text-red-500 hover:text-red-700"
-                            onClick={() => dispatch({ type: "DELETE_CHORD", v: chord.id })}
-                          >
-                            &times;
-                          </button>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-                <div>
+              <h2>Pending Section</h2>
+              <SectionTag typeName={state.pendingSection.type} />
+              <Sections 
+                section={state.pendingSection as SongSection} 
+                timeSignature={song.timeSignature}
+                renderChord={(id) => (
+                  <button
+                    type="button"
+                    className="ml-1 text-red-500 hover:text-red-700"
+                    onClick={() => dispatch({ type: "DELETE_CHORD", v: id })}
+                  >
+                    &times;
+                  </button>
+                )}
+              />
+
+              <div className="mb-4">
                   <Button
                     type="button"
                     variant="primary"
@@ -160,7 +158,6 @@ export const SongForm2 = ({ handleAddSong }: Props) => {
                   >
                     Finalize Section
                   </Button>
-                </div>
               </div>
             </div>
           )}
