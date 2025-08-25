@@ -1,5 +1,12 @@
 import { v4 as uuidv4 } from 'uuid'
-import type {Song as SongType, SongSection, SectionType, TimeSignature, BarChord} from "@/modules/songs/types/song.types"
+
+import type {
+  Song as SongType, 
+  SongSection, 
+  SectionType, 
+  TimeSignature,
+  BarChord} from "@/modules/songs/types/song.types"
+
 import { beatsCap, nextBeatsValue, remainingBeats } from "../utils/beats"
 
 type State = {
@@ -22,7 +29,6 @@ type Action =
   | { type: "REORDER_CHORDS_IN_BAR"; barId: string; order: string[] }
   | { type: "FINALIZE_SECTION" }
   | { type: "RESET" }
-
 
 export const initialSong: SongType  = {
   id: uuidv4(),
@@ -139,7 +145,6 @@ export const reducer = (state: State, action: Action): State => {
         },
       }
 
-
     case "FINALIZE_SECTION":
       if (state.pendingSection.id === "") return state
       return {
@@ -157,6 +162,7 @@ export const reducer = (state: State, action: Action): State => {
         pendingBeats: "4",
         availableBeats: state.song.timeSignature.beatsPerMeasure
       }
+
     case "RESET":
       return {
         song: initialSong,
