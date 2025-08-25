@@ -1,295 +1,220 @@
-import { useState } from "react"
-import { v4 as uuidv4 } from 'uuid'
+
+
+
+import Input from "@/components/ui/Input"
+import { beatsPerMeasureValues, noteValues, SECTION_OPTIONS} from "../constants/song"
+import {  type SectionType, type SongSection, type Song as SongType } from "../types/song.types"
 
 import Button from "@/components/ui/Button"
-import Input from "@/components/ui/Input"
 import { Select } from "@/components/ui/Select"
 
-import { SECTION_OPTIONS, beatsPerMeasureValues, noteValues } from "../constants/song"
-
-import { 
-    type Song as SongType,
-    type SongSection,
-    type SectionType, 
-    type Bar,
-    type BarChord
-    
-} from "@/modules/songs/types/song.types"
-
+import { useSongForm } from "../hooks/useSongForm"
 import { chordsData } from "@/modules/chords/data/chords"
-import { Song, type TemporarySong } from "@/modules/songs/components/Song"
-import { SectionTag } from "@/modules/songs/components/SectionTag"
-import { Sections } from "@/modules/songs/components/Sections"
+import { Song } from "./Song"
+import { SectionTag } from "./SectionTag"
+import { Sections } from "./Sections"
 
-
-
+import { PendingSectionDnd } from "./PendingSectionDnd"
 
 type Props = {
-    handleAddSong: (NewSong: SongType) => void
-}
+  handleAddSong: (song: SongType) => void
+};
 
-export const SongForm = ({handleAddSong}: Props) => {
+export const SongForm = ({ handleAddSong }: Props) => {
+  const { state, dispatch } = useSongForm()
+  const { song } = state
 
-    const initialSongState: TemporarySong = {
-        id: uuidv4(),
-        title: '',
-        author: '',
-        timeSignature: { beatsPerMeasure: 4, noteValue: 4 },
-        songSections: []
-    }
-
-    const getRemainingBeats = (bar: Omit<Bar, "id">, beatsPerMeasure: number) => {
-        const used = bar.chords.reduce((acc, chord) => acc + chord.duration, 0)
-        return beatsPerMeasure - used
-    }
-
-
-    //TITULO Y AUTOR 
-    const [temporarySong, setTemporarySong] = useState<TemporarySong>(initialSongState)
-
-    // SECCIONES
-    const [pendingSection, setPendingSection] = useState<Omit<SongSection, 'id'>>({
-        type: "" as SectionType,
-        bars: []
-    });
-
-    //ACORDE
-    const [pendingChordName, setPendingChordName] = useState<string>("")
-    const [pendingBeats, setPendingBeats] = useState<string>("4")
-
-    // ---------------- FUNCIONES --------------------
-
-    //TITULO Y AUTOR INPUTS
-    const handleChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = event.target
-        setTemporarySong({...temporarySong,[name]: value})
-    }
-
-    // COMPAS SELECTS
-    const handleTimeSignature = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        const {name, value} = event.target
-        setTemporarySong({
-            ...temporarySong,
-            timeSignature: {
-                ...temporarySong.timeSignature, 
-                [name]: parseInt(value)
-            }
-        })
-    }
-
-    //SELECT SECTION TYPE
-    const handleSelectSectionType = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setPendingSection(
-            {
-                ...pendingSection,
-                type: event.target.value as SectionType
-            }
-        )
-    }
-
-    const handleAddChord = () => {
-        if (!pendingChordName || !pendingBeats) return
-
-        const beatsNum = Math.max(1, parseInt(pendingBeats, 10) || 0)
-        const bpm = temporarySong.timeSignature.beatsPerMeasure
-
-        const newChord: BarChord = {
-            id: uuidv4(),
-            name: pendingChordName,
-            duration: beatsNum,
-        }
-
-        const bars = pendingSection.bars
-        const lastBar = bars[bars.length - 1]
-        let updatedBars: Bar[]
-
-        if (lastBar) {
-            const remaining = getRemainingBeats(lastBar, bpm)
-            if (beatsNum <= remaining) {
-            // entra en el compás actual
-            const updatedLastBar: Bar = {
-                ...lastBar,
-                chords: [...lastBar.chords, newChord],
-            }
-            updatedBars = [...bars.slice(0, -1), updatedLastBar]
-            } else {
-            // no entra -> arranca compás nuevo
-            updatedBars = [
-                ...bars,
-                { id: uuidv4(), chords: [newChord] }
-            ]
-            }
-        } else {
-            // no hay compases aún -> creamos el primero
-            updatedBars = [{ id: uuidv4(), chords: [newChord] }]
-        }
-
-        setPendingSection({
-            ...pendingSection,
-            bars: updatedBars,
-        })
-
-        // limpiar nombre acorde
-        setPendingChordName("")
-
-        // recalcular beats válidos para el próximo acorde
-        const newBars = updatedBars
-        const last = newBars[newBars.length - 1]
-        const remaining = getRemainingBeats(last, bpm)
-        const cap = remaining > 0 ? remaining : bpm
-        const opts = beatsPerMeasureValues.filter(v => v <= cap)
-
-        // si hay 4 en las opciones, usamos 4, sino usamos el mayor posible
-        const nextBeats = opts.includes(4) ? 4 : opts[opts.length - 1]
-        setPendingBeats(String(nextBeats))
-    }
-
-
-
-    // ADD SECTION AL ESTADO
-    const handleAddSection = () => {
-
-        if (!pendingSection.type || pendingSection.bars.length === 0) return;
-
-        const newSection = {
-            id: uuidv4(),
-            ...pendingSection
-        }
-
-        setTemporarySong({
-            ...temporarySong,
-            songSections: [...temporarySong.songSections, newSection]
-        });
-
-        // Limpiar el estado de la sección pendiente para la próxima sección
-        setPendingSection({
-            type: "" as SectionType,
-            bars: []
-        });
-
-    }
-    
-
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-
-        if (!temporarySong.title || !temporarySong.author) {
-            console.log("Debe ingresar un título y un autor");
-            return;
-        }
-
-        handleAddSong(temporarySong as SongType);
-        setTemporarySong(initialSongState); 
-    }
-
-    return (
-        <form onSubmit={handleSubmit}>
-            <div className="flex flex-col gap-4">
-                <div className="mb-4">
-                    {<Input name="title" label="Título" value={temporarySong.title ?? ""} onChange={handleChangeInput} />}
+  return (
+    <form onSubmit={(e) => {
+      e.preventDefault()
+      handleAddSong(song)
+    }}>
+      <div className="flex flex-col gap-4">
+          <div className="mb-4">
+            <Input
+              label="Title"
+              name="title"
+              onChange={(e) => dispatch({ type: "SET_TITLE", v: e.target.value })}
+              value={song.title}
+            />
+          </div>
+          <div className="mb-4">
+            <Input
+              label="Author"
+              name="author"
+              onChange={(e) => dispatch({ type: "SET_AUTHOR", v: e.target.value })}
+              value={song.author}
+            />
+          </div>
+          <div className="mb-4">
+            <div className="flex gap-4">
+                <div className="w-1/2">
+                  <Select
+                    name="beatsPerMeasure"
+                    label="Beats Per Measure"
+                    options={beatsPerMeasureValues}
+                    onChange={(e) => {
+                      dispatch({ type: "SET_TIME_SIGNATURE", v: { ...song.timeSignature, beatsPerMeasure: parseInt(e.target.value) } });
+                    }}
+                    value={song.timeSignature.beatsPerMeasure.toString()} />
                 </div>
-                <div className="mb-4">
-                    {<Input name="author" label="Autor" value={temporarySong.author ?? ""} onChange={handleChangeInput} />}
-                </div>
-                <div className="mb-4">
-                    <div className="flex gap-4">
-                        <div className="w-1/2">
-                            <Select 
-                                name="beatsPerMeasure"
-                                label="Figuras"
-                                value={temporarySong.timeSignature.beatsPerMeasure}
-                                onChange={handleTimeSignature}
-                                options={beatsPerMeasureValues}
-                            />
-                        </div>
-                        <div className="w-1/2">
-                            <Select 
-                                name="noteValue"
-                                label="Notas"
-                                value={temporarySong.timeSignature.noteValue}
-                                onChange={handleTimeSignature}
-                                options={noteValues}
-                            />
-                        </div>
-                    </div>
-                </div>
-                <div className="mb-4">
-                    
-                    <Select 
-                        label="Sección"
-                        name="newSection"
-                        options={SECTION_OPTIONS}
-                        value={pendingSection.type}
-                        onChange={handleSelectSectionType}
-                    />
-                    
-                </div>
-                {
-                    pendingSection.type &&
-                    <div className="mb-4">
-                        <Select 
-                            label="Acorde"
-                            name="newChord"
-                            options={ Object.keys(chordsData) }
-                            value={pendingChordName}
-                            onChange={(e) => setPendingChordName(e.target.value)}
-                        />
-                    </div>
-                }
-                {
-                    (pendingSection.type && pendingChordName) &&
-                    <div className="mb-4">
-                        <Select
-                            label="Beats:"
-                            name="newBeats"
-                            options={(() => {
-                                const lastBar = pendingSection.bars.at(-1)
-                                const bpm = temporarySong.timeSignature.beatsPerMeasure
-                                const remaining = lastBar ? getRemainingBeats(lastBar, bpm) : bpm
-                                const cap = remaining > 0 ? remaining : bpm
-                                return beatsPerMeasureValues.filter(v => v <= cap)
-                            })()}
-                            value={ Number(pendingBeats)  }
-                            onChange={(e) => setPendingBeats(e.target.value)}
-                        />
-
-
-                    </div>
-                }
-                {
-                    (pendingSection.type && pendingChordName && pendingBeats) &&
-                    <div className="mb-4">
-                        <Button type="button" variant="secondary" onClick={handleAddChord}>Agregar acorde</Button>
-                    </div>
-                }
-                
-
-                {
-                    (pendingSection.bars.length!==0) &&
-                    <>
-                        <h2>Temporary Section</h2>
-                        <SectionTag typeName={pendingSection.type} />
-                        <Sections section={pendingSection as SongSection} timeSignature={temporarySong.timeSignature} />
-                        <div className="mb-4">
-                            <Button type="button" variant="secondary" onClick={handleAddSection}>Agregar Sección</Button>
-                        </div>
-                    </>
-                    
-                }
-                
-                {
-                    temporarySong && 
-                    <>
-                        <h2>Temporary Song</h2>
-                        <Song song={temporarySong} />
-                    </>
-                }
-                
-
-                <div className="mb-4">
-                    <Button type="submit">Agregar canción</Button>
+                <div className="w-1/2">
+                  <Select
+                    name="noteValue"
+                    label="Note Value"
+                    options={noteValues}
+                    onChange={(e) => {
+                      dispatch({ type: "SET_TIME_SIGNATURE", v: { ...song.timeSignature, noteValue: parseInt(e.target.value) } });
+                    }}
+                    value={song.timeSignature.noteValue.toString()} />
                 </div>
             </div>
-        </form>
-    )
+          </div>
+          <div className="mb-4">
+            <Select
+              name="sectionType"
+              label="Section Type"
+              options={SECTION_OPTIONS}
+              onChange={(e) => {
+                if (e.target.value) {
+                  dispatch({ type: "ADD_SECTION_TYPE", v: e.target.value as SectionType });
+                }
+              }}
+              value={state.pendingSection.type}
+            />
+          </div>
+          {state.pendingSection.id !== "" && (
+            <div className="mb-4">
+              <div className="flex gap-4">
+                <div className="w-1/2">
+                  <Select
+                    name="addChordName"
+                    label="Chord Name"
+                    options={Object.keys(chordsData)}
+                    onChange={(e) => {
+                      if (e.target.value) {
+                        dispatch({ type: "ADD_CHORD_NAME", v: e.target.value });
+                      }
+                    }}
+                    value={state.pendingChordName}
+                  />
+                </div>
+                <div className="w-1/2">
+                  <Select
+                    name="addBeats"
+                    label="Beats"
+                    options={beatsPerMeasureValues.filter((v) => v <= state.availableBeats)}
+                    onChange={(e) => {
+                      if (e.target.value) {
+                        dispatch({ type: "ADD_BEATS", v: e.target.value });
+                      }
+                    }}
+                    value={state.pendingBeats}
+                    />
+                </div>
+              </div>
+            </div>
+          )}
+
+          {state.pendingSection.id !== "" && state.pendingChordName !== "" && state.pendingBeats !== "" && (
+            <div className="mb-4">
+              <Button
+                type="button"
+                variant="secondary"
+                onClick={() => {
+                  dispatch({ type: "ADD_CHORD" });
+                }}
+              >
+                Add Chord
+              </Button>
+            </div>
+          )}
+
+          {state.pendingSection.bars.length > 0 && (
+            <div className="mb-4">
+              <h2>Pending Section</h2>
+
+              <SectionTag typeName={state.pendingSection.type} />
+
+              <PendingSectionDnd
+                section={state.pendingSection as SongSection}
+                timeSignature={state.song.timeSignature}
+                onReorder={({ barId, newOrderIds }) => {
+                  dispatch({ type: "REORDER_CHORDS_IN_BAR", barId, order: newOrderIds })
+                }}
+                renderChord={(id) => (
+                  <button
+                    type="button"
+                    className="ml-1 text-red-500 hover:text-red-700"
+                    onClick={() => dispatch({ type: "DELETE_CHORD", v: id })}
+                    aria-label="Delete chord"
+                    title="Delete chord"
+                  >
+                    &times;
+                  </button>
+                )}
+              />
+
+              <div className="mb-4">
+                <Button
+                  type="button"
+                  variant="primary"
+                  onClick={() => dispatch({ type: "FINALIZE_SECTION" })}
+                >
+                  Finalize Section
+                </Button>
+              </div>
+            </div>
+          )}
+
+          {state.pendingSection.bars.length > 0 && (
+
+            <div className="mb-4">
+              <h2>Pending Section</h2>
+              <SectionTag typeName={state.pendingSection.type} />
+              <Sections 
+                section={state.pendingSection as SongSection} 
+                timeSignature={song.timeSignature}
+                renderChord={(id) => (
+                  <button
+                    type="button"
+                    className="ml-1 text-red-500 hover:text-red-700"
+                    onClick={() => dispatch({ type: "DELETE_CHORD", v: id })}
+                  >
+                    &times;
+                  </button>
+                )}
+              />
+
+              <div className="mb-4">
+                  <Button
+                    type="button"
+                    variant="primary"
+                    onClick={() => {
+                      dispatch({ type: "FINALIZE_SECTION" });
+                    }}
+                  >
+                    Finalize Section
+                  </Button>
+              </div>
+            </div>
+          )}
+
+          {state.song.songSections.length > 0 && 
+            <>
+                <h2>Temporary Song</h2>
+                <Song song={song} />
+            </>
+          }
+          
+          <div className="mb-4">
+            <Button 
+              type="submit"
+              variant="primary"
+            >Add Song</Button>
+          </div>
+      </div>
+    </form>
+  )
 }
+

@@ -176,7 +176,7 @@ const reducer = (state: State, action: Action): State => {
   }
 }
 
-export const useSongBuilder = () => {
+export const useSongForm = () => {
   const [state, dispatch] = useReducer(reducer, {
     song: initialState,
     pendingSection: {
