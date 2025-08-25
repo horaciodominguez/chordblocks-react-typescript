@@ -1,5 +1,6 @@
 import { Chord } from "@/modules/chords/components/Chord"
 import type { SongSection, TimeSignature } from "../types/song.types"
+import { barWidthByTS } from "@/utils/widthByTS"
 
 
 type Props = {
@@ -15,9 +16,7 @@ export const Sections = ({section, timeSignature, renderChord}: Props) => {
 			//POR CADA COMPAS
 			section.bars.map(
 				bar => {
-					const width = timeSignature.beatsPerMeasure === 3
-						|| timeSignature.beatsPerMeasure === 6 ?
-						`${100 / 3}%` : `${100 / 4}%`
+					const width = barWidthByTS(timeSignature.beatsPerMeasure)
 					return (
 						//CONTENEDOR DE COMPAS
 						<div style={{width}} key={bar.id} className="flex divide-x-1 divide-blue-900 mb-4">
