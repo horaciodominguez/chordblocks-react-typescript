@@ -2,7 +2,8 @@
 
 
 import Input from "@/components/ui/Input"
-import { beatsPerMeasureValues, noteValues, SECTION_OPTIONS, type SectionType, type SongSection, type Song as SongType } from "../types/song.types"
+import { beatsPerMeasureValues, noteValues, SECTION_OPTIONS} from "../constants/song"
+import {  type SectionType, type SongSection, type Song as SongType } from "../types/song.types"
 
 import Button from "@/components/ui/Button"
 import { Select } from "@/components/ui/Select"

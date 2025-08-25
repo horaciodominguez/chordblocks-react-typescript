@@ -5,14 +5,13 @@ import Button from "@/components/ui/Button"
 import Input from "@/components/ui/Input"
 import { Select } from "@/components/ui/Select"
 
+import { SECTION_OPTIONS, beatsPerMeasureValues, noteValues } from "../constants/song"
+
 import { 
     type Song as SongType,
     type SongSection,
     type SectionType, 
     type Bar,
-    SECTION_OPTIONS, 
-    beatsPerMeasureValues,
-    noteValues,
     type BarChord
     
 } from "@/modules/songs/types/song.types"
