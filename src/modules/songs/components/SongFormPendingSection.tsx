@@ -4,12 +4,14 @@ import { Select } from "@/components/ui/Select"
 import { beatsPerMeasureValues, SECTION_OPTIONS } from "../constants/song";
 import { type SectionType, type SongSection, type Song as SongType } from "../types/song.types"
 
+import type { Action } from "../state/songFormReducer"
+
 import { chordsData } from "@/modules/chords/data/chords";
 import { SectionTag } from "./SectionTag";
 import { PendingSectionDnd } from "./PendingSectionDnd";
 
 type Props = {
-  dispatch: React.Dispatch<any>,
+  dispatch: React.Dispatch<Action>,
   state: {
     song: SongType,
     pendingSection: SongSection,

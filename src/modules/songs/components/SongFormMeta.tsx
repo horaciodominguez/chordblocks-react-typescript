@@ -5,8 +5,10 @@ import type { Song as SongType } from "../types/song.types"
 
 import { beatsPerMeasureValues, noteValues } from "../constants/song"
 
+import type { Action } from "../state/songFormReducer"
+
 type Props = {
-  dispatch: React.Dispatch<any>,
+  dispatch: React.Dispatch<Action>,
   song: SongType
 } 
 

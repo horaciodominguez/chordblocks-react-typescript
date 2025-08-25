@@ -1,5 +1,5 @@
 import { useReducer } from "react"
-import { reducer, initialSong } from "../state/songFormReducer"
+import { reducer, initialSong, type Action } from "../state/songFormReducer"
 
 export const useSongForm = () => {
   const [state, dispatch] = useReducer(reducer, {
@@ -14,5 +14,5 @@ export const useSongForm = () => {
     availableBeats: 4
   })
 
-  return { state, dispatch }
+  return { state, dispatch } as { state: typeof state; dispatch: React.Dispatch<Action> }
 }

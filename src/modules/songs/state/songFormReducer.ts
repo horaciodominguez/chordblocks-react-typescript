@@ -9,7 +9,7 @@ import type {
 
 import { beatsCap, nextBeatsValue, remainingBeats } from "../utils/beats"
 
-type State = {
+export type State = {
   song: SongType
   pendingSection: SongSection
   pendingChordName: string
@@ -17,7 +17,7 @@ type State = {
   availableBeats: number
 }
 
-type Action =
+export type Action =
   | { type: "SET_TITLE"; v: string }
   | { type: "SET_AUTHOR"; v: string }
   | { type: "SET_TIME_SIGNATURE"; v: TimeSignature }
