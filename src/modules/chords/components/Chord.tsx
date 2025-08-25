@@ -1,5 +1,6 @@
 import React, { forwardRef } from "react"
 import type { BarChord, TimeSignature } from "@/modules/songs/types/song.types"
+import { chordWidth } from "@/utils/widthByTS"
 
 type Props = {
 	timeSignature: TimeSignature,
@@ -13,7 +14,8 @@ type Props = {
 export const Chord = forwardRef<HTMLDivElement, Props>(
   ({ timeSignature,  chord , renderChord, dragStyle, dragAttributes, dragListeners }, ref) => {
 
-	const width = `${(chord.duration / timeSignature.beatsPerMeasure) * 100}%`
+	const width = chordWidth(chord.duration, timeSignature.beatsPerMeasure)
+
 	return (
 		<div 
 			ref={ref}
