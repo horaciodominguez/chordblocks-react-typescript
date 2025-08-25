@@ -1,7 +1,7 @@
 import { useReducer } from "react"
 import { v4 as uuidv4 } from 'uuid'
 import type {Song as SongType, SongSection, SectionType, TimeSignature, BarChord} from "@/modules/songs/types/song.types"
-import { beatsCap, nextBeatsValue, remainingBeats } from "../helpers/song"
+import { beatsCap, nextBeatsValue, remainingBeats } from "../utils/beats"
 
 type State = {
   song: SongType
