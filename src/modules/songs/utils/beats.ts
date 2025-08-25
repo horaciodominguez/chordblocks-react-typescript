@@ -1,3 +1,4 @@
+import { BEAT_VALUES } from "../constants/song"
 import type { Bar } from "../types/song.types"
 
 /**
@@ -19,7 +20,7 @@ export const beatsCap = (bpm: number, remaining: number) =>
  */
 
 export const nextBeatsValue = (cap: number) => {
-  const opts = [1,2,3,4,5,6,7,8,9].filter(v => v <= cap)
+  const opts = BEAT_VALUES.filter(v => v <= cap)
   return String(opts.includes(4) ? 4 : opts[opts.length - 1])
 }
 

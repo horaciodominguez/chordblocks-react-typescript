@@ -1,7 +1,7 @@
 
 import Button from "@/components/ui/Button"
 import { Select } from "@/components/ui/Select"
-import { beatsPerMeasureValues, SECTION_OPTIONS } from "../constants/song";
+import { BEAT_VALUES, SECTION_OPTIONS } from "../constants/song";
 import { type SectionType, type SongSection, type Song as SongType } from "../types/song.types"
 
 import type { Action } from "../state/songFormReducer"
@@ -57,7 +57,7 @@ export function SongFormPendingSection({ dispatch, state }: Props) {
               <Select
                 name="addBeats"
                 label="Beats"
-                options={beatsPerMeasureValues.filter((v) => v <= state.availableBeats)}
+                options={BEAT_VALUES.filter((v) => v <= state.availableBeats)}
                 onChange={(e) => {
                   if (e.target.value) {
                     dispatch({ type: "ADD_BEATS", v: e.target.value });

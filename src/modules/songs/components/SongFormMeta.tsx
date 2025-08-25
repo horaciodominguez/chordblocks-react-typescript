@@ -3,7 +3,7 @@ import { Select } from "@/components/ui/Select"
 import type { Song as SongType } from "../types/song.types"
 
 
-import { beatsPerMeasureValues, noteValues } from "../constants/song"
+import { BEAT_VALUES, noteValues } from "../constants/song"
 
 import type { Action } from "../state/songFormReducer"
 
@@ -37,7 +37,7 @@ export function SongFormMeta({ dispatch, song }: Props) {
               <Select
                 name="beatsPerMeasure"
                 label="Beats Per Measure"
-                options={beatsPerMeasureValues}
+                options={BEAT_VALUES}
                 onChange={(e) => {
                   dispatch({ type: "SET_TIME_SIGNATURE", v: { ...song.timeSignature, beatsPerMeasure: parseInt(e.target.value) } });
                 }}
