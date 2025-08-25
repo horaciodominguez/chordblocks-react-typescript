@@ -1,4 +1,5 @@
 import React from "react"
+import { barWidthByTS } from "@/utils/widthByTS"
 import {
   DndContext,
   PointerSensor,
@@ -23,10 +24,6 @@ type Props = {
   timeSignature: TimeSignature
   onReorder: (payload: { barId: string; newOrderIds: string[] }) => void
   renderChord?: (chordId: string) => React.ReactNode
-}
-
-function widthByTS(bpm: number) {
-  return bpm === 3 || bpm === 6 ? `${100 / 3}%` : `${100 / 4}%`
 }
 
 function SortableChord({
@@ -106,7 +103,7 @@ export function PendingSectionDnd({
     >
       <div className="flex flex-wrap divide-x-2 divide-blue-300 mb-4">
         {section.bars.map(bar => {
-          const width = widthByTS(timeSignature.beatsPerMeasure)
+          const width = barWidthByTS(timeSignature.beatsPerMeasure)
           const items = bar.chords.map(c => c.id)
 
           return (
