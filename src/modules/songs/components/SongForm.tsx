@@ -8,7 +8,7 @@ import { type Song as SongType } from "../types/song.types"
 import { Song } from "./Song"
 import { useSongForm } from "../hooks/useSongForm"
 import { SongFormMeta } from "./SongFormMeta"
-import { SongFormPendingSection } from "./songFormPendingSection"
+import { SongFormPendingSection } from "./SongFormPendingSection"
 
 type Props = {
   handleAddSong: (song: SongType) => void
