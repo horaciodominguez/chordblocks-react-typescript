@@ -1,3 +1,4 @@
+import Label from "./Label"
 
 type Props = {
     name: string,
@@ -15,7 +16,7 @@ export const Select = ({name, label, options, value, onChange, defaultValue, ref
     const isControlled = value !== undefined && onChange !== undefined
     return (
         <>
-            <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="beatsPerMeasure">{label}:</label>
+            <Label htmlFor={name}>{label}</Label>
             <select 
                 name={name}
                 id={name}

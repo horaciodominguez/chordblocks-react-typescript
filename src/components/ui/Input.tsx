@@ -1,3 +1,5 @@
+import Label from "./Label"
+
 type Props = React.InputHTMLAttributes<HTMLInputElement> & {
     name: string,
     label: string,
@@ -9,7 +11,7 @@ type Props = React.InputHTMLAttributes<HTMLInputElement> & {
 export default function Input ({ name, label, value, type="text", onChange } : Props) {
     return (
         <>
-            <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor={name}>{label}</label>
+            <Label htmlFor={name}>{label}</Label>
             <input 
                 id={name} 
                 name={name}
