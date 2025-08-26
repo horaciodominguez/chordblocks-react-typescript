@@ -5,7 +5,8 @@ type Props = {
     name: string,
     label: string,
     options: readonly (string | number)[]
-
+    disabled?: boolean,
+    disabledMessage?: string,
     value?: string | number,
     onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void,
     defaultValue?: string,
@@ -13,7 +14,7 @@ type Props = {
     
 }
 
-export const Select = ({name, label, options, value, onChange, defaultValue, ref }: Props) => {
+export const Select = ({name, label, options, disabled, disabledMessage, value, onChange, defaultValue, ref }: Props) => {
     const isControlled = value !== undefined && onChange !== undefined
 
     const [isEditing, setIsEditing] = useState(false)
@@ -23,10 +24,22 @@ export const Select = ({name, label, options, value, onChange, defaultValue, ref
     return (
         <>
             <Label htmlFor={name}>{label}</Label>
+            { 
+            disabled && disabledMessage 
+            ? 
+            <div 
+                onClick={() => alert(disabledMessage)}
+                className="w-full border border-gray-900 px-3 py-2 rounded-md cursor-text"
+                title={label} >
+                { value ||  defaultValue }
+            </div>
+            :
             <select 
                 name={name}
                 id={name}
                 onChange={onChange}
+                disabled={disabled}
+                aria-label={label}
                 { ...(isControlled) ? {value} : { defaultValue, ref} }
                 onClick={() => setIsEditing(true)}
                 onBlur={() => setIsEditing(false)}
@@ -43,6 +56,7 @@ export const Select = ({name, label, options, value, onChange, defaultValue, ref
                 }
                 
             </select>
+    }
         </>
     )
 }

@@ -9,7 +9,7 @@ import type {
 
 import { beatsCap, nextBeatsValue, remainingBeats } from "../utils/beats"
 
-export type State = {
+export type SongFormState = {
   song: SongType
   pendingSection: SongSection
   pendingChordName: string
@@ -41,7 +41,7 @@ export const initialSong: SongType  = {
   songSections: [] as SongSection[]
 }
 
-export const reducer = (state: State, action: Action): State => {
+export const reducer = (state: SongFormState, action: Action): SongFormState => {
   switch (action.type) {
     case "SET_TITLE":
       return { ...state, song: { ...state.song, title: action.v } }

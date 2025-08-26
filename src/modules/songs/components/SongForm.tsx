@@ -22,7 +22,7 @@ export const SongForm = ({ handleAddSong }: Props) => {
 
     <div className="flex flex-col gap-4">
             
-      <SongFormMeta dispatch={dispatch} song={song} />
+      <SongFormMeta dispatch={dispatch} state={state} song={song} />
 
       <SongFormPendingSection dispatch={dispatch} state={state} />
 

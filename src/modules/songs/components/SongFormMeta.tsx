@@ -1,19 +1,18 @@
 
+import InputInline from "@/components/ui/InputInline"
 import { Select } from "@/components/ui/Select"
+import { BEAT_VALUES, noteValues } from "../constants/song"
+import type { Action, SongFormState } from "../state/songFormReducer"
 import type { Song as SongType } from "../types/song.types"
 
 
-import { BEAT_VALUES, noteValues } from "../constants/song"
-
-import type { Action } from "../state/songFormReducer"
-import InputInline from "@/components/ui/InputInline"
-
 type Props = {
   dispatch: React.Dispatch<Action>,
+  state: SongFormState,
   song: SongType
 } 
 
-export function SongFormMeta({ dispatch, song }: Props) {
+export function SongFormMeta({ dispatch, state, song }: Props) {
   return (
     <>
       <div className="mb-4">
@@ -26,7 +25,7 @@ export function SongFormMeta({ dispatch, song }: Props) {
       </div>
       <div className="mb-4">
         <div className="flex">
-          <div className="w-1/2 mr-2">
+          <div className="w-2/3 mr-2">
             <InputInline
               label="Author"
               name="author"
@@ -34,7 +33,7 @@ export function SongFormMeta({ dispatch, song }: Props) {
               value={song.author}
             />
           </div>
-          <div className="w-1/2 ml-2">
+          <div className="w-1/3 ml-2">
             <div className="flex gap-4">
               <div className="w-1/2">
                 <Select
@@ -44,7 +43,10 @@ export function SongFormMeta({ dispatch, song }: Props) {
                   onChange={(e) => {
                     dispatch({ type: "SET_TIME_SIGNATURE", v: { ...song.timeSignature, beatsPerMeasure: parseInt(e.target.value) } });
                   }}
-                  value={song.timeSignature.beatsPerMeasure.toString()} />
+                  value={song.timeSignature.beatsPerMeasure.toString()} 
+                  disabled={ state.song.songSections.length > 0 || state.pendingSection.id !== "" }
+                  disabledMessage="Cannot change time signature after adding sections. Delete sections to change."
+                  />
               </div>
               <div className="w-1/2">
                 <Select
@@ -54,7 +56,10 @@ export function SongFormMeta({ dispatch, song }: Props) {
                   onChange={(e) => {
                     dispatch({ type: "SET_TIME_SIGNATURE", v: { ...song.timeSignature, noteValue: parseInt(e.target.value) } });
                   }}
-                  value={song.timeSignature.noteValue.toString()} />
+                  value={song.timeSignature.noteValue.toString()} 
+                  disabled={ state.song.songSections.length > 0 || state.pendingSection.id !== "" }
+                  disabledMessage="Cannot change time signature after adding sections. Delete sections to change."
+                  />
               </div>
             </div>
           </div>

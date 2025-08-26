@@ -1,26 +1,19 @@
 
-import Button from "@/components/ui/Button"
-import { Select } from "@/components/ui/Select"
+import Button from "@/components/ui/Button";
+import { Select } from "@/components/ui/Select";
 import { BEAT_VALUES, SECTION_OPTIONS } from "../constants/song";
-import { type SectionType, type SongSection, type Song as SongType } from "../types/song.types"
-
-import type { Action } from "../state/songFormReducer"
+import { type SectionType, type SongSection } from "../types/song.types";
 
 import { chordsData } from "@/modules/chords/data/chords";
-import { SectionTag } from "./SectionTag";
-import { PendingSectionDnd } from "./PendingSectionDnd";
 import { useState } from "react";
+import type { Action, SongFormState } from "../state/songFormReducer";
+import { PendingSectionDnd } from "./PendingSectionDnd";
 import { Sections } from "./Sections";
+import { SectionTag } from "./SectionTag";
 
 type Props = {
   dispatch: React.Dispatch<Action>,
-  state: {
-    song: SongType,
-    pendingSection: SongSection,
-    pendingChordName: string,
-    pendingBeats: string,
-    availableBeats: number
-  }
+  state: SongFormState
 } 
 
 export function SongFormPendingSection({ dispatch, state }: Props) {
