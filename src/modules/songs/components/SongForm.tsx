@@ -1,12 +1,6 @@
-
-
-
 import Button from "@/components/ui/Button"
-
-import { type Song as SongType } from "../types/song.types"
-
-import { Song } from "./Song"
 import { useSongForm } from "../hooks/useSongForm"
+import { type Song as SongType } from "../types/song.types"
 import { SongFormMeta } from "./SongFormMeta"
 import { SongFormPendingSection } from "./SongFormPendingSection"
 
@@ -31,13 +25,6 @@ export const SongForm = ({ handleAddSong }: Props) => {
       <SongFormMeta dispatch={dispatch} song={song} />
 
       <SongFormPendingSection dispatch={dispatch} state={state} />
-
-      {state.song.songSections.length > 0 && 
-        <>
-            <h2>Temporary Song</h2>
-            <Song song={song} />
-        </>
-      }
 
       <div className="mb-4">
         <Button 
