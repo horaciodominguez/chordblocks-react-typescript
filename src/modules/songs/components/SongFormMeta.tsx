@@ -6,6 +6,7 @@ import type { Song as SongType } from "../types/song.types"
 import { BEAT_VALUES, noteValues } from "../constants/song"
 
 import type { Action } from "../state/songFormReducer"
+import InputInline from "@/components/ui/InputInline"
 
 type Props = {
   dispatch: React.Dispatch<Action>,
@@ -16,7 +17,7 @@ export function SongFormMeta({ dispatch, song }: Props) {
   return (
     <>
       <div className="mb-4">
-        <Input
+        <InputInline 
           label="Title"
           name="title"
           onChange={(e) => dispatch({ type: "SET_TITLE", v: e.target.value })}
@@ -24,7 +25,7 @@ export function SongFormMeta({ dispatch, song }: Props) {
         />
       </div>
       <div className="mb-4">
-        <Input
+        <InputInline
           label="Author"
           name="author"
           onChange={(e) => dispatch({ type: "SET_AUTHOR", v: e.target.value })}
