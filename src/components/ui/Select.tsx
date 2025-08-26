@@ -1,3 +1,4 @@
+import { useState } from "react"
 import Label from "./Label"
 
 type Props = {
@@ -14,6 +15,11 @@ type Props = {
 
 export const Select = ({name, label, options, value, onChange, defaultValue, ref }: Props) => {
     const isControlled = value !== undefined && onChange !== undefined
+
+    const [isEditing, setIsEditing] = useState(false)
+
+    const baseClass = "w-full border  px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+
     return (
         <>
             <Label htmlFor={name}>{label}</Label>
@@ -22,7 +28,10 @@ export const Select = ({name, label, options, value, onChange, defaultValue, ref
                 id={name}
                 onChange={onChange}
                 { ...(isControlled) ? {value} : { defaultValue, ref} }
-                className="w-full border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                onClick={() => setIsEditing(true)}
+                onBlur={() => setIsEditing(false)}
+                
+                className={`${baseClass} ${isEditing ? "border-gray-300" : "border-gray-900"}`}
                 >
                 {
                     (defaultValue!=undefined && defaultValue==="") ? <option value="" disabled>SELECT...</option> : ""
