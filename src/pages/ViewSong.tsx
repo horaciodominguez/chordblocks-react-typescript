@@ -13,12 +13,12 @@ export default function ViewSong ({songs}: Props) {
     const song = songs.find(s => s.id === id)
 
     if (!song) {
-        return <div>Canción no encontrada</div>
+        return <div>Song not found</div>
     }
 
     return (
         <>
-            <h2>View Song</h2>
+            <h2 className="text-gray-300 font-bold text-center  ">View Song</h2>
             <Song song={song} />
         </>
     )

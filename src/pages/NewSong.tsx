@@ -15,7 +15,7 @@ export default function NewSong ({ songs, setSongs }: Props) {
 
   return (
     <>
-      <h2>New Song</h2>
+      <h2 className="text-gray-300 font-bold text-center  ">New Song</h2>
       <SongForm handleAddSong={handleAddSong} />
     </>
   )
