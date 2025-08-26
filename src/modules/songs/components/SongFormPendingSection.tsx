@@ -23,9 +23,19 @@ export function SongFormPendingSection({ dispatch, state }: Props) {
 
   return (
     <>
+      { state.song.songSections.length > 0 && (
+          <div className="mb-4">
+            {state.song.songSections.map(section => (
+              <div key={section.id} className="mb-2">
+                <SectionTag typeName={section.type} />
+                <Sections section={section} timeSignature={state.song.timeSignature} />
+              </div>
+            ))}
+          </div>
+        )
+      }
 
-      {
-        isEditingSection ? (
+      { isEditingSection ? (
 
           <div className="border-[.1px] border-gray-700 bg-black/20 rounded-md p-4 shadow-sm">
             <div className="mb-4">
@@ -132,19 +142,6 @@ export function SongFormPendingSection({ dispatch, state }: Props) {
 
         ) : (
           <div className="mb-4">
-
-            {
-            state.song.songSections.length > 0 && (
-              
-              state.song.songSections.map(section => (
-                <div key={section.id} className="mb-2">
-                  <SectionTag typeName={section.type} />
-                  <Sections section={section} timeSignature={state.song.timeSignature} />
-                </div>
-              ))
-               
-            )}
-
             <Button
               type="button"
               variant="secondary"
