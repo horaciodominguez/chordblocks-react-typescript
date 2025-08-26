@@ -47,7 +47,7 @@ export const Select = ({name, label, options, disabled, disabledMessage, value, 
                 className={`${baseClass} ${isEditing ? "border-gray-300" : "border-gray-900"}`}
                 >
                 {
-                    (defaultValue!=undefined && defaultValue==="") ? <option value="" disabled>SELECT...</option> : ""
+                    (defaultValue!=undefined && defaultValue==="") ? <option value="" >SELECT...</option> : ""
                 }
                 {
                     options.map(option=>(

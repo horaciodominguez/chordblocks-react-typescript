@@ -6,7 +6,7 @@ export const useSongForm = () => {
     song: initialSong,
     pendingSection: {
       id: "",
-      type: "VERSE",
+      type: "",
       bars: []
     },
     pendingChordName: "",

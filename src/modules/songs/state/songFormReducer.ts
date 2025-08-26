@@ -2,16 +2,16 @@ import { v4 as uuidv4 } from 'uuid'
 
 import type {
   Song as SongType, 
-  SongSection, 
-  SectionType, 
   TimeSignature,
-  BarChord} from "@/modules/songs/types/song.types"
+  } from "@/modules/songs/types/song.types"
 
 import { beatsCap, nextBeatsValue, remainingBeats } from "../utils/beats"
+import type { SectionType, SongSection, PendingSongSection } from '../types/section.types'
+import type { BarChord } from '../types/bar.types'
 
 export type SongFormState = {
   song: SongType
-  pendingSection: SongSection
+  pendingSection: PendingSongSection
   pendingChordName: string
   pendingBeats: string,
   availableBeats: number
@@ -59,7 +59,7 @@ export const reducer = (state: SongFormState, action: Action): SongFormState => 
       }
 
     case "ADD_SECTION_TYPE":
-      const newSection: SongSection = {
+      const newSection: PendingSongSection = {
         id: uuidv4(),
         type: action.v,
         bars: []
@@ -146,31 +146,36 @@ export const reducer = (state: SongFormState, action: Action): SongFormState => 
       }
 
     case "FINALIZE_SECTION":
-      if (state.pendingSection.id === "") return state
+    
+      if (state.pendingSection.id === "" || state.pendingSection.type === "") return state
+
+      const sectionToAdd: SongSection = {
+        id: state.pendingSection.id,
+        type: state.pendingSection.type as SectionType,
+        bars: state.pendingSection.bars
+      }
+
+      const bpMueasure = state.song.timeSignature.beatsPerMeasure
+
       return {
         ...state,
         song: {
           ...state.song,
-          songSections: [...state.song.songSections, state.pendingSection]
+          songSections: [...state.song.songSections, sectionToAdd]
         },
-        pendingSection: {
-          id: "",
-          type: "VERSE",
-          bars: []
-        },
+        
+        pendingSection: { id: "", type: "", bars: [] },
         pendingChordName: "",
         pendingBeats: "4",
-        availableBeats: state.song.timeSignature.beatsPerMeasure
+        availableBeats: bpMueasure
       }
+
 
     case "RESET":
       return {
+        ...state,
         song: initialSong,
-        pendingSection: {
-          id: "",
-          type: "VERSE",
-          bars: []
-        },
+        pendingSection: { id: "", type: "", bars: [] },
         pendingChordName: "",
         pendingBeats: "4",
         availableBeats: 4

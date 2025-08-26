@@ -1,6 +1,7 @@
 import React, { forwardRef } from "react"
-import type { BarChord, TimeSignature } from "@/modules/songs/types/song.types"
+import type { TimeSignature } from "@/modules/songs/types/song.types"
 import { chordWidth } from "@/utils/widthByTS"
+import type { BarChord } from "@/modules/songs/types/bar.types"
 
 type Props = {
 	timeSignature: TimeSignature,

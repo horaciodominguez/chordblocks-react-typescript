@@ -16,8 +16,10 @@ import {
 } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
 
-import type { SongSection, TimeSignature, BarChord } from "../types/song.types"
+import type { TimeSignature } from "../types/song.types"
 import { Chord } from "@/modules/chords/components/Chord"
+import type { SongSection } from "../types/section.types"
+import type { BarChord } from "../types/bar.types"
 
 type Props = {
   section: SongSection

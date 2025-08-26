@@ -2,7 +2,7 @@
 import Button from "@/components/ui/Button";
 import { Select } from "@/components/ui/Select";
 import { BEAT_VALUES, SECTION_OPTIONS } from "../constants/song";
-import { type SectionType, type SongSection } from "../types/song.types";
+
 
 import { chordsData } from "@/modules/chords/data/chords";
 import { useState } from "react";
@@ -10,6 +10,7 @@ import type { Action, SongFormState } from "../state/songFormReducer";
 import { PendingSectionDnd } from "./PendingSectionDnd";
 import { Sections } from "./Sections";
 import { SectionTag } from "./SectionTag";
+import type { SectionType, SongSection } from "../types/section.types";
 
 type Props = {
   dispatch: React.Dispatch<Action>,
@@ -38,6 +39,7 @@ export function SongFormPendingSection({ dispatch, state }: Props) {
                   }
                 }}
                 value={state.pendingSection.type}
+                defaultValue=""
               />
             </div>
             {state.pendingSection.id !== "" && (

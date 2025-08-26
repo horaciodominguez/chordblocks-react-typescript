@@ -1,5 +1,5 @@
 import { BEAT_VALUES } from "../constants/song"
-import type { Bar } from "../types/song.types"
+import type { Bar } from "../types/bar.types"
 
 /**
  * Returns the maximum number of beats that can be used in a bar.
