@@ -26,7 +26,7 @@ export const SongForm = ({ handleAddSong }: Props) => {
 
       <SongFormPendingSection dispatch={dispatch} state={state} />
 
-      <div className="mb-4">
+      <div className="mb-4 justify-end flex">
         <Button 
           type="submit"
           variant="save"
