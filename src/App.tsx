@@ -15,34 +15,34 @@ import EditSong from "@/pages/EditSong"
 import { songsData } from "@/modules/songs/data/songs"
 
 function App() {
-
   const [songs, setSongs] = useState<Song[]>([])
 
-  useEffect(()=>{
-      setSongs(songsData)
+  useEffect(() => {
+    setSongs(songsData)
   }, [])
 
   return (
-
-    <main className="
+    <main
+      className="
       max-w-3xl mx-auto px-4 py-8
       flex flex-col justify-center align-middle 
       min-h-screen"
     >
-      
       <BrowserRouter>
-      <Header />
+        <Header />
         <Routes>
           <Route path="/" element={<Home songs={songs} />} />
           <Route path="/song/:id" element={<ViewSong songs={songs} />} />
           <Route path="/song/:id/edit" element={<EditSong />} />
-          <Route path="/new" element={<NewSong  songs={songs} setSongs={setSongs} />} />
+          <Route
+            path="/new"
+            element={<NewSong songs={songs} setSongs={setSongs} />}
+          />
         </Routes>
       </BrowserRouter>
       <Footer />
     </main>
-    )
+  )
 }
 
 export default App
-

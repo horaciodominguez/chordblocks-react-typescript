@@ -7,12 +7,15 @@ export const useSongForm = () => {
     pendingSection: {
       id: "",
       type: "",
-      bars: []
+      bars: [],
     },
     pendingChordName: "",
     pendingBeats: "4",
-    availableBeats: 4
+    availableBeats: 4,
   })
 
-  return { state, dispatch } as { state: typeof state; dispatch: React.Dispatch<Action> }
+  return { state, dispatch } as {
+    state: typeof state
+    dispatch: React.Dispatch<Action>
+  }
 }

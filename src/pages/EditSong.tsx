@@ -1,5 +1,3 @@
-export default function EditSong () {
-    return (
-        <h2>Edit Song</h2>
-    )
+export default function EditSong() {
+  return <h2>Edit Song</h2>
 }

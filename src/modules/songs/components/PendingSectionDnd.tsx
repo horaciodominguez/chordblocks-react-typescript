@@ -39,10 +39,11 @@ function SortableChord({
   barId: string
   renderChord?: (id: string) => React.ReactNode
 }) {
-  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({
-    id: chord.id,
-    data: { barId },
-  })
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({
+      id: chord.id,
+      data: { barId },
+    })
 
   const dragStyle: React.CSSProperties = {
     transform: CSS.Transform.toString(transform),
@@ -82,15 +83,15 @@ export function PendingSectionDnd({
     const toBarId = (over.data.current?.barId as string) || ""
     if (!fromBarId || fromBarId !== toBarId) return
 
-    const bar = section.bars.find(b => b.id === fromBarId)
+    const bar = section.bars.find((b) => b.id === fromBarId)
     if (!bar) return
 
-    const oldIndex = bar.chords.findIndex(c => c.id === active.id)
-    const newIndex = bar.chords.findIndex(c => c.id === over.id)
+    const oldIndex = bar.chords.findIndex((c) => c.id === active.id)
+    const newIndex = bar.chords.findIndex((c) => c.id === over.id)
     if (oldIndex < 0 || newIndex < 0) return
 
     const newOrderIds = arrayMove(
-      bar.chords.map(c => c.id),
+      bar.chords.map((c) => c.id),
       oldIndex,
       newIndex
     )
@@ -104,14 +105,21 @@ export function PendingSectionDnd({
       onDragEnd={handleDragEnd}
     >
       <div className="flex flex-wrap divide-x-2 divide-blue-300 mb-4">
-        {section.bars.map(bar => {
+        {section.bars.map((bar) => {
           const width = barWidthByTS(timeSignature.beatsPerMeasure)
-          const items = bar.chords.map(c => c.id)
+          const items = bar.chords.map((c) => c.id)
 
           return (
-            <div key={bar.id} style={{ width }} className="flex divide-x-1 divide-blue-900 mb-4">
-              <SortableContext items={items} strategy={horizontalListSortingStrategy}>
-                {bar.chords.map(chord => (
+            <div
+              key={bar.id}
+              style={{ width }}
+              className="flex divide-x-1 divide-blue-900 mb-4"
+            >
+              <SortableContext
+                items={items}
+                strategy={horizontalListSortingStrategy}
+              >
+                {bar.chords.map((chord) => (
                   <SortableChord
                     key={chord.id}
                     chord={chord}

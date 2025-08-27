@@ -6,36 +6,30 @@ import { SongFormPendingSection } from "./SongFormPendingSection"
 
 type Props = {
   handleAddSong: (song: SongType) => void
-};
+}
 
 export const SongForm = ({ handleAddSong }: Props) => {
-
   const { state, dispatch } = useSongForm()
   const { song } = state
 
   return (
+    <form
+      onSubmit={(e) => {
+        e.preventDefault()
+        handleAddSong(song)
+      }}
+    >
+      <div className="flex flex-col gap-4">
+        <SongFormMeta dispatch={dispatch} state={state} song={song} />
 
-    <form onSubmit={(e) => {
-      e.preventDefault()
-      handleAddSong(song)
-    }}>
+        <SongFormPendingSection dispatch={dispatch} state={state} />
 
-    <div className="flex flex-col gap-4">
-            
-      <SongFormMeta dispatch={dispatch} state={state} song={song} />
-
-      <SongFormPendingSection dispatch={dispatch} state={state} />
-
-      <div className="mb-4 justify-end flex">
-        <Button 
-          type="submit"
-          variant="save"
-        >Create Song</Button>
+        <div className="mb-4 justify-end flex">
+          <Button type="submit" variant="save">
+            Create Song
+          </Button>
+        </div>
       </div>
-
-      </div>
-
     </form>
   )
 }
-

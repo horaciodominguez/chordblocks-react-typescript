@@ -12,7 +12,3 @@ export interface TimeSignature {
   beatsPerMeasure: number
   noteValue: number
 }
-
-
-
-

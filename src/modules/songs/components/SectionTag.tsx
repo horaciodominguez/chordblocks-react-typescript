@@ -2,10 +2,11 @@ type Props = {
   typeName: string
 }
 
-export const SectionTag = ({typeName} : Props) => {
+export const SectionTag = ({ typeName }: Props) => {
   return (
     <>
-      <p className="
+      <p
+        className="
         inline-block 
         bg-blue-100/5
         text-violet-400/90  
@@ -16,8 +17,9 @@ export const SectionTag = ({typeName} : Props) => {
         text-xs 
         mr-2 
         mt-1 
-        mb-4">
-        { typeName }
+        mb-4"
+      >
+        {typeName}
       </p>
     </>
   )

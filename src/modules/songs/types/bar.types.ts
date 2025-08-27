@@ -1,4 +1,3 @@
-
 export interface BarChord {
   id: string
   name: string
@@ -7,5 +6,5 @@ export interface BarChord {
 
 export interface Bar {
   id: string
-  chords: BarChord[] 
+  chords: BarChord[]
 }

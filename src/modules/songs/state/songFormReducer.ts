@@ -1,19 +1,23 @@
-import { v4 as uuidv4 } from 'uuid'
+import { v4 as uuidv4 } from "uuid"
 
 import type {
-  Song as SongType, 
+  Song as SongType,
   TimeSignature,
-  } from "@/modules/songs/types/song.types"
+} from "@/modules/songs/types/song.types"
 
 import { beatsCap, nextBeatsValue, remainingBeats } from "../utils/beats"
-import type { SectionType, SongSection, PendingSongSection } from '../types/section.types'
-import type { BarChord } from '../types/bar.types'
+import type {
+  SectionType,
+  SongSection,
+  PendingSongSection,
+} from "../types/section.types"
+import type { BarChord } from "../types/bar.types"
 
 export type SongFormState = {
   song: SongType
   pendingSection: PendingSongSection
   pendingChordName: string
-  pendingBeats: string,
+  pendingBeats: string
   availableBeats: number
 }
 
@@ -31,18 +35,21 @@ export type Action =
   | { type: "FINALIZE_SECTION" }
   | { type: "RESET" }
 
-export const initialSong: SongType  = {
+export const initialSong: SongType = {
   id: uuidv4(),
   title: "",
   author: "",
   timeSignature: {
     beatsPerMeasure: 4,
-    noteValue: 4
+    noteValue: 4,
   },
-  songSections: [] as SongSection[]
+  songSections: [] as SongSection[],
 }
 
-export const reducer = (state: SongFormState, action: Action): SongFormState => {
+export const reducer = (
+  state: SongFormState,
+  action: Action
+): SongFormState => {
   switch (action.type) {
     case "SET_TITLE":
       return { ...state, song: { ...state.song, title: action.v } }
@@ -55,23 +62,26 @@ export const reducer = (state: SongFormState, action: Action): SongFormState => 
         ...state,
         song: {
           ...state.song,
-          timeSignature: { ...state.song.timeSignature, ...action.v }
-        }
+          timeSignature: { ...state.song.timeSignature, ...action.v },
+        },
       }
 
     case "ADD_SECTION_TYPE":
       if (state.pendingSection.id !== "") return state
-      
+
       const newSection: PendingSongSection = {
         id: uuidv4(),
         type: action.v,
-        bars: []
+        bars: [],
       }
       return {
         ...state,
         pendingBeats: state.song.timeSignature.beatsPerMeasure.toString(),
-        availableBeats: beatsCap(state.song.timeSignature.beatsPerMeasure, state.song.timeSignature.beatsPerMeasure),
-        pendingSection: newSection
+        availableBeats: beatsCap(
+          state.song.timeSignature.beatsPerMeasure,
+          state.song.timeSignature.beatsPerMeasure
+        ),
+        pendingSection: newSection,
       }
 
     case "ADD_CHORD_NAME":
@@ -81,7 +91,12 @@ export const reducer = (state: SongFormState, action: Action): SongFormState => 
       return { ...state, pendingBeats: action.v }
 
     case "ADD_CHORD":
-      if (state.pendingSection.id === "" || state.pendingChordName === "" || state.pendingBeats === "") return state
+      if (
+        state.pendingSection.id === "" ||
+        state.pendingChordName === "" ||
+        state.pendingBeats === ""
+      )
+        return state
 
       const bpm = state.song.timeSignature.beatsPerMeasure
       const beats = Math.max(1, parseInt(state.pendingBeats, 10) || 0)
@@ -89,7 +104,7 @@ export const reducer = (state: SongFormState, action: Action): SongFormState => 
       const chord: BarChord = {
         id: uuidv4(),
         name: state.pendingChordName,
-        duration: beats
+        duration: beats,
       }
 
       const bars = [...state.pendingSection.bars]
@@ -116,24 +131,32 @@ export const reducer = (state: SongFormState, action: Action): SongFormState => 
         pendingSection: { ...state.pendingSection, bars },
         pendingChordName: "",
         pendingBeats: nextBeatsValue(availableBeats),
-        availableBeats
+        availableBeats,
       }
 
     case "DELETE_CHORD":
       if (state.pendingSection.id === "") return state
-      const barsAfterDelete = state.pendingSection.bars.map(bar => ({
-        ...bar,
-        chords: bar.chords.filter(chord => chord.id !== action.v)
-      })).filter(bar => bar.chords.length > 0)
+      const barsAfterDelete = state.pendingSection.bars
+        .map((bar) => ({
+          ...bar,
+          chords: bar.chords.filter((chord) => chord.id !== action.v),
+        }))
+        .filter((bar) => bar.chords.length > 0)
       const lastAfterDelete = barsAfterDelete[barsAfterDelete.length - 1]
-      const availableBeatsAfterDelete = lastAfterDelete 
-        ? beatsCap(state.song.timeSignature.beatsPerMeasure, remainingBeats(lastAfterDelete, state.song.timeSignature.beatsPerMeasure)) 
+      const availableBeatsAfterDelete = lastAfterDelete
+        ? beatsCap(
+            state.song.timeSignature.beatsPerMeasure,
+            remainingBeats(
+              lastAfterDelete,
+              state.song.timeSignature.beatsPerMeasure
+            )
+          )
         : state.song.timeSignature.beatsPerMeasure
       return {
         ...state,
         pendingSection: { ...state.pendingSection, bars: barsAfterDelete },
         availableBeats: availableBeatsAfterDelete,
-        pendingBeats: nextBeatsValue(availableBeatsAfterDelete)
+        pendingBeats: nextBeatsValue(availableBeatsAfterDelete),
       }
 
     case "REORDER_CHORDS_IN_BAR":
@@ -142,10 +165,13 @@ export const reducer = (state: SongFormState, action: Action): SongFormState => 
         ...state,
         pendingSection: {
           ...state.pendingSection,
-          bars: state.pendingSection.bars.map(bar => {
+          bars: state.pendingSection.bars.map((bar) => {
             if (bar.id !== barId) return bar
-            const byId = new Map(bar.chords.map(c => [c.id, c]))
-            return { ...bar, chords: order.map(id => byId.get(id)!).filter(Boolean) }
+            const byId = new Map(bar.chords.map((c) => [c.id, c]))
+            return {
+              ...bar,
+              chords: order.map((id) => byId.get(id)!).filter(Boolean),
+            }
           }),
         },
       }
@@ -156,17 +182,17 @@ export const reducer = (state: SongFormState, action: Action): SongFormState => 
         pendingSection: { id: "", type: "", bars: [] },
         pendingChordName: "",
         pendingBeats: state.song.timeSignature.beatsPerMeasure.toString(),
-        availableBeats: state.song.timeSignature.beatsPerMeasure
+        availableBeats: state.song.timeSignature.beatsPerMeasure,
       }
 
     case "FINALIZE_SECTION":
-    
-      if (state.pendingSection.id === "" || state.pendingSection.type === "") return state
+      if (state.pendingSection.id === "" || state.pendingSection.type === "")
+        return state
 
       const sectionToAdd: SongSection = {
         id: state.pendingSection.id,
         type: state.pendingSection.type as SectionType,
-        bars: state.pendingSection.bars
+        bars: state.pendingSection.bars,
       }
 
       const bpMueasure = state.song.timeSignature.beatsPerMeasure
@@ -175,15 +201,14 @@ export const reducer = (state: SongFormState, action: Action): SongFormState => 
         ...state,
         song: {
           ...state.song,
-          songSections: [...state.song.songSections, sectionToAdd]
+          songSections: [...state.song.songSections, sectionToAdd],
         },
-        
+
         pendingSection: { id: "", type: "", bars: [] },
         pendingChordName: "",
         pendingBeats: bpMueasure.toString(),
-        availableBeats: bpMueasure
+        availableBeats: bpMueasure,
       }
-
 
     case "RESET":
       return {
@@ -192,7 +217,7 @@ export const reducer = (state: SongFormState, action: Action): SongFormState => 
         pendingSection: { id: "", type: "", bars: [] },
         pendingChordName: "",
         pendingBeats: "4",
-        availableBeats: 4
+        availableBeats: 4,
       }
 
     default:
