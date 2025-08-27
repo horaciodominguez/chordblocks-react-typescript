@@ -59,6 +59,8 @@ export const reducer = (state: SongFormState, action: Action): SongFormState => 
       }
 
     case "ADD_SECTION_TYPE":
+      if (state.pendingSection.id !== "") return state
+      
       const newSection: PendingSongSection = {
         id: uuidv4(),
         type: action.v,
@@ -66,6 +68,8 @@ export const reducer = (state: SongFormState, action: Action): SongFormState => 
       }
       return {
         ...state,
+        pendingBeats: state.song.timeSignature.beatsPerMeasure.toString(),
+        availableBeats: beatsCap(state.song.timeSignature.beatsPerMeasure, state.song.timeSignature.beatsPerMeasure),
         pendingSection: newSection
       }
 
