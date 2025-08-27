@@ -66,6 +66,7 @@ export function SongFormPendingSection({ dispatch, state }: Props) {
                         }
                       }}
                       value={state.pendingChordName}
+                      defaultValue=""
                     />
                   </div>
                   <div className="w-1/2">
