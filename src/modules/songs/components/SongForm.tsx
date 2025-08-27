@@ -29,8 +29,8 @@ export const SongForm = ({ handleAddSong }: Props) => {
       <div className="mb-4">
         <Button 
           type="submit"
-          variant="primary"
-        >Add Song</Button>
+          variant="save"
+        >Create Song</Button>
       </div>
 
       </div>

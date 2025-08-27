@@ -27,6 +27,7 @@ export type Action =
   | { type: "ADD_CHORD" }
   | { type: "DELETE_CHORD"; v: string }
   | { type: "REORDER_CHORDS_IN_BAR"; barId: string; order: string[] }
+  | { type: "CANCEL_SECTION" }
   | { type: "FINALIZE_SECTION" }
   | { type: "RESET" }
 
@@ -149,6 +150,15 @@ export const reducer = (state: SongFormState, action: Action): SongFormState => 
         },
       }
 
+    case "CANCEL_SECTION":
+      return {
+        ...state,
+        pendingSection: { id: "", type: "", bars: [] },
+        pendingChordName: "",
+        pendingBeats: state.song.timeSignature.beatsPerMeasure.toString(),
+        availableBeats: state.song.timeSignature.beatsPerMeasure
+      }
+
     case "FINALIZE_SECTION":
     
       if (state.pendingSection.id === "" || state.pendingSection.type === "") return state
@@ -170,7 +180,7 @@ export const reducer = (state: SongFormState, action: Action): SongFormState => 
         
         pendingSection: { id: "", type: "", bars: [] },
         pendingChordName: "",
-        pendingBeats: "4",
+        pendingBeats: bpMueasure.toString(),
         availableBeats: bpMueasure
       }
 

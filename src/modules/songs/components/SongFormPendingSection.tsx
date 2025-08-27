@@ -86,17 +86,19 @@ export function SongFormPendingSection({ dispatch, state }: Props) {
             )}
 
             {state.pendingSection.id !== "" && state.pendingChordName !== "" && state.pendingBeats !== "" && (
-              <div className="mb-4">
-                <Button
-                  type="button"
-                  variant="secondary"
-                  onClick={() => {
-                    dispatch({ type: "ADD_CHORD" });
-                    
-                  }}
-                >
-                  Add Chord
-                </Button>
+              <div className="mb-4 flex gap-4 mt-4 justify-end">
+                <div>
+                  <Button
+                    type="button"
+                    variant="primary"
+                    onClick={() => {
+                      dispatch({ type: "ADD_CHORD" });
+                      
+                    }}
+                  >
+                    Add Chord
+                  </Button>
+                </div>
               </div>
             )}
 
@@ -125,16 +127,29 @@ export function SongFormPendingSection({ dispatch, state }: Props) {
                   )}
                 />
 
-                <div className="mb-4">
-                  <Button
-                    type="button"
-                    variant="primary"
-                    onClick={
-                      () => (dispatch({ type: "FINALIZE_SECTION" }), setIsEditingSection(false))
-                    }
-                  >
-                    Finalize Section
-                  </Button>
+                <div className="mb-4 flex gap-4 mt-4 justify-end">
+                  <div >
+                    <Button
+                      type="button"
+                      variant="secondary"
+                      onClick={
+                        () => (dispatch({ type: "CANCEL_SECTION" }), setIsEditingSection(false))
+                      }
+                    >
+                      Cancel
+                    </Button>
+                  </div>
+                  <div>
+                    <Button
+                      type="button"
+                      variant="primary"
+                      onClick={
+                        () => (dispatch({ type: "FINALIZE_SECTION" }), setIsEditingSection(false))
+                      }
+                    >
+                      Create Section
+                    </Button>
+                  </div>
                 </div>
               </div>
             )}
@@ -144,7 +159,7 @@ export function SongFormPendingSection({ dispatch, state }: Props) {
           <div className="mb-4">
             <Button
               type="button"
-              variant="secondary"
+              variant="primary"
               onClick={() => setIsEditingSection(true)}
             >
               Add Section
