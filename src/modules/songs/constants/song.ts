@@ -8,6 +8,6 @@ export const SECTION_OPTIONS = [
   "OUTRO",
 ] as const
 
-export const BEAT_VALUES = [1, 2, 3, 4, 5, 6, 7, 8, 9] as const
+export const BEAT_VALUES = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] as const
 
 export const noteValues = [2, 4, 8] as const
