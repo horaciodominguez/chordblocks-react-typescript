@@ -14,14 +14,14 @@ export const beatsCap = (bpm: number, remaining: number) =>
 
 /**
  * Returns the next valid beats value as a string, given the cap.
- * Example: if cap is 4, returns "4", if cap is 3, returns "3", if cap is 5, returns "4", if cap is 1, returns "1".
+ * Example: if the cap is 4, returns "4", if the cap is 3, returns "3".
  * @param cap
  * @returns string value of the next valid beats value
  */
 
 export const nextBeatsValue = (cap: number) => {
   const opts = BEAT_VALUES.filter((v) => v <= cap)
-  return String(opts.includes(4) ? 4 : opts[opts.length - 1])
+  return String(opts[opts.length - 1])
 }
 
 /**
