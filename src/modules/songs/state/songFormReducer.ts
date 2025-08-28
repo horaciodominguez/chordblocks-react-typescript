@@ -216,8 +216,8 @@ export const reducer = (
         song: initialSong,
         pendingSection: { id: "", type: "", bars: [] },
         pendingChordName: "",
-        pendingBeats: "4",
-        availableBeats: 4,
+        pendingBeats: String(initialSong.timeSignature.beatsPerMeasure),
+        availableBeats: initialSong.timeSignature.beatsPerMeasure,
       }
 
     default:
