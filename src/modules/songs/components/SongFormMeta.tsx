@@ -25,12 +25,12 @@ export function SongFormMeta({ dispatch, state, song }: Props) {
         <div className="flex">
           <div className="w-2/3 mr-2">
             <InputInline
-              label="Author"
-              name="author"
+              label="Artist"
+              name="artist"
               onChange={(e) =>
-                dispatch({ type: "SET_AUTHOR", v: e.target.value })
+                dispatch({ type: "SET_ARTIST", v: e.target.value })
               }
-              value={song.author}
+              value={song.artist}
             />
           </div>
           <div className="w-1/3 ml-2">

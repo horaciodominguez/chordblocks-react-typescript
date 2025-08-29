@@ -3,7 +3,7 @@ import type { SongSection } from "./section.types"
 export interface Song {
   id: string
   title: string
-  author: string
+  artist: string
   timeSignature: TimeSignature
   songSections: SongSection[]
 }

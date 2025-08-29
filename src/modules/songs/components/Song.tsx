@@ -17,7 +17,7 @@ export const Song = ({ song }: Props) => {
       className="border-[.1px] border-gray-700 bg-gray-50/5 rounded-md p-4 shadow-sm"
     >
       <h3 className="font-medium">{song.title}</h3>
-      <p>{song.author}</p>
+      <p>{song.artist}</p>
       <p>
         Time Measure: {song.timeSignature.beatsPerMeasure} /{" "}
         {song.timeSignature.noteValue}

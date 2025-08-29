@@ -23,7 +23,7 @@ export type SongFormState = {
 
 export type Action =
   | { type: "SET_TITLE"; v: string }
-  | { type: "SET_AUTHOR"; v: string }
+  | { type: "SET_ARTIST"; v: string }
   | { type: "SET_TIME_SIGNATURE"; v: TimeSignature }
   | { type: "ADD_SECTION_TYPE"; v: SectionType }
   | { type: "ADD_CHORD_NAME"; v: string }
@@ -38,7 +38,7 @@ export type Action =
 export const initialSong: SongType = {
   id: uuidv4(),
   title: "",
-  author: "",
+  artist: "",
   timeSignature: {
     beatsPerMeasure: 4,
     noteValue: 4,
@@ -54,8 +54,8 @@ export const reducer = (
     case "SET_TITLE":
       return { ...state, song: { ...state.song, title: action.v } }
 
-    case "SET_AUTHOR":
-      return { ...state, song: { ...state.song, author: action.v } }
+    case "SET_ARTIST":
+      return { ...state, song: { ...state.song, artist: action.v } }
 
     case "SET_TIME_SIGNATURE":
       return {

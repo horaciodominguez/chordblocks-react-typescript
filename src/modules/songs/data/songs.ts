@@ -4,7 +4,7 @@ export const songsData: Song[] = [
   {
     id: "1",
     title: "Knockin' on Heaven's Door",
-    author: "Bob Dylan",
+    artist: "Bob Dylan",
     timeSignature: { beatsPerMeasure: 4, noteValue: 4 }, // 4/4
     songSections: [
       {
@@ -45,7 +45,7 @@ export const songsData: Song[] = [
   {
     id: "2",
     title: "Hallelujah",
-    author: "Leonard Cohen",
+    artist: "Leonard Cohen",
     timeSignature: { beatsPerMeasure: 6, noteValue: 8 }, // 6/8
     songSections: [
       {
@@ -86,7 +86,7 @@ export const songsData: Song[] = [
   {
     id: "3",
     title: "Let It Be",
-    author: "The Beatles",
+    artist: "The Beatles",
     timeSignature: { beatsPerMeasure: 4, noteValue: 4 }, // 4/4
     songSections: [
       {
@@ -127,7 +127,7 @@ export const songsData: Song[] = [
   {
     id: "4",
     title: "La Cumparsita",
-    author: "Gerardo Matos Rodríguez",
+    artist: "Gerardo Matos Rodríguez",
     timeSignature: { beatsPerMeasure: 2, noteValue: 4 }, // 2/4 (tango clásico)
     songSections: [
       {
