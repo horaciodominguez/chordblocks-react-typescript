@@ -7,7 +7,6 @@ type Props = React.InputHTMLAttributes<HTMLInputElement> & {
   value: string
   type?: string
   onChange: React.ChangeEventHandler<HTMLInputElement>
-  error?: string
 }
 
 export default function InputInline({
@@ -16,7 +15,6 @@ export default function InputInline({
   value,
   type = "text",
   onChange,
-  error,
 }: Props) {
   const inputRef = useRef<HTMLInputElement>(null)
   const [isEditing, setIsEditing] = useState(false)
@@ -50,9 +48,9 @@ export default function InputInline({
           defaultValue={value ?? ""}
           type={type}
           className="w-full border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-          onChange={onChange}
           onBlur={handleBlur}
           ref={inputRef}
+          onChange={onChange}
         />
       ) : (
         <>
@@ -62,7 +60,6 @@ export default function InputInline({
           >
             {value || <span className="text-gray-400">Edit {label}</span>}
           </div>
-          {error && <p className="mt-1 text-sm text-red-400">{error}</p>}
         </>
       )}
     </>

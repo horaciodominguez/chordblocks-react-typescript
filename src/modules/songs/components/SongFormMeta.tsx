@@ -3,16 +3,26 @@ import { Select } from "@/components/ui/Select"
 import { BEAT_VALUES, noteValues } from "../constants/song"
 import type { Action, SongFormState } from "../state/songFormReducer"
 import type { Song as SongType } from "../types/song.types"
-import type { ValidationErrorMap } from "../validation/song.validate"
 
 type Props = {
   dispatch: React.Dispatch<Action>
   state: SongFormState
   song: SongType
-  error?: ValidationErrorMap
+  errorTitle?: string
+  errorArtist?: string
+  errorBeats?: string
+  errorNote?: string
 }
 
-export function SongFormMeta({ dispatch, state, song, error }: Props) {
+export function SongFormMeta({
+  dispatch,
+  state,
+  song,
+  errorTitle,
+  errorArtist,
+  errorBeats,
+  errorNote,
+}: Props) {
   return (
     <>
       <div className="mb-4">
@@ -21,8 +31,10 @@ export function SongFormMeta({ dispatch, state, song, error }: Props) {
           name="title"
           onChange={(e) => dispatch({ type: "SET_TITLE", v: e.target.value })}
           value={song.title}
-          error={error?.title}
         />
+        {errorTitle && (
+          <p className="text-red-500 text-sm mt-1">{errorTitle}</p>
+        )}
       </div>
       <div className="mb-4">
         <div className="flex">
@@ -34,8 +46,10 @@ export function SongFormMeta({ dispatch, state, song, error }: Props) {
                 dispatch({ type: "SET_ARTIST", v: e.target.value })
               }
               value={song.artist}
-              error={error?.artist}
             />
+            {errorArtist && (
+              <p className="text-red-500 text-sm mt-1">{errorArtist}</p>
+            )}
           </div>
           <div className="w-1/3 ml-2">
             <div className="flex gap-4">

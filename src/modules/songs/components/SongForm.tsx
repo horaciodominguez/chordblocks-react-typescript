@@ -1,56 +1,55 @@
 import Button from "@/components/ui/Button"
-import { useSongForm } from "../hooks/useSongForm"
-import type { Song as SongType } from "../types/song.types"
 import { SongFormMeta } from "./SongFormMeta"
 import { SongFormPendingSection } from "./SongFormPendingSection"
+import { useSongForm } from "../hooks/useSongForm"
 
-import { useActionState } from "react"
-import {
-  validateSong,
-  type ValidationErrorMap,
-} from "../validation/song.validate"
+import { type SongParsed, SongSchema } from "../schemas/song.schema"
+import { validateSong } from "../validation/song.validate"
+import { useState } from "react"
 
 type Props = {
-  handleAddSong: (song: SongType) => void
+  handleAddSong: (song: SongParsed) => void
 }
-
-type FormState = { ok: boolean; errors: ValidationErrorMap }
 
 export const SongForm = ({ handleAddSong }: Props) => {
   const { state, dispatch } = useSongForm()
   const { song } = state
 
-  const [formState, formAction, isPending] = useActionState(
-    async () => {
-      const validation = validateSong(song)
+  const [formErrors, setFormErrors] = useState<
+    Partial<Record<keyof SongParsed, string>>
+  >({})
 
-      if (!validation.ok) {
-        return { ok: false, errors: validation.errors }
-      }
-
-      handleAddSong(validation.data)
-      dispatch({ type: "RESET" })
-      return { ok: true, errors: {} }
-    },
-
-    { ok: false, errors: {} } as FormState
-  )
+  const onSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    const result = validateSong(song)
+    if (result.ok) {
+      setFormErrors({})
+      handleAddSong(result.data)
+    } else {
+      setFormErrors(result.errors)
+    }
+  }
 
   return (
-    <form action={formAction} className="flex flex-col gap-2 text-white">
+    <form onSubmit={onSubmit} className="flex flex-col gap-2 text-white">
       <div className="flex flex-col gap-4">
         <SongFormMeta
           dispatch={dispatch}
           state={state}
           song={song}
-          error={formState?.errors}
+          errorTitle={formErrors["title"]}
+          errorArtist={formErrors["artist"]}
         />
 
-        <SongFormPendingSection dispatch={dispatch} state={state} />
+        <SongFormPendingSection
+          dispatch={dispatch}
+          state={state}
+          errorSection={formErrors["songSections"]}
+        />
 
         <div className="mb-4 justify-end flex">
-          <Button type="submit" variant="save" disabled={isPending}>
-            {isPending ? "Saving..." : "Create Song"}
+          <Button type="submit" variant="save">
+            Create Song
           </Button>
         </div>
       </div>

@@ -13,9 +13,14 @@ import type { SectionType, SongSection } from "../types/section.types"
 type Props = {
   dispatch: React.Dispatch<Action>
   state: SongFormState
+  errorSection?: string
 }
 
-export function SongFormPendingSection({ dispatch, state }: Props) {
+export function SongFormPendingSection({
+  dispatch,
+  state,
+  errorSection,
+}: Props) {
   const [isEditingSection, setIsEditingSection] = useState(false)
 
   return (
@@ -175,6 +180,10 @@ export function SongFormPendingSection({ dispatch, state }: Props) {
             Add Section
           </Button>
         </div>
+      )}
+
+      {errorSection && (
+        <p className="text-red-500 text-sm mt-1">{errorSection}</p>
       )}
     </>
   )

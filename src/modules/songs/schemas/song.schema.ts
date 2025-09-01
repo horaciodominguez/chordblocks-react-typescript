@@ -1,7 +1,6 @@
 import { z } from "zod"
 import { SECTION_OPTIONS, BEAT_VALUES, noteValues } from "../constants/song"
 
-// Helpers para “enum” numéricas
 const oneOfNumbers = (allowed: readonly number[], message: string) =>
   z
     .number()
@@ -33,7 +32,7 @@ export const TimeSignatureSchema = z.object({
 export const SongSchema = z.object({
   id: z.string(),
   title: z.string().min(1, "Title is required"),
-  artist: z.string().min(1, "Author is required"),
+  artist: z.string().min(1, "Artist is required"),
   timeSignature: TimeSignatureSchema,
   songSections: z.array(SectionSchema).min(1, "Add at least one section"),
 })
