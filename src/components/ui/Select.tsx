@@ -29,7 +29,7 @@ export const Select = ({
   const [isEditing, setIsEditing] = useState(false)
 
   const baseClass =
-    "w-full border  px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+    "w-full border text-white px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
 
   return (
     <>
@@ -37,7 +37,7 @@ export const Select = ({
       {disabled && disabledMessage ? (
         <div
           onClick={() => alert(disabledMessage)}
-          className="w-full border border-gray-900 px-3 py-2 rounded-md cursor-text"
+          className="w-full border border-gray-900 px-3 py-2 rounded-md "
           title={label}
         >
           {value || defaultValue}
@@ -57,12 +57,18 @@ export const Select = ({
           }`}
         >
           {defaultValue != undefined && defaultValue === "" ? (
-            <option value="">SELECT...</option>
+            <option value="" className="bg-gray-800 text-white">
+              SELECT...
+            </option>
           ) : (
             ""
           )}
           {options.map((option) => (
-            <option key={option} value={option}>
+            <option
+              key={option}
+              value={option}
+              className="bg-gray-800 text-white"
+            >
               {option}
             </option>
           ))}
