@@ -3,7 +3,7 @@ import { SongFormMeta } from "./SongFormMeta"
 import { SongFormPendingSection } from "./SongFormPendingSection"
 import { useSongForm } from "../hooks/useSongForm"
 
-import { type SongParsed, SongSchema } from "../schemas/song.schema"
+import { type SongParsed } from "../schemas/song.schema"
 import { validateSong } from "../validation/song.validate"
 import { useState } from "react"
 

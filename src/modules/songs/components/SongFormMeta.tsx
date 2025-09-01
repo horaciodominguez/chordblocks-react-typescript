@@ -10,8 +10,6 @@ type Props = {
   song: SongType
   errorTitle?: string
   errorArtist?: string
-  errorBeats?: string
-  errorNote?: string
 }
 
 export function SongFormMeta({
@@ -20,8 +18,6 @@ export function SongFormMeta({
   song,
   errorTitle,
   errorArtist,
-  errorBeats,
-  errorNote,
 }: Props) {
   return (
     <>
