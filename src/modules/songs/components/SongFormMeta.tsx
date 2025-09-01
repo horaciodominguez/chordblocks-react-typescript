@@ -3,14 +3,16 @@ import { Select } from "@/components/ui/Select"
 import { BEAT_VALUES, noteValues } from "../constants/song"
 import type { Action, SongFormState } from "../state/songFormReducer"
 import type { Song as SongType } from "../types/song.types"
+import type { ValidationErrorMap } from "../validation/song.validate"
 
 type Props = {
   dispatch: React.Dispatch<Action>
   state: SongFormState
   song: SongType
+  error?: ValidationErrorMap
 }
 
-export function SongFormMeta({ dispatch, state, song }: Props) {
+export function SongFormMeta({ dispatch, state, song, error }: Props) {
   return (
     <>
       <div className="mb-4">
@@ -19,6 +21,7 @@ export function SongFormMeta({ dispatch, state, song }: Props) {
           name="title"
           onChange={(e) => dispatch({ type: "SET_TITLE", v: e.target.value })}
           value={song.title}
+          error={error?.title}
         />
       </div>
       <div className="mb-4">
@@ -31,6 +34,7 @@ export function SongFormMeta({ dispatch, state, song }: Props) {
                 dispatch({ type: "SET_ARTIST", v: e.target.value })
               }
               value={song.artist}
+              error={error?.artist}
             />
           </div>
           <div className="w-1/3 ml-2">
