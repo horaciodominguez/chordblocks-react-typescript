@@ -11,6 +11,7 @@ type Props = {
   onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void
   defaultValue?: string
   ref?: React.Ref<HTMLSelectElement>
+  tabIndex?: number
 }
 
 export const Select = ({
@@ -23,6 +24,7 @@ export const Select = ({
   onChange,
   defaultValue,
   ref,
+  tabIndex,
 }: Props) => {
   const isControlled = value !== undefined && onChange !== undefined
 
@@ -39,6 +41,7 @@ export const Select = ({
           onClick={() => alert(disabledMessage)}
           className="w-full border border-gray-900 px-3 py-2 rounded-md "
           title={label}
+          tabIndex={tabIndex}
         >
           {value || defaultValue}
         </div>
@@ -55,6 +58,7 @@ export const Select = ({
           className={`${baseClass} ${
             isEditing ? "border-gray-300" : "border-gray-900"
           }`}
+          tabIndex={tabIndex}
         >
           {defaultValue != undefined && defaultValue === "" ? (
             <option value="" className="bg-gray-800 text-white">

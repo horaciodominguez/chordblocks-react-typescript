@@ -7,6 +7,7 @@ type Props = React.InputHTMLAttributes<HTMLInputElement> & {
   value: string
   type?: string
   onChange: React.ChangeEventHandler<HTMLInputElement>
+  tabIndex?: number
 }
 
 export default function InputInline({
@@ -15,6 +16,7 @@ export default function InputInline({
   value,
   type = "text",
   onChange,
+  tabIndex,
 }: Props) {
   const inputRef = useRef<HTMLInputElement>(null)
   const [isEditing, setIsEditing] = useState(false)
@@ -28,7 +30,7 @@ export default function InputInline({
     setIsEditing(false)
   }
 
-  const handleClick = () => {
+  const handleEdit = () => {
     setIsEditing(true)
     setTimeout(() => {
       if (inputRef.current) {
@@ -51,12 +53,15 @@ export default function InputInline({
           onBlur={handleBlur}
           ref={inputRef}
           onChange={onChange}
+          tabIndex={tabIndex}
         />
       ) : (
         <>
           <div
             className="w-full border border-gray-900 px-3 py-2 rounded-md cursor-text"
-            onClick={handleClick}
+            onClick={handleEdit}
+            onFocus={handleEdit}
+            tabIndex={tabIndex}
           >
             {value || <span className="text-gray-400">Edit {label}</span>}
           </div>

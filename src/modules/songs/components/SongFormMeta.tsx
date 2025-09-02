@@ -24,6 +24,7 @@ export function SongFormMeta({ dispatch, state, song }: Props) {
             }
           }}
           value={song.title}
+          tabIndex={1}
         />
         {state.errors?.title && (
           <p className="text-red-500 text-sm mt-1">{state.errors.title}</p>
@@ -42,6 +43,7 @@ export function SongFormMeta({ dispatch, state, song }: Props) {
                 }
               }}
               value={song.artist}
+              tabIndex={2}
             />
             {state.errors?.artist && (
               <p className="text-red-500 text-sm mt-1">{state.errors.artist}</p>
@@ -69,6 +71,7 @@ export function SongFormMeta({ dispatch, state, song }: Props) {
                     state.pendingSection.id !== ""
                   }
                   disabledMessage="Cannot change time signature after adding sections. Delete sections to change."
+                  tabIndex={3}
                 />
               </div>
               <div className="w-1/2">
@@ -91,6 +94,7 @@ export function SongFormMeta({ dispatch, state, song }: Props) {
                     state.pendingSection.id !== ""
                   }
                   disabledMessage="Cannot change time signature after adding sections. Delete sections to change."
+                  tabIndex={4}
                 />
               </div>
             </div>
