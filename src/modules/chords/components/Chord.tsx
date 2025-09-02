@@ -29,12 +29,12 @@ export const Chord = forwardRef<HTMLDivElement, Props>(
     return (
       <div
         ref={ref}
-        className="py-2 px-4 font-bold text-white "
+        className="flex py-2 px-4 font-bold text-white "
         style={{ width, ...(dragStyle ?? {}) }}
         {...dragAttributes}
         {...dragListeners}
       >
-        {chord.name}
+        <span>{chord.name}</span>
         {renderChord?.(chord.id)}
       </div>
     )
