@@ -6,6 +6,8 @@ import { useSongForm } from "../hooks/useSongForm"
 import { type SongParsed } from "../schemas/song.schema"
 import { validateSong } from "../validation/song.validate"
 
+import { toast } from "sonner"
+
 type Props = {
   handleAddSong: (song: SongParsed) => void
 }
@@ -21,6 +23,7 @@ export const SongForm = ({ handleAddSong }: Props) => {
       dispatch({ type: "SET_ERRORS", v: {} })
       handleAddSong(result.data)
       dispatch({ type: "RESET" })
+      toast.success(`Song "${result.data.title}" saved!`)
     } else {
       dispatch({ type: "SET_ERRORS", v: result.errors })
     }

@@ -10,6 +10,8 @@ import { Sections } from "./Sections"
 import { SectionTag } from "./SectionTag"
 import type { SectionType, SongSection } from "../types/section.types"
 
+import { toast } from "sonner"
+
 type Props = {
   dispatch: React.Dispatch<Action>
   state: SongFormState
@@ -99,6 +101,9 @@ export function SongFormPendingSection({ dispatch, state }: Props) {
                     variant="primary"
                     onClick={() => {
                       dispatch({ type: "ADD_CHORD" })
+                      toast.info(
+                        `Chord ${state.pendingChordName} added to pending section`
+                      )
                     }}
                   >
                     Add Chord
@@ -122,6 +127,7 @@ export function SongFormPendingSection({ dispatch, state }: Props) {
                     barId,
                     order: newOrderIds,
                   })
+                  toast.info("Chords reordered")
                 }}
                 renderChord={(id) => (
                   <button
@@ -157,10 +163,16 @@ export function SongFormPendingSection({ dispatch, state }: Props) {
                       dispatch({ type: "FINALIZE_SECTION" }),
                       setIsEditingSection(false),
                       state.errors?.songSections &&
-                        dispatch({ type: "CLEAR_ERROR", field: "songSections" })
+                        dispatch({
+                          type: "CLEAR_ERROR",
+                          field: "songSections",
+                        }),
+                      toast.info(
+                        `Section ${state.pendingSection.type} added to song`
+                      )
                     )}
                   >
-                    Create Section
+                    Complete Section
                   </Button>
                 </div>
               </div>
@@ -172,7 +184,10 @@ export function SongFormPendingSection({ dispatch, state }: Props) {
           <Button
             type="button"
             variant="primary"
-            onClick={() => setIsEditingSection(true)}
+            onClick={() => {
+              setIsEditingSection(true)
+              toast.info("Started editing new section")
+            }}
           >
             Add Section
           </Button>

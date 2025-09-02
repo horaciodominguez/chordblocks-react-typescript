@@ -3,9 +3,11 @@ import { useEffect, useState } from "react"
 import { Header } from "@/components/common/Header"
 import { Footer } from "@/components/common/Footer"
 
+import { Toaster } from "sonner"
+
 import type { Song } from "@/modules/songs/types/song.types"
 
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { BrowserRouter, Route, Routes } from "react-router-dom"
 
 import Home from "@/pages/Home"
 import ViewSong from "@/pages/ViewSong"
@@ -40,6 +42,7 @@ function App() {
           />
         </Routes>
       </BrowserRouter>
+      <Toaster richColors position="top-center" />
       <Footer />
     </main>
   )
