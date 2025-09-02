@@ -42,7 +42,7 @@ function App() {
           />
         </Routes>
       </BrowserRouter>
-      <Toaster richColors position="top-center" />
+      <Toaster richColors position="top-center" theme="dark" />
       <Footer />
     </main>
   )
