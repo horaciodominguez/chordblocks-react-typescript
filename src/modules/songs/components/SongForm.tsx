@@ -20,6 +20,7 @@ export const SongForm = ({ handleAddSong }: Props) => {
     if (result.ok) {
       dispatch({ type: "SET_ERRORS", v: {} })
       handleAddSong(result.data)
+      dispatch({ type: "RESET" })
     } else {
       dispatch({ type: "SET_ERRORS", v: result.errors })
     }

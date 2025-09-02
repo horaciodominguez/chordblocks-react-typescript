@@ -19,7 +19,7 @@ export function SongFormMeta({ dispatch, state, song }: Props) {
           name="title"
           onChange={(e) => {
             dispatch({ type: "SET_TITLE", v: e.target.value })
-            if (state.errors.title) {
+            if (state.errors?.title) {
               dispatch({ type: "CLEAR_ERROR", field: "title" })
             }
           }}
@@ -37,7 +37,7 @@ export function SongFormMeta({ dispatch, state, song }: Props) {
               name="artist"
               onChange={(e) => {
                 dispatch({ type: "SET_ARTIST", v: e.target.value })
-                if (state.errors.artist) {
+                if (state.errors?.artist) {
                   dispatch({ type: "CLEAR_ERROR", field: "artist" })
                 }
               }}
