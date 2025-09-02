@@ -3,37 +3,30 @@ import { Select } from "@/components/ui/Select"
 import { BEAT_VALUES, noteValues } from "../constants/song"
 import type { Action, SongFormState } from "../state/songFormReducer"
 import type { Song as SongType } from "../types/song.types"
-import type { SongParsed } from "../schemas/song.schema"
 
 type Props = {
   dispatch: React.Dispatch<Action>
   state: SongFormState
   song: SongType
-  errorTitle?: string
-  errorArtist?: string
-  clearError: (field: keyof SongParsed) => void
 }
 
-export function SongFormMeta({
-  dispatch,
-  state,
-  song,
-  errorTitle,
-  errorArtist,
-  clearError,
-}: Props) {
+export function SongFormMeta({ dispatch, state, song }: Props) {
   return (
     <>
       <div className="mb-4">
         <InputInline
           label="Title"
           name="title"
-          onChange={(e) => dispatch({ type: "SET_TITLE", v: e.target.value })}
-          onValid={() => clearError("title")}
+          onChange={(e) => {
+            dispatch({ type: "SET_TITLE", v: e.target.value })
+            if (state.errors.title) {
+              dispatch({ type: "CLEAR_ERROR", field: "title" })
+            }
+          }}
           value={song.title}
         />
-        {errorTitle && (
-          <p className="text-red-500 text-sm mt-1">{errorTitle}</p>
+        {state.errors?.title && (
+          <p className="text-red-500 text-sm mt-1">{state.errors.title}</p>
         )}
       </div>
       <div className="mb-4">
@@ -42,14 +35,16 @@ export function SongFormMeta({
             <InputInline
               label="Artist"
               name="artist"
-              onChange={(e) =>
+              onChange={(e) => {
                 dispatch({ type: "SET_ARTIST", v: e.target.value })
-              }
-              onValid={() => clearError("artist")}
+                if (state.errors.artist) {
+                  dispatch({ type: "CLEAR_ERROR", field: "artist" })
+                }
+              }}
               value={song.artist}
             />
-            {errorArtist && (
-              <p className="text-red-500 text-sm mt-1">{errorArtist}</p>
+            {state.errors?.artist && (
+              <p className="text-red-500 text-sm mt-1">{state.errors.artist}</p>
             )}
           </div>
           <div className="w-1/3 ml-2">

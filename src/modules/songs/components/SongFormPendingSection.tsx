@@ -13,14 +13,9 @@ import type { SectionType, SongSection } from "../types/section.types"
 type Props = {
   dispatch: React.Dispatch<Action>
   state: SongFormState
-  errorSection?: string
 }
 
-export function SongFormPendingSection({
-  dispatch,
-  state,
-  errorSection,
-}: Props) {
+export function SongFormPendingSection({ dispatch, state }: Props) {
   const [isEditingSection, setIsEditingSection] = useState(false)
 
   return (
@@ -160,7 +155,9 @@ export function SongFormPendingSection({
                     variant="primary"
                     onClick={() => (
                       dispatch({ type: "FINALIZE_SECTION" }),
-                      setIsEditingSection(false)
+                      setIsEditingSection(false),
+                      state.errors?.songSections &&
+                        dispatch({ type: "CLEAR_ERROR", field: "songSections" })
                     )}
                   >
                     Create Section
@@ -179,11 +176,13 @@ export function SongFormPendingSection({
           >
             Add Section
           </Button>
-        </div>
-      )}
 
-      {errorSection && (
-        <p className="text-red-500 text-sm mt-1">{errorSection}</p>
+          {state.errors?.songSections && (
+            <p className="text-red-500 text-sm mt-1">
+              {state.errors.songSections}
+            </p>
+          )}
+        </div>
       )}
     </>
   )

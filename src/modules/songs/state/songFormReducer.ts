@@ -19,6 +19,12 @@ export type SongFormState = {
   pendingChordName: string
   pendingBeats: string
   availableBeats: number
+  errors: {
+    title?: string
+    artist?: string
+    timeSignature?: string
+    songSections?: string
+  }
 }
 
 export type Action =
@@ -34,6 +40,8 @@ export type Action =
   | { type: "CANCEL_SECTION" }
   | { type: "FINALIZE_SECTION" }
   | { type: "RESET" }
+  | { type: "SET_ERRORS"; v: Partial<SongFormState["errors"]> }
+  | { type: "CLEAR_ERROR"; field: keyof SongFormState["errors"] }
 
 export const initialSong: SongType = {
   id: uuidv4(),
@@ -219,6 +227,13 @@ export const reducer = (
         pendingBeats: String(initialSong.timeSignature.beatsPerMeasure),
         availableBeats: initialSong.timeSignature.beatsPerMeasure,
       }
+
+    case "SET_ERRORS":
+      return { ...state, errors: { ...state.errors, ...action.v } }
+
+    case "CLEAR_ERROR":
+      const { [action.field]: _, ...rest } = state.errors
+      return { ...state, errors: rest }
 
     default:
       return state
