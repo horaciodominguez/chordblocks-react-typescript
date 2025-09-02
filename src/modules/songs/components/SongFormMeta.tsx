@@ -3,6 +3,7 @@ import { Select } from "@/components/ui/Select"
 import { BEAT_VALUES, noteValues } from "../constants/song"
 import type { Action, SongFormState } from "../state/songFormReducer"
 import type { Song as SongType } from "../types/song.types"
+import type { SongParsed } from "../schemas/song.schema"
 
 type Props = {
   dispatch: React.Dispatch<Action>
@@ -10,6 +11,7 @@ type Props = {
   song: SongType
   errorTitle?: string
   errorArtist?: string
+  clearError: (field: keyof SongParsed) => void
 }
 
 export function SongFormMeta({
@@ -18,6 +20,7 @@ export function SongFormMeta({
   song,
   errorTitle,
   errorArtist,
+  clearError,
 }: Props) {
   return (
     <>
@@ -26,6 +29,7 @@ export function SongFormMeta({
           label="Title"
           name="title"
           onChange={(e) => dispatch({ type: "SET_TITLE", v: e.target.value })}
+          onValid={() => clearError("title")}
           value={song.title}
         />
         {errorTitle && (
@@ -41,6 +45,7 @@ export function SongFormMeta({
               onChange={(e) =>
                 dispatch({ type: "SET_ARTIST", v: e.target.value })
               }
+              onValid={() => clearError("artist")}
               value={song.artist}
             />
             {errorArtist && (

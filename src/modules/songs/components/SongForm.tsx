@@ -39,6 +39,9 @@ export const SongForm = ({ handleAddSong }: Props) => {
           song={song}
           errorTitle={formErrors["title"]}
           errorArtist={formErrors["artist"]}
+          clearError={(field) =>
+            setFormErrors((prev) => ({ ...prev, [field]: undefined }))
+          }
         />
 
         <SongFormPendingSection

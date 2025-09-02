@@ -7,6 +7,7 @@ type Props = React.InputHTMLAttributes<HTMLInputElement> & {
   value: string
   type?: string
   onChange: React.ChangeEventHandler<HTMLInputElement>
+  onValid?: () => void
 }
 
 export default function InputInline({
@@ -15,6 +16,7 @@ export default function InputInline({
   value,
   type = "text",
   onChange,
+  onValid,
 }: Props) {
   const inputRef = useRef<HTMLInputElement>(null)
   const [isEditing, setIsEditing] = useState(false)
@@ -24,6 +26,8 @@ export default function InputInline({
       if (inputRef.current) {
         inputRef.current.value = value
       }
+    } else {
+      onValid?.()
     }
     setIsEditing(false)
   }
