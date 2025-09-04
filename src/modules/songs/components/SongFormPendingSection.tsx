@@ -2,7 +2,6 @@ import Button from "@/components/ui/Button"
 import { Select } from "@/components/ui/Select"
 import { BEAT_VALUES, SECTION_OPTIONS } from "../constants/song"
 
-import { chordsData } from "@/modules/chords/data/chords"
 import { useState } from "react"
 import type { Action, SongFormState } from "../state/songFormReducer"
 import { PendingSectionDnd } from "./PendingSectionDnd"
@@ -61,18 +60,6 @@ export function SongFormPendingSection({ dispatch, state }: Props) {
               <div className="flex gap-4">
                 <div className="w-1/2">
                   <ChordPicker dispatch={dispatch} label="Chord" />
-                  {/* <Select
-                    name="addChordName"
-                    label="Chord Name"
-                    options={Object.keys(chordsData)}
-                    onChange={(e) => {
-                      if (e.target.value) {
-                        dispatch({ type: "ADD_CHORD_NAME", v: e.target.value })
-                      }
-                    }}
-                    value={state.pendingChordName}
-                    defaultValue=""
-                  /> */}
                 </div>
                 <div className="w-1/2">
                   <Select
