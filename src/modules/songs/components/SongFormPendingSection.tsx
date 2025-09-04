@@ -11,6 +11,7 @@ import { SectionTag } from "./SectionTag"
 import type { SectionType, SongSection } from "../types/section.types"
 
 import { toast } from "sonner"
+import { ChordPicker } from "@/modules/chords/components/ChordPicker"
 
 type Props = {
   dispatch: React.Dispatch<Action>
@@ -59,6 +60,7 @@ export function SongFormPendingSection({ dispatch, state }: Props) {
             <div className="mb-4">
               <div className="flex gap-4">
                 <div className="w-1/2">
+                  <ChordPicker dispatch={dispatch} />
                   <Select
                     name="addChordName"
                     label="Chord Name"

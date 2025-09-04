@@ -18,8 +18,8 @@ export const ROOTS = [
 
 export const VARIATIONS = [
   { suffix: "", type: "major" },
-  /* { suffix: "m", type: "minor" },
-  { suffix: "7", type: "dominant7" },
+  { suffix: "m", type: "minor" },
+  /* { suffix: "7", type: "dominant7" },
   { suffix: "m7", type: "minor7" },
   { suffix: "maj7", type: "major7" },
   { suffix: "9", type: "dominant9" },
