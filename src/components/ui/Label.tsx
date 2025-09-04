@@ -1,6 +1,6 @@
 type Props = {
   children: React.ReactNode
-  htmlFor: string
+  htmlFor?: string
 }
 
 export default function Label({ children, htmlFor }: Props) {
