@@ -39,7 +39,7 @@ export const SongForm = ({ handleAddSong, initialSong }: Props) => {
 
         <div className="mb-4 justify-end flex">
           <Button type="submit" variant="save">
-            Create Song
+            {initialSong ? "Update Song" : "Add Song"}
           </Button>
         </div>
       </div>
