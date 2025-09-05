@@ -59,7 +59,12 @@ export function SongFormPendingSection({ dispatch, state }: Props) {
             <div className="mb-4">
               <div className="flex gap-4">
                 <div className="w-1/2">
-                  <ChordPicker dispatch={dispatch} label="Chord" />
+                  <ChordPicker
+                    label="Chord"
+                    onSelect={(chordName) =>
+                      dispatch({ type: "ADD_CHORD_NAME", v: chordName })
+                    }
+                  />
                 </div>
                 <div className="w-1/2">
                   <Select
