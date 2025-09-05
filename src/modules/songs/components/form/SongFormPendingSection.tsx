@@ -1,13 +1,13 @@
 import Button from "@/components/ui/Button"
 import { Select } from "@/components/ui/Select"
-import { BEAT_VALUES, SECTION_OPTIONS } from "../constants/song"
+import { BEAT_VALUES, SECTION_OPTIONS } from "../../constants/song"
 
 import { useState } from "react"
-import type { Action, SongFormState } from "../state/songFormReducer"
-import { PendingSectionDnd } from "./PendingSectionDnd"
-import { Sections } from "./Sections"
-import { SectionTag } from "./SectionTag"
-import type { SectionType, SongSection } from "../types/section.types"
+import type { Action, SongFormState } from "../../state/songFormReducer"
+import { ChordsReorder } from "./ChordsReorder"
+import { Sections } from "../Sections"
+import { SectionTag } from "../ui/SectionTag"
+import type { SectionType, SongSection } from "../../types/section.types"
 
 import { toast } from "sonner"
 import { ChordPicker } from "@/modules/chords/components/ChordPicker"
@@ -113,7 +113,7 @@ export function SongFormPendingSection({ dispatch, state }: Props) {
 
               <SectionTag typeName={state.pendingSection.type} />
 
-              <PendingSectionDnd
+              <ChordsReorder
                 section={state.pendingSection as SongSection}
                 timeSignature={state.song.timeSignature}
                 onReorder={({ barId, newOrderIds }) => {

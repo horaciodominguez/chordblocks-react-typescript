@@ -13,6 +13,7 @@ export const useSongForm = (baseSong?: typeof initialSong) => {
     pendingChordName: "",
     pendingBeats: String(base.timeSignature.beatsPerMeasure),
     availableBeats: base.timeSignature.beatsPerMeasure,
+    errors: {},
   })
 
   return { state, dispatch } as {

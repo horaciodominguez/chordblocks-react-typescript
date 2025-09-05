@@ -1,10 +1,10 @@
 import Button from "@/components/ui/Button"
 import { SongFormMeta } from "./SongFormMeta"
 import { SongFormPendingSection } from "./SongFormPendingSection"
-import { useSongForm } from "../hooks/useSongForm"
+import { useSongForm } from "../../hooks/useSongForm"
 
-import { type SongParsed } from "../schemas/song.schema"
-import { validateSong } from "../validation/song.validate"
+import { type SongParsed } from "../../schemas/song.schema"
+import { validateSong } from "../../validation/song.validate"
 
 import { toast } from "sonner"
 

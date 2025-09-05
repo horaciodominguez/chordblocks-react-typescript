@@ -1,5 +1,5 @@
 import type { Song as SongType } from "@/modules/songs/types/song.types"
-import { SectionTag } from "@/modules/songs/components/SectionTag"
+import { SectionTag } from "@/modules/songs/components/ui/SectionTag"
 import { Sections } from "./Sections"
 
 export interface TemporarySong extends Omit<SongType, "id"> {

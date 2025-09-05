@@ -16,10 +16,10 @@ import {
 } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
 
-import type { TimeSignature } from "../types/song.types"
+import type { TimeSignature } from "../../types/song.types"
 import { Chord } from "@/modules/chords/components/Chord"
-import type { SongSection } from "../types/section.types"
-import type { BarChord } from "../types/bar.types"
+import type { SongSection } from "../../types/section.types"
+import type { BarChord } from "../../types/bar.types"
 
 type Props = {
   section: SongSection
@@ -65,7 +65,7 @@ function SortableChord({
   )
 }
 
-export function PendingSectionDnd({
+export function ChordsReorder({
   section,
   timeSignature,
   onReorder,

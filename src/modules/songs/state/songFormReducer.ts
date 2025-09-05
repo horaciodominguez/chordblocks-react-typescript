@@ -19,7 +19,7 @@ export type SongFormState = {
   pendingChordName: string
   pendingBeats: string
   availableBeats: number
-  errors?: {
+  errors: {
     title?: string
     artist?: string
     timeSignature?: string

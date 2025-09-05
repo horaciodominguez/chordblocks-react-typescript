@@ -1,4 +1,4 @@
-import { SongForm } from "@/modules/songs/components/SongForm"
+import { SongForm } from "@/modules/songs/components/form/SongForm"
 import type { Song } from "@/modules/songs/types/song.types"
 import { useParams, useNavigate } from "react-router-dom"
 
