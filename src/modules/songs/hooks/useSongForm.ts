@@ -1,17 +1,18 @@
 import { useReducer } from "react"
 import { reducer, initialSong, type Action } from "../state/songFormReducer"
 
-export const useSongForm = () => {
+export const useSongForm = (baseSong?: typeof initialSong) => {
+  const base = baseSong ?? initialSong
   const [state, dispatch] = useReducer(reducer, {
-    song: initialSong,
+    song: base,
     pendingSection: {
       id: "",
       type: "",
       bars: [],
     },
     pendingChordName: "",
-    pendingBeats: String(initialSong.timeSignature.beatsPerMeasure),
-    availableBeats: initialSong.timeSignature.beatsPerMeasure,
+    pendingBeats: String(base.timeSignature.beatsPerMeasure),
+    availableBeats: base.timeSignature.beatsPerMeasure,
   })
 
   return { state, dispatch } as {

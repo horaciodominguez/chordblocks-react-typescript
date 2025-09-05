@@ -35,7 +35,10 @@ function App() {
         <Routes>
           <Route path="/" element={<Home songs={songs} />} />
           <Route path="/song/:id" element={<ViewSong songs={songs} />} />
-          <Route path="/song/:id/edit" element={<EditSong />} />
+          <Route
+            path="/song/:id/edit"
+            element={<EditSong songs={songs} setSongs={setSongs} />}
+          />
           <Route
             path="/new"
             element={<NewSong songs={songs} setSongs={setSongs} />}

@@ -10,10 +10,11 @@ import { toast } from "sonner"
 
 type Props = {
   handleAddSong: (song: SongParsed) => void
+  initialSong?: SongParsed
 }
 
-export const SongForm = ({ handleAddSong }: Props) => {
-  const { state, dispatch } = useSongForm()
+export const SongForm = ({ handleAddSong, initialSong }: Props) => {
+  const { state, dispatch } = useSongForm(initialSong)
   const { song } = state
 
   const onSubmit = (e: React.FormEvent) => {
@@ -22,7 +23,7 @@ export const SongForm = ({ handleAddSong }: Props) => {
     if (result.ok) {
       dispatch({ type: "SET_ERRORS", v: {} })
       handleAddSong(result.data)
-      dispatch({ type: "RESET" })
+      if (!initialSong) dispatch({ type: "RESET" })
       toast.success(`Song "${result.data.title}" saved!`)
     } else {
       dispatch({ type: "SET_ERRORS", v: result.errors })
