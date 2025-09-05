@@ -59,8 +59,8 @@ function SortableChord({
       renderChord={renderChord}
       // props dnd-kit
       dragStyle={dragStyle}
-      dragAttributes={attributes as any}
-      dragListeners={listeners as any}
+      dragAttributes={attributes as React.HTMLAttributes<HTMLDivElement>}
+      dragListeners={listeners as React.HTMLAttributes<HTMLDivElement>}
     />
   )
 }
