@@ -64,6 +64,7 @@ export function SongFormPendingSection({ dispatch, state }: Props) {
                     onSelect={(chordName) =>
                       dispatch({ type: "ADD_CHORD_NAME", v: chordName })
                     }
+                    selectedValue={state.pendingChordName}
                   />
                 </div>
                 <div className="w-1/2">

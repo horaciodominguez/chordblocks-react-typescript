@@ -8,11 +8,11 @@ import type { Chord } from "../types/chord.types"
 
 type Props = {
   onSelect: (chordName: string) => void
-  //dispatch: React.Dispatch<Action>
+  selectedValue?: string
   label?: string
 }
 
-export function ChordPicker({ onSelect, label }: Props) {
+export function ChordPicker({ onSelect, selectedValue, label }: Props) {
   const [root, setRoot] = useState("C")
   const [open, setOpen] = useState(false)
 
@@ -30,8 +30,7 @@ export function ChordPicker({ onSelect, label }: Props) {
       <Popover.Root open={open} onOpenChange={setOpen}>
         <Popover.Trigger asChild>
           <button className="w-full border border-gray-900 px-3 py-2 rounded-md flex items-center justify-center gap-2 hover:border-gray-700 hover:bg-gray-800">
-            🎸
-            <span>Choose chord</span>
+            <span>{selectedValue ? selectedValue : "Select Chord"}</span>
           </button>
         </Popover.Trigger>
 
