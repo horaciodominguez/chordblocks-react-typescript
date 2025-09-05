@@ -10,8 +10,8 @@ export const useSongForm = () => {
       bars: [],
     },
     pendingChordName: "",
-    pendingBeats: "4",
-    availableBeats: 4,
+    pendingBeats: String(initialSong.timeSignature.beatsPerMeasure),
+    availableBeats: initialSong.timeSignature.beatsPerMeasure,
   })
 
   return { state, dispatch } as {
