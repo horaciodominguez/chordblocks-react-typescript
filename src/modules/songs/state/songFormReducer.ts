@@ -36,6 +36,7 @@ export type Action =
   | { type: "ADD_BEATS"; v: string }
   | { type: "ADD_CHORD" }
   | { type: "DELETE_CHORD"; v: string }
+  | { type: "REORDER_BARS_IN_SECTION"; sectionId: string; order: string[] }
   | { type: "REORDER_CHORDS_IN_BAR"; barId: string; order: string[] }
   | { type: "CANCEL_SECTION" }
   | { type: "FINALIZE_SECTION" }
@@ -166,6 +167,19 @@ export const reducer = (
         availableBeats: availableBeatsAfterDelete,
         pendingBeats: nextBeatsValue(availableBeatsAfterDelete),
       }
+
+    case "REORDER_BARS_IN_SECTION": {
+      const { sectionId, order } = action
+      if (state.pendingSection.id !== sectionId) return state
+      const byId = new Map(state.pendingSection.bars.map((b) => [b.id, b]))
+      return {
+        ...state,
+        pendingSection: {
+          ...state.pendingSection,
+          bars: order.map((id) => byId.get(id)!).filter(Boolean),
+        },
+      }
+    }
 
     case "REORDER_CHORDS_IN_BAR":
       const { barId, order } = action

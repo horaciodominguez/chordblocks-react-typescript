@@ -1,16 +1,23 @@
 import Button from "@/components/ui/Button"
 import { Select } from "@/components/ui/Select"
-import { BEAT_VALUES, SECTION_OPTIONS } from "../../constants/song"
+import { BEAT_VALUES, SECTION_OPTIONS } from "@/modules/songs/constants/song"
 
 import { useState } from "react"
-import type { Action, SongFormState } from "../../state/songFormReducer"
-import { ChordsReorder } from "./ChordsReorder"
-import { Sections } from "../Sections"
-import { SectionTag } from "../ui/SectionTag"
-import type { SectionType, SongSection } from "../../types/section.types"
+import type {
+  Action,
+  SongFormState,
+} from "@/modules/songs/state/songFormReducer"
+import type {
+  SectionType,
+  SongSection,
+} from "@/modules/songs/types/section.types"
+import { Sections } from "@/modules/songs/components/Sections"
+import { SectionTag } from "@/modules/songs/components/ui/SectionTag"
+import { ChordsReorder } from "@/modules/songs/components/form/ChordsReorder"
+import BarsReorder from "@/modules/songs/components/form/BarsReorder"
 
-import { toast } from "sonner"
 import { ChordPicker } from "@/modules/chords/components/ChordPicker"
+import { toast } from "sonner"
 
 type Props = {
   dispatch: React.Dispatch<Action>
@@ -112,6 +119,26 @@ export function SongFormPendingSection({ dispatch, state }: Props) {
               <h2>Pending Section</h2>
 
               <SectionTag typeName={state.pendingSection.type} />
+
+              <BarsReorder
+                sectionId={state.pendingSection.id}
+                bars={state.pendingSection.bars}
+                timeSignature={state.song.timeSignature}
+                onReorder={(newBars) => {
+                  dispatch({
+                    type: "REORDER_BARS_IN_SECTION",
+                    sectionId: state.pendingSection.id,
+                    order: newBars.map((b) => b.id),
+                  })
+                }}
+                onReorderChords={(barId, chords) => {
+                  dispatch({
+                    type: "REORDER_CHORDS_IN_BAR",
+                    barId,
+                    order: chords.map((c) => c.id),
+                  })
+                }}
+              />
 
               <ChordsReorder
                 section={state.pendingSection as SongSection}
