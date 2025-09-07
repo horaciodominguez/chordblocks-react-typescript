@@ -7,17 +7,13 @@ import type {
   Action,
   SongFormState,
 } from "@/modules/songs/state/songFormReducer"
-import type {
-  SectionType,
-  SongSection,
-} from "@/modules/songs/types/section.types"
+import type { SectionType } from "@/modules/songs/types/section.types"
 import { Sections } from "@/modules/songs/components/Sections"
 import { SectionTag } from "@/modules/songs/components/ui/SectionTag"
-import { ChordsReorder } from "@/modules/songs/components/form/ChordsReorder"
-import BarsReorder from "@/modules/songs/components/form/BarsReorder"
 
 import { ChordPicker } from "@/modules/chords/components/ChordPicker"
 import { toast } from "sonner"
+import BarsReorder from "@/modules/songs/components/form/BarsReorder"
 
 type Props = {
   dispatch: React.Dispatch<Action>
@@ -124,42 +120,32 @@ export function SongFormPendingSection({ dispatch, state }: Props) {
                 sectionId={state.pendingSection.id}
                 bars={state.pendingSection.bars}
                 timeSignature={state.song.timeSignature}
-                onReorder={(newBars) => {
+                onReorder={(newBars) =>
                   dispatch({
                     type: "REORDER_BARS_IN_SECTION",
                     sectionId: state.pendingSection.id,
                     order: newBars.map((b) => b.id),
                   })
-                }}
-                onReorderChords={(barId, chords) => {
+                }
+                onReorderChords={(barId, newChords) =>
                   dispatch({
                     type: "REORDER_CHORDS_IN_BAR",
                     barId,
-                    order: chords.map((c) => c.id),
+                    order: newChords.map((c) => c.id),
                   })
-                }}
-              />
-
-              <ChordsReorder
-                section={state.pendingSection as SongSection}
-                timeSignature={state.song.timeSignature}
-                onReorder={({ barId, newOrderIds }) => {
-                  dispatch({
-                    type: "REORDER_CHORDS_IN_BAR",
-                    barId,
-                    order: newOrderIds,
-                  })
-                  toast.info("Chords reordered")
-                }}
-                renderChord={(id) => (
+                }
+                chordActions={(id) => (
                   <button
                     type="button"
                     className="ml-1 text-red-500 hover:text-red-700"
-                    onClick={() => dispatch({ type: "DELETE_CHORD", v: id })}
+                    onClick={() => {
+                      dispatch({ type: "DELETE_CHORD", v: id })
+                      toast.info("Chord deleted")
+                    }}
                     aria-label="Delete chord"
                     title="Delete chord"
                   >
-                    &times;
+                    ❌
                   </button>
                 )}
               />
