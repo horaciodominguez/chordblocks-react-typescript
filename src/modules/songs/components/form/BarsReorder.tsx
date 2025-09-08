@@ -16,7 +16,7 @@ import { CSS } from "@dnd-kit/utilities"
 import ChordsReorder from "@/modules/songs/components/form/ChordsReorder"
 import type { Bar } from "../../types/bar.types"
 import type { TimeSignature } from "../../types/song.types"
-import { barWidthByTS, getGridColumns } from "@/utils/widthByTS"
+import { getGridColumns } from "@/utils/widthByTS"
 
 type Props = {
   sectionId: string

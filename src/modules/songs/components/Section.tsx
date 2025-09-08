@@ -1,6 +1,6 @@
 import { Chord } from "@/modules/chords/components/Chord"
 import type { TimeSignature } from "../types/song.types"
-import { barWidthByTS, getGridColumns } from "@/utils/widthByTS"
+import { getGridColumns } from "@/utils/widthByTS"
 import type { SongSection } from "../types/section.types"
 
 type Props = {
