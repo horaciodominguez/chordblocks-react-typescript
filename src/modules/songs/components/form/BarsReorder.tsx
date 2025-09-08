@@ -16,7 +16,7 @@ import { CSS } from "@dnd-kit/utilities"
 import ChordsReorder from "@/modules/songs/components/form/ChordsReorder"
 import type { Bar } from "../../types/bar.types"
 import type { TimeSignature } from "../../types/song.types"
-import { barWidthByTS } from "@/utils/widthByTS"
+import { barWidthByTS, getGridColumns } from "@/utils/widthByTS"
 
 type Props = {
   sectionId: string
@@ -53,15 +53,11 @@ function SortableBar({
     transform: CSS.Transform.toString(transform),
     transition,
     opacity: isDragging ? 0.5 : 1,
-    width: barWidthByTS(timeSignature.beatsPerMeasure),
+    /* width: barWidthByTS(timeSignature.beatsPerMeasure), */
   }
 
   return (
-    <div
-      ref={setNodeRef}
-      style={style}
-      className="mb-2 p-2 border border-red-600"
-    >
+    <div ref={setNodeRef} style={style} className="BAR-EDITION-WRAP mb-2 py-2 ">
       <div
         {...attributes}
         {...listeners}
@@ -97,6 +93,8 @@ export default function BarsReorder({
     onReorder(arrayMove(bars, oldIndex, newIndex))
   }
 
+  const gridPerMueasureValue = getGridColumns(timeSignature.beatsPerMeasure)
+
   return (
     <DndContext
       sensors={sensors}
@@ -105,7 +103,7 @@ export default function BarsReorder({
     >
       <div
         id={sectionId}
-        className="SECTION-WRAP flex flex-wrap divide-x-2 divide-blue-300 mb-4"
+        className={`SECTION-WRAP grid grid-cols-${gridPerMueasureValue} divide-x-2 divide-blue-300 gap-2 mb-4`}
       >
         <SortableContext
           items={bars.map((b) => b.id)}

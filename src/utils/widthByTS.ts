@@ -17,3 +17,24 @@ export const chordWidth = (duration: number, beatsPerMeasure: number): string =>
 
 export const barWidthByTS = (beatsPerMeasure: number): string =>
   beatsPerMeasure === 3 || beatsPerMeasure === 6 ? `${100 / 3}%` : `${100 / 4}%`
+
+/**
+ * Returns the correct columns value depending of beatsPerMeasure
+ * @param beatsPerMeasure
+ * @returns
+ */
+
+export function getGridColumns(beatsPerMeasure: number): number {
+  if (beatsPerMeasure === 2 || beatsPerMeasure === 4) {
+    return 4
+  }
+
+  if (beatsPerMeasure === 3 || beatsPerMeasure === 5 || beatsPerMeasure === 6) {
+    return 3
+  }
+
+  if (beatsPerMeasure >= 7) {
+    return 1
+  }
+  return 1
+}

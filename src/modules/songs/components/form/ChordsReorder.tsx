@@ -96,7 +96,7 @@ export default function ChordsReorder({
         items={bar.chords.map((c) => c.id)}
         strategy={horizontalListSortingStrategy}
       >
-        <div className="flex gap-2 divide-x-2 divide-blue-900">
+        <div className="BAR-WRAP flex gap-2 divide-x-2 divide-blue-900">
           {bar.chords.map((chord) => (
             <SortableChord
               key={chord.id}
