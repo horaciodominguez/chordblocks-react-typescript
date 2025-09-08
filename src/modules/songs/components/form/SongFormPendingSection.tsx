@@ -8,7 +8,7 @@ import type {
   SongFormState,
 } from "@/modules/songs/state/songFormReducer"
 import type { SectionType } from "@/modules/songs/types/section.types"
-import { Sections } from "@/modules/songs/components/Sections"
+import { Section } from "@/modules/songs/components/Section"
 import { SectionTag } from "@/modules/songs/components/ui/SectionTag"
 
 import { ChordPicker } from "@/modules/chords/components/ChordPicker"
@@ -30,7 +30,7 @@ export function SongFormPendingSection({ dispatch, state }: Props) {
           {state.song.songSections.map((section) => (
             <div key={section.id} className="mb-2">
               <SectionTag typeName={section.type} />
-              <Sections
+              <Section
                 section={section}
                 timeSignature={state.song.timeSignature}
               />

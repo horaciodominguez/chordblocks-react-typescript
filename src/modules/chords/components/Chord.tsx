@@ -31,7 +31,7 @@ export const Chord = forwardRef<HTMLDivElement, Props>(
     return (
       <div
         ref={ref}
-        className="flex items-center py-2 px-2 font-bold text-white bg-blue-500 rounded text-sm"
+        className="CHORD-WRAP flex justify-between items-center py-2  font-bold text-white text-xs"
         style={{
           width,
           visibility: isDragging ? "hidden" : "visible",
@@ -41,7 +41,7 @@ export const Chord = forwardRef<HTMLDivElement, Props>(
         <div
           {...dragAttributes}
           {...dragListeners}
-          className="mr-2 cursor-grab select-none"
+          className="mr-1 cursor-grab select-none"
         >
           ⠿
         </div>

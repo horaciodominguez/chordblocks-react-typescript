@@ -57,7 +57,11 @@ function SortableBar({
   }
 
   return (
-    <div ref={setNodeRef} style={style} className="mb-2 p-2  backdrop-blur-md ">
+    <div
+      ref={setNodeRef}
+      style={style}
+      className="mb-2 p-2 border border-red-600"
+    >
       <div
         {...attributes}
         {...listeners}
@@ -101,7 +105,7 @@ export default function BarsReorder({
     >
       <div
         id={sectionId}
-        className="flex flex-wrap divide-x-2 divide-blue-300 mb-4"
+        className="SECTION-WRAP flex flex-wrap divide-x-2 divide-blue-300 mb-4"
       >
         <SortableContext
           items={bars.map((b) => b.id)}

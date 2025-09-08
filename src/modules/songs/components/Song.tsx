@@ -1,6 +1,6 @@
 import type { Song as SongType } from "@/modules/songs/types/song.types"
 import { SectionTag } from "@/modules/songs/components/ui/SectionTag"
-import { Sections } from "./Sections"
+import { Section } from "./Section"
 
 export interface TemporarySong extends Omit<SongType, "id"> {
   id?: string
@@ -23,15 +23,12 @@ export const Song = ({ song }: Props) => {
         {song.timeSignature.noteValue}
       </p>
       <ul>
-        {
-          //SECCIONES DE LA CANCION
-          song.songSections.map((section, sectionIndex) => (
-            <li key={sectionIndex} className=" ">
-              <SectionTag typeName={section.type} />
-              <Sections section={section} timeSignature={song.timeSignature} />
-            </li>
-          ))
-        }
+        {song.songSections.map((section, sectionIndex) => (
+          <li key={sectionIndex} className=" ">
+            <SectionTag typeName={section.type} />
+            <Section section={section} timeSignature={song.timeSignature} />
+          </li>
+        ))}
       </ul>
     </div>
   )
