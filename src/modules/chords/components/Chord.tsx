@@ -7,11 +7,11 @@ import { ArrowLeftRight } from "lucide-react"
 type Props = {
   timeSignature: TimeSignature
   chord: BarChord
-  chordActions?: (chordId: string) => React.ReactNode
   dragStyle?: React.CSSProperties
   dragAttributes?: React.HTMLAttributes<HTMLDivElement>
   dragListeners?: React.HTMLAttributes<HTMLDivElement>
   isDragging?: boolean
+  onDelete?: React.MouseEventHandler<HTMLButtonElement>
 }
 
 export const Chord = forwardRef<HTMLDivElement, Props>(
@@ -19,11 +19,11 @@ export const Chord = forwardRef<HTMLDivElement, Props>(
     {
       timeSignature,
       chord,
-      chordActions,
       dragStyle,
       dragAttributes,
       dragListeners,
       isDragging,
+      onDelete,
     },
     ref
   ) => {
@@ -55,7 +55,18 @@ export const Chord = forwardRef<HTMLDivElement, Props>(
           >
             <ArrowLeftRight className="" />
           </div>
-          {chordActions?.(chord.id)}
+
+          <button
+            type="button"
+            className="ml-1 text-red-500 hover:text-red-700"
+            onClick={onDelete}
+            aria-label="Delete chord"
+            title="Delete chord"
+          >
+            ❌
+          </button>
+
+          {/* {chordActions?.(chord.id)} */}
         </div>
       </div>
     )

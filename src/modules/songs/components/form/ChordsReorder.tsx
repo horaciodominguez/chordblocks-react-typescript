@@ -26,17 +26,17 @@ type Props = {
   bar: Bar
   timeSignature: TimeSignature
   onReorder?: (barId: string, chords: BarChord[]) => void
-  chordActions?: (chordId: string) => React.ReactNode
+  onDeleteChord?: (chordId: string) => void
 }
 
 function SortableChord({
   chord,
   timeSignature,
-  chordActions,
+  onDeleteChord
 }: {
   chord: BarChord
   timeSignature: TimeSignature
-  chordActions?: (chordId: string) => React.ReactNode
+  onDeleteChord?: (chordId: string) => void
 }) {
   const {
     attributes,
@@ -52,7 +52,6 @@ function SortableChord({
       ref={setNodeRef}
       timeSignature={timeSignature}
       chord={chord}
-      chordActions={chordActions}
       dragStyle={{
         transform: CSS.Transform.toString(transform),
         transition,
@@ -62,6 +61,7 @@ function SortableChord({
       dragAttributes={attributes}
       dragListeners={listeners}
       isDragging={isDragging}
+      onDelete={() => onDeleteChord?.(chord.id)}
     />
   )
 }
@@ -70,7 +70,7 @@ export default function ChordsReorder({
   bar,
   timeSignature,
   onReorder,
-  chordActions,
+  onDeleteChord,
 }: Props) {
   const sensors = useSensors(useSensor(PointerSensor))
 
@@ -102,7 +102,7 @@ export default function ChordsReorder({
               key={chord.id}
               chord={chord}
               timeSignature={timeSignature}
-              chordActions={chordActions}
+              onDeleteChord={onDeleteChord}
             />
           ))}
         </div>

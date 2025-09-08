@@ -24,7 +24,7 @@ type Props = {
   timeSignature: TimeSignature
   onReorder: (bars: Bar[]) => void
   onReorderChords: (barId: string, chords: Bar["chords"]) => void
-  chordActions: (chordId: string) => React.ReactNode
+  onDeleteChord: (chordId: string) => void
 }
 
 function SortableBar({
@@ -32,13 +32,13 @@ function SortableBar({
   index,
   timeSignature,
   onReorderChords,
-  chordActions,
+  onDeleteChord,
 }: {
   bar: Bar
   index: number
   timeSignature: TimeSignature
   onReorderChords: (barId: string, chords: Bar["chords"]) => void
-  chordActions: (chordId: string) => React.ReactNode
+  onDeleteChord: (chordId: string) => void
 }) {
   const {
     attributes,
@@ -69,7 +69,7 @@ function SortableBar({
         bar={bar}
         timeSignature={timeSignature}
         onReorder={onReorderChords}
-        chordActions={chordActions}
+        onDeleteChord={onDeleteChord}
       />
     </div>
   )
@@ -81,7 +81,7 @@ export default function BarsReorder({
   timeSignature,
   onReorder,
   onReorderChords,
-  chordActions,
+  onDeleteChord,
 }: Props) {
   const sensors = useSensors(useSensor(PointerSensor))
 
@@ -116,7 +116,7 @@ export default function BarsReorder({
               index={i}
               timeSignature={timeSignature}
               onReorderChords={onReorderChords}
-              chordActions={chordActions}
+              onDeleteChord={onDeleteChord}
             />
           ))}
         </SortableContext>

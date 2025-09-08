@@ -134,20 +134,14 @@ export function SongFormPendingSection({ dispatch, state }: Props) {
                     order: newChords.map((c) => c.id),
                   })
                 }
-                chordActions={(id) => (
-                  <button
-                    type="button"
-                    className="ml-1 text-red-500 hover:text-red-700"
-                    onClick={() => {
-                      dispatch({ type: "DELETE_CHORD", v: id })
-                      toast.info("Chord deleted")
-                    }}
-                    aria-label="Delete chord"
-                    title="Delete chord"
-                  >
-                    ❌
-                  </button>
-                )}
+                onDeleteChord={
+                  (chordId) => {
+                    dispatch({
+                      type: "DELETE_CHORD",
+                      v: chordId,
+                    })
+                  }
+                }
               />
 
               <div className="mb-4 flex gap-4 mt-4 justify-end">
