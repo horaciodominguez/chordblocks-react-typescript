@@ -6,26 +6,24 @@ import type { SongSection } from "../types/section.types"
 type Props = {
   section: SongSection
   timeSignature: TimeSignature
-  renderChord?: (chordId: string) => React.ReactNode
 }
 
-export const Sections = ({ section, timeSignature, renderChord }: Props) => {
+export const Section = ({ section, timeSignature }: Props) => {
   return (
-    <div className="flex flex-wrap divide-x-2 divide-blue-300 mb-4">
+    <div className="SECTION-WRAP flex flex-wrap mb-4 border border-red-500">
       {section.bars.map((bar) => {
         const width = barWidthByTS(timeSignature.beatsPerMeasure)
         return (
           <div
             style={{ width }}
             key={bar.id}
-            className="flex divide-x-1 divide-blue-900 mb-4"
+            className="BAR-WRAP flex gap-2 divide-x-2 divide-blue-900"
           >
             {bar.chords.map((chord) => (
               <Chord
                 key={chord.id}
                 chord={chord}
                 timeSignature={timeSignature}
-                renderChord={renderChord}
               />
             ))}
           </div>
