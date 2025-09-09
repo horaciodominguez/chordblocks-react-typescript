@@ -21,9 +21,10 @@ export default tseslint.config([
     },
     rules: {
       semi: ['error', 'never'],
-      indent: ['error', 2],
+      indent: 'off',
       'react/prop-types': 'off',
-      'react/react-in-jsx-scope': 'off'
+      'react/react-in-jsx-scope': 'off',
+      "@typescript-eslint/no-unused-vars": ["error", { "varsIgnorePattern": "^_" }]
     }
   },
 ])
