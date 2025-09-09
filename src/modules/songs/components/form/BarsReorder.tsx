@@ -17,6 +17,7 @@ import ChordsReorder from "@/modules/songs/components/form/ChordsReorder"
 import type { Bar } from "../../types/bar.types"
 import type { TimeSignature } from "../../types/song.types"
 import { getGridColumns } from "@/utils/widthByTS"
+import { ArrowLeftRight } from "lucide-react"
 
 type Props = {
   sectionId: string
@@ -57,13 +58,20 @@ function SortableBar({
   }
 
   return (
-    <div ref={setNodeRef} style={style} className="BAR-EDITION-WRAP mb-2 py-2 ">
+    <div
+      ref={setNodeRef}
+      style={style}
+      className="BAR-EDITION-WRAP mb-2 py-2 pb-4 pt-0 "
+    >
       <div
         {...attributes}
         {...listeners}
-        className="cursor-grab text-xs text-gray-200 mb-2"
+        className="flex items-center gap-2 
+                  cursor-grab text-xs 
+                  opacity-0 hover:opacity-100 transition text-zinc-400 hover:text-zinc-200 
+                  mb-0"
       >
-        ⠿ Bar {index + 1}
+        <ArrowLeftRight className="w-4 h-4" /> Bar {index + 1}
       </div>
       <ChordsReorder
         bar={bar}
