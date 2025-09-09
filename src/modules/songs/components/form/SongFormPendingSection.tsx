@@ -134,14 +134,12 @@ export function SongFormPendingSection({ dispatch, state }: Props) {
                     order: newChords.map((c) => c.id),
                   })
                 }
-                onDeleteChord={
-                  (chordId) => {
-                    dispatch({
-                      type: "DELETE_CHORD",
-                      v: chordId,
-                    })
-                  }
-                }
+                onDeleteChord={(chordId) => {
+                  dispatch({
+                    type: "DELETE_CHORD",
+                    v: chordId,
+                  })
+                }}
               />
 
               <div className="mb-4 flex gap-4 mt-4 justify-end">

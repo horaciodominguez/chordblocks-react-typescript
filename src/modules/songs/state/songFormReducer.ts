@@ -75,7 +75,7 @@ export const reducer = (
         },
       }
 
-    case "ADD_SECTION_TYPE":
+    case "ADD_SECTION_TYPE": {
       if (state.pendingSection.id !== "") return state
 
       const newSection: PendingSongSection = {
@@ -92,14 +92,14 @@ export const reducer = (
         ),
         pendingSection: newSection,
       }
-
+    }
     case "ADD_CHORD_NAME":
       return { ...state, pendingChordName: action.v }
 
     case "ADD_BEATS":
       return { ...state, pendingBeats: action.v }
 
-    case "ADD_CHORD":
+    case "ADD_CHORD": {
       if (
         state.pendingSection.id === "" ||
         state.pendingChordName === "" ||
@@ -142,8 +142,8 @@ export const reducer = (
         pendingBeats: nextBeatsValue(availableBeats),
         availableBeats,
       }
-
-    case "DELETE_CHORD":
+    }
+    case "DELETE_CHORD": {
       if (state.pendingSection.id === "") return state
       const barsAfterDelete = state.pendingSection.bars
         .map((bar) => ({
@@ -167,7 +167,7 @@ export const reducer = (
         availableBeats: availableBeatsAfterDelete,
         pendingBeats: nextBeatsValue(availableBeatsAfterDelete),
       }
-
+    }
     case "REORDER_BARS_IN_SECTION": {
       const { sectionId, order } = action
       if (state.pendingSection.id !== sectionId) return state
@@ -181,7 +181,7 @@ export const reducer = (
       }
     }
 
-    case "REORDER_CHORDS_IN_BAR":
+    case "REORDER_CHORDS_IN_BAR": {
       const { barId, order } = action
       return {
         ...state,
@@ -197,8 +197,8 @@ export const reducer = (
           }),
         },
       }
-
-    case "CANCEL_SECTION":
+    }
+    case "CANCEL_SECTION": {
       return {
         ...state,
         pendingSection: { id: "", type: "", bars: [] },
@@ -206,8 +206,8 @@ export const reducer = (
         pendingBeats: state.song.timeSignature.beatsPerMeasure.toString(),
         availableBeats: state.song.timeSignature.beatsPerMeasure,
       }
-
-    case "FINALIZE_SECTION":
+    }
+    case "FINALIZE_SECTION": {
       if (state.pendingSection.id === "" || state.pendingSection.type === "")
         return state
 
@@ -231,7 +231,7 @@ export const reducer = (
         pendingBeats: bpMueasure.toString(),
         availableBeats: bpMueasure,
       }
-
+    }
     case "RESET":
       return {
         ...state,
@@ -245,10 +245,10 @@ export const reducer = (
     case "SET_ERRORS":
       return { ...state, errors: { ...state.errors, ...action.v } }
 
-    case "CLEAR_ERROR":
+    case "CLEAR_ERROR": {
       const { [action.field]: _, ...rest } = state.errors
       return { ...state, errors: rest }
-
+    }
     default:
       return state
   }

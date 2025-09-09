@@ -2,7 +2,7 @@ import React, { forwardRef } from "react"
 import type { TimeSignature } from "@/modules/songs/types/song.types"
 import type { BarChord } from "@/modules/songs/types/bar.types"
 import { chordWidth } from "@/utils/widthByTS"
-import { ArrowLeftRight } from "lucide-react"
+import { ArrowLeftRight, Trash } from "lucide-react"
 
 type Props = {
   timeSignature: TimeSignature
@@ -45,8 +45,10 @@ export const Chord = forwardRef<HTMLDivElement, Props>(
 
         <div
           className="
-        flex flex-row
-        absolute -bottom-5 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition"
+            flex flex-row
+            justify-center
+            items-center
+            absolute -bottom-5 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition"
         >
           <div
             {...dragAttributes}
@@ -58,15 +60,13 @@ export const Chord = forwardRef<HTMLDivElement, Props>(
 
           <button
             type="button"
-            className="ml-1 text-red-500 hover:text-red-700"
+            className="ml-1 text-xs"
             onClick={onDelete}
             aria-label="Delete chord"
             title="Delete chord"
           >
-            ❌
+            <Trash />
           </button>
-
-          {/* {chordActions?.(chord.id)} */}
         </div>
       </div>
     )
