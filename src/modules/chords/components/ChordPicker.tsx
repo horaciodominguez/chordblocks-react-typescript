@@ -49,7 +49,7 @@ export function ChordPicker({ onSelect, selectedValue, label }: Props) {
               className="w-full border-2 border-gray-900 px-3 py-2 rounded-md  focus:outline-none focus:ring-2 focus:ring-indigo-500"
             >
               {ROOTS.map((r) => (
-                <option key={r} value={r}>
+                <option key={r} value={r} className="bg-gray-800 text-white">
                   {r}
                 </option>
               ))}
