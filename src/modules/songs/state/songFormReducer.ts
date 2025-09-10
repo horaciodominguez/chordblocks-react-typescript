@@ -16,6 +16,7 @@ import type { BarChord } from "../types/bar.types"
 export type SongFormState = {
   song: SongType
   pendingSection: PendingSongSection
+  editingSectionId: string | null
   pendingChordName: string
   pendingBeats: string
   availableBeats: number
@@ -43,6 +44,9 @@ export type Action =
   | { type: "RESET" }
   | { type: "SET_ERRORS"; v: Partial<SongFormState["errors"]> }
   | { type: "CLEAR_ERROR"; field: keyof SongFormState["errors"] }
+  | { type: "EDIT_SECTION"; v: string }
+  | { type: "CANCEL_EDIT_SECTION" }
+  | { type: "UPDATE_SECTION" }
 
 export const initialSong: SongType = {
   id: uuidv4(),
@@ -248,6 +252,43 @@ export const reducer = (
     case "CLEAR_ERROR": {
       const { [action.field]: _, ...rest } = state.errors
       return { ...state, errors: rest }
+    }
+
+    case "EDIT_SECTION": {
+      const sectionToEdit = state.song.songSections.find(
+        (s) => s.id === action.v
+      )
+      return {
+        ...state,
+        pendingSection: sectionToEdit
+          ? { ...sectionToEdit }
+          : { id: "", type: "", bars: [] },
+        editingSectionId: action.v,
+      }
+    }
+    case "CANCEL_EDIT_SECTION": {
+      return {
+        ...state,
+        editingSectionId: null,
+        pendingSection: { id: "", type: "", bars: [] },
+      }
+    }
+    case "UPDATE_SECTION": {
+      if (state.editingSectionId === null || !state.pendingSection) return state
+
+      return {
+        ...state,
+        song: {
+          ...state.song,
+          songSections: state.song.songSections.map((s) =>
+            s.id === state.editingSectionId
+              ? { ...(state.pendingSection as SongSection) }
+              : s
+          ),
+        },
+        editingSectionId: null,
+        pendingSection: { id: "", type: "", bars: [] }, // limpio
+      }
     }
     default:
       return state

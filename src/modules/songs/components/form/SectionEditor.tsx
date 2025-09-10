@@ -1,0 +1,169 @@
+import { Select } from "@/components/ui/Select"
+import type {
+  Action,
+  SongFormState,
+} from "@/modules/songs/state/songFormReducer"
+import { BEAT_VALUES, SECTION_OPTIONS } from "../../constants/song"
+import type { SectionType } from "../../types/section.types"
+import { ChordPicker } from "@/modules/chords/components/ChordPicker"
+import Button from "@/components/ui/Button"
+import { toast } from "sonner"
+import { SectionTag } from "../ui/SectionTag"
+import BarsReorder from "./BarsReorder"
+import type React from "react"
+
+type Props = {
+  dispatch: React.Dispatch<Action>
+  state: SongFormState
+  onStopEditing: () => void
+}
+
+export function SectionEditor({ state, dispatch, onStopEditing }: Props) {
+  return (
+    <div className="border-[.1px] border-gray-700 bg-black/20 rounded-md p-4 shadow-sm">
+      <div className="mb-4">
+        <Select
+          name="sectionType"
+          label="Section Type"
+          options={SECTION_OPTIONS}
+          onChange={(e) => {
+            if (e.target.value) {
+              dispatch({
+                type: "ADD_SECTION_TYPE",
+                v: e.target.value as SectionType,
+              })
+            }
+          }}
+          value={state.pendingSection.type}
+          defaultValue=""
+        />
+      </div>
+      {state.pendingSection.id !== "" && (
+        <div className="mb-4">
+          <div className="flex gap-4">
+            <div className="w-1/2">
+              <ChordPicker
+                label="Chord"
+                onSelect={(chordName) =>
+                  dispatch({ type: "ADD_CHORD_NAME", v: chordName })
+                }
+                selectedValue={state.pendingChordName}
+              />
+            </div>
+            <div className="w-1/2">
+              <Select
+                name="addBeats"
+                label="Beats"
+                options={BEAT_VALUES.filter((v) => v <= state.availableBeats)}
+                onChange={(e) => {
+                  if (e.target.value) {
+                    dispatch({ type: "ADD_BEATS", v: e.target.value })
+                  }
+                }}
+                value={state.pendingBeats}
+              />
+            </div>
+          </div>
+        </div>
+      )}
+
+      {state.pendingSection.id !== "" &&
+        state.pendingChordName !== "" &&
+        state.pendingBeats !== "" && (
+          <div className="mb-4 flex gap-4 mt-4 justify-end">
+            <div>
+              <Button
+                type="button"
+                variant="primary"
+                onClick={() => {
+                  dispatch({ type: "ADD_CHORD" })
+                  toast.info(
+                    `Chord ${state.pendingChordName} added to pending section`
+                  )
+                }}
+              >
+                Add Chord
+              </Button>
+            </div>
+          </div>
+        )}
+
+      {state.pendingSection.bars.length > 0 && (
+        <div className="mb-4">
+          <h2>Pending Section</h2>
+
+          <SectionTag typeName={state.pendingSection.type} />
+
+          <BarsReorder
+            sectionId={state.pendingSection.id}
+            bars={state.pendingSection.bars}
+            timeSignature={state.song.timeSignature}
+            onReorder={(newBars) =>
+              dispatch({
+                type: "REORDER_BARS_IN_SECTION",
+                sectionId: state.pendingSection.id,
+                order: newBars.map((b) => b.id),
+              })
+            }
+            onReorderChords={(barId, newChords) =>
+              dispatch({
+                type: "REORDER_CHORDS_IN_BAR",
+                barId,
+                order: newChords.map((c) => c.id),
+              })
+            }
+            onDeleteChord={(chordId) => {
+              dispatch({
+                type: "DELETE_CHORD",
+                v: chordId,
+              })
+            }}
+          />
+
+          <div className="mb-4 flex gap-4 mt-4 justify-end">
+            <div>
+              <Button
+                type="button"
+                variant="secondary"
+                onClick={() => (
+                  dispatch({ type: "CANCEL_SECTION" }), onStopEditing()
+                )}
+              >
+                Cancel
+              </Button>
+            </div>
+            <div>
+              <Button
+                type="button"
+                variant="primary"
+                onClick={() => {
+                  console.log(
+                    state.editingSectionId === null ||
+                      state.editingSectionId === undefined
+                      ? "FINALIZE_SECTION"
+                      : "UPDATE_SECTION"
+                  )
+                  console.log(state.editingSectionId)
+                  dispatch({
+                    type:
+                      state.editingSectionId === null ||
+                      state.editingSectionId === undefined
+                        ? "FINALIZE_SECTION"
+                        : "UPDATE_SECTION",
+                  })
+                  onStopEditing()
+                  if (state.errors?.songSections) {
+                    dispatch({ type: "CLEAR_ERROR", field: "songSections" })
+                  }
+                  toast.info(`${state.pendingSection.type} section saved`)
+                }}
+              >
+                Save Section
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}

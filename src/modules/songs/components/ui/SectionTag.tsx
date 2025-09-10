@@ -14,10 +14,7 @@ export const SectionTag = ({ typeName }: Props) => {
         border-violet-900/60 
         px-4 py-2 
         rounded-r-xl 
-        text-xs 
-        mr-2 
-        mt-1 
-        mb-4"
+        text-xs"
       >
         {typeName}
       </p>
