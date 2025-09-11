@@ -42,8 +42,12 @@ export function ChordPicker({ onSelect, selectedValue, label }: Props) {
           <Popover.Close />
           <Popover.Arrow />
           <div className="mb-4">
-            <label className="text-sm text-neutral-200">Root chord</label>
+            <label className="text-sm text-neutral-200" htmlFor="root_chord">
+              Root chord
+            </label>
             <select
+              id="root_chord"
+              name="root_chord"
               value={root}
               onChange={(e) => setRoot(e.target.value)}
               className="w-full border-2 border-gray-900 px-3 py-2 rounded-md  focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -55,10 +59,13 @@ export function ChordPicker({ onSelect, selectedValue, label }: Props) {
               ))}
             </select>
           </div>
-          <label className="text-sm text-neutral-200">Variants</label>
-          <div className="grid grid-cols-3 gap-3">
+          <label className="text-sm text-neutral-200" htmlFor="variants">
+            Variants
+          </label>
+          <div className="grid grid-cols-3 gap-3" id="variants">
             {VARIATIONS.map((v: Chord) => (
               <button
+                id={v.name}
                 type="button"
                 key={v.name}
                 onClick={() => handleSelect(v.name)}
