@@ -16,8 +16,9 @@ import { CSS } from "@dnd-kit/utilities"
 import ChordsReorder from "@/modules/songs/components/form/ChordsReorder"
 import type { Bar } from "../../types/bar.types"
 import type { TimeSignature } from "../../types/song.types"
-import { getGridColumns } from "@/utils/widthByTS"
+
 import { ArrowLeftRight } from "lucide-react"
+import SectionBar from "../ui/SectionBars"
 
 type Props = {
   sectionId: string
@@ -101,18 +102,13 @@ export default function BarsReorder({
     onReorder(arrayMove(bars, oldIndex, newIndex))
   }
 
-  const gridPerMueasureValue = getGridColumns(timeSignature.beatsPerMeasure)
-
   return (
     <DndContext
       sensors={sensors}
       collisionDetection={closestCenter}
       onDragEnd={handleDragEnd}
     >
-      <div
-        id={sectionId}
-        className={`SECTION-WRAP grid grid-cols-${gridPerMueasureValue} divide-x-2 divide-blue-300 gap-2 mb-4`}
-      >
+      <SectionBar id={sectionId} timeSignature={timeSignature}>
         <SortableContext
           items={bars.map((b) => b.id)}
           strategy={horizontalListSortingStrategy}
@@ -128,7 +124,7 @@ export default function BarsReorder({
             />
           ))}
         </SortableContext>
-      </div>
+      </SectionBar>
     </DndContext>
   )
 }

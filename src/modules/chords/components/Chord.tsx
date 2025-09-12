@@ -1,7 +1,7 @@
 import React, { forwardRef } from "react"
 import type { TimeSignature } from "@/modules/songs/types/song.types"
 import type { BarChord } from "@/modules/songs/types/bar.types"
-import { chordWidth } from "@/utils/widthByTS"
+import { chordWidth } from "@/modules/chords/utils/chord.utils"
 import { ArrowLeftRight, Trash } from "lucide-react"
 
 type Props = {

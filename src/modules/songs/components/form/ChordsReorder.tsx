@@ -1,26 +1,26 @@
+import { Chord } from "@/modules/chords/components/Chord"
+import { chordWidth } from "@/modules/chords/utils/chord.utils"
 import {
-  DndContext,
   closestCenter,
+  DndContext,
+  DragOverlay,
   PointerSensor,
   useSensor,
   useSensors,
-  DragOverlay,
   type DragEndEvent,
   type UniqueIdentifier,
 } from "@dnd-kit/core"
 import {
+  arrayMove,
+  horizontalListSortingStrategy,
   SortableContext,
   useSortable,
-  horizontalListSortingStrategy,
-  arrayMove,
 } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
+import { useState } from "react"
 import { createPortal } from "react-dom"
-import { Chord } from "@/modules/chords/components/Chord"
 import type { Bar, BarChord } from "../../types/bar.types"
 import type { TimeSignature } from "../../types/song.types"
-import { useState } from "react"
-import { chordWidth } from "@/utils/widthByTS"
 
 type Props = {
   bar: Bar
@@ -32,7 +32,7 @@ type Props = {
 function SortableChord({
   chord,
   timeSignature,
-  onDeleteChord
+  onDeleteChord,
 }: {
   chord: BarChord
   timeSignature: TimeSignature

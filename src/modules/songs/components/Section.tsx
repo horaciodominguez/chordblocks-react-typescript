@@ -1,7 +1,8 @@
 import { Chord } from "@/modules/chords/components/Chord"
 import type { TimeSignature } from "../types/song.types"
-import { getGridColumns } from "@/utils/widthByTS"
+
 import type { SongSection } from "../types/section.types"
+import SectionBar from "@/modules/songs/components/ui/SectionBars"
 
 type Props = {
   section: SongSection
@@ -9,16 +10,11 @@ type Props = {
 }
 
 export const Section = ({ section, timeSignature }: Props) => {
-  const gridPerMueasureValue = getGridColumns(timeSignature.beatsPerMeasure)
   return (
-    <div
-      className={`SECTION-WRAP grid grid-cols-${gridPerMueasureValue} divide-x-2 divide-blue-300 gap-2 mb-4 `}
-    >
+    <SectionBar id={section.id} timeSignature={timeSignature}>
       {section.bars.map((bar) => {
-        /* const width = barWidthByTS(timeSignature.beatsPerMeasure) */
         return (
           <div
-            /* style={{ width }} */
             key={bar.id}
             className="BAR-WRAP flex gap-2 py-2 divide-x-2 divide-blue-900  "
           >
@@ -32,6 +28,6 @@ export const Section = ({ section, timeSignature }: Props) => {
           </div>
         )
       })}
-    </div>
+    </SectionBar>
   )
 }
