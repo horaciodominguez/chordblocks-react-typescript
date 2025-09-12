@@ -43,31 +43,33 @@ export const Chord = forwardRef<HTMLDivElement, Props>(
           <span>{chord.name}</span>
         </div>
 
-        <div
-          className="
+        {(dragStyle || onDelete) && (
+          <div
+            className="
             flex flex-row
             justify-center
             items-center
             absolute -bottom-5 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition"
-        >
-          <div
-            {...dragAttributes}
-            {...dragListeners}
-            className="cursor-grab text-zinc-400 hover:text-zinc-200"
           >
-            <ArrowLeftRight className="w-4 h-4" />
-          </div>
+            <div
+              {...dragAttributes}
+              {...dragListeners}
+              className="cursor-grab text-zinc-400 hover:text-zinc-200"
+            >
+              <ArrowLeftRight className="w-4 h-4" />
+            </div>
 
-          <button
-            className="text-zinc-400 hover:text-zinc-200"
-            type="button"
-            onClick={onDelete}
-            aria-label="Delete chord"
-            title="Delete chord"
-          >
-            <Trash className="w-4 h-4" />
-          </button>
-        </div>
+            <button
+              className="text-zinc-400 hover:text-zinc-200"
+              type="button"
+              onClick={onDelete}
+              aria-label="Delete chord"
+              title="Delete chord"
+            >
+              <Trash className="w-4 h-4" />
+            </button>
+          </div>
+        )}
       </div>
     )
   }
