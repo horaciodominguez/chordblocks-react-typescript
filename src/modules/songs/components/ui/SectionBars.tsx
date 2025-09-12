@@ -21,9 +21,9 @@ interface Props {
   children: React.ReactNode
 }
 
-export default function SectionBar({ children, timeSignature }: Props) {
+export default function SectionBars({ children, timeSignature }: Props) {
   const gridPerMueasureValue = getGridColumns(timeSignature.beatsPerMeasure)
-  const classBars = `SECTIONBAR grid divide-x-2 divide-blue-300 gap-2 mb-4 ${
+  const classBars = `SECTIONBARS-WRAP grid divide-x-2 divide-blue-300 gap-2 mb-4 ${
     gridPerMueasureValue === 1
       ? "grid-cols-1"
       : gridPerMueasureValue === 2

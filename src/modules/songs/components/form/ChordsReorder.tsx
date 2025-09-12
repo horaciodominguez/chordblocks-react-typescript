@@ -21,6 +21,7 @@ import { useState } from "react"
 import { createPortal } from "react-dom"
 import type { Bar, BarChord } from "../../types/bar.types"
 import type { TimeSignature } from "../../types/song.types"
+import SectionChords from "../ui/SectionChords"
 
 type Props = {
   bar: Bar
@@ -96,7 +97,7 @@ export default function ChordsReorder({
         items={bar.chords.map((c) => c.id)}
         strategy={horizontalListSortingStrategy}
       >
-        <div className="BAR-WRAP flex gap-2 divide-x-2 divide-blue-900">
+        <SectionChords>
           {bar.chords.map((chord) => (
             <SortableChord
               key={chord.id}
@@ -105,7 +106,7 @@ export default function ChordsReorder({
               onDeleteChord={onDeleteChord}
             />
           ))}
-        </div>
+        </SectionChords>
       </SortableContext>
 
       {createPortal(
