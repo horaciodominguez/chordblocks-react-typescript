@@ -16,16 +16,21 @@ export const Song = ({ song }: Props) => {
       key={song.id ? song.id : null}
       className="border-[.1px] border-gray-700 bg-gray-50/5 rounded-md p-4 shadow-sm"
     >
-      <h3 className="font-medium">{song.title}</h3>
-      <p>{song.artist}</p>
-      <p>
+      <h2 className="font-medium uppercase text-gray-200 mb-4">{song.title}</h2>
+      <h3 className="text-sm text-gray-400 mb-4">Artist: {song.artist}</h3>
+      <p className="text-sm text-gray-400 mb-4">
         Time Measure: {song.timeSignature.beatsPerMeasure} /{" "}
         {song.timeSignature.noteValue}
       </p>
       <ul>
-        {song.songSections.map((section, sectionIndex) => (
-          <li key={sectionIndex} className=" ">
-            <SectionTag typeName={section.type} />
+        {song.songSections.map((section) => (
+          <li
+            key={section.id}
+            className="flex flex-col justify-start gap-4 mb-4 "
+          >
+            <div>
+              <SectionTag typeName={section.type} />
+            </div>
             <Section section={section} timeSignature={song.timeSignature} />
           </li>
         ))}

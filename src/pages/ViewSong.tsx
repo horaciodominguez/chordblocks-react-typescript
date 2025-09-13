@@ -16,7 +16,9 @@ export default function ViewSong({ songs }: Props) {
 
   return (
     <>
-      <h2 className="text-gray-300 font-bold text-center  ">View Song</h2>
+      <h2 className="text-gray-300 font-bold uppercase text-center mb-4 ">
+        View Song
+      </h2>
       <Song song={song} />
     </>
   )
