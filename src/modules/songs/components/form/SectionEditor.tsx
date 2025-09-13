@@ -4,7 +4,7 @@ import type {
   SongFormState,
 } from "@/modules/songs/state/songFormReducer"
 import { BEAT_VALUES, SECTION_OPTIONS } from "../../constants/song"
-import type { SectionType } from "../../types/section.types"
+import type { SectionType, SongSection } from "../../types/section.types"
 import { ChordPicker } from "@/modules/chords/components/ChordPicker"
 import Button from "@/components/ui/Button"
 import { toast } from "sonner"
@@ -95,8 +95,7 @@ export function SectionEditor({ state, dispatch, onStopEditing }: Props) {
           <SectionTag typeName={state.pendingSection.type} />
 
           <BarsReorder
-            sectionId={state.pendingSection.id}
-            bars={state.pendingSection.bars}
+            section={state.pendingSection as SongSection}
             timeSignature={state.song.timeSignature}
             onReorder={(newBars) =>
               dispatch({
@@ -137,13 +136,6 @@ export function SectionEditor({ state, dispatch, onStopEditing }: Props) {
                 type="button"
                 variant="primary"
                 onClick={() => {
-                  console.log(
-                    state.editingSectionId === null ||
-                      state.editingSectionId === undefined
-                      ? "FINALIZE_SECTION"
-                      : "UPDATE_SECTION"
-                  )
-                  console.log(state.editingSectionId)
                   dispatch({
                     type:
                       state.editingSectionId === null ||

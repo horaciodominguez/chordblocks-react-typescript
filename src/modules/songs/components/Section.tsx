@@ -12,7 +12,7 @@ type Props = {
 
 export const Section = ({ section, timeSignature }: Props) => {
   return (
-    <SectionBars id={section.id} timeSignature={timeSignature}>
+    <SectionBars id={section.id} section={section}>
       {section.bars.map((bar) => {
         return (
           <SectionChords key={bar.id}>

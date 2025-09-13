@@ -19,10 +19,10 @@ import type { TimeSignature } from "../../types/song.types"
 
 import { ArrowLeftRight } from "lucide-react"
 import SectionBar from "../ui/SectionBars"
+import type { SongSection } from "../../types/section.types"
 
 type Props = {
-  sectionId: string
-  bars: Bar[]
+  section: SongSection
   timeSignature: TimeSignature
   onReorder: (bars: Bar[]) => void
   onReorderChords: (barId: string, chords: Bar["chords"]) => void
@@ -55,7 +55,6 @@ function SortableBar({
     transform: CSS.Transform.toString(transform),
     transition,
     opacity: isDragging ? 0.5 : 1,
-    /* width: barWidthByTS(timeSignature.beatsPerMeasure), */
   }
 
   return (
@@ -85,8 +84,7 @@ function SortableBar({
 }
 
 export default function BarsReorder({
-  sectionId,
-  bars,
+  section,
   timeSignature,
   onReorder,
   onReorderChords,
@@ -97,9 +95,9 @@ export default function BarsReorder({
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event
     if (!over || active.id === over.id) return
-    const oldIndex = bars.findIndex((b) => b.id === active.id)
-    const newIndex = bars.findIndex((b) => b.id === over.id)
-    onReorder(arrayMove(bars, oldIndex, newIndex))
+    const oldIndex = section.bars.findIndex((b) => b.id === active.id)
+    const newIndex = section.bars.findIndex((b) => b.id === over.id)
+    onReorder(arrayMove(section.bars, oldIndex, newIndex))
   }
 
   return (
@@ -108,12 +106,12 @@ export default function BarsReorder({
       collisionDetection={closestCenter}
       onDragEnd={handleDragEnd}
     >
-      <SectionBar id={sectionId} timeSignature={timeSignature}>
+      <SectionBar id={section.id} section={section}>
         <SortableContext
-          items={bars.map((b) => b.id)}
+          items={section.bars.map((b) => b.id)}
           strategy={horizontalListSortingStrategy}
         >
-          {bars.map((bar, i) => (
+          {section.bars.map((bar, i) => (
             <SortableBar
               key={bar.id}
               bar={bar}

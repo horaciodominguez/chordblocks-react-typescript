@@ -1,28 +1,25 @@
-import type { TimeSignature } from "../../types/song.types"
+import type { SongSection } from "../../types/section.types"
 
-function getGridColumns(beatsPerMeasure: number): number {
-  if (beatsPerMeasure === 2 || beatsPerMeasure === 4) {
-    return 4
-  }
-
-  if (beatsPerMeasure === 3 || beatsPerMeasure === 5 || beatsPerMeasure === 6) {
-    return 3
-  }
-
-  if (beatsPerMeasure >= 7) {
-    return 1
-  }
+function setBarsByLine(section: SongSection) {
+  let maxChords = 0
+  section.bars.map((bar) => {
+    const len = bar.chords.length
+    if (len > maxChords) return (maxChords = len)
+  })
+  if (maxChords >= 1) return 4
+  if (maxChords >= 4) return 3
+  if (maxChords >= 6 && maxChords <= 8) return 2
   return 1
 }
 
 interface Props {
   id?: string
-  timeSignature: TimeSignature
+  section: SongSection
   children: React.ReactNode
 }
 
-export default function SectionBars({ children, timeSignature }: Props) {
-  const gridPerMueasureValue = getGridColumns(timeSignature.beatsPerMeasure)
+export default function SectionBars({ children, section }: Props) {
+  const gridPerMueasureValue = setBarsByLine(section)
   const classBars = `SECTIONBARS-WRAP grid divide-x-2 divide-blue-300 gap-2 mb-4 ${
     gridPerMueasureValue === 1
       ? "grid-cols-1"
