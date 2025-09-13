@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom"
 import { type Song as SongType } from "@/modules/songs/types/song.types"
+import { AudioLines, Edit } from "lucide-react"
 
 interface Props {
   songs: SongType[]
@@ -7,7 +8,7 @@ interface Props {
 
 export const SongList = ({ songs }: Props) => {
   return (
-    <div className="flex flex-col gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       {songs.map((song) => (
         <div
           key={song.id}
@@ -17,27 +18,38 @@ export const SongList = ({ songs }: Props) => {
           "
         >
           <h2>
-            <Link className="" to={`/song/${song.id}`}>
+            <Link
+              className="uppercase font-bold text-gray-200"
+              to={`/song/${song.id}`}
+            >
               {song.title}
             </Link>
           </h2>
-          <p className="text-sm text-gray-400">{song.artist}</p>
+          <h3 className="text-sm text-gray-400">Artist: {song.artist}</h3>
+          <p className="text-sm text-gray-400">
+            Time Measure: {song.timeSignature.beatsPerMeasure} /{" "}
+            {song.timeSignature.noteValue}
+          </p>
           <div className="flex gap-4">
             <Link
               className="
-                inline px-4 py-2 
-                border-2 border-zinc-500/100 rounded-md text-sm text-gray-400 hover:text-gray-200"
+                flex 
+                justify-center items-center
+                px-2 py-2 
+                border-1 border-zinc-800 rounded-md text-sm text-gray-400 hover:text-gray-200"
               to={`/song/${song.id}`}
             >
-              View
+              <AudioLines width={16} height={16} />
             </Link>
             <Link
               className="
-                inline px-4 py-2 
-                border-2 border-zinc-500/100 rounded-md text-sm text-gray-400 hover:text-gray-200"
+                flex 
+                justify-center items-center
+                px-2 py-2 
+                border-1 border-zinc-800 rounded-md text-sm text-gray-400 hover:text-gray-200"
               to={`/song/${song.id}/edit`}
             >
-              Edit
+              <Edit width={16} height={16} />
             </Link>
           </div>
         </div>
