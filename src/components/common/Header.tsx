@@ -6,7 +6,7 @@ export function Header() {
       <h1 className="text-gray-200 text-3xl uppercase text-center p-6">
         <figure>
           <img
-            src="./assets/logo.svg"
+            src="/assets/logo.svg"
             alt="ChordBlocks logo"
             className="mx-auto"
             width={200}
