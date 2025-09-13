@@ -37,7 +37,7 @@ export default function Nav() {
               >
                 <NavLinkIcon className="text-indigo-700 mb-2" />
                 <span className="text-indigo-700 text-xs font-bold uppercase">
-                  Song List
+                  {link.label}
                 </span>
               </NavLink>
             </li>
