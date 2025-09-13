@@ -25,8 +25,8 @@ export function SongFormPendingSection({ dispatch, state }: Props) {
       {state.song.songSections.length > 0 && (
         <div className="mb-4">
           {state.song.songSections.map((section) => (
-            <div key={section.id} className="mb-2">
-              <div className="flex gap-2 justify-start items-center">
+            <div key={section.id} className="mb-8">
+              <div className="flex gap-2 justify-start items-center mb-4">
                 <SectionTag typeName={section.type} />
                 <button
                   type="button"
