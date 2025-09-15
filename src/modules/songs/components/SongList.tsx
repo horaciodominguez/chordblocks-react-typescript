@@ -13,44 +13,54 @@ export const SongList = ({ songs }: Props) => {
         <div
           key={song.id}
           className="
-          flex flex-col justify-start items-start gap-4 p-4
-          border-[.1px] border-gray-700 bg-gray-50/5 rounded-md shadow-sm
+          flex flex-col justify-start items-start gap-4 
+           rounded-md shadow-sm
+
+          p-[.1px] 
+          bg-gradient-to-br from-indigo-700/50 
+          to-indigo-900/70
+          hover:from-indigo-600/85
+          box-border
           "
         >
-          <h2>
-            <Link
-              className="uppercase font-bold text-gray-200"
-              to={`/song/${song.id}`}
-            >
-              {song.title}
-            </Link>
-          </h2>
-          <h3 className="text-sm text-gray-400">Artist: {song.artist}</h3>
-          <p className="text-sm text-gray-400">
-            Time Measure: {song.timeSignature.beatsPerMeasure} /{" "}
-            {song.timeSignature.noteValue}
-          </p>
-          <div className="flex gap-4">
-            <Link
-              className="
+          <div className="rounded-md bg-zinc-900/90 backdrop-filter backdrop-blur-md p-6 w-full">
+            <h2 className="mb-4">
+              <Link
+                className="uppercase font-bold text-gray-200"
+                to={`/song/${song.id}`}
+              >
+                {song.title}
+              </Link>
+            </h2>
+            <h3 className="text-sm text-gray-400 mb-4">
+              Artist: {song.artist}
+            </h3>
+            <p className="text-sm text-gray-400 mb-4">
+              Time Measure: {song.timeSignature.beatsPerMeasure} /{" "}
+              {song.timeSignature.noteValue}
+            </p>
+            <div className="flex justify-end gap-4">
+              <Link
+                className="
                 flex 
                 justify-center items-center
                 px-2 py-2 
                 border-1 border-zinc-800 rounded-md text-sm text-gray-400 hover:text-gray-200"
-              to={`/song/${song.id}`}
-            >
-              <AudioLines width={16} height={16} />
-            </Link>
-            <Link
-              className="
+                to={`/song/${song.id}`}
+              >
+                <AudioLines width={16} height={16} />
+              </Link>
+              <Link
+                className="
                 flex 
                 justify-center items-center
                 px-2 py-2 
                 border-1 border-zinc-800 rounded-md text-sm text-gray-400 hover:text-gray-200"
-              to={`/song/${song.id}/edit`}
-            >
-              <Edit width={16} height={16} />
-            </Link>
+                to={`/song/${song.id}/edit`}
+              >
+                <Edit width={16} height={16} />
+              </Link>
+            </div>
           </div>
         </div>
       ))}
