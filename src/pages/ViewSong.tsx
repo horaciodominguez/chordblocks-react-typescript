@@ -1,22 +1,17 @@
 import { Song } from "@/modules/songs/components/Song"
-import type { Song as SongType } from "@/modules/songs/types/song.types"
 import { useParams } from "react-router-dom"
+import { useSong } from "@/modules/songs/hooks/useSong"
 
-type Props = {
-  songs: SongType[]
-}
-
-export default function ViewSong({ songs }: Props) {
+export default function ViewSong() {
   const { id } = useParams<{ id: string }>()
-  const song = songs.find((s) => s.id === id)
+  const { song, loading } = useSong(id)
 
-  if (!song) {
-    return <div>Song not found</div>
-  }
+  if (loading) return <div>Loading...</div>
+  if (!song) return <div>Song not found</div>
 
   return (
     <>
-      <h2 className="text-gray-300 font-bold uppercase text-center mb-4 ">
+      <h2 className="text-gray-300 font-bold uppercase text-center mb-4">
         View Song
       </h2>
       <Song song={song} />

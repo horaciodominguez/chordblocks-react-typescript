@@ -1,44 +1,16 @@
-import { useEffect, useState } from "react"
-
-import { Header } from "@/components/common/Header"
 import { Footer } from "@/components/common/Footer"
-
+import { Header } from "@/components/common/Header"
 import { Toaster } from "sonner"
-
-import type { Song } from "@/modules/songs/types/song.types"
-
 import { BrowserRouter, Route, Routes } from "react-router-dom"
-
-import Home from "@/pages/Home"
-import ViewSong from "@/pages/ViewSong"
-import NewSong from "@/pages/NewSong"
 import EditSong from "@/pages/EditSong"
+import Home from "@/pages/Home"
+import NewSong from "@/pages/NewSong"
+import ViewSong from "@/pages/ViewSong"
+import { useSongs } from "./modules/songs/hooks/useSongs"
 
-import { songsData } from "@/modules/songs/data/songs"
-
-import { storage } from "./services/storage"
-
-function App() {
-  const [songs, setSongs] = useState<Song[]>([])
-
-  useEffect(() => {
-    async function init() {
-      let dbSongs = await storage.getSongs()
-      if (dbSongs.length === 0) {
-        for (const song of songsData) {
-          await storage.saveSong(song)
-        }
-        dbSongs = songsData
-        console.log("loaded from mock data")
-      } else {
-        console.log("loaded from db")
-      }
-      setSongs(dbSongs)
-    }
-
-    init()
-  }, [])
-
+export default function App() {
+  const { songs, setSongs, loading } = useSongs()
+  if (loading) return <div>Loading songs...</div>
   return (
     <main
       className="
@@ -66,5 +38,3 @@ function App() {
     </main>
   )
 }
-
-export default App
