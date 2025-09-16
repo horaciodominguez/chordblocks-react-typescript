@@ -8,9 +8,10 @@ import SectionChords from "./ui/SectionChords"
 type Props = {
   section: SongSection
   timeSignature: TimeSignature
+  showDiagram?: boolean
 }
 
-export const Section = ({ section, timeSignature }: Props) => {
+export const Section = ({ section, timeSignature, showDiagram }: Props) => {
   return (
     <SectionBars id={section.id} section={section}>
       {section.bars.map((bar) => {
@@ -21,6 +22,7 @@ export const Section = ({ section, timeSignature }: Props) => {
                 key={chord.id}
                 chord={chord}
                 timeSignature={timeSignature}
+                showDiagram={showDiagram}
               />
             ))}
           </SectionChords>

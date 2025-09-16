@@ -12,6 +12,7 @@ type Props = {
   dragListeners?: React.HTMLAttributes<HTMLDivElement>
   isDragging?: boolean
   onDelete?: React.MouseEventHandler<HTMLButtonElement>
+  showDiagram?: boolean
 }
 
 export const Chord = forwardRef<HTMLDivElement, Props>(
@@ -24,6 +25,7 @@ export const Chord = forwardRef<HTMLDivElement, Props>(
       dragListeners,
       isDragging,
       onDelete,
+      showDiagram,
     },
     ref
   ) => {
@@ -39,8 +41,25 @@ export const Chord = forwardRef<HTMLDivElement, Props>(
           ...(dragStyle ?? {}),
         }}
       >
-        <div className="flex items-center justify-center">
+        <div className="flex flex-col gap-4 items-center justify-center">
           <span>{chord.name}</span>
+          {showDiagram && (
+            <picture>
+              <svg
+                className="w-8 h-10"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+              >
+                <use
+                  href={`/assets/chords-sprite.svg#${chord.name}`}
+                  className="text-white"
+                  fill="currentColor"
+                  width={32}
+                  height={40}
+                />
+              </svg>
+            </picture>
+          )}
         </div>
 
         {(dragStyle || onDelete) && (

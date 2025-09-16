@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 import { type Song as SongType } from "@/modules/songs/types/song.types"
-import { AudioLines, Edit } from "lucide-react"
+import { AudioLines, Edit, Trash } from "lucide-react"
 
 interface Props {
   songs: SongType[]
@@ -45,7 +45,7 @@ export const SongList = ({ songs }: Props) => {
                 flex 
                 justify-center items-center
                 px-2 py-2 
-                border-1 border-zinc-800 rounded-md text-sm text-gray-400 hover:text-gray-200"
+                border-1 border-zinc-700 rounded-md text-sm text-indigo-400 hover:text-gray-200"
                 to={`/song/${song.id}`}
               >
                 <AudioLines width={16} height={16} />
@@ -55,10 +55,20 @@ export const SongList = ({ songs }: Props) => {
                 flex 
                 justify-center items-center
                 px-2 py-2 
-                border-1 border-zinc-800 rounded-md text-sm text-gray-400 hover:text-gray-200"
+                border-1 border-zinc-700 rounded-md text-sm text-indigo-400 hover:text-gray-200"
                 to={`/song/${song.id}/edit`}
               >
                 <Edit width={16} height={16} />
+              </Link>
+              <Link
+                className="
+                flex 
+                justify-center items-center
+                px-2 py-2 
+                border-1 border-zinc-700 rounded-md text-sm text-red-500 hover:text-red-400"
+                to={`/song/${song.id}/edit`}
+              >
+                <Trash width={16} height={16} />
               </Link>
             </div>
           </div>
