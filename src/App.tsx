@@ -16,11 +16,27 @@ import EditSong from "@/pages/EditSong"
 
 import { songsData } from "@/modules/songs/data/songs"
 
+import { storage } from "./services/storage"
+
 function App() {
   const [songs, setSongs] = useState<Song[]>([])
 
   useEffect(() => {
-    setSongs(songsData)
+    async function init() {
+      let dbSongs = await storage.getSongs()
+      if (dbSongs.length === 0) {
+        for (const song of songsData) {
+          await storage.saveSong(song)
+        }
+        dbSongs = songsData
+        console.log("loaded from mock data")
+      } else {
+        console.log("loaded from db")
+      }
+      setSongs(dbSongs)
+    }
+
+    init()
   }, [])
 
   return (
