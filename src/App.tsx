@@ -22,7 +22,7 @@ export default function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Home songs={songs} />} />
-          <Route path="/song/:id" element={<ViewSong songs={songs} />} />
+          <Route path="/song/:id" element={<ViewSong />} />
           <Route
             path="/song/:id/edit"
             element={<EditSong songs={songs} setSongs={setSongs} />}
