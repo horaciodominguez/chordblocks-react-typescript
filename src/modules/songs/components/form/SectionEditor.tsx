@@ -90,9 +90,11 @@ export function SectionEditor({ state, dispatch, onStopEditing }: Props) {
 
       {state.pendingSection.bars.length > 0 && (
         <div className="mb-4">
-          <h2>Pending Section</h2>
+          <h2 className="mb-4">Pending Section</h2>
 
-          <SectionTag typeName={state.pendingSection.type} />
+          <div className="mb-4">
+            <SectionTag typeName={state.pendingSection.type} />
+          </div>
 
           <BarsReorder
             section={state.pendingSection as SongSection}
