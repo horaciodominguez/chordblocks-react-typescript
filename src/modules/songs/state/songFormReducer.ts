@@ -114,21 +114,29 @@ export const reducer = (
       const bpm = state.song.timeSignature.beatsPerMeasure
       const beats = Math.max(1, parseInt(state.pendingBeats, 10) || 0)
 
+      const bars = [...state.pendingSection.bars]
+      const i = bars.length - 1
+      const last = bars[i]
+
+      let position = 1
+      if (last) {
+        const rem = remainingBeats(last, bpm)
+        if (beats <= rem) {
+          position = last.chords.length + 1
+        }
+      }
+
       const chord: BarChord = {
         id: uuidv4(),
         name: state.pendingChordName,
         duration: beats,
+        position,
       }
 
-      const bars = [...state.pendingSection.bars]
-      const i = bars.length - 1
-
-      if (i >= 0) {
-        const last = bars[i]
+      if (last) {
         const rem = remainingBeats(last, bpm)
         if (beats <= rem) {
-          const updatedLast = { ...last, chords: [...last.chords, chord] }
-          bars[i] = updatedLast
+          bars[i] = { ...last, chords: [...last.chords, chord] }
         } else {
           bars.push({ id: uuidv4(), chords: [chord] })
         }
@@ -147,14 +155,23 @@ export const reducer = (
         availableBeats,
       }
     }
+
     case "DELETE_CHORD": {
       if (state.pendingSection.id === "") return state
+
       const barsAfterDelete = state.pendingSection.bars
-        .map((bar) => ({
-          ...bar,
-          chords: bar.chords.filter((chord) => chord.id !== action.v),
-        }))
+        .map((bar) => {
+          const chordsAfterDelete = bar.chords
+            .filter((chord) => chord.id !== action.v)
+            .map((chord, index) => ({
+              ...chord,
+              position: index + 1,
+            }))
+
+          return { ...bar, chords: chordsAfterDelete }
+        })
         .filter((bar) => bar.chords.length > 0)
+
       const lastAfterDelete = barsAfterDelete[barsAfterDelete.length - 1]
       const availableBeatsAfterDelete = lastAfterDelete
         ? beatsCap(
@@ -165,6 +182,7 @@ export const reducer = (
             )
           )
         : state.song.timeSignature.beatsPerMeasure
+
       return {
         ...state,
         pendingSection: { ...state.pendingSection, bars: barsAfterDelete },
@@ -172,6 +190,7 @@ export const reducer = (
         pendingBeats: nextBeatsValue(availableBeatsAfterDelete),
       }
     }
+
     case "REORDER_BARS_IN_SECTION": {
       const { sectionId, order } = action
       if (state.pendingSection.id !== sectionId) return state
@@ -196,12 +215,18 @@ export const reducer = (
             const byId = new Map(bar.chords.map((c) => [c.id, c]))
             return {
               ...bar,
-              chords: order.map((id) => byId.get(id)!).filter(Boolean),
+              chords: order
+                .map((id, index) => {
+                  const chord = byId.get(id)
+                  return chord ? { ...chord, position: index + 1 } : null
+                })
+                .filter(Boolean) as typeof bar.chords,
             }
           }),
         },
       }
     }
+
     case "CANCEL_SECTION": {
       return {
         ...state,

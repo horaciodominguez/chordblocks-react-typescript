@@ -1,7 +1,19 @@
 import { useReducer } from "react"
-import { reducer, initialSong, type Action } from "../state/songFormReducer"
+import {
+  reducer,
+  initialSong,
+  type Action,
+  type SongFormState,
+} from "../state/songFormReducer"
 
-export const useSongForm = (baseSong?: typeof initialSong) => {
+export type UseSongFormResult = {
+  state: SongFormState
+  dispatch: React.Dispatch<Action>
+}
+
+export const useSongForm = (
+  baseSong?: typeof initialSong
+): UseSongFormResult => {
   const base = baseSong ?? initialSong
   const [state, dispatch] = useReducer(reducer, {
     song: base,
@@ -14,10 +26,8 @@ export const useSongForm = (baseSong?: typeof initialSong) => {
     pendingBeats: String(base.timeSignature.beatsPerMeasure),
     availableBeats: base.timeSignature.beatsPerMeasure,
     errors: {},
+    editingSectionId: null,
   })
 
-  return { state, dispatch } as {
-    state: typeof state
-    dispatch: React.Dispatch<Action>
-  }
+  return { state, dispatch }
 }

@@ -2,6 +2,7 @@ export interface BarChord {
   id: string
   name: string
   duration: number
+  position: number
 }
 
 export interface Bar {
