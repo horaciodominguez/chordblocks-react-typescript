@@ -1,8 +1,11 @@
 import InputField from "@/components/ui/InputField"
 import { Select } from "@/components/ui/Select"
-import { BEAT_VALUES, noteValues } from "../../constants/song"
-import type { Action, SongFormState } from "../../state/songFormReducer"
-import type { Song as SongType } from "../../types/song.types"
+import { BEAT_VALUES, noteValues } from "@/modules/songs/constants/song"
+import type {
+  Action,
+  SongFormState,
+} from "@/modules/songs/state/songFormReducer"
+import type { Song as SongType } from "@/modules/songs/types/song.types"
 
 type Props = {
   dispatch: React.Dispatch<Action>
