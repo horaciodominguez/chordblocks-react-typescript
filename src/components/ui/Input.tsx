@@ -38,26 +38,24 @@ export default function InputInline({
   }
 
   return (
-    <>
-      <input
-        id={fieldId}
-        name={name}
-        ref={inputRef}
-        value={value}
-        type={type}
-        onChange={onChange}
-        tabIndex={tabIndex}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
-        onClick={handleClick}
-        readOnly={!isEditing}
-        className={`w-full px-3 py-2 rounded-md ${
-          isEditing
-            ? "border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            : "border border-gray-900 cursor-text text-gray-700"
-        }`}
-        placeholder={placeholder}
-      />
-    </>
+    <input
+      id={fieldId}
+      name={name}
+      ref={inputRef}
+      value={value}
+      type={type}
+      onChange={onChange}
+      tabIndex={tabIndex}
+      onFocus={handleFocus}
+      onBlur={handleBlur}
+      onClick={handleClick}
+      readOnly={!isEditing}
+      className={`w-full px-3 py-2 rounded-md ${
+        isEditing
+          ? "border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          : "border border-gray-900 cursor-text text-gray-700"
+      }`}
+      placeholder={placeholder}
+    />
   )
 }
