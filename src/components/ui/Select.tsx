@@ -38,6 +38,8 @@ export const Select = ({
       <Label htmlFor={name}>{label}</Label>
       {disabled && disabledMessage ? (
         <div
+          id={name}
+          aria-label={label}
           onClick={() => alert(disabledMessage)}
           className="w-full border border-gray-900 px-3 py-2 rounded-md "
           title={label}

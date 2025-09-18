@@ -1,4 +1,4 @@
-import InputInline from "@/components/ui/InputInline"
+import InputField from "@/components/ui/InputField"
 import { Select } from "@/components/ui/Select"
 import { BEAT_VALUES, noteValues } from "../../constants/song"
 import type { Action, SongFormState } from "../../state/songFormReducer"
@@ -14,7 +14,7 @@ export function SongFormMeta({ dispatch, state, song }: Props) {
   return (
     <>
       <div className="mb-4">
-        <InputInline
+        <InputField
           label="Title"
           name="title"
           onChange={(e) => {
@@ -33,7 +33,7 @@ export function SongFormMeta({ dispatch, state, song }: Props) {
       <div className="mb-4">
         <div className="flex">
           <div className="w-2/3 mr-2">
-            <InputInline
+            <InputField
               label="Artist"
               name="artist"
               onChange={(e) => {

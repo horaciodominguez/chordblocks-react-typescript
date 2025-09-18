@@ -1,30 +1,62 @@
-import Label from "./Label"
+import { useRef, useState, useId } from "react"
 
 type Props = React.InputHTMLAttributes<HTMLInputElement> & {
   name: string
-  label: string
   value: string
+  placeholder?: string
   type?: string
   onChange: React.ChangeEventHandler<HTMLInputElement>
+  tabIndex?: number
 }
 
-export default function Input({
+export default function InputInline({
   name,
-  label,
   value,
+  placeholder,
   type = "text",
   onChange,
+  tabIndex,
 }: Props) {
+  const inputRef = useRef<HTMLInputElement>(null)
+  const [isEditing, setIsEditing] = useState(false)
+  const fieldId = useId()
+
+  const handleFocus = () => setIsEditing(true)
+
+  const handleBlur = () => {
+    setIsEditing(false)
+  }
+
+  const handleClick = () => {
+    if (!isEditing) {
+      setIsEditing(true)
+      setTimeout(() => {
+        inputRef.current?.focus()
+        inputRef.current?.select()
+      }, 0)
+    }
+  }
+
   return (
     <>
-      <Label htmlFor={name}>{label}</Label>
       <input
-        id={name}
+        id={fieldId}
         name={name}
-        value={value ?? ""}
+        ref={inputRef}
+        value={value}
         type={type}
-        className="w-full border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
         onChange={onChange}
+        tabIndex={tabIndex}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+        onClick={handleClick}
+        readOnly={!isEditing}
+        className={`w-full px-3 py-2 rounded-md ${
+          isEditing
+            ? "border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            : "border border-gray-900 cursor-text text-gray-700"
+        }`}
+        placeholder={placeholder}
       />
     </>
   )
