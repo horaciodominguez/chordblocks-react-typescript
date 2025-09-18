@@ -11,11 +11,13 @@ export const BarChordSchema = z.object({
   id: z.string(),
   name: z.string().min(1, "Chord name is required"),
   duration: z.number().int().min(1, "Min duration is 1").max(12, "Max is 12"),
+  position: z.number().int().min(1, "Min position is 1"),
 })
 
 export const BarSchema = z.object({
   id: z.string(),
   chords: z.array(BarChordSchema).min(1, "Bar must have at least one chord"),
+  position: z.number().int().min(1, "Min position is 1"),
 })
 
 export const SectionSchema = z.object({
