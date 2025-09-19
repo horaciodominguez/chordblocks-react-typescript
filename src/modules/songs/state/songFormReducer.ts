@@ -57,6 +57,8 @@ export const initialSong: SongType = {
     noteValue: 4,
   },
   songSections: [] as SongSection[],
+  createdAt: new Date().toISOString(),
+  updatedAt: new Date().toISOString(),
 }
 
 export const reducer = (

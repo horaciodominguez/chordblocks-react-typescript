@@ -6,6 +6,8 @@ export interface Song {
   artist: string
   timeSignature: TimeSignature
   songSections: SongSection[]
+  createdAt: string
+  updatedAt: string
 }
 
 export interface TimeSignature {

@@ -37,6 +37,8 @@ export const SongSchema = z.object({
   artist: z.string().min(1, "Artist is required"),
   timeSignature: TimeSignatureSchema,
   songSections: z.array(SectionSchema).min(1, "Add at least one section"),
+  createdAt: z.string(),
+  updatedAt: z.string(),
 })
 
 export type SongParsed = z.infer<typeof SongSchema>
