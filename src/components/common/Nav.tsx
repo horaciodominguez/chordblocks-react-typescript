@@ -9,7 +9,7 @@ const navLinks = [
 
 export default function Nav() {
   return (
-    <nav className="my-4">
+    <nav className="">
       <ul className="flex gap-2">
         {navLinks.map((link) => {
           const NavLinkIcon = link.icon
@@ -35,7 +35,7 @@ export default function Nav() {
                   }`
                 }
               >
-                <NavLinkIcon className="text-indigo-700 mb-2" />
+                <NavLinkIcon className="text-indigo-700 mb-2 w-8 h-8" />
                 <span className="text-indigo-700 text-xs font-bold uppercase">
                   {link.label}
                 </span>

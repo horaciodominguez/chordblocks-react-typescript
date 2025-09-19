@@ -9,7 +9,13 @@ export function Header() {
 
   return (
     <>
-      <div className="flex justify-between items-center p-4 bg-indigo-950/20 border-[.1px] border-indigo-200/10 rounded-md ">
+      <div
+        className="flex justify-between items-center 
+                    p-4 
+                    g-indigo-950/20 border-[.1px] border-indigo-200/10 
+                    rounded-md
+                    mb-4"
+      >
         <h1 className="text-gray-200 text-3xl uppercase text-center ">
           <figure>
             <img
