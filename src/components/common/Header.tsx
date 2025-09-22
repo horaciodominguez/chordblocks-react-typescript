@@ -3,6 +3,7 @@ import Nav from "./Nav"
 import { useAuth } from "@/modules/auth/hooks/useAuth"
 import { LoginForm } from "@/modules/auth/components/LoginForm"
 import { LogoutButton } from "@/modules/auth/components/LogoutButton"
+import { User } from "lucide-react"
 
 export function Header() {
   const { user } = useAuth()
@@ -29,7 +30,12 @@ export function Header() {
         <div>
           {user ? (
             <div className="flex gap-4 justify-center items-center">
-              <span className="text-indigo-500 text-xs">{user.email}</span>
+              <div className="flex flex-col justify-center items-center text-indigo-500 text-xs">
+                <div>
+                  <User size={16} />
+                </div>
+                <div>{user.email}</div>
+              </div>
               <LogoutButton />
             </div>
           ) : (
