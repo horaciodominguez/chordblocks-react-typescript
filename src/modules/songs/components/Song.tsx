@@ -16,10 +16,7 @@ export const Song = ({ song }: Props) => {
   const [showDiagram, setShowDiagram] = useState(false)
 
   return (
-    <div
-      key={song.id ? song.id : null}
-      className="border-[.1px] border-gray-700 bg-gray-50/5 rounded-md p-4 shadow-sm"
-    >
+    <div key={song.id ? song.id : null} className="panel-variant-1">
       <div className="flex justify-between items-center mb-4">
         <h2 className="font-medium uppercase text-gray-200">{song.title}</h2>
 
