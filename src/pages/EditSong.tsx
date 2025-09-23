@@ -25,7 +25,7 @@ export default function EditSong({ songs, setSongs }: Props) {
 
   return (
     <>
-      <h2 className="text-gray-300 font-bold text-center">Edit Song</h2>
+      <h2 className="page-title mb-4">Edit Song</h2>
       <SongForm handleAddSong={handleUpdate} initialSong={song} />
     </>
   )

@@ -8,9 +8,7 @@ type Props = {
 export default function Home({ songs }: Props) {
   return (
     <>
-      <h2 className="text-gray-300 font-bold text-center uppercase mb-4  ">
-        Song List
-      </h2>
+      <h2 className="page-title mb-4">Song List</h2>
       <SongList songs={songs} />
     </>
   )
