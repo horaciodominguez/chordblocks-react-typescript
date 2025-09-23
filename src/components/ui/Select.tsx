@@ -41,7 +41,7 @@ export const Select = ({
           id={name}
           aria-label={label}
           onClick={() => alert(disabledMessage)}
-          className="w-full border border-gray-900 px-3 py-2 rounded-md "
+          className="w-full border border-indigo-600 px-3 py-2 rounded-md "
           title={label}
           tabIndex={tabIndex}
         >
@@ -58,7 +58,7 @@ export const Select = ({
           onClick={() => setIsEditing(true)}
           onBlur={() => setIsEditing(false)}
           className={`${baseClass} ${
-            isEditing ? "border-gray-300" : "border-gray-900"
+            isEditing ? "border-gray-300" : "border-indigo-600/25"
           }`}
           tabIndex={tabIndex}
         >

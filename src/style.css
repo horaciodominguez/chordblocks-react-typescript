@@ -7,5 +7,5 @@
 }
 
 .panel-variant-1 {
-  @apply border-[.1px] border-gray-700 bg-gray-50/5 rounded-md p-4 shadow-sm;
+  @apply border-[.1px] border-gray-700 bg-gray-50/5 rounded-md p-4 shadow-md shadow-black/20 backdrop-blur-md backdrop-filter;
 }
