@@ -1,6 +1,6 @@
-import { storageProviderIdb } from "./providers/storage.idb"
+import { idbStorage } from "./providers/storage.idb"
 export { supabaseStorage } from "./providers/storage.supabase"
 
 import type { StorageProvider } from "./types/storage.types"
 
-export const storage: StorageProvider = storageProviderIdb
+export const storage: StorageProvider = idbStorage

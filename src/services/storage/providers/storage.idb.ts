@@ -1,42 +1,56 @@
-import { openDB, type IDBPDatabase } from "idb"
-import type { StorageProvider } from "../types/storage.types"
+import { openDB } from "idb"
 import type { Song } from "@/modules/songs/types/song.types"
 
-let dbPromise: Promise<IDBPDatabase>
+const DB_NAME = "ChordBlocks"
+const STORE = "songs"
+const PENDING = "pending"
 
-function initDb() {
-  if (!dbPromise) {
-    dbPromise = openDB("ChordBlocks-db", 1, {
-      upgrade(db) {
-        db.createObjectStore("songs", {
-          keyPath: "id",
-          autoIncrement: true,
-        })
-      },
-    })
-  }
-  return dbPromise
+async function getDb() {
+  return openDB(DB_NAME, 2, {
+    upgrade(db) {
+      if (!db.objectStoreNames.contains(STORE)) {
+        db.createObjectStore(STORE, { keyPath: "id" })
+      }
+      if (!db.objectStoreNames.contains(PENDING)) {
+        db.createObjectStore(PENDING, { keyPath: "id" })
+      }
+    },
+  })
 }
 
-export const storageProviderIdb: StorageProvider = {
-  async getSongs() {
-    const db = await initDb()
-    return db.getAll("songs")
+export const idbStorage = {
+  async getSongs(): Promise<Song[]> {
+    const db = await getDb()
+    return (await db.getAll(STORE)) as Song[]
   },
-  async getSong(id: string) {
-    const db = await initDb()
-    return db.get("songs", id)
-  },
+
   async saveSong(song: Song) {
-    const db = await initDb()
-    await db.put("songs", song)
+    const db = await getDb()
+    await db.put(STORE, song)
   },
-  async deleteSong(id: string) {
-    const db = await initDb()
-    await db.delete("songs", id)
+
+  async getSong(id: string): Promise<Song> {
+    const db = await getDb()
+    return (await db.get(STORE, id)) as Song
   },
-  async updateSong(song: Song) {
-    const db = await initDb()
-    await db.put("songs", song)
+
+  async clearSongs() {
+    const db = await getDb()
+    await db.clear(STORE)
+  },
+
+  async addPending(song: Song) {
+    const db = await getDb()
+    await db.put(PENDING, song)
+  },
+
+  async getPending(): Promise<Song[]> {
+    const db = await getDb()
+    return (await db.getAll(PENDING)) as Song[]
+  },
+
+  async clearPending() {
+    const db = await getDb()
+    await db.clear(PENDING)
   },
 }
