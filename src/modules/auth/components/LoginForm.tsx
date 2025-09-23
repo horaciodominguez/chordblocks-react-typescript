@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { signIn } from "@/services/auth/supabaseAuth"
+import { LogIn } from "lucide-react"
 
 export function LoginForm() {
   const [email, setEmail] = useState("")
@@ -16,19 +17,24 @@ export function LoginForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col ">
+    <form
+      onSubmit={handleSubmit}
+      className="flex flex-col justify-center items-center gap-2"
+    >
       <input
         type="email"
-        placeholder="Tu email"
+        placeholder="email@email.com"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        className="p-2 rounded bg-gray-800 text-white"
+        className="p-2 rounded bg-gray-800 text-white  outline-0 w-full "
       />
       <button
         type="submit"
-        className="bg-blue-500 text-white rounded px-4 py-2 font-bold"
+        className="flex justify-center items-center px-2 py-2 
+                border-[.1px] border-zinc-700 rounded-md text-sm text-indigo-400 hover:text-gray-200 gap-2"
       >
-        Login
+        <LogIn />
+        <span>Login</span>
       </button>
     </form>
   )

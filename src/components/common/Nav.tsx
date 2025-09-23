@@ -35,8 +35,8 @@ export default function Nav() {
                   }`
                 }
               >
-                <NavLinkIcon className="text-indigo-700 mb-2 w-8 h-8" />
-                <span className="text-indigo-700 text-xs font-bold uppercase">
+                <NavLinkIcon className="text-indigo-700 mb-1 w-8 h-8" />
+                <span className="text-indigo-400 text-[10px] uppercase">
                   {link.label}
                 </span>
               </NavLink>
