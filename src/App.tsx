@@ -15,23 +15,25 @@ export default function App() {
     <main
       className="
       max-w-3xl mx-auto px-4 py-8
-      flex flex-col justify-center align-middle 
+      flex flex-col justify-between
       min-h-screen"
     >
       <BrowserRouter>
         <Header />
-        <Routes>
-          <Route path="/" element={<Home songs={songs} />} />
-          <Route path="/song/:id" element={<ViewSong />} />
-          <Route
-            path="/song/:id/edit"
-            element={<EditSong songs={songs} setSongs={setSongs} />}
-          />
-          <Route
-            path="/new"
-            element={<NewSong songs={songs} setSongs={setSongs} />}
-          />
-        </Routes>
+        <div className="flex-grow">
+          <Routes>
+            <Route path="/" element={<Home songs={songs} />} />
+            <Route path="/song/:id" element={<ViewSong />} />
+            <Route
+              path="/song/:id/edit"
+              element={<EditSong songs={songs} setSongs={setSongs} />}
+            />
+            <Route
+              path="/new"
+              element={<NewSong songs={songs} setSongs={setSongs} />}
+            />
+          </Routes>
+        </div>
       </BrowserRouter>
       <Toaster richColors position="top-center" theme="dark" />
       <Footer />
