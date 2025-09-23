@@ -58,7 +58,7 @@ export const Select = ({
           onClick={() => setIsEditing(true)}
           onBlur={() => setIsEditing(false)}
           className={`${baseClass} ${
-            isEditing ? "border-gray-300" : "border-indigo-600/25"
+            isEditing ? "border-gray-300" : "border-zinc-400/25"
           }`}
           tabIndex={tabIndex}
         >
