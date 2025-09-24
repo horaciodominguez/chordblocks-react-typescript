@@ -19,13 +19,16 @@ export const supabaseStorage = {
     song.updatedAt = now
     song.createdAt = song.createdAt ?? now
 
-    const { error } = await supabase.from("songs").upsert({
-      id: song.id,
-      user_id: userId,
-      data: song,
-      created_at: song.createdAt,
-      updated_at: song.updatedAt,
-    })
+    const { error } = await supabase.from("songs").upsert(
+      {
+        id: song.id,
+        user_id: userId,
+        data: song,
+        created_at: song.createdAt,
+        updated_at: song.updatedAt,
+      },
+      { onConflict: "id" }
+    )
 
     if (error) throw error
   },

@@ -1,8 +1,9 @@
 import { type Song } from "../types/song.types"
+import { v4 as uuidv4 } from "uuid"
 
 export const songsData: Song[] = [
   {
-    id: "1",
+    id: uuidv4(),
     title: "Knockin' on Heaven's Door",
     artist: "Bob Dylan",
     timeSignature: { beatsPerMeasure: 4, noteValue: 4 }, // 4/4
