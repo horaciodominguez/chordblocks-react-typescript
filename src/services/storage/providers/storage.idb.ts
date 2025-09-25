@@ -60,4 +60,10 @@ export const idbStorage = {
     const db = await getDb()
     await db.clear(PENDING)
   },
+
+  async deleteSong(id: string) {
+    console.log("deleteSong idb: SongId:", id)
+    const db = await getDb()
+    await db.delete(STORE, id)
+  },
 }

@@ -1,12 +1,10 @@
 import { Link } from "react-router-dom"
-import { type Song as SongType } from "@/modules/songs/types/song.types"
 import { AudioLines, Edit, Trash } from "lucide-react"
+import { useSongs } from "../hooks/useSongs"
 
-interface Props {
-  songs: SongType[]
-}
+export const SongList = () => {
+  const { songs, deleteSong } = useSongs()
 
-export const SongList = ({ songs }: Props) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       {songs.map((song) => (
@@ -60,16 +58,16 @@ export const SongList = ({ songs }: Props) => {
               >
                 <Edit width={16} height={16} />
               </Link>
-              <Link
+              <button
                 className="
                 flex 
                 justify-center items-center
                 px-2 py-2 
                 border-1 border-zinc-700 rounded-md text-sm text-red-500 hover:text-red-400"
-                to={`/song/${song.id}/edit`}
+                onClick={() => deleteSong(song.id)}
               >
                 <Trash width={16} height={16} />
-              </Link>
+              </button>
             </div>
           </div>
         </div>

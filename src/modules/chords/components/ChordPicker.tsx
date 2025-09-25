@@ -37,7 +37,7 @@ export function ChordPicker({ onSelect, selectedValue, label }: Props) {
         <Popover.Content
           side="bottom"
           align="center"
-          className="z-50 w-96 rounded-md bg-zinc-900/5 backdrop-blur-sm border-2 border-gray-800 p-4 shadow-xl"
+          className="z-50 w-96 rounded-md bg-zinc-900/80 backdrop-blur-md border-2 border-gray-800 p-4 shadow-xl"
         >
           <Popover.Close />
           <Popover.Arrow />

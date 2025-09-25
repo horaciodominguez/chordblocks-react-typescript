@@ -8,4 +8,6 @@ export interface StorageProvider {
   addPending(song: Song): Promise<void>
   getPending(): Promise<Song[]>
   clearPending(): Promise<void>
+
+  deleteSong(songId: string): Promise<void>
 }

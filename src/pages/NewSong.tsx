@@ -1,23 +1,23 @@
 import { SongForm } from "@/modules/songs/components/form/SongForm"
 import type { Song } from "@/modules/songs/types/song.types"
-import { storage } from "@/services/storage"
-import { saveSongWithSync } from "@/services/sync/syncManager"
+import { useSongs } from "@/modules/songs/hooks/useSongs"
+import { useNavigate } from "react-router-dom"
 
-type Props = {
-  setSongs: React.Dispatch<React.SetStateAction<Song[]>>
-}
+export default function NewSong() {
+  const navigate = useNavigate()
 
-export default function NewSong({ setSongs }: Props) {
-  const handleAddSong = async (song: Song) => {
-    await saveSongWithSync(song)
-    const dbSongs = await storage.getSongs()
-    setSongs(dbSongs)
+  const { addSong } = useSongs()
+
+  const handleSubmit = async (song: Song) => {
+    if (!song) return
+    await addSong(song)
+    navigate("/")
   }
 
   return (
     <>
       <h2 className="page-title mb-4">Add Song</h2>
-      <SongForm handleAddSong={handleAddSong} />
+      <SongForm handleAddSong={handleSubmit} />
     </>
   )
 }

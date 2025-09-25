@@ -9,7 +9,7 @@ import ViewSong from "@/pages/ViewSong"
 import { useSongs } from "./modules/songs/hooks/useSongs"
 
 export default function App() {
-  const { songs, setSongs, loading } = useSongs()
+  const { loading } = useSongs()
   if (loading) return <div>Loading songs...</div>
   return (
     <main
@@ -22,16 +22,10 @@ export default function App() {
         <Header />
         <div className="flex-grow">
           <Routes>
-            <Route path="/" element={<Home songs={songs} />} />
+            <Route path="/" element={<Home />} />
             <Route path="/song/:id" element={<ViewSong />} />
-            <Route
-              path="/song/:id/edit"
-              element={<EditSong songs={songs} setSongs={setSongs} />}
-            />
-            <Route
-              path="/new"
-              element={<NewSong songs={songs} setSongs={setSongs} />}
-            />
+            <Route path="/song/:id/edit" element={<EditSong />} />
+            <Route path="/new" element={<NewSong />} />
           </Routes>
         </div>
       </BrowserRouter>

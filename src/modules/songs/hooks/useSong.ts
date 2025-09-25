@@ -1,22 +1,10 @@
-import { useEffect, useState } from "react"
-import { storage } from "@/services/storage/"
-import type { Song } from "@/modules/songs/types/song.types"
+// useSong.ts
+import { useSongs } from "./useSongs"
 
 export function useSong(id: string | undefined) {
-  const [song, setSong] = useState<Song | null>(null)
-  const [loading, setLoading] = useState(true)
+  const { songs, loading } = useSongs()
 
-  useEffect(() => {
-    if (!id) return
-    async function load() {
-      if (!id) return
-      setLoading(true)
-      const found = await storage.getSong(id)
-      setSong(found ?? null)
-      setLoading(false)
-    }
-    load()
-  }, [id])
+  const song = id ? songs.find((s) => s.id === id) : undefined
 
-  return { song, setSong, loading }
+  return { song, loading }
 }

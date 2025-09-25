@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { storage } from "@/services/storage/"
 import type { Song } from "@/modules/songs/types/song.types"
 import { songsData } from "@/modules/songs/data/songs"
+import { saveSongWithSync } from "@/services/sync/syncManager"
 
 export function useSongs() {
   console.log("useSongs")
@@ -29,5 +30,24 @@ export function useSongs() {
     init()
   }, [])
 
-  return { songs, setSongs, loading }
+  const addSong = async (song: Song) => {
+    await saveSongWithSync(song)
+    const dbSongs = await storage.getSongs()
+    setSongs(dbSongs)
+  }
+
+  const updateSong = async (song: Song) => {
+    await saveSongWithSync(song)
+    const dbSongs = await storage.getSongs()
+    setSongs(dbSongs)
+  }
+
+  const deleteSong = async (id: string) => {
+    console.log("useSongs deleteSong:", id)
+    await storage.deleteSong(id)
+    const dbSongs = await storage.getSongs()
+    setSongs(dbSongs)
+  }
+
+  return { songs, setSongs, loading, addSong, updateSong, deleteSong }
 }
