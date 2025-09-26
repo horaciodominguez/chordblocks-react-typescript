@@ -1,14 +1,22 @@
 import { supabase } from "@/services/supabaseClient"
 import { idbStorage } from "@/services/storage/providers/storage.idb"
 import { supabaseStorage } from "@/services/storage/providers/storage.supabase"
-import type { Song } from "@/modules/songs/types/song.types"
+import { type Song } from "@/modules/songs/types/song.types"
+
+export const syncSong = async (userId: string, song: Song) => {
+  try {
+    await supabaseStorage.saveSong(userId, song)
+    await idbStorage.removePending(song.id)
+  } catch (error) {
+    await idbStorage.addPending(song)
+  }
+}
 
 export const saveSongWithSync = async (song: Song) => {
-  console.log("saveSongWithSync")
+  await idbStorage.saveSong(song)
+
   const { data } = await supabase.auth.getUser()
   const user = data?.user
-
-  await idbStorage.saveSong(song)
 
   if (!user) {
     await idbStorage.addPending(song)
@@ -17,8 +25,30 @@ export const saveSongWithSync = async (song: Song) => {
 
   try {
     await supabaseStorage.saveSong(user.id, song)
-  } catch (e) {
+    await idbStorage.removePending(song.id)
+  } catch (error) {
+    console.error("saveSongWithSync error:", error)
     await idbStorage.addPending(song)
+  }
+}
+
+export const deleteSongWithSync = async (songId: string) => {
+  await idbStorage.deleteSong(songId)
+
+  const { data } = await supabase.auth.getUser()
+  const user = data?.user
+
+  if (!user) {
+    await idbStorage.addPendingDelete(songId)
+    return
+  }
+
+  try {
+    await supabaseStorage.deleteSong(user.id, songId)
+    await idbStorage.removePending(songId)
+  } catch (error) {
+    console.error("deleteSongWithSync error:", error)
+    await idbStorage.addPendingDelete(songId)
   }
 }
 
@@ -27,47 +57,28 @@ export const syncAll = async () => {
   const user = data?.user
   if (!user) return
 
-  // 🔹 subo pendientes (solo si más nuevo o no existe en remoto)
   const pending = await idbStorage.getPending()
-  for (const song of pending) {
-    await syncSong(user.id, song)
-  }
-  await idbStorage.clearPending()
 
-  // 🔹 ahora bajo remoto
-  const remoteSongs = await supabaseStorage.getSongs(user.id)
+  for (const entry of pending) {
+    try {
+      if ((entry as any)?._action === "delete") {
+        await supabaseStorage.deleteSong(user.id, (entry as any).id)
+        await idbStorage.removePending((entry as any).id)
+      } else {
+        await syncSong(user.id, entry as Song)
+        await idbStorage.removePending((entry as Song).id)
+      }
+    } catch (error) {
+      console.error("syncAll pending error:", error)
+    }
+  }
+
   const localSongs = await idbStorage.getSongs()
-
-  // 🔹 merge de local y remoto por updatedAt
-  for (const remote of remoteSongs) {
-    const local = localSongs.find((s) => s.id === remote.id)
-    if (!local) {
-      // no existe en local → guardo remoto
-      await idbStorage.saveSong(remote)
-    } else if (new Date(remote.updatedAt) > new Date(local.updatedAt)) {
-      // remoto más nuevo → piso local
-      await idbStorage.saveSong(remote)
+  for (const song of localSongs) {
+    try {
+      await syncSong(user.id, song)
+    } catch (error) {
+      console.error("syncAll localSongs error:", error)
     }
-    // si local más nuevo, ya lo subí antes (en pending o al crear)
-  }
-
-  // 🔹 canciones locales que no están en remoto → subir
-  for (const local of localSongs) {
-    const exists = remoteSongs.find((r) => r.id === local.id)
-    if (!exists) {
-      await supabaseStorage.saveSong(user.id, local)
-    }
-  }
-}
-
-// helper para subir comparando updatedAt
-const syncSong = async (userId: string, song: Song) => {
-  const remoteSongs = await supabaseStorage.getSongs(userId)
-  const remote = remoteSongs.find((r) => r.id === song.id)
-
-  if (!remote) {
-    await supabaseStorage.saveSong(userId, song)
-  } else if (new Date(song.updatedAt) > new Date(remote.updatedAt)) {
-    await supabaseStorage.saveSong(userId, song)
   }
 }

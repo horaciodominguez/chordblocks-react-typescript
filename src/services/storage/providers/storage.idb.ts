@@ -20,50 +20,53 @@ async function getDb() {
 
 export const idbStorage = {
   async getSongs(): Promise<Song[]> {
-    console.log("getSongs idb")
     const db = await getDb()
     return (await db.getAll(STORE)) as Song[]
   },
 
   async saveSong(song: Song) {
-    console.log("saveSong idb: Song:", song)
     const db = await getDb()
     await db.put(STORE, song)
   },
 
   async getSong(id: string): Promise<Song> {
-    console.log("getSong idb: SongId:", id)
     const db = await getDb()
     return (await db.get(STORE, id)) as Song
   },
 
   async clearSongs() {
-    console.log("clearSongs idb")
     const db = await getDb()
     await db.clear(STORE)
   },
 
   async addPending(song: Song) {
-    console.log("addPending idb: Song:", song)
     const db = await getDb()
     await db.put(PENDING, song)
   },
 
   async getPending(): Promise<Song[]> {
-    console.log("getPending idb")
     const db = await getDb()
     return (await db.getAll(PENDING)) as Song[]
   },
 
   async clearPending() {
-    console.log("clearPending idb")
     const db = await getDb()
     await db.clear(PENDING)
   },
 
   async deleteSong(id: string) {
-    console.log("deleteSong idb: SongId:", id)
     const db = await getDb()
     await db.delete(STORE, id)
+  },
+
+  async addPendingDelete(id: string) {
+    const db = await getDb()
+    const entry = { id, _action: "delete", deletedAt: new Date().toISOString() }
+    await db.put(PENDING, entry)
+  },
+
+  async removePending(id: string) {
+    const db = await getDb()
+    await db.delete(PENDING, id)
   },
 }
