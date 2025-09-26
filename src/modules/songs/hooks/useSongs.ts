@@ -12,37 +12,60 @@ export function useSongs() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    let mounted = true
+
     async function init() {
-      let dbSongs = await storage.getSongs()
-      if (dbSongs.length === 0) {
-        for (const s of songsData) {
-          await storage.saveSong(s)
-          await storage.addPending(s)
+      try {
+        let dbSongs = await storage.getSongs()
+        if (!dbSongs || dbSongs.length === 0) {
+          for (const s of songsData) {
+            await storage.saveSong(s)
+          }
+          dbSongs = songsData
         }
-        dbSongs = songsData
+        if (mounted) setSongs(dbSongs)
+      } catch (err) {
+        console.error("useSongs init error:", err)
+        if (mounted) setSongs(songsData)
+      } finally {
+        if (mounted) setLoading(false)
       }
-      setSongs(dbSongs)
-      setLoading(false)
     }
+
     init()
+    return () => {
+      mounted = false
+    }
   }, [])
 
   const addSong = async (song: Song) => {
-    await saveSongWithSync(song)
-    const dbSongs = await storage.getSongs()
-    setSongs(dbSongs)
+    setLoading(true)
+    try {
+      await saveSongWithSync(song)
+      setSongs(await storage.getSongs())
+    } finally {
+      setLoading(false)
+    }
   }
 
   const updateSong = async (song: Song) => {
-    await saveSongWithSync(song)
-    const dbSongs = await storage.getSongs()
-    setSongs(dbSongs)
+    setLoading(true)
+    try {
+      await saveSongWithSync(song)
+      setSongs(await storage.getSongs())
+    } finally {
+      setLoading(false)
+    }
   }
 
   const deleteSong = async (id: string) => {
-    await deleteSongWithSync(id)
-    const dbSongs = await storage.getSongs()
-    setSongs(dbSongs)
+    setLoading(true)
+    try {
+      await deleteSongWithSync(id)
+      setSongs(await storage.getSongs())
+    } finally {
+      setLoading(false)
+    }
   }
 
   return { songs, setSongs, loading, addSong, updateSong, deleteSong }

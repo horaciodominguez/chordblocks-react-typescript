@@ -5,7 +5,8 @@ import type { Song } from "@/modules/songs/types/song.types"
 import type { PendingDrafts } from "@/services/storage/types/storage.types"
 
 /**
- * Helper to get user id from supabase auth
+ * @description Helper to get user id from supabase auth
+ * @returns user id
  * --
  * Helper para obtener userId actual desde supabase auth
  */
@@ -20,8 +21,11 @@ async function getCurrentUserId(): Promise<string | null> {
 }
 
 /**
- * Try to sync a song with Supabase.
+ * @description Try to sync a song with Supabase.
  * If it fails, leave it in pending (idb pending store).
+ * @param userId
+ * @param song
+ * @returns void
  * --
  * Intenta sincronizar una canción concreta con Supabase.
  * Si falla, la deja en pending (idb pending store).
@@ -37,8 +41,10 @@ export const syncSong = async (userId: string, song: Song) => {
 }
 
 /**
- * Save song locally (idb) and then try to sync it with Supabase.
+ * @description Save song locally (idb) and then try to sync it with Supabase.
  * If it fails, mark it as pending.
+ * @param song
+ * @returns void
  * --
  * Guarda localmente siempre (idb) y luego intenta subir a Supabase si hay usuario.
  * Si no hay usuario o falla, marca la canción como pending.
@@ -64,8 +70,10 @@ export const saveSongWithSync = async (song: Song) => {
 }
 
 /**
- * Delete song locally (idb) and then try to sync it with Supabase.
+ * @description Delete song locally (idb) and then try to sync it with Supabase.
  * If it fails, mark it as pending.
+ * @param songId
+ * @returns void
  * --
  * Elimina localmente siempre (idb) y luego intenta borrar en Supabase si hay usuario.
  * Si no hay usuario o falla, marca la canción como pending.
@@ -91,7 +99,8 @@ export const deleteSongWithSync = async (songId: string) => {
 }
 
 /**
- * Try to sync all songs with Supabase.
+ * @description Try to sync all songs with Supabase.
+ * @returns void
  * --
  * Intenta sincronizar todas las canciones con Supabase.
  */
