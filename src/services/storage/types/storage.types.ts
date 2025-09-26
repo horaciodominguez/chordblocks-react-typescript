@@ -9,3 +9,11 @@ export interface StorageProvider {
   clearPending(): Promise<void>
   deleteSong(songId: string): Promise<void>
 }
+
+export interface PendingDelete {
+  id: string
+  _action: "delete"
+  deletedAt: string
+}
+
+export type PendingDrafts = Song | PendingDelete

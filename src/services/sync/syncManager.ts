@@ -1,7 +1,31 @@
 import { supabase } from "@/services/supabaseClient"
 import { idbStorage } from "@/services/storage/providers/storage.idb"
 import { supabaseStorage } from "@/services/storage/providers/storage.supabase"
-import { type Song } from "@/modules/songs/types/song.types"
+import type { Song } from "@/modules/songs/types/song.types"
+import type { PendingDrafts } from "@/services/storage/types/storage.types"
+
+/**
+ * Helper to get user id from supabase auth
+ * --
+ * Helper para obtener userId actual desde supabase auth
+ */
+async function getCurrentUserId(): Promise<string | null> {
+  try {
+    const { data } = await supabase.auth.getUser()
+    return data?.user?.id ?? null
+  } catch (err) {
+    console.error("getCurrentUserId error:", err)
+    return null
+  }
+}
+
+/**
+ * Try to sync a song with Supabase.
+ * If it fails, leave it in pending (idb pending store).
+ * --
+ * Intenta sincronizar una canción concreta con Supabase.
+ * Si falla, la deja en pending (idb pending store).
+ */
 
 export const syncSong = async (userId: string, song: Song) => {
   try {
@@ -12,19 +36,26 @@ export const syncSong = async (userId: string, song: Song) => {
   }
 }
 
+/**
+ * Save song locally (idb) and then try to sync it with Supabase.
+ * If it fails, mark it as pending.
+ * --
+ * Guarda localmente siempre (idb) y luego intenta subir a Supabase si hay usuario.
+ * Si no hay usuario o falla, marca la canción como pending.
+ */
+
 export const saveSongWithSync = async (song: Song) => {
   await idbStorage.saveSong(song)
 
-  const { data } = await supabase.auth.getUser()
-  const user = data?.user
+  const userId = await getCurrentUserId()
 
-  if (!user) {
+  if (!userId) {
     await idbStorage.addPending(song)
     return
   }
 
   try {
-    await supabaseStorage.saveSong(user.id, song)
+    await supabaseStorage.saveSong(userId, song)
     await idbStorage.removePending(song.id)
   } catch (error) {
     console.error("saveSongWithSync error:", error)
@@ -32,19 +63,26 @@ export const saveSongWithSync = async (song: Song) => {
   }
 }
 
+/**
+ * Delete song locally (idb) and then try to sync it with Supabase.
+ * If it fails, mark it as pending.
+ * --
+ * Elimina localmente siempre (idb) y luego intenta borrar en Supabase si hay usuario.
+ * Si no hay usuario o falla, marca la canción como pending.
+ */
+
 export const deleteSongWithSync = async (songId: string) => {
   await idbStorage.deleteSong(songId)
 
-  const { data } = await supabase.auth.getUser()
-  const user = data?.user
+  const userId = await getCurrentUserId()
 
-  if (!user) {
+  if (!userId) {
     await idbStorage.addPendingDelete(songId)
     return
   }
 
   try {
-    await supabaseStorage.deleteSong(user.id, songId)
+    await supabaseStorage.deleteSong(userId, songId)
     await idbStorage.removePending(songId)
   } catch (error) {
     console.error("deleteSongWithSync error:", error)
@@ -52,33 +90,39 @@ export const deleteSongWithSync = async (songId: string) => {
   }
 }
 
+/**
+ * Try to sync all songs with Supabase.
+ * --
+ * Intenta sincronizar todas las canciones con Supabase.
+ */
+
 export const syncAll = async () => {
-  const { data } = await supabase.auth.getUser()
-  const user = data?.user
-  if (!user) return
+  const userId = await getCurrentUserId()
+  if (!userId) return
 
-  const pending = await idbStorage.getPending()
-
-  for (const entry of pending) {
+  const songDrafts = (await idbStorage.getPending()) as PendingDrafts[]
+  for (const songDraft of songDrafts) {
     try {
-      if ((entry as any)?._action === "delete") {
-        await supabaseStorage.deleteSong(user.id, (entry as any).id)
-        await idbStorage.removePending((entry as any).id)
+      if ("_action" in songDraft && songDraft._action === "delete") {
+        await supabaseStorage.deleteSong(userId, songDraft.id)
+        await idbStorage.removePending(songDraft.id)
       } else {
-        await syncSong(user.id, entry as Song)
-        await idbStorage.removePending((entry as Song).id)
+        await supabaseStorage.saveSong(userId, songDraft as Song)
+        await idbStorage.removePending(songDraft.id)
       }
-    } catch (error) {
-      console.error("syncAll pending error:", error)
+    } catch (err) {
+      console.error("syncAll pending error:", err)
     }
   }
 
   const localSongs = await idbStorage.getSongs()
   for (const song of localSongs) {
     try {
-      await syncSong(user.id, song)
-    } catch (error) {
-      console.error("syncAll localSongs error:", error)
+      await supabaseStorage.saveSong(userId, song)
+      await idbStorage.removePending(song.id)
+    } catch (err) {
+      console.error("syncAll localSongs error:", err)
+      await idbStorage.addPending(song)
     }
   }
 }
