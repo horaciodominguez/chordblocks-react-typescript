@@ -1,4 +1,5 @@
 import * as Dialog from "@radix-ui/react-dialog"
+import Button from "./Button"
 
 type Props = {
   title?: string
@@ -32,19 +33,17 @@ export function ConfirmDialog({
           {description && <p className="mb-6 text-sm">{description}</p>}
           <div className="flex justify-end gap-2">
             <Dialog.Close asChild>
-              <button className="px-3 py-1 text-sm rounded bg-gray-600 hover:bg-gray-700">
-                {cancelLabel}
-              </button>
+              <Button variant="cancel">{cancelLabel}</Button>
             </Dialog.Close>
             <Dialog.Close asChild>
-              <button
+              <Button
                 onClick={async () => {
                   await onConfirm()
                 }}
-                className="px-3 py-1 text-sm rounded bg-red-600 hover:bg-red-700"
+                variant="delete"
               >
                 {confirmLabel}
-              </button>
+              </Button>
             </Dialog.Close>
           </div>
         </Dialog.Content>
