@@ -8,6 +8,7 @@ import NewSong from "@/pages/NewSong"
 import ViewSong from "@/pages/ViewSong"
 import { useSongs } from "./modules/songs/hooks/useSongs"
 import LoaderSpinner from "./components/ui/LoaderSpinner"
+import UITest from "./pages/UITest"
 
 export default function App() {
   const { loading } = useSongs()
@@ -39,6 +40,7 @@ export default function App() {
             <Route path="/song/:id" element={<ViewSong />} />
             <Route path="/song/:id/edit" element={<EditSong />} />
             <Route path="/new" element={<NewSong />} />
+            <Route path="/uitest" element={<UITest />} />
           </Routes>
         </div>
       </BrowserRouter>
