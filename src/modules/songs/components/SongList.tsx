@@ -4,6 +4,8 @@ import { useSongs } from "../hooks/useSongs"
 
 import PanelContainer from "@/components/ui/PanelContainer"
 import LoaderSpinner from "@/components/ui/LoaderSpinner"
+import { ConfirmDialog } from "@/components/ui/ConfirmDialog"
+import { toast } from "sonner"
 
 export const SongList = () => {
   const { songs, deleteSong, loading } = useSongs()
@@ -60,16 +62,31 @@ export const SongList = () => {
             >
               <Edit width={16} height={16} />
             </Link>
-            <button
-              className="
-                flex 
-                justify-center items-center
-                px-2 py-2 
-                border-1 border-zinc-700 rounded-md text-sm text-red-500 hover:text-red-400"
-              onClick={() => deleteSong(song.id)}
-            >
-              <Trash width={16} height={16} />
-            </button>
+            <ConfirmDialog
+              title="Delete song?"
+              description={`Are you sure you want to delete "${song.title}"? This action cannot be undone.`}
+              confirmLabel="Delete"
+              cancelLabel="Cancel"
+              onConfirm={async () => {
+                try {
+                  await deleteSong(song.id)
+                  toast.success(`Song "${song.title}" deleted`)
+                } catch {
+                  toast.error("Error deleting song")
+                }
+              }}
+              trigger={
+                <button
+                  className=" flex 
+                              justify-center items-center
+                              px-2 py-2 
+                              border-1 border-zinc-700 
+                              rounded-md text-sm text-red-500 hover:text-red-400"
+                >
+                  <Trash width={16} height={16} />
+                </button>
+              }
+            />
           </div>
         </PanelContainer>
       ))}
