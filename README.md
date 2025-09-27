@@ -16,8 +16,6 @@ It works **offline-first** with automatic synchronization via **Supabase**.
 
 👉 [View the project on GitHub](https://github.com/horaciodominguez/chordblocks-react-typescript)  
 
-*(Optional: you can deploy it on Vercel/Netlify to showcase a live demo.)*
-
 ---
 
 ## ✨ Features
