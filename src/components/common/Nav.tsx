@@ -11,13 +11,14 @@ const navLinks = [
 export default function Nav() {
   return (
     <nav className="">
-      <ul className="flex gap-2">
+      <ul className="flex gap-2 justify-center">
         {navLinks.map((link) => {
           const NavLinkIcon = link.icon
           return (
             <li
               key={link.to}
               className="
+              min-w-[100px]
               border-[.1px] 
               border-indigo-200/10
               rounded-md
