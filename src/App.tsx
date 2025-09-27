@@ -7,10 +7,23 @@ import Home from "@/pages/Home"
 import NewSong from "@/pages/NewSong"
 import ViewSong from "@/pages/ViewSong"
 import { useSongs } from "./modules/songs/hooks/useSongs"
+import LoaderSpinner from "./components/ui/LoaderSpinner"
 
 export default function App() {
   const { loading } = useSongs()
-  if (loading) return <div>Loading songs...</div>
+  if (loading)
+    return (
+      <main
+        className="
+      max-w-3xl mx-auto px-4 py-8
+      flex flex-col justify-center
+      items-center
+      min-h-screen
+      h-full"
+      >
+        <LoaderSpinner />
+      </main>
+    )
   return (
     <main
       className="

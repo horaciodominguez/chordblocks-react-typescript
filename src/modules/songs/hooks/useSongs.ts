@@ -28,7 +28,9 @@ export function useSongs() {
         console.error("useSongs init error:", err)
         if (mounted) setSongs(songsData)
       } finally {
-        if (mounted) setLoading(false)
+        setTimeout(() => {
+          if (mounted) setLoading(false)
+        }, 1000)
       }
     }
 

@@ -1,10 +1,26 @@
 import { Link } from "react-router-dom"
 import { AudioLines, Edit, Trash } from "lucide-react"
 import { useSongs } from "../hooks/useSongs"
+
 import PanelContainer from "@/components/ui/PanelContainer"
+import LoaderSpinner from "@/components/ui/LoaderSpinner"
 
 export const SongList = () => {
-  const { songs, deleteSong } = useSongs()
+  const { songs, deleteSong, loading } = useSongs()
+
+  if (loading) return LoaderSpinner()
+  if (!songs.length)
+    return (
+      <div className="text-center py-6">
+        <p className="mb-4">No songs yet</p>
+        <Link
+          to="/new"
+          className="px-4 py-2 rounded bg-blue-600 hover:bg-blue-700 text-white"
+        >
+          Add your first song
+        </Link>
+      </div>
+    )
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 ">
