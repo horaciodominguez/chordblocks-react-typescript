@@ -2,6 +2,7 @@ import { SongForm } from "@/modules/songs/components/form/SongForm"
 import type { Song } from "@/modules/songs/types/song.types"
 import { useSongs } from "@/modules/songs/hooks/useSongs"
 import { useNavigate } from "react-router-dom"
+import PageTitle from "@/components/ui/PageTitle"
 
 export default function NewSong() {
   const navigate = useNavigate()
@@ -16,7 +17,7 @@ export default function NewSong() {
 
   return (
     <>
-      <h2 className="page-title mb-4">Add Song</h2>
+      <PageTitle>Add Song</PageTitle>
       <SongForm handleAddSong={handleSubmit} />
     </>
   )

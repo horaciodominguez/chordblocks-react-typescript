@@ -5,6 +5,8 @@ import type { Song } from "@/modules/songs/types/song.types"
 import { useParams, useNavigate } from "react-router-dom"
 
 import { useSongs } from "@/modules/songs/hooks/useSongs"
+import PageTitle from "@/components/ui/PageTitle"
+import LoaderSpinner from "@/components/ui/LoaderSpinner"
 
 export default function EditSong() {
   const { id } = useParams<{ id: string }>()
@@ -12,25 +14,18 @@ export default function EditSong() {
   const { song, loading } = useSong(id)
   const { updateSong } = useSongs()
 
-  if (loading) return <div>Loading...</div>
-  if (!song) return <div>Song not found</div>
-
-  /* const handleUpdate = async (updated: Song) => {
-    await saveSongWithSync(updated)
-    const dbSongs = await storage.getSongs()
-    setSongs(dbSongs)
-    navigate(`/song/${updated.id}`)
-  } */
-
   const handleSubmit = async (song: Song) => {
     if (!song) return
     await updateSong(song)
     navigate("/")
   }
 
+  if (!song) return <div>Song not found</div>
+
   return (
     <>
-      <h2 className="page-title mb-4">Edit Song</h2>
+      <PageTitle>Edit Song</PageTitle>
+      {loading && <LoaderSpinner />}
       <SongForm handleAddSong={handleSubmit} initialSong={song} />
     </>
   )
