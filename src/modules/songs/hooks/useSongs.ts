@@ -30,7 +30,7 @@ export function useSongs() {
       } finally {
         setTimeout(() => {
           if (mounted) setLoading(false)
-        }, 1000)
+        }, 500)
       }
     }
 

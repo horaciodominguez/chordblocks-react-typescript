@@ -1,13 +1,18 @@
 {
-  "name": "11-chordblocks-react-typescript",
+  "name": "chordblocks",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
+  "license": "MIT",
+  "description": "ChordBlocks – A React + TypeScript app for creating and organizing chord progressions with offline-first sync.",
+  "author": "Horacio Dominguez",
+  "keywords": ["react", "typescript", "music", "chords", "supabase", "tailwind", "offline-first"],
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
