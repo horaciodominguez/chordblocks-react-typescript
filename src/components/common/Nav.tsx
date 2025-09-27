@@ -11,33 +11,25 @@ const navLinks = [
 export default function Nav() {
   return (
     <nav className="">
-      <ul className="flex gap-2 justify-center">
+      <ul className="flex justify-end items-end ">
         {navLinks.map((link) => {
           const NavLinkIcon = link.icon
           return (
             <li
               key={link.to}
               className="
-              min-w-[100px]
-              border-[.1px] 
-              border-indigo-200/10
-              rounded-md
-              bg-indigo-200/5
-              shadow-lg 
-              hover:bg-indigo-600/20
-              duration-300
-              transition-all"
+              "
             >
               <NavLink
                 to={link.to}
                 aria-label={link.label}
                 className={({ isActive }) =>
-                  `flex flex-col rounded-md justify-center items-center py-2 px-4 ${
-                    isActive ? "border-1 border-indigo-700" : ""
+                  `flex flex-row rounded-md px-4 py-2 justify-center items-center ${
+                    isActive ? "bg-indigo-600/20" : ""
                   }`
                 }
               >
-                <NavLinkIcon className="text-indigo-700 mb-1 w-8 h-8" />
+                <NavLinkIcon className="text-indigo-200 mr-1  " size={16} />
                 <span className="text-indigo-400 text-[10px] uppercase">
                   {link.label}
                 </span>

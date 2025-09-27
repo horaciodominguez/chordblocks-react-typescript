@@ -12,14 +12,12 @@ export function Header() {
 
   return (
     <>
-      <div
-        className="flex justify-between items-center 
-                    p-4 
-                    g-indigo-950/20 border-[.1px] border-indigo-200/10 
-                    rounded-md
+      <header
+        className="flex justify-between items-end relative
+                    p-4 pb-8 
                     mb-4"
       >
-        <h1 className="text-gray-200 text-3xl uppercase text-center ">
+        <h1 className="text-gray-200 text-3xl uppercase text-center  ">
           <figure>
             <img
               src="/assets/logo.svg"
@@ -29,6 +27,7 @@ export function Header() {
             />
           </figure>
         </h1>
+        <Nav />
         <div className="">
           <div>
             {user ? (
@@ -84,8 +83,8 @@ export function Header() {
             )}
           </div>
         </div>
-      </div>
-      <Nav />
+        <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-indigo-700/0 via-indigo-600/100 via-20% to-indigo-900/0"></div>
+      </header>
     </>
   )
 }

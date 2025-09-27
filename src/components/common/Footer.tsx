@@ -4,7 +4,8 @@ export function Footer() {
   const year = new Date().getFullYear()
 
   return (
-    <footer className="mt-10 border-t border-gray-700 py-6 text-center text-sm text-gray-400">
+    <footer className="mt-10 py-6 text-center text-sm text-gray-400 relative">
+      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-indigo-700/0 via-indigo-600/100 via-20% to-indigo-900/0"></div>
       <div className="flex justify-center gap-6 mb-3">
         <a
           href="https://github.com/horaciodominguez/chordblocks-react-typescript"
