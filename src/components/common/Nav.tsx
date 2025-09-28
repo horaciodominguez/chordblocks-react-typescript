@@ -1,11 +1,11 @@
 import { NavLink } from "react-router-dom"
 
-import { ListMusic, ListPlus } from "lucide-react"
+import { LayoutDashboard, ListMusic, ListPlus } from "lucide-react"
 
 const navLinks = [
   { to: "/", label: "Song List", icon: ListMusic },
   { to: "/new", label: "Add Song", icon: ListPlus },
-  { to: "/uitest", label: "UI Test", icon: ListPlus },
+  { to: "/uitest", label: "UI Test", icon: LayoutDashboard },
 ]
 
 export default function Nav() {
