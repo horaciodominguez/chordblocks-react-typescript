@@ -1,6 +1,9 @@
 import { useState } from "react"
 import { signIn } from "@/services/auth/supabaseAuth"
 import { LogIn } from "lucide-react"
+import * as Dialog from "@radix-ui/react-dialog"
+import Button from "@/components/ui/Button"
+import Input from "@/components/ui/Input"
 
 export function LoginForm() {
   const [email, setEmail] = useState("")
@@ -19,23 +22,28 @@ export function LoginForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col justify-center items-center gap-2"
+      className="flex flex-col justify-center items-center gap-4 w-full"
     >
-      <input
-        type="email"
-        placeholder="email@email.com"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        className="p-2 rounded bg-gray-800 text-white  outline-0 w-full "
-      />
-      <button
-        type="submit"
-        className="flex justify-center items-center px-2 py-2 
-                border-[.1px] border-zinc-700 rounded-md text-sm text-indigo-400 hover:text-gray-200 gap-2"
-      >
-        <LogIn />
-        <span>Login</span>
-      </button>
+      <div className="w-full">
+        <Input
+          name="email"
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="email@email.com"
+          value={email}
+        />
+      </div>
+      <div className="flex justify-end gap-2 w-full">
+        <Dialog.Close asChild>
+          <Button variant="cancel">Cancel</Button>
+        </Dialog.Close>
+        <Button
+          variant="save"
+          type="submit"
+          className="flex items-center gap-2"
+        >
+          <LogIn /> Login
+        </Button>
+      </div>
     </form>
   )
 }

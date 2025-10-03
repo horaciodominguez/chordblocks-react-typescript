@@ -29,15 +29,15 @@ export function ChordPicker({ onSelect, selectedValue, label }: Props) {
       <Label>{label}</Label>
       <Popover.Root open={open} onOpenChange={setOpen}>
         <Popover.Trigger asChild>
-          <button className="w-full border border-gray-900 px-3 py-2 rounded-md flex items-center justify-center gap-2 hover:border-gray-700 hover:bg-gray-800">
-            <span>{selectedValue ? selectedValue : "Select Chord"}</span>
+          <button className="w-full border border-zinc-700 px-3 py-2 rounded-md flex items-center justify-center gap-2 hover:border-gray-700 hover:bg-gray-800">
+            <span>{selectedValue ? selectedValue : "Choose Chord"}</span>
           </button>
         </Popover.Trigger>
 
         <Popover.Content
           side="bottom"
           align="center"
-          className="z-50 w-96 rounded-md bg-zinc-900/80 backdrop-blur-md border-2 border-gray-800 p-4 shadow-xl"
+          className="z-50 w-96 rounded-md bg-white/5 border-2 border-gray-800 p-4 shadow-xl"
         >
           <Popover.Close />
           <Popover.Arrow />
@@ -59,7 +59,7 @@ export function ChordPicker({ onSelect, selectedValue, label }: Props) {
               ))}
             </select>
           </div>
-          <label className="text-sm text-neutral-200" htmlFor="variants">
+          <label className="text-sm text-zinc-200" htmlFor="variants">
             Variants
           </label>
           <div className="grid grid-cols-3 gap-3" id="variants">
