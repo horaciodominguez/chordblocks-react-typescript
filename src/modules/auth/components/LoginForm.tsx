@@ -39,9 +39,9 @@ export function LoginForm() {
         <Button
           variant="save"
           type="submit"
-          className="flex items-center gap-2"
+          className="flex items-center justify-center gap-2"
         >
-          <LogIn /> Login
+          <LogIn size={16} /> Login
         </Button>
       </div>
     </form>

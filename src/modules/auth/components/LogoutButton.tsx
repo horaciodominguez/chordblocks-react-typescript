@@ -7,9 +7,9 @@ export function LogoutButton() {
     <Button
       variant="delete"
       onClick={() => signOut()}
-      className="flex items-center justify-center bg-red-500 text-white  "
+      className="flex items-center justify-center gap-2  "
     >
-      <LogOut className="mr-2" size={16} /> Sign Out
+      <LogOut size={16} /> Sign Out
     </Button>
   )
 }
