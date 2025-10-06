@@ -3,6 +3,7 @@ export interface BarChord {
   name: string
   duration: number
   position: number
+  isRest?: boolean
 }
 
 export interface Bar {

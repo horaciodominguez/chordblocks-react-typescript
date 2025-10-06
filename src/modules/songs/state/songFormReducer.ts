@@ -106,9 +106,10 @@ export const reducer = (
       return { ...state, pendingBeats: action.v }
 
     case "ADD_CHORD": {
+      const isPendingRest = state.pendingChordName === "__REST__"
       if (
         state.pendingSection.id === "" ||
-        state.pendingChordName === "" ||
+        (!isPendingRest && state.pendingChordName === "") ||
         state.pendingBeats === ""
       )
         return state
@@ -128,11 +129,14 @@ export const reducer = (
         }
       }
 
+      const isRest = state.pendingChordName === "__REST__"
+
       const chord: BarChord = {
         id: uuidv4(),
-        name: state.pendingChordName,
+        name: isRest ? "__REST__" : state.pendingChordName,
         duration: beats,
         position,
+        ...(isRest ? { isRest: true } : {}),
       }
 
       if (last) {

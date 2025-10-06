@@ -3,6 +3,7 @@ import type { TimeSignature } from "@/modules/songs/types/song.types"
 import type { BarChord } from "@/modules/songs/types/bar.types"
 import { chordWidth } from "@/modules/chords/utils/chord.utils"
 import { ArrowLeftRight, Trash } from "lucide-react"
+import Rest from "./Rest"
 
 type Props = {
   timeSignature: TimeSignature
@@ -31,6 +32,11 @@ export const Chord = forwardRef<HTMLDivElement, Props>(
   ) => {
     const width = chordWidth(chord.duration, timeSignature.beatsPerMeasure)
 
+    const isRest = !!(
+      chord.isRest ||
+      (chord.name && chord.name.toLowerCase() === "rest")
+    )
+
     return (
       <div
         ref={ref}
@@ -42,7 +48,16 @@ export const Chord = forwardRef<HTMLDivElement, Props>(
         }}
       >
         <div className="flex flex-col gap-4 items-center justify-center">
-          <span>{chord.name}</span>
+          {isRest ? (
+            <Rest
+              duration={chord.duration}
+              beatsPerMeasure={timeSignature.beatsPerMeasure}
+              className="text-2xl"
+            />
+          ) : (
+            <span className="text-sm font-medium">{chord.name}</span>
+          )}
+
           {showDiagram && (
             <picture>
               <svg

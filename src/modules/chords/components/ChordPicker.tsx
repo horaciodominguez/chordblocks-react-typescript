@@ -82,6 +82,21 @@ export function ChordPicker({ onSelect, selectedValue, label }: Props) {
             </Dialog.Close>
           ))}
         </div>
+
+        <div className="w-full border-t-2 border-zinc-700 mt-4"></div>
+
+        <div className="mt-3 flex gap-2">
+          <Dialog.Close asChild>
+            <button
+              type="button"
+              onClick={() => onSelect("__REST__")}
+              className="px-3 py-1 rounded-md border border-zinc-700 text-sm hover:bg-zinc-800"
+              title="Add rest"
+            >
+              Add Rest
+            </button>
+          </Dialog.Close>
+        </div>
       </AppDialog>
     </div>
   )

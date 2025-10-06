@@ -47,7 +47,12 @@ export function SectionEditor({ state, dispatch, onStopEditing }: Props) {
                 onSelect={(chordName) =>
                   dispatch({ type: "ADD_CHORD_NAME", v: chordName })
                 }
-                selectedValue={state.pendingChordName}
+                //selectedValue={state.pendingChordName}
+                selectedValue={
+                  state.pendingChordName === "__REST__"
+                    ? "__REST__"
+                    : state.pendingChordName
+                }
               />
             </div>
             <div className="w-1/2">
