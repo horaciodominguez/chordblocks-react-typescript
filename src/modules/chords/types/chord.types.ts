@@ -1,6 +1,5 @@
 export interface Chord {
   name: string
+  root: string
   type: string
-  color?: string
-  fingering?: number[]
 }
