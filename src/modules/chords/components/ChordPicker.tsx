@@ -4,6 +4,7 @@ import Label from "@/components/ui/Label"
 import { AppDialog } from "@/components/ui/AppDialog"
 import * as Dialog from "@radix-ui/react-dialog"
 import type { Chord } from "../types/chord.types"
+import Button from "@/components/ui/Button"
 
 type Props = {
   onSelect: (chordName: string) => void
@@ -34,9 +35,7 @@ export function ChordPicker({ onSelect, selectedValue, label }: Props) {
         title="Choose a chord"
       >
         <div className="mb-4">
-          <label className="text-sm text-neutral-200" htmlFor="root_chord">
-            Root chord
-          </label>
+          <Label htmlFor="root_chord">Root</Label>
           <select
             id="root_chord"
             name="root_chord"
@@ -52,9 +51,7 @@ export function ChordPicker({ onSelect, selectedValue, label }: Props) {
           </select>
         </div>
 
-        <label className="text-sm text-zinc-200" htmlFor="variants">
-          Variants
-        </label>
+        <Label htmlFor="variants">Variants</Label>
         <div className="grid grid-cols-3 gap-3" id="variants">
           {VARIATIONS.map((v: Chord) => (
             <Dialog.Close asChild key={v.name}>
@@ -87,14 +84,9 @@ export function ChordPicker({ onSelect, selectedValue, label }: Props) {
 
         <div className="mt-3 flex gap-2">
           <Dialog.Close asChild>
-            <button
-              type="button"
-              onClick={() => onSelect("__REST__")}
-              className="px-3 py-1 rounded-md border border-zinc-700 text-sm hover:bg-zinc-800"
-              title="Add rest"
-            >
-              Add Rest
-            </button>
+            <Button variant="primary" onClick={() => onSelect("__REST__")}>
+              𝄽 Add Rest
+            </Button>
           </Dialog.Close>
         </div>
       </AppDialog>

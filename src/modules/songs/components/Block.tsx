@@ -1,13 +1,13 @@
-import React, { forwardRef } from "react"
-import type { TimeSignature } from "@/modules/songs/types/song.types"
-import type { Block } from "@/modules/songs/types/block.types"
+import { Rest } from "@/modules/chords/components/Rest"
 import { chordWidth } from "@/modules/chords/utils/chord.utils"
+import type { Block as BlockType } from "@/modules/songs/types/block.types"
+import type { TimeSignature } from "@/modules/songs/types/song.types"
 import { ArrowLeftRight, Trash } from "lucide-react"
-import Rest from "./Rest"
+import React, { forwardRef } from "react"
 
 type Props = {
   timeSignature: TimeSignature
-  block: Block
+  block: BlockType
   dragStyle?: React.CSSProperties
   dragAttributes?: React.HTMLAttributes<HTMLDivElement>
   dragListeners?: React.HTMLAttributes<HTMLDivElement>
@@ -16,7 +16,7 @@ type Props = {
   showDiagram?: boolean
 }
 
-export const Chord = forwardRef<HTMLDivElement, Props>(
+export const Block = forwardRef<HTMLDivElement, Props>(
   (
     {
       timeSignature,
@@ -32,15 +32,12 @@ export const Chord = forwardRef<HTMLDivElement, Props>(
   ) => {
     const width = chordWidth(block.duration, timeSignature.beatsPerMeasure)
 
-    const isRest = !!(
-      //chord.isRest ||
-      (block.type === "rest")
-    )
+    const isRest = !!(block.type === "rest")
 
     return (
       <div
         ref={ref}
-        className="CHORD-WRAP relative group py-2 font-bold text-white text-xs"
+        className="BLOCK-WRAP relative group py-2 font-bold text-white text-xs"
         style={{
           width,
           visibility: isDragging ? "hidden" : "visible",
@@ -109,4 +106,4 @@ export const Chord = forwardRef<HTMLDivElement, Props>(
   }
 )
 
-Chord.displayName = "Chord"
+Block.displayName = "Block"

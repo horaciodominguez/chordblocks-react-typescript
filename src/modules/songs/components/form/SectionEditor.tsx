@@ -5,12 +5,13 @@ import type {
 } from "@/modules/songs/state/songFormReducer"
 import { BEAT_VALUES, SECTION_OPTIONS } from "../../constants/song"
 import type { SectionType, SongSection } from "../../types/section.types"
-import { ChordPicker } from "@/modules/chords/components/ChordPicker"
+//import { ChordPicker } from "@/modules/chords/components/ChordPicker"
 import Button from "@/components/ui/Button"
 import { toast } from "sonner"
 import { SectionTag } from "../ui/SectionTag"
 import BarsReorder from "./BarsReorder"
 import type React from "react"
+import { BlockPicker } from "./BlockPicker"
 
 type Props = {
   dispatch: React.Dispatch<Action>
@@ -42,17 +43,25 @@ export function SectionEditor({ state, dispatch, onStopEditing }: Props) {
         <div className="mb-4">
           <div className="flex gap-4">
             <div className="w-1/2">
-              <ChordPicker
+              {/* <ChordPicker
                 label="Chord"
                 onSelect={(chordName) =>
                   dispatch({ type: "ADD_CHORD_NAME", v: chordName })
                 }
-                //selectedValue={state.pendingChordName}
                 selectedValue={
                   state.pendingChordName === "__REST__"
                     ? "__REST__"
                     : state.pendingChordName
                 }
+              /> */}
+              <BlockPicker
+                beatsPerMeasure={state.song.timeSignature.beatsPerMeasure}
+                label="Block"
+                onSelect={(chordName) =>
+                  dispatch({ type: "ADD_CHORD_NAME", v: chordName })
+                }
+                pendingBeats={state.pendingBeats}
+                selectedValue={state.pendingBlock?.chord?.name}
               />
             </div>
             <div className="w-1/2">
@@ -73,7 +82,7 @@ export function SectionEditor({ state, dispatch, onStopEditing }: Props) {
       )}
 
       {state.pendingSection.id !== "" &&
-        state.pendingChordName !== "" &&
+        state.pendingBlock?.chord?.name !== "" &&
         state.pendingBeats !== "" && (
           <div className="mb-4 flex gap-4 mt-4 justify-end">
             <div>
@@ -81,13 +90,13 @@ export function SectionEditor({ state, dispatch, onStopEditing }: Props) {
                 type="button"
                 variant="primary"
                 onClick={() => {
-                  dispatch({ type: "ADD_CHORD" })
+                  dispatch({ type: "ADD_BLOCK" })
                   toast.info(
-                    `Chord ${state.pendingChordName} added to pending section`
+                    `Block ${state.pendingBlock?.chord?.name} added to pending section`
                   )
                 }}
               >
-                Add Chord
+                Add Block
               </Button>
             </div>
           </div>
@@ -118,10 +127,10 @@ export function SectionEditor({ state, dispatch, onStopEditing }: Props) {
                 order: newChords.map((c) => c.id),
               })
             }
-            onDeleteChord={(chordId) => {
+            onDeleteChord={(blockId) => {
               dispatch({
-                type: "DELETE_CHORD",
-                v: chordId,
+                type: "DELETE_BLOCK",
+                v: blockId,
               })
             }}
           />

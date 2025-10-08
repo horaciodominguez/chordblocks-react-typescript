@@ -7,16 +7,16 @@ const oneOfNumbers = (allowed: readonly number[], message: string) =>
     .int()
     .refine((v) => allowed.includes(v), { message })
 
-export const BarChordSchema = z.object({
+export const BlockSchema = z.object({
   id: z.string(),
-  name: z.string().min(1, "Chord name is required"),
+  type: z.enum(["chord", "rest"]),
   duration: z.number().int().min(1, "Min duration is 1").max(12, "Max is 12"),
   position: z.number().int().min(1, "Min position is 1"),
 })
 
 export const BarSchema = z.object({
   id: z.string(),
-  chords: z.array(BarChordSchema).min(1, "Bar must have at least one chord"),
+  blocks: z.array(BlockSchema).min(1, "Bar must have at least one block"),
   position: z.number().int().min(1, "Min position is 1"),
 })
 

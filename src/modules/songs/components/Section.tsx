@@ -1,9 +1,10 @@
-import { Chord } from "@/modules/chords/components/Chord"
 import type { TimeSignature } from "../types/song.types"
 
 import type { SongSection } from "../types/section.types"
 import SectionBars from "@/modules/songs/components/ui/SectionBars"
-import SectionChords from "./ui/SectionChords"
+
+import SectionBlocks from "./ui/SectionBlocks"
+import { Block } from "./Block"
 
 type Props = {
   section: SongSection
@@ -16,16 +17,16 @@ export const Section = ({ section, timeSignature, showDiagram }: Props) => {
     <SectionBars id={section.id} section={section}>
       {section.bars.map((bar) => {
         return (
-          <SectionChords key={bar.id}>
-            {bar.chords.map((chord) => (
-              <Chord
-                key={chord.id}
-                chord={chord}
+          <SectionBlocks key={bar.id}>
+            {bar.blocks.map((block) => (
+              <Block
+                key={block.id}
+                block={block}
                 timeSignature={timeSignature}
                 showDiagram={showDiagram}
               />
             ))}
-          </SectionChords>
+          </SectionBlocks>
         )
       })}
     </SectionBars>

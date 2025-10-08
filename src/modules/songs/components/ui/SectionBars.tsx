@@ -1,9 +1,9 @@
-import type { SongSection } from "../../types/section.types"
+import type { SongSection } from "@/modules/songs/types/section.types"
 
 function setBarsByLine(section: SongSection) {
   let maxChords = 0
   section.bars.map((bar) => {
-    const len = bar.chords.length
+    const len = bar.blocks.length
     if (len > maxChords) return (maxChords = len)
   })
   if (maxChords >= 1) return 4

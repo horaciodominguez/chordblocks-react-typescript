@@ -25,7 +25,7 @@ type Props = {
   section: SongSection
   timeSignature: TimeSignature
   onReorder: (bars: Bar[]) => void
-  onReorderChords: (barId: string, chords: Bar["chords"]) => void
+  onReorderChords: (barId: string, chords: Bar["blocks"]) => void
   onDeleteChord: (chordId: string) => void
 }
 
@@ -39,7 +39,7 @@ function SortableBar({
   bar: Bar
   index: number
   timeSignature: TimeSignature
-  onReorderChords: (barId: string, chords: Bar["chords"]) => void
+  onReorderChords: (barId: string, chords: Bar["blocks"]) => void
   onDeleteChord: (chordId: string) => void
 }) {
   const {

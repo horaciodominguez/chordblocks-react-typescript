@@ -33,4 +33,4 @@ export const nextBeatsValue = (cap: number) => {
  */
 
 export const remainingBeats = (bar: Bar, bpm: number) =>
-  bpm - bar.chords.reduce((a, c) => a + c.duration, 0)
+  bpm - bar.blocks.reduce((a, c) => a + c.duration, 0)

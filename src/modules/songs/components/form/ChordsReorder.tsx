@@ -21,7 +21,7 @@ import { useState } from "react"
 import { createPortal } from "react-dom"
 import type { Bar, BarChord } from "../../types/bar.types"
 import type { TimeSignature } from "../../types/song.types"
-import SectionChords from "../ui/SectionChords"
+import SectionChords from "../ui/SectionBlocks"
 
 type Props = {
   bar: Bar
