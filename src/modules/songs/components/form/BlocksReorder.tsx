@@ -1,4 +1,3 @@
-import { Chord } from "@/modules/chords/components/Chord"
 import { chordWidth } from "@/modules/chords/utils/chord.utils"
 import {
   closestCenter,
@@ -19,23 +18,25 @@ import {
 import { CSS } from "@dnd-kit/utilities"
 import { useState } from "react"
 import { createPortal } from "react-dom"
-import type { Bar, BarChord } from "../../types/bar.types"
+import type { Bar } from "../../types/bar.types"
 import type { TimeSignature } from "../../types/song.types"
 import SectionChords from "../ui/SectionBlocks"
+import type { Block as BlockType } from "@/modules/songs/types/block.types"
+import { Block } from "../Block"
 
 type Props = {
   bar: Bar
   timeSignature: TimeSignature
-  onReorder?: (barId: string, chords: BarChord[]) => void
+  onReorder?: (barId: string, blocks: BlockType[]) => void
   onDeleteChord?: (chordId: string) => void
 }
 
-function SortableChord({
-  chord,
+function SortableBlock({
+  block,
   timeSignature,
   onDeleteChord,
 }: {
-  chord: BarChord
+  block: BlockType
   timeSignature: TimeSignature
   onDeleteChord?: (chordId: string) => void
 }) {
@@ -46,13 +47,13 @@ function SortableChord({
     transform,
     transition,
     isDragging,
-  } = useSortable({ id: chord.id })
+  } = useSortable({ id: block.id })
 
   return (
-    <Chord
+    <Block
       ref={setNodeRef}
       timeSignature={timeSignature}
-      chord={chord}
+      block={block}
       dragStyle={{
         transform: CSS.Transform.toString(transform),
         transition,
@@ -62,7 +63,7 @@ function SortableChord({
       dragAttributes={attributes}
       dragListeners={listeners}
       isDragging={isDragging}
-      onDelete={() => onDeleteChord?.(chord.id)}
+      onDelete={() => onDeleteChord?.(block.id)}
     />
   )
 }
@@ -78,9 +79,9 @@ export default function ChordsReorder({
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event
     if (!over || active.id === over.id) return
-    const oldIndex = bar.chords.findIndex((c) => c.id === active.id)
-    const newIndex = bar.chords.findIndex((c) => c.id === over.id)
-    onReorder?.(bar.id, arrayMove(bar.chords, oldIndex, newIndex))
+    const oldIndex = bar.blocks.findIndex((c) => c.id === active.id)
+    const newIndex = bar.blocks.findIndex((c) => c.id === over.id)
+    onReorder?.(bar.id, arrayMove(bar.blocks, oldIndex, newIndex))
   }
 
   const [activeChord, setActiveChord] = useState<UniqueIdentifier | null>(null)
@@ -94,14 +95,14 @@ export default function ChordsReorder({
       onDragCancel={() => setActiveChord(null)}
     >
       <SortableContext
-        items={bar.chords.map((c) => c.id)}
+        items={bar.blocks.map((c) => c.id)}
         strategy={horizontalListSortingStrategy}
       >
         <SectionChords>
-          {bar.chords.map((chord) => (
-            <SortableChord
-              key={chord.id}
-              chord={chord}
+          {bar.blocks.map((block) => (
+            <SortableBlock
+              key={block.id}
+              block={block}
               timeSignature={timeSignature}
               onDeleteChord={onDeleteChord}
             />
@@ -112,12 +113,12 @@ export default function ChordsReorder({
       {createPortal(
         <DragOverlay>
           {activeChord ? (
-            <Chord
+            <Block
               timeSignature={timeSignature}
-              chord={bar.chords.find((c) => c.id === activeChord)!}
+              block={bar.blocks.find((c) => c.id === activeChord)!}
               dragStyle={{
                 width: chordWidth(
-                  bar.chords.find((c) => c.id === activeChord)!.duration,
+                  bar.blocks.find((c) => c.id === activeChord)!.duration,
                   timeSignature.beatsPerMeasure
                 ),
                 display: "flex",

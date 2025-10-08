@@ -13,7 +13,7 @@ import {
   arrayMove,
 } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
-import ChordsReorder from "@/modules/songs/components/form/ChordsReorder"
+import BlocksReorder from "@/modules/songs/components/form/BlocksReorder"
 import type { Bar } from "../../types/bar.types"
 import type { TimeSignature } from "../../types/song.types"
 
@@ -25,7 +25,7 @@ type Props = {
   section: SongSection
   timeSignature: TimeSignature
   onReorder: (bars: Bar[]) => void
-  onReorderChords: (barId: string, chords: Bar["blocks"]) => void
+  onReorderBlocks: (barId: string, blocks: Bar["blocks"]) => void
   onDeleteChord: (chordId: string) => void
 }
 
@@ -33,13 +33,13 @@ function SortableBar({
   bar,
   index,
   timeSignature,
-  onReorderChords,
+  onReorderBlocks,
   onDeleteChord,
 }: {
   bar: Bar
   index: number
   timeSignature: TimeSignature
-  onReorderChords: (barId: string, chords: Bar["blocks"]) => void
+  onReorderBlocks: (barId: string, chords: Bar["blocks"]) => void
   onDeleteChord: (chordId: string) => void
 }) {
   const {
@@ -73,10 +73,10 @@ function SortableBar({
       >
         <ArrowLeftRight className="w-4 h-4" /> Bar {index + 1}
       </div>
-      <ChordsReorder
+      <BlocksReorder
         bar={bar}
         timeSignature={timeSignature}
-        onReorder={onReorderChords}
+        onReorder={onReorderBlocks}
         onDeleteChord={onDeleteChord}
       />
     </div>
@@ -87,7 +87,7 @@ export default function BarsReorder({
   section,
   timeSignature,
   onReorder,
-  onReorderChords,
+  onReorderBlocks,
   onDeleteChord,
 }: Props) {
   const sensors = useSensors(useSensor(PointerSensor))
@@ -117,7 +117,7 @@ export default function BarsReorder({
               bar={bar}
               index={i}
               timeSignature={timeSignature}
-              onReorderChords={onReorderChords}
+              onReorderBlocks={onReorderBlocks}
               onDeleteChord={onDeleteChord}
             />
           ))}
