@@ -22,7 +22,7 @@ export const SongForm = ({ handleAddSong, initialSong }: Props) => {
     const result = validateSong(song)
     if (result.ok) {
       dispatch({ type: "SET_ERRORS", v: {} })
-      handleAddSong(result.data)
+      handleAddSong(result.data as SongParsed)
       if (!initialSong) dispatch({ type: "RESET" })
       toast.success(`Song "${result.data.title}" saved!`)
     } else {

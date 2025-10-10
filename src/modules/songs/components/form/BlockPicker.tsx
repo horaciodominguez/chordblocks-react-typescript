@@ -38,7 +38,24 @@ export function BlockPicker({
       <AppDialog
         trigger={
           <button className="w-full border border-zinc-700 px-3 py-2 rounded-md flex items-center justify-center gap-2 hover:border-gray-700 hover:bg-gray-800">
-            <span>{selectedValue ? selectedValue : "Choose Chord"}</span>
+            <span>
+              {selectedValue ? (
+                selectedValue === "__REST__" ? (
+                  <span className="inline-flex items-center">
+                    <Rest
+                      duration={Number(pendingBeats) || 1}
+                      beatsPerMeasure={beatsPerMeasure || 4}
+                      className="text-lg"
+                    />
+                    <span className="sr-only">Rest selected</span>
+                  </span>
+                ) : (
+                  selectedValue
+                )
+              ) : (
+                "Choose Block"
+              )}
+            </span>
           </button>
         }
         title="Choose Block"

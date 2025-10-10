@@ -34,13 +34,13 @@ export type Action =
   | { type: "SET_ARTIST"; v: string }
   | { type: "SET_TIME_SIGNATURE"; v: TimeSignature }
   | { type: "ADD_SECTION_TYPE"; v: SectionType }
-  | { type: "ADD_CHORD_NAME"; v: string }
+  | { type: "ADD_BLOCK_TEMPORARY"; v: string }
   | { type: "ADD_REST" }
   | { type: "ADD_BEATS"; v: string }
   | { type: "ADD_BLOCK" }
   | { type: "DELETE_BLOCK"; v: string }
   | { type: "REORDER_BARS_IN_SECTION"; sectionId: string; order: string[] }
-  | { type: "REORDER_CHORDS_IN_BAR"; barId: string; order: string[] }
+  | { type: "REORDER_BLOCKS"; barId: string; order: string[] }
   | { type: "CANCEL_SECTION" }
   | { type: "FINALIZE_SECTION" }
   | { type: "RESET" }
@@ -101,13 +101,40 @@ export const reducer = (
         pendingSection: newSection,
       }
     }
-    case "ADD_CHORD_NAME":
-      //return { ...state, pendingChordName: action.v }
-      return { ...state }
+    case "ADD_BLOCK_TEMPORARY": {
+      // token usado por el picker para representar un rest
+      const REST_TOKEN = "__REST__"
+      const isRest = action.v === REST_TOKEN
 
-    case "ADD_REST":
-      //return { ...state, pendingChordName: "__REST__" }
-      return { ...state }
+      if (isRest) {
+        // pendingBlock para un rest (duración/position/ id serán reemplazados en ADD_BLOCK)
+        return {
+          ...state,
+          pendingBlock: {
+            id: uuidv4(),
+            type: "rest",
+            duration: 0,
+            position: 0,
+          } as Block,
+        }
+      }
+
+      // para los chords, tomamos el nombre (si viene con variaciones separadas por ':', sacamos la parte antes de ':')
+      const chordName = action.v.includes(":")
+        ? action.v.split(":")[0]
+        : action.v
+
+      return {
+        ...state,
+        pendingBlock: {
+          id: uuidv4(),
+          type: "chord",
+          duration: 0,
+          position: 0,
+          chord: { name: chordName },
+        } as Block,
+      }
+    }
 
     case "ADD_BEATS":
       return { ...state, pendingBeats: action.v }
@@ -233,7 +260,7 @@ export const reducer = (
       }
     }
 
-    case "REORDER_CHORDS_IN_BAR": {
+    case "REORDER_BLOCKS": {
       const { barId, order } = action
       return {
         ...state,
@@ -244,10 +271,10 @@ export const reducer = (
             const byId = new Map(bar.blocks.map((c) => [c.id, c]))
             return {
               ...bar,
-              chords: order
+              blocks: order
                 .map((id, index) => {
-                  const chord = byId.get(id)
-                  return chord ? { ...chord, position: index + 1 } : null
+                  const block = byId.get(id)
+                  return block ? { ...block, position: index + 1 } : null
                 })
                 .filter(Boolean) as typeof bar.blocks,
             }
@@ -272,24 +299,34 @@ export const reducer = (
       const sectionToAdd: SongSection = {
         id: state.pendingSection.id,
         type: state.pendingSection.type as SectionType,
-        bars: state.pendingSection.bars,
+        bars: state.pendingSection.bars.map((bar) => ({
+          ...bar,
+          // Aseguramos clonado profundo para no perder los chords
+          blocks: bar.blocks.map((block) => ({
+            ...block,
+            ...(block.type === "chord" && block.chord
+              ? { chord: { ...block.chord } }
+              : {}),
+          })),
+        })),
       }
 
-      const bpMueasure = state.song.timeSignature.beatsPerMeasure
+      const bpm = state.song.timeSignature.beatsPerMeasure
 
       return {
         ...state,
         song: {
           ...state.song,
+          // ✅ acá está el fix: usar spread correcto
           songSections: [...state.song.songSections, sectionToAdd],
+          updatedAt: new Date().toISOString(),
         },
-
         pendingSection: { id: "", type: "", bars: [] },
-        //pendingChordName: "",
-        pendingBeats: bpMueasure.toString(),
-        availableBeats: bpMueasure,
+        pendingBeats: bpm.toString(),
+        availableBeats: bpm,
       }
     }
+
     case "RESET":
       return {
         ...state,

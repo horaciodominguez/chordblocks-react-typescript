@@ -1,4 +1,3 @@
-// AppDialog.tsx
 import * as Dialog from "@radix-ui/react-dialog"
 
 type AppDialogProps = {
@@ -22,6 +21,7 @@ export function AppDialog({
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 bg-black/60 backdrop-blur-sm z-10" />
         <Dialog.Content
+          aria-describedby={description}
           className={`fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
                       bg-zinc-900 rounded-md shadow-xl p-6 w-96 max-w-full
                       focus:outline-none 

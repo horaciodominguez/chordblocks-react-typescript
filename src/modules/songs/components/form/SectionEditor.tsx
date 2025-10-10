@@ -58,10 +58,16 @@ export function SectionEditor({ state, dispatch, onStopEditing }: Props) {
                 beatsPerMeasure={state.song.timeSignature.beatsPerMeasure}
                 label="Block"
                 onSelect={(chordName) =>
-                  dispatch({ type: "ADD_CHORD_NAME", v: chordName })
+                  dispatch({ type: "ADD_BLOCK_TEMPORARY", v: chordName })
                 }
                 pendingBeats={state.pendingBeats}
-                selectedValue={state.pendingBlock?.chord?.name}
+                selectedValue={
+                  state.pendingBlock
+                    ? state.pendingBlock.type === "rest"
+                      ? "__REST__"
+                      : state.pendingBlock.chord?.name
+                    : undefined
+                }
               />
             </div>
             <div className="w-1/2">
@@ -82,8 +88,10 @@ export function SectionEditor({ state, dispatch, onStopEditing }: Props) {
       )}
 
       {state.pendingSection.id !== "" &&
-        state.pendingBlock?.chord?.name !== "" &&
-        state.pendingBeats !== "" && (
+        state.pendingBlock &&
+        state.pendingBeats !== "" &&
+        (state.pendingBlock.type === "rest" ||
+          !!state.pendingBlock.chord?.name) && (
           <div className="mb-4 flex gap-4 mt-4 justify-end">
             <div>
               <Button
@@ -91,9 +99,11 @@ export function SectionEditor({ state, dispatch, onStopEditing }: Props) {
                 variant="primary"
                 onClick={() => {
                   dispatch({ type: "ADD_BLOCK" })
-                  toast.info(
-                    `Block ${state.pendingBlock?.chord?.name} added to pending section`
-                  )
+                  const label =
+                    state.pendingBlock?.type === "rest"
+                      ? "Rest"
+                      : state.pendingBlock?.chord?.name ?? "Block"
+                  toast.info(`Block ${label} added to pending section`)
                 }}
               >
                 Add Block
@@ -120,11 +130,11 @@ export function SectionEditor({ state, dispatch, onStopEditing }: Props) {
                 order: newBars.map((b) => b.id),
               })
             }
-            onReorderChords={(barId, newChords) =>
+            onReorderBlocks={(barId, newBlocks) =>
               dispatch({
-                type: "REORDER_CHORDS_IN_BAR",
+                type: "REORDER_BLOCKS",
                 barId,
-                order: newChords.map((c) => c.id),
+                order: newBlocks.map((c) => c.id),
               })
             }
             onDeleteChord={(blockId) => {
