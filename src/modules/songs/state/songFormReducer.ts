@@ -102,12 +102,10 @@ export const reducer = (
       }
     }
     case "ADD_BLOCK_TEMPORARY": {
-      // token usado por el picker para representar un rest
       const REST_TOKEN = "__REST__"
       const isRest = action.v === REST_TOKEN
 
       if (isRest) {
-        // pendingBlock para un rest (duración/position/ id serán reemplazados en ADD_BLOCK)
         return {
           ...state,
           pendingBlock: {
@@ -119,7 +117,6 @@ export const reducer = (
         }
       }
 
-      // para los chords, tomamos el nombre (si viene con variaciones separadas por ':', sacamos la parte antes de ':')
       const chordName = action.v.includes(":")
         ? action.v.split(":")[0]
         : action.v
@@ -287,7 +284,7 @@ export const reducer = (
       return {
         ...state,
         pendingSection: { id: "", type: "", bars: [] },
-        //pendingChordName: "",
+        pendingBlock: undefined,
         pendingBeats: state.song.timeSignature.beatsPerMeasure.toString(),
         availableBeats: state.song.timeSignature.beatsPerMeasure,
       }
@@ -301,7 +298,7 @@ export const reducer = (
         type: state.pendingSection.type as SectionType,
         bars: state.pendingSection.bars.map((bar) => ({
           ...bar,
-          // Aseguramos clonado profundo para no perder los chords
+
           blocks: bar.blocks.map((block) => ({
             ...block,
             ...(block.type === "chord" && block.chord
@@ -317,7 +314,7 @@ export const reducer = (
         ...state,
         song: {
           ...state.song,
-          // ✅ acá está el fix: usar spread correcto
+
           songSections: [...state.song.songSections, sectionToAdd],
           updatedAt: new Date().toISOString(),
         },
@@ -332,7 +329,7 @@ export const reducer = (
         ...state,
         song: initialSong,
         pendingSection: { id: "", type: "", bars: [] },
-        //pendingChordName: "",
+        pendingBlock: undefined,
         pendingBeats: String(initialSong.timeSignature.beatsPerMeasure),
         availableBeats: initialSong.timeSignature.beatsPerMeasure,
       }

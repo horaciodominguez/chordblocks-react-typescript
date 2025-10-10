@@ -7,22 +7,18 @@ const oneOfNumbers = (allowed: readonly number[], message: string) =>
     .int()
     .refine((v) => allowed.includes(v), { message })
 
-// Definí qué es un acorde dentro del block
 const ChordSchema = z.object({
   name: z.string().min(1, "Chord name is required"),
-  // si después agregás otros campos (tensión, inversión, etc.) los sumás acá
 })
 
-// Un bloque de tipo "chord"
 const ChordBlockSchema = z.object({
   id: z.string(),
   type: z.literal("chord"),
-  chord: ChordSchema, // 👈 ahora sí se valida y conserva
+  chord: ChordSchema,
   duration: z.number().int().min(1, "Min duration is 1").max(12, "Max is 12"),
   position: z.number().int().min(1, "Min position is 1"),
 })
 
-// Un bloque de tipo "rest"
 const RestBlockSchema = z.object({
   id: z.string(),
   type: z.literal("rest"),
@@ -30,7 +26,6 @@ const RestBlockSchema = z.object({
   position: z.number().int().min(1, "Min position is 1"),
 })
 
-// Discriminated union: según el `type`, valida el bloque correcto
 export const BlockSchema = z.discriminatedUnion("type", [
   ChordBlockSchema,
   RestBlockSchema,

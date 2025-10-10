@@ -3,12 +3,14 @@ import type {
   Action,
   SongFormState,
 } from "@/modules/songs/state/songFormReducer"
-import { BEAT_VALUES, SECTION_OPTIONS } from "../../constants/song"
-import type { SectionType, SongSection } from "../../types/section.types"
-//import { ChordPicker } from "@/modules/chords/components/ChordPicker"
+import { BEAT_VALUES, SECTION_OPTIONS } from "@/modules/songs/constants/song"
+import type {
+  SectionType,
+  SongSection,
+} from "@/modules/songs/types/section.types"
 import Button from "@/components/ui/Button"
 import { toast } from "sonner"
-import { SectionTag } from "../ui/SectionTag"
+import { SectionTag } from "@/modules/songs/components/ui/SectionTag"
 import BarsReorder from "./BarsReorder"
 import type React from "react"
 import { BlockPicker } from "./BlockPicker"
@@ -43,17 +45,6 @@ export function SectionEditor({ state, dispatch, onStopEditing }: Props) {
         <div className="mb-4">
           <div className="flex gap-4">
             <div className="w-1/2">
-              {/* <ChordPicker
-                label="Chord"
-                onSelect={(chordName) =>
-                  dispatch({ type: "ADD_CHORD_NAME", v: chordName })
-                }
-                selectedValue={
-                  state.pendingChordName === "__REST__"
-                    ? "__REST__"
-                    : state.pendingChordName
-                }
-              /> */}
               <BlockPicker
                 beatsPerMeasure={state.song.timeSignature.beatsPerMeasure}
                 label="Block"

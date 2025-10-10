@@ -22,7 +22,7 @@ export const useSongForm = (
       type: "",
       bars: [],
     },
-    //pendingChordName: "",
+    pendingBlock: undefined,
     pendingBeats: String(base.timeSignature.beatsPerMeasure),
     availableBeats: base.timeSignature.beatsPerMeasure,
     errors: {},
