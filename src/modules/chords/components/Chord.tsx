@@ -32,15 +32,12 @@ export const Chord = forwardRef<HTMLDivElement, Props>(
   ) => {
     const width = chordWidth(block.duration, timeSignature.beatsPerMeasure)
 
-    const isRest = !!(
-      //chord.isRest ||
-      (block.type === "rest")
-    )
+    const isRest = !!(block.type === "rest")
 
     return (
       <div
         ref={ref}
-        className="CHORD-WRAP relative group py-2 font-bold text-white text-xs"
+        className="CHORD-WRAP-COMPONENT relative group py-2 font-bold text-white text-xs"
         style={{
           width,
           visibility: isDragging ? "hidden" : "visible",
@@ -55,7 +52,14 @@ export const Chord = forwardRef<HTMLDivElement, Props>(
               className="text-2xl"
             />
           ) : (
-            <span className="text-xs font-black">{block.chord?.name}</span>
+            <span className=" flex flex-row justify-center items-center">
+              <span className="chord-root">{block.chord?.root}</span>
+              {block.chord?.suffix !== "" ? (
+                <span className="chord-suffix">{block.chord?.suffix}</span>
+              ) : (
+                ""
+              )}
+            </span>
           )}
 
           {showDiagram && (

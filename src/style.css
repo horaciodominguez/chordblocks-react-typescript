@@ -1,9 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Jaro:opsz@6..72&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
 @import "tailwindcss";
 
 .page-title {
   @apply text-2xl font-bold text-gray-200 text-center;
   font-family: 'Jaro', sans-serif;
+}
+
+.chord-root {
+  @apply text-sm font-bold text-gray-200 text-center;
+  font-family: "Quicksand", sans-serif;
+}
+
+.chord-suffix {
+  @apply text-xs font-thin text-gray-200 text-center;
+  font-family: "Quicksand", sans-serif;
+  font-style: italic
 }
 
 .panel-variant-1 {

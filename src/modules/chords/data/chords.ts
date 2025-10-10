@@ -31,6 +31,7 @@ export const chordsData = ROOTS.reduce<Record<string, Chord[]>>((acc, root) => {
     name: `${root}${v.suffix}`,
     root,
     type: v.type,
+    suffix: v.suffix,
   }))
   return acc
 }, {})

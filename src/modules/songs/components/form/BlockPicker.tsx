@@ -87,7 +87,14 @@ export function BlockPicker({
                 onClick={() => handleSelect(v.name)}
                 className="flex flex-col items-center rounded-lg border border-gray-800 bg-zinc-900/10 p-2 hover:bg-indigo-600/10 hover:text-white"
               >
-                <span className=" text-sm font-semibold">{v.name}</span>
+                <span className=" flex flex-row justify-center items-center">
+                  <span className="chord-root">{v.root}</span>
+                  {v.suffix !== "" ? (
+                    <span className="chord-suffix">{v.suffix}</span>
+                  ) : (
+                    ""
+                  )}
+                </span>
                 <svg
                   className="w-16 h-16"
                   xmlns="http://www.w3.org/2000/svg"
