@@ -1,4 +1,5 @@
-import ChordDisplay from "@/modules/chords/components/ChordDisplay"
+import ChordDiagram from "@/modules/chords/components/ChordDiagram"
+import Chord from "@/modules/chords/components/Chord"
 import { Rest } from "@/modules/chords/components/Rest"
 import { chordWidth } from "@/modules/chords/utils/chord.utils"
 import type { Block as BlockType } from "@/modules/songs/types/block.types"
@@ -52,26 +53,10 @@ export const Block = forwardRef<HTMLDivElement, Props>(
               beatsPerMeasure={timeSignature.beatsPerMeasure}
             />
           ) : (
-            <ChordDisplay chord={block.chord?.name} />
+            <Chord chord={block.chord?.name} />
           )}
 
-          {showDiagram && (
-            <picture>
-              <svg
-                className="w-8 h-10"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-              >
-                <use
-                  href={`/assets/chords-sprite.svg#${block.chord?.name}`}
-                  className="text-white"
-                  fill="currentColor"
-                  width={32}
-                  height={40}
-                />
-              </svg>
-            </picture>
-          )}
+          {showDiagram && <ChordDiagram chordName={block.chord?.name ?? ""} />}
         </div>
 
         {(dragStyle || onDelete) && (
