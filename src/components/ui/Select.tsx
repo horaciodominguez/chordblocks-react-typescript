@@ -31,7 +31,7 @@ export const Select = ({
   const [isEditing, setIsEditing] = useState(false)
 
   const baseClass =
-    "w-full border text-white px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+    "w-full border text-white text-sm px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
 
   return (
     <>
@@ -41,7 +41,7 @@ export const Select = ({
           id={name}
           aria-label={label}
           onClick={() => alert(disabledMessage)}
-          className="w-full border border-indigo-600 px-3 py-2 rounded-md "
+          className={`${baseClass} border-indigo-600`}
           title={label}
           tabIndex={tabIndex}
         >

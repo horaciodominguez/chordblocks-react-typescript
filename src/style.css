@@ -17,9 +17,9 @@
 }
 
 .chord-root {
-  @apply text-xl font-bold text-gray-200 text-center;
+  @apply text-sm font-bold text-gray-200 text-center;/* 
   font-family: "Space Mono", monospace;
-  font-family: "DM Sans", sans-serif;
+  font-family: "DM Sans", sans-serif; */
   font-family: "Quicksand", sans-serif;
 }
 
@@ -27,7 +27,7 @@
   @apply text-xs font-thin text-gray-200 text-center;
   font-family: "Quicksand", sans-serif;
   font-style: italic;
-  margin-bottom: .2rem
+  margin-bottom: .1rem
 }
 
 .panel-variant-1 {

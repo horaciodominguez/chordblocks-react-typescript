@@ -50,7 +50,7 @@ export default function InputInline({
       onBlur={handleBlur}
       onClick={handleClick}
       readOnly={!isEditing}
-      className={`w-full px-3 py-2 rounded-md ${
+      className={`w-full px-3 py-2 rounded-md text-sm ${
         isEditing
           ? "border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
           : "border border-zinc-400/25 cursor-text text-indigo-300"

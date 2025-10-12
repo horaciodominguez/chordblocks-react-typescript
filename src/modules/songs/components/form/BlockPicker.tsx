@@ -33,30 +33,30 @@ export function BlockPicker({
   }
 
   return (
-    <div>
+    <>
       {label && <Label>{label}</Label>}
 
       <AppDialog
         trigger={
-          <button className="w-full border border-zinc-700 px-3 py-2 rounded-md flex items-center justify-center gap-2 hover:border-gray-700 hover:bg-gray-800">
-            <span>
-              {selectedValue ? (
-                selectedValue === "__REST__" ? (
-                  <span className="inline-flex items-center">
-                    <Rest
-                      duration={Number(pendingBeats) || 1}
-                      beatsPerMeasure={beatsPerMeasure || 4}
-                    />
-                    <span className="sr-only">Rest selected</span>
-                  </span>
-                ) : (
-                  selectedValue
-                )
+          <Button variant="primary" className="w-full">
+            {selectedValue ? (
+              selectedValue === "__REST__" ? (
+                <span className="inline-flex items-center">
+                  <Rest
+                    duration={Number(pendingBeats) || 1}
+                    beatsPerMeasure={beatsPerMeasure || 4}
+                  />
+                  <span className="sr-only">Rest selected</span>
+                </span>
               ) : (
-                "Choose Block"
-              )}
-            </span>
-          </button>
+                <span>
+                  <ChordDisplay chord={selectedValue} asText={false} />
+                </span>
+              )
+            ) : (
+              "Choose Block"
+            )}
+          </Button>
         }
         title="Choose Block"
       >
@@ -120,6 +120,6 @@ export function BlockPicker({
           </Dialog.Close>
         </div>
       </AppDialog>
-    </div>
+    </>
   )
 }
