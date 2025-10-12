@@ -1,8 +1,9 @@
 export type Props = {
   chordName: string
+  size?: number
 }
 
-export default function ChordDiagram({ chordName }: Props) {
+export default function ChordDiagram({ chordName, size }: Props) {
   return (
     <>
       <picture>
@@ -15,8 +16,8 @@ export default function ChordDiagram({ chordName }: Props) {
             href={`/assets/chords-sprite.svg#${chordName}`}
             className="text-white"
             fill="currentColor"
-            width={48}
-            height={48}
+            width={size || 48}
+            height={size || 48}
           />
         </svg>
       </picture>

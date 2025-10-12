@@ -61,7 +61,7 @@ export function BlockPicker({
         }
         title="Choose Block"
       >
-        <div className="flex flex-row gap-4 mb-4">
+        <div className="flex flex-row justify-between items-center gap-4 mb-4">
           <div>
             <Label htmlFor="root_chord">Root</Label>
             <select
@@ -81,7 +81,11 @@ export function BlockPicker({
           <div>
             <Label htmlFor="rest">Rest</Label>
             <Dialog.Close asChild>
-              <Button variant="primary" onClick={() => onSelect("__REST__")}>
+              <Button
+                variant="primary"
+                onClick={() => onSelect("__REST__")}
+                className="w-full flex flex-row gap-4 justify-center items-center"
+              >
                 <Rest
                   duration={Number(pendingBeats) || 1}
                   beatsPerMeasure={beatsPerMeasure || 4}

@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;" xmlns:xlink="http://www.w3.org/1999/xlink">
+  
+    <!-- Whole Rest -->
+    <symbol id="whole-rest" width="17.482mm" height="6.2922mm" fill-rule="evenodd" stroke-linejoin="round" stroke-width="28.222" preserveAspectRatio="xMidYMid" version="1.2" viewBox="0 0 1748.2 629.22" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ooo="http://xml.openoffice.org/svg/export" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"><metadata><rdf:RDF><cc:Work rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/></cc:Work></rdf:RDF></metadata>
+     <defs class="ClipPathGroup">
+      <clipPath id="presentation_clip_path">
+       <rect width="3810" height="3810"/>
+      </clipPath>
+     </defs>
+     <g class="SlideGroup" transform="translate(-1066.9 -2237.9)">
+        <g class="Slide" clip-path="url(#presentation_clip_path)">
+         <g class="Page">
+          <g >
+            <rect class="BoundingBox" x="1080" y="2251" width="1723" height="604" fill="none"/>
+            <path d="m1081 2394v-142h1720v142h-333v459h-1055v-459z"/>
+            <path d="m1081 2394v-142h1720v142h-333v459h-1055v-459z" fill="none" stroke="#000"/>
+          </g>
+         </g>
+        </g>
+     </g>
+    </symbol>
+
+    <!-- Half Rest -->
+    <symbol id="half-rest" width="17.482mm" height="6.2922mm" fill-rule="evenodd" stroke-linejoin="round" stroke-width="28.222" preserveAspectRatio="xMidYMid" version="1.2" viewBox="0 0 1748.2 629.22" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:ooo="http://xml.openoffice.org/svg/export">
+     <defs class="ClipPathGroup">
+      <clipPath id="presentation_clip_path">
+       <rect width="3810" height="3810"/>
+      </clipPath>
+     </defs>
+     <g class="SlideGroup" transform="translate(-1066.9 -2236.9)">
+        <g class="Slide" clip-path="url(#presentation_clip_path)">
+         <g class="Page">
+          <g >
+            <rect class="BoundingBox" x="1080" y="2250" width="1723" height="604" fill="none"/>
+            <path d="m1081 2710v142h1720v-142h-333v-459h-1055v459z"/>
+            <path d="m1081 2710v142h1720v-142h-333v-459h-1055v459z" fill="none" stroke="#000"/>
+          </g>
+         </g>
+        </g>
+     </g>
+    </symbol>
+
+    <!-- Quarter Rest -->
+    <symbol id="quarter-rest" width="10.153mm" height="29.039mm" fill-rule="evenodd" stroke-linejoin="round" stroke-width="28.222" preserveAspectRatio="xMidYMid" version="1.2" viewBox="0 0 1015.3 2903.9" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:ooo="http://xml.openoffice.org/svg/export">
+     <defs class="ClipPathGroup">
+      <clipPath id="presentation_clip_path">
+       <rect width="3810" height="3810"/>
+      </clipPath>
+     </defs>
+     <g class="SlideGroup" transform="translate(-1552.8 -361.89)">
+        <g class="Slide" clip-path="url(#presentation_clip_path)">
+         <g class="Page">
+          <g >
+            <rect class="BoundingBox" x="1566" y="375" width="990" height="2879" fill="none"/>
+            <path d="m2467 1086 4 66s-235 354-307 552c-24 66-44 137-41 208 3 79 30 156 62 228 114 176 369 564 369 564s-181-64-274-83c-34-7-69-15-103-12-37 3-76 14-108 33-53 28-113 62-154 195-9 31-7 64-4 96 3 30 12 59 21 87 11 36 24 71 41 104 20 39 100 79 71 112-42 48-109-24-174-79-51-33-97-75-137-121-60-70-119-145-150-232-12-60-17-77-16-149 7-95-1-118 20-171 19-48 50-95 92-124 39-27 91-27 137-37 70-15 211-34 211-34l-132-207s-143-168-200-307c-13-29-18-34-32-95-3-38-10-34-1-100 11-64 27-80 46-117 36-71 128-203 128-203s121-214 150-332c10-42 12-86 8-129-5-48-37-141-37-141l-95-264 41-18z"/>
+            <path d="m2467 1086 4 66s-235 354-307 552c-24 66-44 137-41 208 3 79 30 156 62 228 114 176 369 564 369 564s-181-64-274-83c-34-7-69-15-103-12-37 3-76 14-108 33-53 28-113 62-154 195-9 31-7 64-4 96 3 30 12 59 21 87 11 36 24 71 41 104 20 39 100 79 71 112-42 48-109-24-174-79-51-33-97-75-137-121-60-70-119-145-150-232-12-60-17-77-16-149 7-95-1-118 20-171 19-48 50-95 92-124 39-27 91-27 137-37 70-15 211-34 211-34l-132-207s-143-168-200-307c-13-29-18-34-32-95-3-38-10-34-1-100 11-64 27-80 46-117 36-71 128-203 128-203s121-214 150-332c10-42 12-86 8-129-5-48-37-141-37-141l-95-264 41-18z" fill="none" stroke="#000"/>
+          </g>
+         </g>
+        </g>
+     </g>
+    </symbol>
+
+    <!-- Eighth Rest -->
+    <symbol id="eighth-rest" width="16.91mm" height="26.83mm" fill-rule="evenodd" stroke-linejoin="round" stroke-width="28.222" preserveAspectRatio="xMidYMid" version="1.2" viewBox="0 0 1691 2683" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:ooo="http://xml.openoffice.org/svg/export">
+     <defs class="ClipPathGroup">
+      <clipPath id="presentation_clip_path">
+       <rect width="3810" height="3810"/>
+      </clipPath>
+     </defs>
+     <g class="SlideGroup" transform="translate(-362,-634)">
+      <g class="Slide" clip-path="url(#presentation_clip_path)">
+       <g class="Page">
+        <g >
+          <rect class="BoundingBox" x="362" y="634" width="1691" height="2683" fill="none"/>
+          <path d="m1881 706c162 3 158 7 158 7l-785 2590h-158l616-2024s-49 46-77 65c-54 38-113 70-173 97-61 27-124 50-189 65-77 18-156 29-235 31-73 2-147 0-219-16-72-13-145-24-258-96-49-31-111-100-142-165-37-82-50-177-42-266 6-61 27-122 61-173 35-52 84-97 139-127 50-28 108-42 165-46 41-3 83 5 123 15 48 12 87 32 128 60 25 18 54 38 72 63 21 29 40 60 54 93 13 29 22 60 27 92 6 38 3 77 0 116-3 36-15 71-30 104-18 38-41 66-70 96-26 28-81 81-81 81l70 25 156-20 163-52 153-72 169-127 92-107 98-232z"/>
+          <path d="m1881 706c162 3 158 7 158 7l-785 2590h-158l616-2024s-49 46-77 65c-54 38-113 70-173 97-61 27-124 50-189 65-77 18-156 29-235 31-73 2-147 0-219-16-72-13-145-24-258-96-49-31-111-100-142-165-37-82-50-177-42-266 6-61 27-122 61-173 35-52 84-97 139-127 50-28 108-42 165-46 41-3 83 5 123 15 48 12 87 32 128 60 25 18 54 38 72 63 21 29 40 60 54 93 13 29 22 60 27 92 6 38 3 77 0 116-3 36-15 71-30 104-18 38-41 66-70 96-26 28-81 81-81 81l70 25 156-20 163-52 153-72 169-127 92-107 98-232z" fill="none" stroke="#000" stroke-linejoin="round" stroke-width="25"/>
+        </g>
+       </g>
+      </g>
+     </g>
+    </symbol>
+
+
+    <!-- Sixteenth Rest -->
+    <symbol id="sixteenth-rest" width="18.93mm" height="30.4mm" fill-rule="evenodd" stroke-linejoin="round" stroke-width="28.222" preserveAspectRatio="xMidYMid" version="1.2" viewBox="0 0 1893 3040" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:ooo="http://xml.openoffice.org/svg/export">
+     <defs class="ClipPathGroup">
+      <clipPath id="presentation_clip_path">
+       <rect width="3810" height="3810"/>
+      </clipPath>
+     </defs>
+     <g class="SlideGroup" transform="translate(-663,-438)">
+      <g class="Slide" clip-path="url(#presentation_clip_path)">
+       <g class="Page">
+        <g >
+          <rect class="BoundingBox" x="663" y="438" width="1893" height="3040" fill="none"/>
+          <path d="m2542 586-131 5s-76 239-153 335c-44 55-169 127-169 127l-153 72-163 52s-104 25-156 20c-24-3-70-25-70-25 27-27 55-53 81-81 29-30 52-58 70-96 15-33 27-68 30-104 3-39 6-78 0-116-5-32-14-63-27-92-14-33-33-64-54-93-18-25-47-45-72-63-41-28-80-48-128-60-40-10-82-18-123-15-57 4-115 18-165 46-55 30-104 75-139 127-34 51-55 112-61 173-8 89 5 184 42 266 31 65 93 134 142 165 113 72 186 83 258 96 72 16 146 18 219 16 79-2 158-13 235-31 65-15 128-38 189-65 60-27 138-77 192-115 28-19-161 628-161 628l-98 102-169 127-153 72-163 52s-104 25-156 20c-24-3-70-25-70-25 27-27 55-53 81-81 29-30 52-58 70-96 15-33 27-68 30-104 3-39 6-78 0-116-5-32-14-63-27-92-14-33-33-64-54-93-18-25-47-45-72-63-41-28-80-48-128-60-40-10-82-18-123-15-57 4-115 18-165 46-55 30-104 75-139 127-34 51-55 112-61 173-8 89 4 185 42 266 30 66 93 134 142 165 113 72 186 83 258 96 72 16 146 18 219 16 79-2 158-13 235-31 65-15 128-38 189-65 60-27 144-57 198-95 15-25-240 845-374 1367 91 14 86 17 155 7 141-429 653-2286 800-2872z"/>
+          <path d="m2542 586-131 5s-76 239-153 335c-44 55-169 127-169 127l-153 72-163 52s-104 25-156 20c-24-3-70-25-70-25 27-27 55-53 81-81 29-30 52-58 70-96 15-33 27-68 30-104 3-39 6-78 0-116-5-32-14-63-27-92-14-33-33-64-54-93-18-25-47-45-72-63-41-28-80-48-128-60-40-10-82-18-123-15-57 4-115 18-165 46-55 30-104 75-139 127-34 51-55 112-61 173-8 89 5 184 42 266 31 65 93 134 142 165 113 72 186 83 258 96 72 16 146 18 219 16 79-2 158-13 235-31 65-15 128-38 189-65 60-27 138-77 192-115 28-19-161 628-161 628l-98 102-169 127-153 72-163 52s-104 25-156 20c-24-3-70-25-70-25 27-27 55-53 81-81 29-30 52-58 70-96 15-33 27-68 30-104 3-39 6-78 0-116-5-32-14-63-27-92-14-33-33-64-54-93-18-25-47-45-72-63-41-28-80-48-128-60-40-10-82-18-123-15-57 4-115 18-165 46-55 30-104 75-139 127-34 51-55 112-61 173-8 89 4 185 42 266 30 66 93 134 142 165 113 72 186 83 258 96 72 16 146 18 219 16 79-2 158-13 235-31 65-15 128-38 189-65 60-27 144-57 198-95 15-25-240 845-374 1367 91 14 86 17 155 7 141-429 653-2286 800-2872z" fill="none" stroke="#000" stroke-linejoin="round" stroke-width="25"/>
+        </g>
+       </g>
+      </g>
+     </g>
+    </symbol>
+
+</svg>
