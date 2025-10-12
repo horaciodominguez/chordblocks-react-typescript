@@ -14,6 +14,7 @@ import { SectionTag } from "@/modules/songs/components/ui/SectionTag"
 import BarsReorder from "./BarsReorder"
 import type React from "react"
 import { BlockPicker } from "./BlockPicker"
+import Input from "@/components/ui/Input"
 
 type Props = {
   dispatch: React.Dispatch<Action>
@@ -24,23 +25,61 @@ type Props = {
 export function SectionEditor({ state, dispatch, onStopEditing }: Props) {
   return (
     <div className="border-[.1px] border-gray-700 bg-black/20 rounded-md p-4 shadow-sm">
-      <div className="mb-4">
-        <Select
-          name="sectionType"
-          label="Section Type"
-          options={SECTION_OPTIONS}
-          onChange={(e) => {
-            if (e.target.value) {
-              dispatch({
-                type: "ADD_SECTION_TYPE",
-                v: e.target.value as SectionType,
-              })
-            }
-          }}
-          value={state.pendingSection.type}
-          defaultValue=""
-        />
+      <div className="mb-4 flex flex-row gap-4">
+        <div className="w-1/2">
+          <Select
+            name="sectionType"
+            label="Section Type"
+            options={SECTION_OPTIONS}
+            onChange={(e) => {
+              if (e.target.value) {
+                dispatch({
+                  type: "ADD_SECTION_TYPE",
+                  v: e.target.value as SectionType,
+                })
+              }
+            }}
+            value={state.pendingSection.type}
+            defaultValue=""
+          />
+        </div>
+        <div className="w-1/2 flex justify-end items-end">
+          {state.pendingSection.id !== "" && (
+            <div className="flex justify-start items-center gap-4">
+              <label className="flex justify-center items-center gap-4">
+                <input
+                  type="checkbox"
+                  checked={(state.pendingSection.repeats ?? 1) > 1}
+                  onChange={(e) => {
+                    if (e.target.checked) {
+                      dispatch({ type: "SET_PENDING_SECTION_REPEATS", v: 2 })
+                    } else {
+                      dispatch({ type: "SET_PENDING_SECTION_REPEATS", v: 1 })
+                    }
+                  }}
+                />
+                Repeat
+              </label>
+
+              <div className="flex items-center gap-2">
+                <Input
+                  name="repeats"
+                  type="number"
+                  min={2}
+                  value={state.pendingSection.repeats ?? 1}
+                  onChange={(e) => {
+                    const v = Math.max(2, parseInt(e.target.value || "2", 10))
+                    dispatch({ type: "SET_PENDING_SECTION_REPEATS", v })
+                  }}
+                  disabled={(state.pendingSection.repeats ?? 1) === 1}
+                />
+                <span className="text-xs">Times</span>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
+
       {state.pendingSection.id !== "" && (
         <div className="mb-4">
           <div className="flex gap-4">

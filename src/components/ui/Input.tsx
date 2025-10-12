@@ -2,14 +2,15 @@ import { useRef, useState, useId } from "react"
 
 type Props = React.InputHTMLAttributes<HTMLInputElement> & {
   name: string
-  value: string
+  value: string | number
   placeholder?: string
-  type?: string
+  type?: string | number
   onChange: React.ChangeEventHandler<HTMLInputElement>
   tabIndex?: number
+  min?: number
 }
 
-export default function InputInline({
+export default function Input({
   name,
   value,
   placeholder,

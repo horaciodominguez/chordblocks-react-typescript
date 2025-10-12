@@ -41,6 +41,7 @@ export type Action =
   | { type: "DELETE_BLOCK"; v: string }
   | { type: "REORDER_BARS_IN_SECTION"; sectionId: string; order: string[] }
   | { type: "REORDER_BLOCKS"; barId: string; order: string[] }
+  | { type: "SET_PENDING_SECTION_REPEATS"; v: number }
   | { type: "CANCEL_SECTION" }
   | { type: "FINALIZE_SECTION" }
   | { type: "RESET" }
@@ -90,6 +91,7 @@ export const reducer = (
         id: uuidv4(),
         type: action.v,
         bars: [],
+        repeats: 1,
       }
       return {
         ...state,
@@ -280,10 +282,21 @@ export const reducer = (
       }
     }
 
+    case "SET_PENDING_SECTION_REPEATS": {
+      const repeats = Math.max(1, Number(action.v || 1))
+      return {
+        ...state,
+        pendingSection: {
+          ...state.pendingSection,
+          repeats,
+        },
+      }
+    }
+
     case "CANCEL_SECTION": {
       return {
         ...state,
-        pendingSection: { id: "", type: "", bars: [] },
+        pendingSection: { id: "", type: "", bars: [], repeats: 1 },
         pendingBlock: undefined,
         pendingBeats: state.song.timeSignature.beatsPerMeasure.toString(),
         availableBeats: state.song.timeSignature.beatsPerMeasure,
@@ -306,6 +319,7 @@ export const reducer = (
               : {}),
           })),
         })),
+        repeats: state.pendingSection.repeats,
       }
 
       const bpm = state.song.timeSignature.beatsPerMeasure
@@ -318,7 +332,7 @@ export const reducer = (
           songSections: [...state.song.songSections, sectionToAdd],
           updatedAt: new Date().toISOString(),
         },
-        pendingSection: { id: "", type: "", bars: [] },
+        pendingSection: { id: "", type: "", bars: [], repeats: 1 },
         pendingBeats: bpm.toString(),
         availableBeats: bpm,
       }
@@ -328,7 +342,7 @@ export const reducer = (
       return {
         ...state,
         song: initialSong,
-        pendingSection: { id: "", type: "", bars: [] },
+        pendingSection: { id: "", type: "", bars: [], repeats: 1 },
         pendingBlock: undefined,
         pendingBeats: String(initialSong.timeSignature.beatsPerMeasure),
         availableBeats: initialSong.timeSignature.beatsPerMeasure,
@@ -350,7 +364,7 @@ export const reducer = (
         ...state,
         pendingSection: sectionToEdit
           ? { ...sectionToEdit }
-          : { id: "", type: "", bars: [] },
+          : { id: "", type: "", bars: [], repeats: 1 },
         editingSectionId: action.v,
       }
     }
@@ -358,7 +372,7 @@ export const reducer = (
       return {
         ...state,
         editingSectionId: null,
-        pendingSection: { id: "", type: "", bars: [] },
+        pendingSection: { id: "", type: "", bars: [], repeats: 1 },
       }
     }
     case "UPDATE_SECTION": {
@@ -375,7 +389,7 @@ export const reducer = (
           ),
         },
         editingSectionId: null,
-        pendingSection: { id: "", type: "", bars: [] },
+        pendingSection: { id: "", type: "", bars: [], repeats: 1 },
       }
     }
     default:
