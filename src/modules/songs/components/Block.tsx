@@ -1,3 +1,4 @@
+import ChordDisplay from "@/modules/chords/components/ChordDisplay"
 import { Rest } from "@/modules/chords/components/Rest"
 import { chordWidth } from "@/modules/chords/utils/chord.utils"
 import type { Block as BlockType } from "@/modules/songs/types/block.types"
@@ -49,10 +50,9 @@ export const Block = forwardRef<HTMLDivElement, Props>(
             <Rest
               duration={block.duration}
               beatsPerMeasure={timeSignature.beatsPerMeasure}
-              className="text-2xl"
             />
           ) : (
-            <span className="text-xs font-black">{block.chord?.name}</span>
+            <ChordDisplay chord={block.chord?.name} />
           )}
 
           {showDiagram && (

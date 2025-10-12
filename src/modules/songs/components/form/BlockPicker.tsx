@@ -6,6 +6,7 @@ import * as Dialog from "@radix-ui/react-dialog"
 import type { Chord } from "@/modules/chords/types/chord.types"
 import Button from "@/components/ui/Button"
 import Rest from "@/modules/chords/components/Rest"
+import ChordDisplay from "@/modules/chords/components/ChordDisplay"
 
 type Props = {
   onSelect: (chordName: string) => void
@@ -45,7 +46,6 @@ export function BlockPicker({
                     <Rest
                       duration={Number(pendingBeats) || 1}
                       beatsPerMeasure={beatsPerMeasure || 4}
-                      className="text-lg"
                     />
                     <span className="sr-only">Rest selected</span>
                   </span>
@@ -87,14 +87,7 @@ export function BlockPicker({
                 onClick={() => handleSelect(v.name)}
                 className="flex flex-col items-center rounded-lg border border-gray-800 bg-zinc-900/10 p-2 hover:bg-indigo-600/10 hover:text-white"
               >
-                <span className=" flex flex-row justify-center items-center">
-                  <span className="chord-root">{v.root}</span>
-                  {v.suffix !== "" ? (
-                    <span className="chord-suffix">{v.suffix}</span>
-                  ) : (
-                    ""
-                  )}
-                </span>
+                <ChordDisplay chord={v.name} />
                 <svg
                   className="w-16 h-16"
                   xmlns="http://www.w3.org/2000/svg"
@@ -121,7 +114,6 @@ export function BlockPicker({
               <Rest
                 duration={Number(pendingBeats) || 1}
                 beatsPerMeasure={beatsPerMeasure || 4}
-                className="text-xl"
               />
               Add Rest
             </Button>

@@ -17,9 +17,20 @@ export const Song = ({ song }: Props) => {
 
   return (
     <div key={song.id ? song.id : null} className="panel-variant-1">
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="font-medium uppercase text-gray-200">{song.title}</h2>
-
+      <div className="flex justify-between items-start mb-4">
+        <div className="flex flex-row gap-4">
+          <h3 className="text-sm text-zinc-400 mb-4">
+            Artist:{" "}
+            <span className="font-bold text-zinc-200">{song.artist}</span>
+          </h3>
+          <p className="text-sm text-zinc-400 mb-4">
+            Time Measure:{" "}
+            <span className="font-bold text-zinc-200">
+              {song.timeSignature.beatsPerMeasure} /{" "}
+              {song.timeSignature.noteValue}
+            </span>
+          </p>
+        </div>
         <div className="flex gap-4">
           <label htmlFor="toggle-diagrams" className="text-sm text-gray-400">
             Toggle diagrams
@@ -35,11 +46,6 @@ export const Song = ({ song }: Props) => {
         </div>
       </div>
 
-      <h3 className="text-sm text-gray-400 mb-4">Artist: {song.artist}</h3>
-      <p className="text-sm text-gray-400 mb-4">
-        Time Measure: {song.timeSignature.beatsPerMeasure} /{" "}
-        {song.timeSignature.noteValue}
-      </p>
       <ul>
         {song.songSections.map((section) => (
           <li

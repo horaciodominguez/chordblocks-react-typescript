@@ -1,21 +1,33 @@
 @import url('https://fonts.googleapis.com/css2?family=Jaro:opsz@6..72&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Quicksand:wght@300..700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
 @import "tailwindcss";
 
+.maincontainer {
+  
+  font-family: "DM Sans", sans-serif;
+}
+
 .page-title {
-  @apply text-2xl font-bold text-gray-200 text-center;
-  font-family: 'Jaro', sans-serif;
+  @apply text-2xl font-medium text-gray-200 text-center;
+  font-family: "Quicksand", sans-serif;
+  font-weight: 100;
+  text-transform: uppercase
 }
 
 .chord-root {
-  @apply text-sm font-bold text-gray-200 text-center;
+  @apply text-xl font-bold text-gray-200 text-center;
+  font-family: "Space Mono", monospace;
+  font-family: "DM Sans", sans-serif;
   font-family: "Quicksand", sans-serif;
 }
 
 .chord-suffix {
   @apply text-xs font-thin text-gray-200 text-center;
   font-family: "Quicksand", sans-serif;
-  font-style: italic
+  font-style: italic;
+  margin-bottom: .2rem
 }
 
 .panel-variant-1 {

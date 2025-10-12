@@ -4,6 +4,7 @@ import type { Block } from "@/modules/songs/types/block.types"
 import { chordWidth } from "@/modules/chords/utils/chord.utils"
 import { ArrowLeftRight, Trash } from "lucide-react"
 import Rest from "./Rest"
+import ChordDisplay from "./ChordDisplay"
 
 type Props = {
   timeSignature: TimeSignature
@@ -49,17 +50,9 @@ export const Chord = forwardRef<HTMLDivElement, Props>(
             <Rest
               duration={block.duration}
               beatsPerMeasure={timeSignature.beatsPerMeasure}
-              className="text-2xl"
             />
           ) : (
-            <span className=" flex flex-row justify-center items-center">
-              <span className="chord-root">{block.chord?.root}</span>
-              {block.chord?.suffix !== "" ? (
-                <span className="chord-suffix">{block.chord?.suffix}</span>
-              ) : (
-                ""
-              )}
-            </span>
+            <ChordDisplay chord={block.chord} />
           )}
 
           {showDiagram && (

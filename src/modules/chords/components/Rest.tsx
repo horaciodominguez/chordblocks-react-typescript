@@ -3,14 +3,9 @@ import React from "react"
 type Props = {
   duration: number
   beatsPerMeasure?: number
-  className?: string
 }
 
-export const Rest: React.FC<Props> = ({
-  duration,
-  beatsPerMeasure = 4,
-  className = "",
-}) => {
+export const Rest: React.FC<Props> = ({ duration, beatsPerMeasure = 4 }) => {
   const ratio = duration / beatsPerMeasure
 
   let symbol = "𝄽"
@@ -38,7 +33,7 @@ export const Rest: React.FC<Props> = ({
       role="img"
       aria-label={label}
       title={label}
-      className={`inline-flex items-center justify-center ${className}`}
+      className={`inline-flex items-center justify-center text-2xl`}
       style={{ lineHeight: 1 }}
     >
       <span style={{ fontVariantLigatures: "no-common-ligatures" }}>
