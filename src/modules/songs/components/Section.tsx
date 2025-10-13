@@ -29,6 +29,7 @@ export const Section = ({ section, timeSignature, showDiagram }: Props) => {
           </SectionBlocks>
         )
       })}
+      repeat x times
     </SectionBars>
   )
 }

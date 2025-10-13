@@ -1,4 +1,5 @@
 import type { SongSection } from "@/modules/songs/types/section.types"
+import { Repeat } from "lucide-react"
 
 function setBarsByLine(section: SongSection) {
   let maxChords = 0
@@ -33,7 +34,14 @@ export default function SectionBars({ children, section }: Props) {
   }`
   return (
     <>
-      <div className={classBars}>{children}</div>
+      <div className={classBars}>
+        {children}
+        {section.repeats && section.repeats > 1 && (
+          <div className="flex justify-center items-center">
+            <Repeat className="w-4 h-4" />
+          </div>
+        )}
+      </div>
     </>
   )
 }

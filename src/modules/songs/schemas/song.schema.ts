@@ -41,6 +41,7 @@ export const SectionSchema = z.object({
   id: z.string(),
   type: z.enum(SECTION_OPTIONS),
   bars: z.array(BarSchema).min(1, "Section must have at least one bar"),
+  repeats: z.number().int().min(1, "Min repeats is 1"),
 })
 
 export const TimeSignatureSchema = z.object({

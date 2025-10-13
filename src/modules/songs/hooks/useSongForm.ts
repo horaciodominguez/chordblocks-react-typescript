@@ -21,6 +21,7 @@ export const useSongForm = (
       id: "",
       type: "",
       bars: [],
+      repeats: 1,
     },
     pendingBlock: undefined,
     pendingBeats: String(base.timeSignature.beatsPerMeasure),
