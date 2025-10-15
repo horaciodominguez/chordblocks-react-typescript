@@ -15,7 +15,6 @@ export const Repeat: React.FC<Props> = ({ repeats }) => {
         </span>
       )}
 
-      {/* símbolo :||  */}
       <div className="flex h-full items-end gap-[4px] select-none">
         <span className="text-lg leading-none h-full flex flex-col justify-center gap-1 items-center">
           <span className="h-1 w-1 rounded-full bg-gray-300"></span>

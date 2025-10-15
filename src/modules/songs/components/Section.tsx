@@ -1,11 +1,11 @@
-import type { TimeSignature } from "../types/song.types"
+import type { TimeSignature } from "@/modules/songs/types/song.types"
 
-import type { SongSection } from "../types/section.types"
 import SectionBars from "@/modules/songs/components/ui/SectionBars"
+import type { SongSection } from "@/modules/songs/types/section.types"
 
-import SectionBlocks from "./ui/SectionBlocks"
 import { Block } from "./Block"
 import { Repeat } from "./ui/Repeat"
+import SectionBlocks from "./ui/SectionBlocks"
 
 type Props = {
   section: SongSection
@@ -28,7 +28,6 @@ export const Section = ({ section, timeSignature, showDiagram }: Props) => {
                 showDiagram={showDiagram}
               />
             ))}
-            {/* si es el último compás y hay repeticiones */}
             {isLastBar && section.repeats && section.repeats > 1 && (
               <Repeat repeats={section.repeats} />
             )}
