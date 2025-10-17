@@ -1105,7 +1105,11 @@
   </symbol>
 
   <symbol id="Fmaj7" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+
+    <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+
+      <!-- strings -->
       <line x1="30"  y1="50" x2="30"  y2="240"/>
       <line x1="66"  y1="50" x2="66"  y2="240"/>
       <line x1="102" y1="50" x2="102" y2="240"/>
@@ -1113,19 +1117,25 @@
       <line x1="174" y1="50" x2="174" y2="240"/>
       <line x1="210" y1="50" x2="210" y2="240"/>
 
+      <!-- frets -->
       <line x1="30" y1="90"  x2="210" y2="90"/>
       <line x1="30" y1="130" x2="210" y2="130"/>
       <line x1="30" y1="170" x2="210" y2="170"/>
       <line x1="30" y1="210" x2="210" y2="210"/>
     </g>
 
+    <!-- nut -->
     <line x1="26" y1="40" x2="214" y2="40" stroke="currentColor" stroke-width="10"/>
 
+    <!-- extra fingers -->
+    <!-- position 3, cord 5 -->
     <circle cx="66" cy="150" r="11" fill="currentColor" />
-    <circle cx="102" cy="110" r="11" fill="currentColor" />
+    <!-- position 3, cord 4 -->
+    <circle cx="102" cy="150" r="11" fill="currentColor" />
     <circle cx="138" cy="110" r="11" fill="currentColor" />
     <circle cx="174" cy="70" r="11" fill="currentColor" />
 
+    <!-- (X and O) -->
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
       <line x1="22" y1="15" x2="38" y2="35"/>
       <line x1="38" y1="15" x2="22" y2="35"/>
