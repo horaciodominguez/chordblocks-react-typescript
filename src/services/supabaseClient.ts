@@ -20,7 +20,7 @@ if (supabaseUrl && supabaseAnonKey) {
   supabase = createClient(supabaseUrl, supabaseAnonKey)
 } else {
   console.warn(
-    "%c⚠️ Supabase not configured. DEMO MODE activated.",
+    "%c Supabase not configured. DEMO MODE activated.",
     "color: orange; font-weight: bold;"
   )
   console.warn(
