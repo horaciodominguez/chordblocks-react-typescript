@@ -343,17 +343,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
   <symbol id="D" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
     <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
@@ -1523,16 +1512,6 @@
 
   </symbol>
 
-
-
-
-
-  
-
-
-
-
-
   
 
   <symbol id="A" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
@@ -1814,7 +1793,7 @@
 
 
 
-<symbol id="B" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="B" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
     
     <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
