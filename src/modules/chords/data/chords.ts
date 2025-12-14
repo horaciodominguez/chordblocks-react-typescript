@@ -1,18 +1,11 @@
 import { type Chord } from "../types/chord.types"
 
-export const ROOTS = [
-  "C",
-  "C#",
-  "D",
-  "D#",
-  "E",
-  "F",
-  "F#",
-  "G",
-  "G#",
-  "A",
-  "A#",
-  "B",
+export const ROOTS = ["C", "D", "E", "F", "G", "A", "B"] as const
+
+export const ACCIDENTALS = [
+  { value: "natural", label: "♮", suffix: "" },
+  { value: "sharp", label: "#", suffix: "#" },
+  { value: "flat", label: "b", suffix: "b" },
 ] as const
 
 export const VARIATIONS = [
