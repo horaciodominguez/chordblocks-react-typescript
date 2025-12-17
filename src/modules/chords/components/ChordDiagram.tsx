@@ -8,7 +8,7 @@ export default function ChordDiagram({ chordName, size }: Props) {
     <>
       <picture>
         <svg
-          className="w-12 h-12"
+          className="w-[64px] h-[64px]"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
         >
@@ -16,8 +16,8 @@ export default function ChordDiagram({ chordName, size }: Props) {
             href={`/assets/chords-sprite.svg#${chordName}`}
             className="text-white"
             fill="currentColor"
-            width={size || 48}
-            height={size || 48}
+            width={size || 64}
+            height={size || 64}
           />
         </svg>
       </picture>

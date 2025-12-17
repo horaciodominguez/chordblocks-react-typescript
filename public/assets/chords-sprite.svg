@@ -1,350 +1,264 @@
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;" xmlns:xlink="http://www.w3.org/1999/xlink">
 
-  <symbol id="C" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="main-grid-with-nut" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
       <!-- chords -->
-      <line x1="30"  y1="50" x2="30"  y2="240"/>
-      <line x1="66"  y1="50" x2="66"  y2="240"/>
-      <line x1="102" y1="50" x2="102" y2="240"/>
-      <line x1="138" y1="50" x2="138" y2="240"/>
-      <line x1="174" y1="50" x2="174" y2="240"/>
-      <line x1="210" y1="50" x2="210" y2="240"/>
+      <line x1="40"  y1="50" x2="40"  y2="240"/>
+      <line x1="76"  y1="50" x2="76"  y2="240"/>
+      <line x1="112" y1="50" x2="112" y2="240"/>
+      <line x1="148" y1="50" x2="148" y2="240"/>
+      <line x1="184" y1="50" x2="184" y2="240"/>
+      <line x1="220" y1="50" x2="220" y2="240"/>
 
       <!-- 4 horizontal lines -->
-      <line x1="30" y1="90"  x2="210" y2="90"/>
-      <line x1="30" y1="130" x2="210" y2="130"/>
-      <line x1="30" y1="170" x2="210" y2="170"/>
-      <line x1="30" y1="210" x2="210" y2="210"/>
+      <line x1="40" y1="90"  x2="220" y2="90"/>
+      <line x1="40" y1="130" x2="220" y2="130"/>
+      <line x1="40" y1="170" x2="220" y2="170"/>
+      <line x1="40" y1="210" x2="220" y2="210"/>
     </g>
 
     <!-- nut -->
-    <line x1="26" y1="40" x2="214" y2="40" stroke="currentColor" stroke-width="10"/>
+    <line x1="36" y1="40" x2="224" y2="40" stroke="currentColor" stroke-width="10"/>
+
+  </symbol>
+
+  <symbol id="main-grid-no-nut" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
+    <!-- vertical and horizontal lines -->
+    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <!-- chords -->
+      <line x1="40"  y1="50" x2="40"  y2="240"/>
+      <line x1="76"  y1="50" x2="76"  y2="240"/>
+      <line x1="112" y1="50" x2="112" y2="240"/>
+      <line x1="148" y1="50" x2="148" y2="240"/>
+      <line x1="184" y1="50" x2="184" y2="240"/>
+      <line x1="220" y1="50" x2="220" y2="240"/>
+
+      <!-- 5 horizontal lines -->
+      <line x1="40" y1="50"  x2="220" y2="50"/>
+      <line x1="40" y1="90"  x2="220" y2="90"/>
+      <line x1="40" y1="130" x2="220" y2="130"/>
+      <line x1="40" y1="170" x2="220" y2="170"/>
+      <line x1="40" y1="210" x2="220" y2="210"/>
+    </g>
+  </symbol>
+
+  <symbol id="C" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
+    
+    <use href="#main-grid-with-nut" />
 
     <!-- points (circles) -->
     <!-- position 3, cord 5 -->
-    <circle cx="66"  cy="150" r="11" fill="currentColor" />
+    <circle cx="76"  cy="150" r="11" fill="currentColor" />
     <!-- position 2, cord 4 -->
-    <circle cx="102" cy="110" r="11" fill="currentColor" />
+    <circle cx="112" cy="110" r="11" fill="currentColor" />
     <!-- position 1, cord 2 -->
-    <circle cx="174" cy="70"  r="11" fill="currentColor" />
+    <circle cx="184" cy="70"  r="11" fill="currentColor" />
 
     <!-- (X and O) -->
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
       <!-- position 0, cord 6 -->
-      <line x1="22" y1="15" x2="38" y2="35"/>
-      <line x1="38" y1="15" x2="22" y2="35"/>
+      <line x1="32" y1="5" x2="48" y2="25"/>
+      <line x1="48" y1="5" x2="32" y2="25"/>
       <!-- position 0, cord 3 -->
-      <circle cx="138" cy="25" r="10"/>
+      <circle cx="148" cy="15" r="10"/>
       <!-- position 0, cord 1 -->
-      <circle cx="210" cy="25" r="10"/>
+      <circle cx="220" cy="15" r="10"/>
     </g>
   </symbol>
 
-  <symbol id="Cm" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
-    <!-- vertical and horizontal lines -->
-    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-      <!-- chords -->
-      <line x1="30"  y1="50" x2="30"  y2="240"/>
-      <line x1="66"  y1="50" x2="66"  y2="240"/>
-      <line x1="102" y1="50" x2="102" y2="240"/>
-      <line x1="138" y1="50" x2="138" y2="240"/>
-      <line x1="174" y1="50" x2="174" y2="240"/>
-      <line x1="210" y1="50" x2="210" y2="240"/>
-
-      <!-- 5 horizontal lines -->
-      <line x1="30" y1="50"  x2="210" y2="50"/>
-      <line x1="30" y1="90"  x2="210" y2="90"/>
-      <line x1="30" y1="130" x2="210" y2="130"/>
-      <line x1="30" y1="170" x2="210" y2="170"/>
-      <line x1="30" y1="210" x2="210" y2="210"/>
-    </g>
-
-    <!-- fret number -->
-    <text x="0" y="84" font-size="42" fill="currentColor">3</text>
-
-    <!-- barre fret 1 -->
-    <rect x="58" y="62" width="152" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <!-- extra fingers from 3rd fret -->
-    <!-- position 3, cord 4 -->
-    <circle cx="102" cy="150" r="11" fill="currentColor" />
-    <!-- position 3, cord 3 -->
-    <circle cx="138" cy="150" r="11" fill="currentColor" />
-    <!-- position 2, cord 2 -->
-    <circle cx="174" cy="110" r="11" fill="currentColor" />
-
-    <!-- (X) -->
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-        <!-- position 0, cord 6 -->
-        <line x1="22" y1="15" x2="38" y2="35"/>
-        <line x1="38" y1="15" x2="22" y2="35"/>
-    </g>
-
-  </symbol>
-
-  <symbol id="C7" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="Cm" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     
-    <!-- vertical and horizontal lines -->
-    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-      <!-- chords -->
-      <line x1="30"  y1="50" x2="30"  y2="240"/>
-      <line x1="66"  y1="50" x2="66"  y2="240"/>
-      <line x1="102" y1="50" x2="102" y2="240"/>
-      <line x1="138" y1="50" x2="138" y2="240"/>
-      <line x1="174" y1="50" x2="174" y2="240"/>
-      <line x1="210" y1="50" x2="210" y2="240"/>
-
-      <!-- 5 horizontal lines -->
-      <line x1="30" y1="50"  x2="210" y2="50"/>
-      <line x1="30" y1="90"  x2="210" y2="90"/>
-      <line x1="30" y1="130" x2="210" y2="130"/>
-      <line x1="30" y1="170" x2="210" y2="170"/>
-      <line x1="30" y1="210" x2="210" y2="210"/>
-    </g>
+    <use href="#main-grid-no-nut" />
 
     <!-- fret number -->
     <text x="0" y="84" font-size="42" fill="currentColor">3</text>
 
     <!-- barre fret 1 -->
-    <rect x="58" y="62" width="152" height="12" rx="6" ry="6" fill="currentColor"/>
+    <rect x="68" y="62" width="162" height="12" rx="6" ry="6" fill="currentColor"/>
 
     <!-- extra fingers from 3rd fret -->
     <!-- position 3, cord 4 -->
-    <circle cx="102" cy="150" r="11" fill="currentColor" />
-    <!-- position 3, cord 2 -->
-    <circle cx="174" cy="150" r="11" fill="currentColor" />
+    <circle cx="112" cy="150" r="11" fill="currentColor" />
+    <!-- position 3, cord 3 -->
+    <circle cx="148" cy="150" r="11" fill="currentColor" />
+    <!-- position 2, cord 2 -->
+    <circle cx="184" cy="110" r="11" fill="currentColor" />
 
     <!-- (X) -->
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
         <!-- position 0, cord 6 -->
-        <line x1="22" y1="15" x2="38" y2="35"/>
-        <line x1="38" y1="15" x2="22" y2="35"/>
+        <line x1="32" y1="5" x2="48" y2="25"/>
+        <line x1="48" y1="5" x2="32" y2="25"/>
+    </g>
+
+  </symbol>
+
+  <symbol id="C7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
+    
+    <use href="#main-grid-no-nut" />
+
+    <!-- fret number -->
+    <text x="0" y="84" font-size="42" fill="currentColor">3</text>
+
+    <!-- barre fret 1 -->
+    <rect x="68" y="62" width="162" height="12" rx="6" ry="6" fill="currentColor"/>
+
+    <!-- extra fingers from 3rd fret -->
+    <!-- position 3, cord 4 -->
+    <circle cx="112" cy="150" r="11" fill="currentColor" />
+    <!-- position 3, cord 2 -->
+    <circle cx="184" cy="150" r="11" fill="currentColor" />
+
+    <!-- (X) -->
+    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
+        <!-- position 0, cord 6 -->
+        <line x1="32" y1="5" x2="48" y2="25"/>
+        <line x1="48" y1="5" x2="32" y2="25"/>
     </g>
 
   </symbol>
 
 
   <!-- C minor 7 (Cm7) : X 1 3 1 3 4 3 -->
-  <symbol id="Cm7" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="Cm7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     
-    <!-- vertical and horizontal lines -->
-    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-      <!-- chords -->
-      <line x1="30"  y1="50" x2="30"  y2="240"/>
-      <line x1="66"  y1="50" x2="66"  y2="240"/>
-      <line x1="102" y1="50" x2="102" y2="240"/>
-      <line x1="138" y1="50" x2="138" y2="240"/>
-      <line x1="174" y1="50" x2="174" y2="240"/>
-      <line x1="210" y1="50" x2="210" y2="240"/>
-
-      <!-- 5 horizontal lines -->
-      <line x1="30" y1="50"  x2="210" y2="50"/>
-      <line x1="30" y1="90"  x2="210" y2="90"/>
-      <line x1="30" y1="130" x2="210" y2="130"/>
-      <line x1="30" y1="170" x2="210" y2="170"/>
-      <line x1="30" y1="210" x2="210" y2="210"/>
-    </g>
+    <use href="#main-grid-no-nut" />
 
     <!-- fret number -->
     <text x="0" y="84" font-size="42" fill="currentColor">3</text>
 
     <!-- barre fret 1 -->
-    <rect x="58" y="62" width="152" height="12" rx="6" ry="6" fill="currentColor"/>
+    <rect x="68" y="62" width="162" height="12" rx="6" ry="6" fill="currentColor"/>
 
     <!-- extra fingers from 3rd fret -->
     <!-- position 3, cord 4 -->
-    <circle cx="102" cy="150" r="11" fill="currentColor" />
+    <circle cx="112" cy="150" r="11" fill="currentColor" />
     <!-- position 2, cord 2 -->
-    <circle cx="174" cy="110" r="11" fill="currentColor" />
+    <circle cx="184" cy="110" r="11" fill="currentColor" />
 
     <!-- (X) -->
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
         <!-- position 0, cord 6 -->
-        <line x1="22" y1="15" x2="38" y2="35"/>
-        <line x1="38" y1="15" x2="22" y2="35"/>
+        <line x1="32" y1="5" x2="48" y2="25"/>
+        <line x1="48" y1="5" x2="32" y2="25"/>
     </g>
 
   </symbol>
 
   <!-- C major 7 (Cmaj7) : X 3 2 0 0 0 -->
-  <symbol id="Cmaj7" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="Cmaj7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
 
-    <!-- vertical and horizontal lines -->
-    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-
-      <!-- cords -->
-      <line x1="30"  y1="50" x2="30"  y2="240"/>
-      <line x1="66"  y1="50" x2="66"  y2="240"/>
-      <line x1="102" y1="50" x2="102" y2="240"/>
-      <line x1="138" y1="50" x2="138" y2="240"/>
-      <line x1="174" y1="50" x2="174" y2="240"/>
-      <line x1="210" y1="50" x2="210" y2="240"/>
-
-      <!-- 4 horizontal lines -->
-      <line x1="30" y1="90"  x2="210" y2="90"/>
-      <line x1="30" y1="130" x2="210" y2="130"/>
-      <line x1="30" y1="170" x2="210" y2="170"/>
-      <line x1="30" y1="210" x2="210" y2="210"/>
-    </g>
+    <use href="#main-grid-with-nut" />
 
     <!-- nut -->
     <line x1="30" y1="40" x2="210" y2="40" stroke="currentColor" stroke-width="10"/>
 
     <!-- extra fingers -->
     <!-- position 3, cord 5 -->
-    <circle cx="66"  cy="150" r="11" fill="currentColor"/>
+    <circle cx="76"  cy="150" r="11" fill="currentColor"/>
     <!-- position 2, cord 4 -->
-    <circle cx="102" cy="110" r="11" fill="currentColor"/>
+    <circle cx="112" cy="110" r="11" fill="currentColor"/>
 
     <!-- (X and O) -->
     <g stroke="currentColor" stroke-width="3" fill="none">
       <!-- position 0, cord 6 -->
-      <line x1="22" y1="15" x2="38" y2="35"/>
-      <line x1="38" y1="15" x2="22" y2="35"/>
+      <line x1="32" y1="5" x2="48" y2="25"/>
+      <line x1="48" y1="5" x2="32" y2="25"/>
       <!-- position 0, cord 3 -->
-      <circle cx="138" cy="25" r="10"/>
+      <circle cx="148" cy="15" r="10"/>
       <!-- position 0, cord 2 -->
-      <circle cx="174" cy="25" r="10"/>
+      <circle cx="184" cy="15" r="10"/>
       <!-- position 0, cord 1 -->
-      <circle cx="210" cy="25" r="10"/>
+      <circle cx="220" cy="15" r="10"/>
     </g>
   </symbol>
 
   <!-- C9 : X 3 2 0 3 3 -->
-  <symbol id="C9" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="C9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     
-    <!-- vertical and horizontal lines -->
-    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-      <!-- chords -->
-      <line x1="30"  y1="50" x2="30"  y2="240"/>
-      <line x1="66"  y1="50" x2="66"  y2="240"/>
-      <line x1="102" y1="50" x2="102" y2="240"/>
-      <line x1="138" y1="50" x2="138" y2="240"/>
-      <line x1="174" y1="50" x2="174" y2="240"/>
-      <line x1="210" y1="50" x2="210" y2="240"/>
-
-      <!-- 4 horizontal lines -->
-      <line x1="30" y1="90"  x2="210" y2="90"/>
-      <line x1="30" y1="130" x2="210" y2="130"/>
-      <line x1="30" y1="170" x2="210" y2="170"/>
-      <line x1="30" y1="210" x2="210" y2="210"/>
-    </g>
+    <use href="#main-grid-with-nut" />
 
     <!-- nut -->
     <line x1="30" y1="40" x2="210" y2="40" stroke="currentColor" stroke-width="10"/>
 
     <!-- extra fingers -->
     <!-- position 3, cord 5 -->
-    <circle cx="66"  cy="150" r="11" fill="currentColor"/>
+    <circle cx="76"  cy="150" r="11" fill="currentColor"/>
     <!-- position 2, cord 4 -->
-    <circle cx="102" cy="110" r="11" fill="currentColor"/>
+    <circle cx="112" cy="110" r="11" fill="currentColor"/>
     <!-- position 3, cord 2 -->
-    <circle cx="174" cy="150" r="11" fill="currentColor"/>
+    <circle cx="184" cy="150" r="11" fill="currentColor"/>
     <!-- position 3, cord 1 -->
-    <circle cx="210" cy="150" r="11" fill="currentColor"/> 
+    <circle cx="220" cy="150" r="11" fill="currentColor"/> 
 
     <!-- (X) and O -->
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
       <!-- position 0, cord 6 -->
-      <line x1="22" y1="15" x2="38" y2="35"/>
-      <line x1="38" y1="15" x2="22" y2="35"/>
+      <line x1="32" y1="5" x2="48" y2="25"/>
+      <line x1="48" y1="5" x2="32" y2="25"/>
       <!-- position 0, cord 3 -->
-      <circle cx="138" cy="25" r="10"/>
+      <circle cx="148" cy="15" r="10"/>
     </g>
   </symbol>
 
   <!-- Csus2 : X 3 0 0 1 0 -->
-  <symbol id="Csus2" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="Csus2" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
 
-    <!-- vertical and horizontal lines -->
-    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-      <!-- chords -->
-      <line x1="30"  y1="50" x2="30"  y2="240"/>
-      <line x1="66"  y1="50" x2="66"  y2="240"/>
-      <line x1="102" y1="50" x2="102" y2="240"/>
-      <line x1="138" y1="50" x2="138" y2="240"/>
-      <line x1="174" y1="50" x2="174" y2="240"/>
-      <line x1="210" y1="50" x2="210" y2="240"/>
-      <!-- 4 horizontal lines -->
-      <line x1="30" y1="90"  x2="210" y2="90"/>
-      <line x1="30" y1="130" x2="210" y2="130"/>
-      <line x1="30" y1="170" x2="210" y2="170"/>
-      <line x1="30" y1="210" x2="210" y2="210"/>
-    </g>
-
-    <!-- nut -->
-    <line x1="30" y1="40" x2="210" y2="40" stroke="currentColor" stroke-width="10"/>
+    <use href="#main-grid-with-nut" />
 
     <!-- extra fingers -->
     <!-- position 3, cord 5 -->
-    <circle cx="66"  cy="150" r="11" fill="currentColor"/>
+    <circle cx="76"  cy="150" r="11" fill="currentColor"/>
     <!-- position 1, cord 2 -->
-    <circle cx="174" cy="70"  r="11" fill="currentColor"/>
+    <circle cx="184" cy="70"  r="11" fill="currentColor"/>
 
     <!-- (X and O) -->
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
       <!-- position 0, cord 6 -->
-      <line x1="22" y1="15" x2="38" y2="35"/>
-      <line x1="38" y1="15" x2="22" y2="35"/>
+      <line x1="32" y1="5" x2="48" y2="25"/>
+      <line x1="48" y1="5" x2="32" y2="25"/>
       <!-- position 0, cord 4 -->
-      <circle cx="102" cy="25" r="10"/>
+      <circle cx="112" cy="15" r="10"/>
       <!-- position 0, cord 3 -->
-      <circle cx="138" cy="25" r="10"/>
+      <circle cx="148" cy="15" r="10"/>
       <!-- position 0, cord 1 -->
-      <circle cx="210" cy="25" r="10"/>
+      <circle cx="220" cy="15" r="10"/>
     </g>
   </symbol>
 
   <!-- Csus4 : X 3 3 0 1 0 -->
-  <symbol id="Csus4" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="Csus4" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
   
 
-    <!-- vertical and horizontal lines -->
-    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-      <!-- chords -->
-      <line x1="30"  y1="50" x2="30"  y2="240"/>
-      <line x1="66"  y1="50" x2="66"  y2="240"/>
-      <line x1="102" y1="50" x2="102" y2="240"/>
-      <line x1="138" y1="50" x2="138" y2="240"/>
-      <line x1="174" y1="50" x2="174" y2="240"/>
-      <line x1="210" y1="50" x2="210" y2="240"/>
-      <!-- 4 horizontal lines -->
-      <line x1="30" y1="90"  x2="210" y2="90"/>
-      <line x1="30" y1="130" x2="210" y2="130"/>
-      <line x1="30" y1="170" x2="210" y2="170"/>
-      <line x1="30" y1="210" x2="210" y2="210"/>
-    </g>
-
-    <!-- nut -->
-    <line x1="30" y1="40" x2="210" y2="40" stroke="currentColor" stroke-width="10"/>
+    <use href="#main-grid-with-nut" />
 
     <!-- barre fret 1 from cord 2 to cord 1 -->
-    <rect x="164" y="62" width="56" height="12" rx="6" ry="6" fill="currentColor"/>
+    <rect x="174" y="62" width="56" height="12" rx="6" ry="6" fill="currentColor"/>
 
     <!-- extra fingers -->
     <!-- position 3, cord 5 -->
-    <circle cx="66"  cy="150" r="11" fill="currentColor"/>
+    <circle cx="76"  cy="150" r="11" fill="currentColor"/>
     <!-- position 3, cord 4 -->
-    <circle cx="102" cy="150" r="11" fill="currentColor"/>
+    <circle cx="112" cy="150" r="11" fill="currentColor"/>
 
     <!-- 
-    <circle cx="174" cy="70"  r="11" fill="currentColor"/> 
+    <circle cx="184" cy="70"  r="11" fill="currentColor"/> 
     <circle cx="210" cy="70"  r="11" fill="currentColor"/> -->
 
     <!-- (X and O) -->
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
       <!-- position 0, cord 6 -->
-      <line x1="22" y1="15" x2="38" y2="35"/>
-      <line x1="38" y1="15" x2="22" y2="35"/>
+      <line x1="32" y1="5" x2="48" y2="25"/>
+      <line x1="48" y1="5" x2="32" y2="25"/>
       <!-- position 0, cord 3 -->
-      <circle cx="138" cy="25" r="10"/>
+      <circle cx="148" cy="15" r="10"/>
     </g>
   </symbol>
 
 
 
-  <symbol id="C#" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="C#" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
 
     <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
@@ -368,27 +282,27 @@
     <text x="0" y="84" font-size="42" fill="currentColor">4</text>
 
     <!-- barre fret 1 -->
-    <rect x="58" y="62" width="152" height="12" rx="6" ry="6" fill="currentColor"/>
+    <rect x="68" y="62" width="162" height="12" rx="6" ry="6" fill="currentColor"/>
 
     <!-- extra fingers from 3rd fret -->
     <!-- position 3, cord 4 -->
-    <circle cx="102" cy="150" r="11" fill="currentColor" />
+    <circle cx="112" cy="150" r="11" fill="currentColor" />
     <!-- position 3 cord 3 -->
-    <circle cx="138" cy="150" r="11" fill="currentColor" />
+    <circle cx="148" cy="150" r="11" fill="currentColor" />
     <!-- position 3, cord 2 -->
-    <circle cx="174" cy="150" r="11" fill="currentColor" />
+    <circle cx="184" cy="150" r="11" fill="currentColor" />
 
     <!-- (X) -->
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
         <!-- position 0, cord 6 -->
-        <line x1="22" y1="15" x2="38" y2="35"/>
-        <line x1="38" y1="15" x2="22" y2="35"/>
+        <line x1="32" y1="5" x2="48" y2="25"/>
+        <line x1="48" y1="5" x2="32" y2="25"/>
     </g>
 
 
   </symbol>
 
-  <symbol id="C#m" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="C#m" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
       <!-- chords -->
@@ -411,26 +325,26 @@
     <text x="0" y="84" font-size="42" fill="currentColor">4</text>
 
     <!-- barre fret 1 -->
-    <rect x="58" y="62" width="152" height="12" rx="6" ry="6" fill="currentColor"/>
+    <rect x="68" y="62" width="162" height="12" rx="6" ry="6" fill="currentColor"/>
 
     <!-- extra fingers from 3rd fret -->
     <!-- position 3, cord 4 -->
-    <circle cx="102" cy="150" r="11" fill="currentColor" />
+    <circle cx="112" cy="150" r="11" fill="currentColor" />
     <!-- position 3, cord 3 -->
-    <circle cx="138" cy="150" r="11" fill="currentColor" />
+    <circle cx="148" cy="150" r="11" fill="currentColor" />
     <!-- position 2, cord 2 -->
-    <circle cx="174" cy="110" r="11" fill="currentColor" />
+    <circle cx="184" cy="110" r="11" fill="currentColor" />
 
     <!-- (X) -->
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
         <!-- position 0, cord 6 -->
-        <line x1="22" y1="15" x2="38" y2="35"/>
-        <line x1="38" y1="15" x2="22" y2="35"/>
+        <line x1="32" y1="5" x2="48" y2="25"/>
+        <line x1="48" y1="5" x2="32" y2="25"/>
     </g>
 
   </symbol>
 
-  <symbol id="C#7" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="C#7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     
     <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
@@ -454,24 +368,24 @@
     <text x="0" y="84" font-size="42" fill="currentColor">4</text>
 
     <!-- barre fret 1 -->
-    <rect x="58" y="62" width="152" height="12" rx="6" ry="6" fill="currentColor"/>
+    <rect x="68" y="62" width="162" height="12" rx="6" ry="6" fill="currentColor"/>
 
     <!-- extra fingers from 3rd fret -->
     <!-- position 3, cord 4 -->
-    <circle cx="102" cy="150" r="11" fill="currentColor" />
+    <circle cx="112" cy="150" r="11" fill="currentColor" />
     <!-- position 3, cord 2 -->
-    <circle cx="174" cy="150" r="11" fill="currentColor" />
+    <circle cx="184" cy="150" r="11" fill="currentColor" />
 
     <!-- (X) -->
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
         <!-- position 0, cord 6 -->
-        <line x1="22" y1="15" x2="38" y2="35"/>
-        <line x1="38" y1="15" x2="22" y2="35"/>
+        <line x1="32" y1="5" x2="48" y2="25"/>
+        <line x1="48" y1="5" x2="32" y2="25"/>
     </g>
 
   </symbol>
 
-  <symbol id="C#m7" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="C#m7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     
     <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
@@ -495,24 +409,24 @@
     <text x="0" y="84" font-size="42" fill="currentColor">4</text>
 
     <!-- barre fret 1 -->
-    <rect x="58" y="62" width="152" height="12" rx="6" ry="6" fill="currentColor"/>
+    <rect x="68" y="62" width="162" height="12" rx="6" ry="6" fill="currentColor"/>
 
     <!-- extra fingers from 3rd fret -->
     <!-- position 3, cord 4 -->
-    <circle cx="102" cy="150" r="11" fill="currentColor" />
+    <circle cx="112" cy="150" r="11" fill="currentColor" />
     <!-- position 2, cord 2 -->
-    <circle cx="174" cy="110" r="11" fill="currentColor" />
+    <circle cx="184" cy="110" r="11" fill="currentColor" />
 
     <!-- (X) -->
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
         <!-- position 0, cord 6 -->
-        <line x1="22" y1="15" x2="38" y2="35"/>
-        <line x1="38" y1="15" x2="22" y2="35"/>
+        <line x1="32" y1="5" x2="48" y2="25"/>
+        <line x1="48" y1="5" x2="32" y2="25"/>
     </g>
 
   </symbol>
 
-  <symbol id="C#maj7" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="C#maj7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
       <!-- chords -->
@@ -535,23 +449,23 @@
     <text x="0" y="84" font-size="42" fill="currentColor">4</text>
 
     <!-- barre fret 1 -->
-    <rect x="58" y="62" width="152" height="12" rx="6" ry="6" fill="currentColor"/>
+    <rect x="68" y="62" width="162" height="12" rx="6" ry="6" fill="currentColor"/>
 
     <!-- extra fingers from 3rd fret -->
     <!-- position 3, cord 4 -->
-    <circle cx="102" cy="150" r="11" fill="currentColor" />
+    <circle cx="112" cy="150" r="11" fill="currentColor" />
     <!-- position 3, cord 3 -->
     <circle cx="138" cy="110" r="11" fill="currentColor" />
     <!-- position 2, cord 2 -->
-    <circle cx="174" cy="150" r="11" fill="currentColor" />
+    <circle cx="184" cy="150" r="11" fill="currentColor" />
 
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <line x1="22" y1="15" x2="38" y2="35"/>
-      <line x1="38" y1="15" x2="22" y2="35"/>
+      <line x1="32" y1="5" x2="48" y2="25"/>
+      <line x1="48" y1="5" x2="32" y2="25"/>
     </g>
   </symbol>
 
-  <symbol id="C#9" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="C#9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
 
     <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
@@ -575,7 +489,7 @@
     <text x="0" y="84" font-size="42" fill="currentColor">4</text>
 
     <!-- barre fret 1 -->
-    <rect x="58" y="62" width="152" height="12" rx="6" ry="6" fill="currentColor"/>
+    <rect x="68" y="62" width="162" height="12" rx="6" ry="6" fill="currentColor"/>
 
     <!-- extra fingers from 3rd fret -->
     <!-- position 7, cord 4 -->
@@ -588,13 +502,13 @@
     <!-- (X) -->
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
         <!-- position 0, cord 6 -->
-        <line x1="22" y1="15" x2="38" y2="35"/>
-        <line x1="38" y1="15" x2="22" y2="35"/>
+        <line x1="32" y1="5" x2="48" y2="25"/>
+        <line x1="48" y1="5" x2="32" y2="25"/>
     </g>
     
   </symbol>
 
-  <symbol id="C#sus2" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="C#sus2" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
       <!-- chords -->
@@ -617,23 +531,23 @@
     <text x="0" y="84" font-size="42" fill="currentColor">4</text>
 
     <!-- barre fret 1 -->
-    <rect x="58" y="62" width="152" height="12" rx="6" ry="6" fill="currentColor"/>
+    <rect x="68" y="62" width="162" height="12" rx="6" ry="6" fill="currentColor"/>
 
     <!-- extra fingers from 3rd fret -->
     <!-- position 3, cord 4 -->
-    <circle cx="102" cy="150" r="11" fill="currentColor" />
+    <circle cx="112" cy="150" r="11" fill="currentColor" />
     <!-- position 3 cord 3 -->
-    <circle cx="138" cy="150" r="11" fill="currentColor" />
+    <circle cx="148" cy="150" r="11" fill="currentColor" />
 
     <!-- (X) -->
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
         <!-- position 0, cord 6 -->
-        <line x1="22" y1="15" x2="38" y2="35"/>
-        <line x1="38" y1="15" x2="22" y2="35"/>
+        <line x1="32" y1="5" x2="48" y2="25"/>
+        <line x1="48" y1="5" x2="32" y2="25"/>
     </g>
   </symbol>
 
-  <symbol id="C#sus4" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="C#sus4" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
       <!-- chords -->
@@ -656,21 +570,21 @@
     <text x="0" y="84" font-size="42" fill="currentColor">4</text>
 
     <!-- barre fret 1 -->
-    <rect x="58" y="62" width="152" height="12" rx="6" ry="6" fill="currentColor"/>
+    <rect x="68" y="62" width="162" height="12" rx="6" ry="6" fill="currentColor"/>
 
     <!-- extra fingers from 3rd fret -->
     <!-- position 3, cord 4 -->
-    <circle cx="102" cy="150" r="11" fill="currentColor" />
+    <circle cx="112" cy="150" r="11" fill="currentColor" />
     <!-- position 3 cord 3 -->
-    <circle cx="138" cy="150" r="11" fill="currentColor" />
+    <circle cx="148" cy="150" r="11" fill="currentColor" />
     <!-- position 4, cord 2 -->
     <circle cx="174" cy="190" r="11" fill="currentColor" />
 
     <!-- (X) -->
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
         <!-- position 0, cord 6 -->
-        <line x1="22" y1="15" x2="38" y2="35"/>
-        <line x1="38" y1="15" x2="22" y2="35"/>
+        <line x1="32" y1="5" x2="48" y2="25"/>
+        <line x1="48" y1="5" x2="32" y2="25"/>
     </g>
   </symbol>
 
@@ -709,7 +623,7 @@
   </symbol>
 
 
-  <symbol id="D" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="D" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
       <!-- chords -->
@@ -734,26 +648,26 @@
     <!-- position 2, cord 3 -->
     <circle cx="138" cy="110" r="11" fill="currentColor" />
     <!-- position 3, cord 2 -->
-    <circle cx="174" cy="150" r="11" fill="currentColor" />
+    <circle cx="184" cy="150" r="11" fill="currentColor" />
     <!-- position 2, cord 1 -->
     <circle cx="210" cy="110" r="11" fill="currentColor" />
 
     <!-- (X and O) -->
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
       <!-- position 0, cord 6 -->
-      <line x1="22" y1="15" x2="38" y2="35"/>
-      <line x1="38" y1="15" x2="22" y2="35"/>
+      <line x1="32" y1="5" x2="48" y2="25"/>
+      <line x1="48" y1="5" x2="32" y2="25"/>
       <!-- position 0, cord 5 -->
       <line x1="58" y1="15" x2="74" y2="35"/>
       <line x1="74" y1="15" x2="58" y2="35"/>
       <!-- position 0, cord 4 -->
-      <circle cx="102" cy="25" r="10"/>
+      <circle cx="112" cy="15" r="10"/>
     </g>
   </symbol>
 
   
 
-  <symbol id="Dm" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="Dm" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
       <!-- chords -->
@@ -778,24 +692,24 @@
     <!-- position 2, cord 3 -->
     <circle cx="138" cy="110" r="11" fill="currentColor" />
     <!-- position 3, cord 2 -->
-    <circle cx="174" cy="150" r="11" fill="currentColor" />
+    <circle cx="184" cy="150" r="11" fill="currentColor" />
     <!-- position 1, cord 1 -->
     <circle cx="210" cy="70"  r="11" fill="currentColor" />
 
     <!-- (X and O) -->
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
       <!-- position 0, cord 6 -->
-      <line x1="22" y1="15" x2="38" y2="35"/>
-      <line x1="38" y1="15" x2="22" y2="35"/>
+      <line x1="32" y1="5" x2="48" y2="25"/>
+      <line x1="48" y1="5" x2="32" y2="25"/>
       <!-- position 0, cord 5 -->
       <line x1="58" y1="15" x2="74" y2="35"/>
       <line x1="74" y1="15" x2="58" y2="35"/>
       <!-- position 0, cord 4 -->
-      <circle cx="102" cy="25" r="10"/>
+      <circle cx="112" cy="15" r="10"/>
     </g>
   </symbol>
 
-  <symbol id="D7" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="D7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
       <!-- chords -->
@@ -820,25 +734,25 @@
     <!-- position 2, cord 3 -->
     <circle cx="138" cy="110" r="11" fill="currentColor" />
     <!-- position 1, cord 2 -->
-    <circle cx="174" cy="70"  r="11" fill="currentColor" />
+    <circle cx="184" cy="70"  r="11" fill="currentColor" />
     <!-- position 2, cord 1 -->
     <circle cx="210" cy="110" r="11" fill="currentColor" />
 
     <!-- (X) -->
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
       <!-- position 0, cord 6 -->
-      <line x1="22" y1="15" x2="38" y2="35"/>
-      <line x1="38" y1="15" x2="22" y2="35"/>
+      <line x1="32" y1="5" x2="48" y2="25"/>
+      <line x1="48" y1="5" x2="32" y2="25"/>
       <!-- position 0, cord 5 -->
       <line x1="58" y1="15" x2="74" y2="35"/>
       <line x1="74" y1="15" x2="58" y2="35"/>
       <!-- position 0, cord 4 -->
-      <circle cx="102" cy="25" r="10"/>
+      <circle cx="112" cy="15" r="10"/>
     </g>
   </symbol>
 
 
-  <symbol id="Dm7" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="Dm7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
       <!-- chords -->
@@ -863,23 +777,23 @@
     <!-- position 2, cord 3 -->
     <circle cx="138" cy="110" r="11" fill="currentColor" />
     <!-- position 1, cord 2 -->
-    <circle cx="174" cy="70"  r="11" fill="currentColor" />
+    <circle cx="184" cy="70"  r="11" fill="currentColor" />
     <circle cx="210" cy="70"  r="11" fill="currentColor" />
 
     <!-- (X) -->
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
       <!-- position 0, cord 6 -->
-      <line x1="22" y1="15" x2="38" y2="35"/>
-      <line x1="38" y1="15" x2="22" y2="35"/>
+      <line x1="32" y1="5" x2="48" y2="25"/>
+      <line x1="48" y1="5" x2="32" y2="25"/>
       <!-- position 0, cord 5 -->
       <line x1="58" y1="15" x2="74" y2="35"/>
       <line x1="74" y1="15" x2="58" y2="35"/>
       <!-- position 0, cord 4 -->
-      <circle cx="102" cy="25" r="10"/>
+      <circle cx="112" cy="15" r="10"/>
     </g>
   </symbol>
 
-  <symbol id="Dmaj7" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="Dmaj7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
       <!-- chords -->
@@ -911,17 +825,17 @@
     <!-- (X) -->
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
       <!-- position 0, cord 6 -->
-      <line x1="22" y1="15" x2="38" y2="35"/>
-      <line x1="38" y1="15" x2="22" y2="35"/>
+      <line x1="32" y1="5" x2="48" y2="25"/>
+      <line x1="48" y1="5" x2="32" y2="25"/>
       <!-- position 0, cord 5 -->
       <line x1="58" y1="15" x2="74" y2="35"/>
       <line x1="74" y1="15" x2="58" y2="35"/>
       <!-- position 0, cord 4 -->
-      <circle cx="102" cy="25" r="10"/>
+      <circle cx="112" cy="15" r="10"/>
     </g>
   </symbol>
 
-  <symbol id="D9" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="D9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
 
     <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
@@ -945,7 +859,7 @@
     <text x="0" y="84" font-size="42" fill="currentColor">5</text>
 
     <!-- barre fret 1 -->
-    <rect x="58" y="62" width="152" height="12" rx="6" ry="6" fill="currentColor"/>
+    <rect x="68" y="62" width="162" height="12" rx="6" ry="6" fill="currentColor"/>
 
     <!-- extra fingers from 3rd fret -->
     <!-- position 7, cord 4 -->
@@ -958,13 +872,13 @@
     <!-- (X) -->
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
         <!-- position 0, cord 6 -->
-        <line x1="22" y1="15" x2="38" y2="35"/>
-        <line x1="38" y1="15" x2="22" y2="35"/>
+        <line x1="32" y1="5" x2="48" y2="25"/>
+        <line x1="48" y1="5" x2="32" y2="25"/>
     </g>
     
   </symbol>
 
-  <symbol id="Dsus2" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="Dsus2" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
       <!-- chords -->
@@ -989,25 +903,25 @@
     <!-- position 2, cord 3 -->
     <circle cx="138" cy="110" r="11" fill="currentColor" />
     <!-- position 3, cord 2 -->
-    <circle cx="174" cy="150" r="11" fill="currentColor" />
+    <circle cx="184" cy="150" r="11" fill="currentColor" />
 
     <!-- (X and O) -->
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
       <!-- position 0, cord 6 -->
-      <line x1="22" y1="15" x2="38" y2="35"/>
-      <line x1="38" y1="15" x2="22" y2="35"/>
+      <line x1="32" y1="5" x2="48" y2="25"/>
+      <line x1="48" y1="5" x2="32" y2="25"/>
       <!-- position 0, cord 5 -->
       <line x1="58" y1="15" x2="74" y2="35"/>
       <line x1="74" y1="15" x2="58" y2="35"/>
       <!-- position 0, cord 4 -->
-      <circle cx="102" cy="25" r="10"/>
+      <circle cx="112" cy="15" r="10"/>
       <!-- position 0, cord 1 -->
-      <circle cx="210" cy="25" r="10"/>
+      <circle cx="220" cy="15" r="10"/>
     </g>
 
   </symbol>
 
-  <symbol id="Dsus4" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="Dsus4" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
       <!-- chords -->
@@ -1032,27 +946,27 @@
     <!-- position 2, cord 3 -->
     <circle cx="138" cy="110" r="11" fill="currentColor" />
     <!-- position 3, cord 2 -->
-    <circle cx="174" cy="150" r="11" fill="currentColor" />
+    <circle cx="184" cy="150" r="11" fill="currentColor" />
     <!-- position 3, cord 1 -->
     <circle cx="210" cy="150" r="11" fill="currentColor" />
 
     <!-- (X and O) -->
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
       <!-- position 0, cord 6 -->
-      <line x1="22" y1="15" x2="38" y2="35"/>
-      <line x1="38" y1="15" x2="22" y2="35"/>
+      <line x1="32" y1="5" x2="48" y2="25"/>
+      <line x1="48" y1="5" x2="32" y2="25"/>
       <!-- position 0, cord 5 -->
       <line x1="58" y1="15" x2="74" y2="35"/>
       <line x1="74" y1="15" x2="58" y2="35"/>
       <!-- position 0, cord 4 -->
-      <circle cx="102" cy="25" r="10"/>
+      <circle cx="112" cy="15" r="10"/>
     </g>
 
   </symbol>
 
 
   
-  <symbol id="D#" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="D#" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
 
     <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
@@ -1076,27 +990,27 @@
     <text x="0" y="84" font-size="42" fill="currentColor">6</text>
 
     <!-- barre fret 1 -->
-    <rect x="58" y="62" width="152" height="12" rx="6" ry="6" fill="currentColor"/>
+    <rect x="68" y="62" width="162" height="12" rx="6" ry="6" fill="currentColor"/>
 
     <!-- extra fingers from 3rd fret -->
     <!-- position 3, cord 4 -->
-    <circle cx="102" cy="150" r="11" fill="currentColor" />
+    <circle cx="112" cy="150" r="11" fill="currentColor" />
     <!-- position 3 cord 3 -->
-    <circle cx="138" cy="150" r="11" fill="currentColor" />
+    <circle cx="148" cy="150" r="11" fill="currentColor" />
     <!-- position 3, cord 2 -->
-    <circle cx="174" cy="150" r="11" fill="currentColor" />
+    <circle cx="184" cy="150" r="11" fill="currentColor" />
 
     <!-- (X) -->
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
         <!-- position 0, cord 6 -->
-        <line x1="22" y1="15" x2="38" y2="35"/>
-        <line x1="38" y1="15" x2="22" y2="35"/>
+        <line x1="32" y1="5" x2="48" y2="25"/>
+        <line x1="48" y1="5" x2="32" y2="25"/>
     </g>
 
 
   </symbol>
 
-  <symbol id="D#m" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="D#m" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
       <!-- chords -->
@@ -1119,26 +1033,26 @@
     <text x="0" y="84" font-size="42" fill="currentColor">6</text>
 
     <!-- barre fret 1 -->
-    <rect x="58" y="62" width="152" height="12" rx="6" ry="6" fill="currentColor"/>
+    <rect x="68" y="62" width="162" height="12" rx="6" ry="6" fill="currentColor"/>
 
     <!-- extra fingers from 3rd fret -->
     <!-- position 3, cord 4 -->
-    <circle cx="102" cy="150" r="11" fill="currentColor" />
+    <circle cx="112" cy="150" r="11" fill="currentColor" />
     <!-- position 3, cord 3 -->
-    <circle cx="138" cy="150" r="11" fill="currentColor" />
+    <circle cx="148" cy="150" r="11" fill="currentColor" />
     <!-- position 2, cord 2 -->
-    <circle cx="174" cy="110" r="11" fill="currentColor" />
+    <circle cx="184" cy="110" r="11" fill="currentColor" />
 
     <!-- (X) -->
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
         <!-- position 0, cord 6 -->
-        <line x1="22" y1="15" x2="38" y2="35"/>
-        <line x1="38" y1="15" x2="22" y2="35"/>
+        <line x1="32" y1="5" x2="48" y2="25"/>
+        <line x1="48" y1="5" x2="32" y2="25"/>
     </g>
 
   </symbol>
 
-  <symbol id="D#7" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="D#7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     
     <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
@@ -1162,24 +1076,24 @@
     <text x="0" y="84" font-size="42" fill="currentColor">6</text>
 
     <!-- barre fret 1 -->
-    <rect x="58" y="62" width="152" height="12" rx="6" ry="6" fill="currentColor"/>
+    <rect x="68" y="62" width="162" height="12" rx="6" ry="6" fill="currentColor"/>
 
     <!-- extra fingers from 3rd fret -->
     <!-- position 3, cord 4 -->
-    <circle cx="102" cy="150" r="11" fill="currentColor" />
+    <circle cx="112" cy="150" r="11" fill="currentColor" />
     <!-- position 3, cord 2 -->
-    <circle cx="174" cy="150" r="11" fill="currentColor" />
+    <circle cx="184" cy="150" r="11" fill="currentColor" />
 
     <!-- (X) -->
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
         <!-- position 0, cord 6 -->
-        <line x1="22" y1="15" x2="38" y2="35"/>
-        <line x1="38" y1="15" x2="22" y2="35"/>
+        <line x1="32" y1="5" x2="48" y2="25"/>
+        <line x1="48" y1="5" x2="32" y2="25"/>
     </g>
 
   </symbol>
 
-  <symbol id="D#m7" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="D#m7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     
     <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
@@ -1203,24 +1117,24 @@
     <text x="0" y="84" font-size="42" fill="currentColor">6</text>
 
     <!-- barre fret 1 -->
-    <rect x="58" y="62" width="152" height="12" rx="6" ry="6" fill="currentColor"/>
+    <rect x="68" y="62" width="162" height="12" rx="6" ry="6" fill="currentColor"/>
 
     <!-- extra fingers from 3rd fret -->
     <!-- position 3, cord 4 -->
-    <circle cx="102" cy="150" r="11" fill="currentColor" />
+    <circle cx="112" cy="150" r="11" fill="currentColor" />
     <!-- position 2, cord 2 -->
-    <circle cx="174" cy="110" r="11" fill="currentColor" />
+    <circle cx="184" cy="110" r="11" fill="currentColor" />
 
     <!-- (X) -->
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
         <!-- position 0, cord 6 -->
-        <line x1="22" y1="15" x2="38" y2="35"/>
-        <line x1="38" y1="15" x2="22" y2="35"/>
+        <line x1="32" y1="5" x2="48" y2="25"/>
+        <line x1="48" y1="5" x2="32" y2="25"/>
     </g>
 
   </symbol>
 
-  <symbol id="D#maj7" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="D#maj7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
       <!-- chords -->
@@ -1243,23 +1157,23 @@
     <text x="0" y="84" font-size="42" fill="currentColor">6</text>
 
     <!-- barre fret 1 -->
-    <rect x="58" y="62" width="152" height="12" rx="6" ry="6" fill="currentColor"/>
+    <rect x="68" y="62" width="162" height="12" rx="6" ry="6" fill="currentColor"/>
 
     <!-- extra fingers from 3rd fret -->
     <!-- position 3, cord 4 -->
-    <circle cx="102" cy="150" r="11" fill="currentColor" />
+    <circle cx="112" cy="150" r="11" fill="currentColor" />
     <!-- position 3, cord 3 -->
     <circle cx="138" cy="110" r="11" fill="currentColor" />
     <!-- position 2, cord 2 -->
-    <circle cx="174" cy="150" r="11" fill="currentColor" />
+    <circle cx="184" cy="150" r="11" fill="currentColor" />
 
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <line x1="22" y1="15" x2="38" y2="35"/>
-      <line x1="38" y1="15" x2="22" y2="35"/>
+      <line x1="32" y1="5" x2="48" y2="25"/>
+      <line x1="48" y1="5" x2="32" y2="25"/>
     </g>
   </symbol>
 
-  <symbol id="D#9" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="D#9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
 
     <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
@@ -1283,7 +1197,7 @@
     <text x="0" y="84" font-size="42" fill="currentColor">6</text>
 
     <!-- barre fret 1 -->
-    <rect x="58" y="62" width="152" height="12" rx="6" ry="6" fill="currentColor"/>
+    <rect x="68" y="62" width="162" height="12" rx="6" ry="6" fill="currentColor"/>
 
     <!-- extra fingers from 3rd fret -->
     <!-- position 7, cord 4 -->
@@ -1296,13 +1210,13 @@
     <!-- (X) -->
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
         <!-- position 0, cord 6 -->
-        <line x1="22" y1="15" x2="38" y2="35"/>
-        <line x1="38" y1="15" x2="22" y2="35"/>
+        <line x1="32" y1="5" x2="48" y2="25"/>
+        <line x1="48" y1="5" x2="32" y2="25"/>
     </g>
     
   </symbol>
 
-  <symbol id="D#sus2" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="D#sus2" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
       <!-- chords -->
@@ -1325,23 +1239,23 @@
     <text x="0" y="84" font-size="42" fill="currentColor">6</text>
 
     <!-- barre fret 1 -->
-    <rect x="58" y="62" width="152" height="12" rx="6" ry="6" fill="currentColor"/>
+    <rect x="68" y="62" width="162" height="12" rx="6" ry="6" fill="currentColor"/>
 
     <!-- extra fingers from 3rd fret -->
     <!-- position 3, cord 4 -->
-    <circle cx="102" cy="150" r="11" fill="currentColor" />
+    <circle cx="112" cy="150" r="11" fill="currentColor" />
     <!-- position 3 cord 3 -->
-    <circle cx="138" cy="150" r="11" fill="currentColor" />
+    <circle cx="148" cy="150" r="11" fill="currentColor" />
 
     <!-- (X) -->
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
         <!-- position 0, cord 6 -->
-        <line x1="22" y1="15" x2="38" y2="35"/>
-        <line x1="38" y1="15" x2="22" y2="35"/>
+        <line x1="32" y1="5" x2="48" y2="25"/>
+        <line x1="48" y1="5" x2="32" y2="25"/>
     </g>
   </symbol>
 
-  <symbol id="D#sus4" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="D#sus4" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
       <!-- chords -->
@@ -1364,21 +1278,21 @@
     <text x="0" y="84" font-size="42" fill="currentColor">6</text>
 
     <!-- barre fret 1 -->
-    <rect x="58" y="62" width="152" height="12" rx="6" ry="6" fill="currentColor"/>
+    <rect x="68" y="62" width="162" height="12" rx="6" ry="6" fill="currentColor"/>
 
     <!-- extra fingers from 3rd fret -->
     <!-- position 3, cord 4 -->
-    <circle cx="102" cy="150" r="11" fill="currentColor" />
+    <circle cx="112" cy="150" r="11" fill="currentColor" />
     <!-- position 3 cord 3 -->
-    <circle cx="138" cy="150" r="11" fill="currentColor" />
+    <circle cx="148" cy="150" r="11" fill="currentColor" />
     <!-- position 4, cord 2 -->
     <circle cx="174" cy="190" r="11" fill="currentColor" />
 
     <!-- (X) -->
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
         <!-- position 0, cord 6 -->
-        <line x1="22" y1="15" x2="38" y2="35"/>
-        <line x1="38" y1="15" x2="22" y2="35"/>
+        <line x1="32" y1="5" x2="48" y2="25"/>
+        <line x1="48" y1="5" x2="32" y2="25"/>
     </g>
   </symbol>
 
@@ -1417,7 +1331,7 @@
   </symbol>
 
 
-  <symbol id="E" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="E" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
       <!-- chords -->
@@ -1442,7 +1356,7 @@
     <!-- position 2, cord 5 -->
     <circle cx="66"  cy="110" r="11" fill="currentColor" />
     <!-- position 2, cord 4 -->
-    <circle cx="102" cy="110" r="11" fill="currentColor" />
+    <circle cx="112" cy="110" r="11" fill="currentColor" />
     <!-- position 1, cord 3 -->
     <circle cx="138" cy="70"  r="11" fill="currentColor" />
 
@@ -1451,14 +1365,14 @@
       <!-- position 0, cord 6 -->
       <circle cx="22"  cy="25" r="10"/>
       <!-- position 0, cord 2 -->
-      <circle cx="174" cy="25" r="10"/>
+      <circle cx="184" cy="15" r="10"/>
       <!-- position 0, cord 1 -->
-      <circle cx="210" cy="25" r="10"/>
+      <circle cx="220" cy="15" r="10"/>
     </g>
     
   </symbol>
 
-  <symbol id="Em" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="Em" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
       <!-- chords -->
@@ -1483,22 +1397,22 @@
     <!-- position 2, cord 5 -->
     <circle cx="66"  cy="110" r="11" fill="currentColor" />
     <!-- position 2, cord 4 -->
-    <circle cx="102" cy="110" r="11" fill="currentColor" />
+    <circle cx="112" cy="110" r="11" fill="currentColor" />
 
     <!-- (X and O) -->
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
       <!-- position 0, cord 6 -->
       <circle cx="22"  cy="25" r="10"/>
       <!-- position 0, cord 3 -->
-      <circle cx="138" cy="25" r="10"/>
+      <circle cx="148" cy="15" r="10"/>
       <!-- position 0, cord 2 -->
-      <circle cx="174" cy="25" r="10"/>
+      <circle cx="184" cy="15" r="10"/>
       <!-- position 0, cord 1 -->
-      <circle cx="210" cy="25" r="10"/>
+      <circle cx="220" cy="15" r="10"/>
     </g>
   </symbol>
 
-  <symbol id="E7" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="E7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
       <!-- chords -->
@@ -1530,15 +1444,15 @@
       <!-- position 0, cord 6 -->
       <circle cx="22"  cy="25" r="10"/>
       <!-- position 0, cord 4 -->
-      <circle cx="102" cy="25" r="10"/>
+      <circle cx="112" cy="15" r="10"/>
       <!-- position 0, cord 2 -->
-      <circle cx="174" cy="25" r="10"/>
+      <circle cx="184" cy="15" r="10"/>
       <!-- position 0, cord 1 -->
-      <circle cx="210" cy="25" r="10"/>
+      <circle cx="220" cy="15" r="10"/>
     </g>
   </symbol>
   
-  <symbol id="Em7" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="Em7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
       <line x1="30"  y1="50" x2="30"  y2="240"/>
       <line x1="66"  y1="50" x2="66"  y2="240"/>
@@ -1556,17 +1470,17 @@
     <line x1="26" y1="40" x2="214" y2="40" stroke="currentColor" stroke-width="10"/>
 
     <circle cx="66" cy="110" r="11" fill="currentColor" />
-    <circle cx="102" cy="110" r="11" fill="currentColor" />
-    <circle cx="174" cy="150" r="11" fill="currentColor" />
+    <circle cx="112" cy="110" r="11" fill="currentColor" />
+    <circle cx="184" cy="150" r="11" fill="currentColor" />
 
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
       <circle cx="30" cy="25" r="10"/>
-      <circle cx="138" cy="25" r="10"/>
-      <circle cx="210" cy="25" r="10"/>
+      <circle cx="148" cy="15" r="10"/>
+      <circle cx="220" cy="15" r="10"/>
     </g>
   </symbol>
 
-  <symbol id="Emaj7" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="Emaj7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
       <line x1="30"  y1="50" x2="30"  y2="240"/>
       <line x1="66"  y1="50" x2="66"  y2="240"/>
@@ -1590,12 +1504,12 @@
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
       <circle cx="30" cy="25" r="10"/>
      
-      <circle cx="174" cy="25" r="10"/>
-      <circle cx="210" cy="25" r="10"/>
+      <circle cx="184" cy="15" r="10"/>
+      <circle cx="220" cy="15" r="10"/>
     </g>
   </symbol>
 
-  <symbol id="E9" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="E9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
       <line x1="30"  y1="50" x2="30"  y2="240"/>
       <line x1="66"  y1="50" x2="66"  y2="240"/>
@@ -1626,11 +1540,11 @@
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
       
       <circle cx="30" cy="25" r="10"/>
-      <circle cx="210" cy="25" r="10"/>
+      <circle cx="220" cy="15" r="10"/>
     </g>
   </symbol>
 
-  <symbol id="Esus2" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="Esus2" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
       <line x1="30"  y1="50" x2="30"  y2="240"/>
       <line x1="66"  y1="50" x2="66"  y2="240"/>
@@ -1650,19 +1564,19 @@
     <!-- pos 3, chord 5-->
     <circle cx="66" cy="110" r="11" fill="currentColor" />
     <!-- pos 2, chord 4-->
-    <circle cx="102" cy="110" r="11" fill="currentColor" />
+    <circle cx="112" cy="110" r="11" fill="currentColor" />
     <!-- pos 3, chord 1-->
     <circle cx="210" cy="110" r="11" fill="currentColor" />
     
 
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
       <circle cx="30" cy="25" r="10"/>
-      <circle cx="138" cy="25" r="10"/>
-      <circle cx="174" cy="25" r="10"/>
+      <circle cx="148" cy="15" r="10"/>
+      <circle cx="184" cy="15" r="10"/>
     </g>
   </symbol>
 
-  <symbol id="Esus4" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="Esus4" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
       <line x1="30"  y1="50" x2="30"  y2="240"/>
       <line x1="66"  y1="50" x2="66"  y2="240"/>
@@ -1680,20 +1594,20 @@
     <line x1="26" y1="40" x2="214" y2="40" stroke="currentColor" stroke-width="10"/>
 
     <circle cx="66" cy="110" r="11" fill="currentColor" />
-    <circle cx="102" cy="110" r="11" fill="currentColor" />
+    <circle cx="112" cy="110" r="11" fill="currentColor" />
     <circle cx="138" cy="110" r="11" fill="currentColor" />
 
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
       <circle cx="30" cy="25" r="10"/>
-      <circle cx="174" cy="25" r="10"/>
-      <circle cx="210" cy="25" r="10"/>
+      <circle cx="184" cy="15" r="10"/>
+      <circle cx="220" cy="15" r="10"/>
     </g>
   </symbol>
 
 
 
 
-  <symbol id="F" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="F" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
       <!-- strings -->
@@ -1721,12 +1635,12 @@
     <!-- 3er traste, 5ª cord -->
     <circle cx="66" cy="150" r="11" fill="currentColor" />
     <!-- 3er traste, 4ª cord -->
-    <circle cx="102" cy="150" r="11" fill="currentColor" />
+    <circle cx="112" cy="150" r="11" fill="currentColor" />
     <!-- 2º traste, 3ª cord -->
     <circle cx="138" cy="110" r="11" fill="currentColor" />
   </symbol>
 
-  <symbol id="Fm" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="Fm" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
       <!-- strings -->
@@ -1754,11 +1668,11 @@
     <!-- 3er traste, 5ª cord -->
     <circle cx="66" cy="150" r="11" fill="currentColor" />
     <!-- 3er traste, 4ª cord -->
-    <circle cx="102" cy="150" r="11" fill="currentColor" />
+    <circle cx="112" cy="150" r="11" fill="currentColor" />
     
   </symbol>
 
-  <symbol id="F7" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="F7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
       <!-- strings -->
@@ -1784,13 +1698,13 @@
 
     <!-- extra fingers -->
     <!-- position 3, cord 5 -->
-    <circle cx="66"  cy="150" r="11" fill="currentColor" />
+    <circle cx="76"  cy="150" r="11" fill="currentColor" />
     <!-- position 2, cord 3 -->
     <circle cx="138" cy="110" r="11" fill="currentColor" />
   </symbol>
 
 
-  <symbol id="Fm7" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="Fm7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
 
     <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
@@ -1823,7 +1737,7 @@
 
   </symbol>
 
-  <symbol id="Fmaj7" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="Fmaj7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
 
     <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
@@ -1850,19 +1764,19 @@
     <!-- position 3, cord 5 -->
     <circle cx="66" cy="150" r="11" fill="currentColor" />
     <!-- position 3, cord 4 -->
-    <circle cx="102" cy="150" r="11" fill="currentColor" />
+    <circle cx="112" cy="150" r="11" fill="currentColor" />
     <circle cx="138" cy="110" r="11" fill="currentColor" />
     <circle cx="174" cy="70" r="11" fill="currentColor" />
 
     <!-- (X and O) -->
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <line x1="22" y1="15" x2="38" y2="35"/>
-      <line x1="38" y1="15" x2="22" y2="35"/>
-      <circle cx="210" cy="25" r="10"/>
+      <line x1="32" y1="5" x2="48" y2="25"/>
+      <line x1="48" y1="5" x2="32" y2="25"/>
+      <circle cx="220" cy="15" r="10"/>
     </g>
   </symbol>
 
-  <symbol id="F9" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="F9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
 
     <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
@@ -1894,7 +1808,7 @@
     
   </symbol>
 
-  <symbol id="Fsus2" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="Fsus2" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
 
     <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
@@ -1920,15 +1834,15 @@
 
     <!-- extra fingers -->
     <!-- position 3, cord 4 -->
-    <circle cx="102" cy="150" r="11" fill="currentColor" />
+    <circle cx="112" cy="150" r="11" fill="currentColor" />
 
     <!-- (X and O) -->
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
       <!-- pos 0 cord 3 -->
-      <circle cx="138" cy="25" r="10"/>
+      <circle cx="148" cy="15" r="10"/>
       <!-- pos 0 cord 6 -->
-      <line x1="22" y1="15" x2="38" y2="35"/>
-      <line x1="38" y1="15" x2="22" y2="35"/>
+      <line x1="32" y1="5" x2="48" y2="25"/>
+      <line x1="48" y1="5" x2="32" y2="25"/>
       <!-- pos 0 cord 5-->
       <line x1="66" y1="15" x2="82" y2="35"/>
       <line x1="82" y1="15" x2="66" y2="35"/>
@@ -1937,7 +1851,7 @@
 
   </symbol>
 
-  <symbol id="Fsus4" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="Fsus4" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     
     <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
@@ -1966,15 +1880,15 @@
     <!-- 3er traste, 5ª cord -->
     <circle cx="66" cy="150" r="11" fill="currentColor" />
     <!-- 3er traste, 4ª cord -->
-    <circle cx="102" cy="150" r="11" fill="currentColor" />
+    <circle cx="112" cy="150" r="11" fill="currentColor" />
     <!-- 3º traste, 3ª cord -->
-    <circle cx="138" cy="150" r="11" fill="currentColor" />
+    <circle cx="148" cy="150" r="11" fill="currentColor" />
 
   </symbol>
 
 
 
-  <symbol id="F#" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="F#" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
       <!-- strings -->
@@ -2004,10 +1918,10 @@
     <!-- 3er traste, 4ª cord -->
     <circle cx="102" cy="190" r="11" fill="currentColor" />
     <!-- 2º traste, 3ª cord -->
-    <circle cx="138" cy="150" r="11" fill="currentColor" />
+    <circle cx="148" cy="150" r="11" fill="currentColor" />
   </symbol>
 
-  <symbol id="F#m" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="F#m" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
       <!-- strings -->
@@ -2039,7 +1953,7 @@
     
   </symbol>
 
-  <symbol id="F#7" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="F#7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
       <!-- strings -->
@@ -2067,11 +1981,11 @@
     <!-- position 3, cord 5 -->
     <circle cx="66"  cy="190" r="11" fill="currentColor" />
     <!-- position 2, cord 3 -->
-    <circle cx="138" cy="150" r="11" fill="currentColor" />
+    <circle cx="148" cy="150" r="11" fill="currentColor" />
   </symbol>
 
 
-  <symbol id="F#m7" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="F#m7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
 
     <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
@@ -2104,7 +2018,7 @@
 
   </symbol>
 
-  <symbol id="F#maj7" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="F#maj7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
       <line x1="30"  y1="50" x2="30"  y2="240"/>
       <line x1="66"  y1="50" x2="66"  y2="240"/>
@@ -2123,11 +2037,11 @@
 
     <circle cx="30" cy="110" r="11" fill="currentColor" />
     <!-- position 4, cord 4 -->
-    <circle cx="102" cy="150" r="11" fill="currentColor" />
+    <circle cx="112" cy="150" r="11" fill="currentColor" />
     <!-- position 4, cord 3 -->
-    <circle cx="138" cy="150" r="11" fill="currentColor" />
+    <circle cx="148" cy="150" r="11" fill="currentColor" />
     <!-- position 3, cord 2 -->
-    <circle cx="174" cy="110" r="11" fill="currentColor" />
+    <circle cx="184" cy="110" r="11" fill="currentColor" />
 
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
       <!-- position 0, cord 5 -->
@@ -2139,7 +2053,7 @@
     </g>
   </symbol>
 
-  <symbol id="F#9" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="F#9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
 
     <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
@@ -2171,7 +2085,7 @@
     
   </symbol>
 
-  <symbol id="F#sus2" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="F#sus2" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
 
     <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
@@ -2201,7 +2115,7 @@
 
     <!-- extra fingers -->
     <!-- position 3, cord 3 -->
-    <circle cx="138" cy="150" r="11" fill="currentColor" />
+    <circle cx="148" cy="150" r="11" fill="currentColor" />
     <!-- position 4, cord 2 -->
     <circle cx="174" cy="190" r="11" fill="currentColor" />
     
@@ -2209,8 +2123,8 @@
     <!-- (X and O) -->
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
       <!-- pos 0 cord 6 -->
-      <line x1="22" y1="15" x2="38" y2="35"/>
-      <line x1="38" y1="15" x2="22" y2="35"/>
+      <line x1="32" y1="5" x2="48" y2="25"/>
+      <line x1="48" y1="5" x2="32" y2="25"/>
       <!-- pos 0 cord 5-->
       <line x1="66" y1="15" x2="82" y2="35"/>
       <line x1="82" y1="15" x2="66" y2="35"/>
@@ -2219,7 +2133,7 @@
 
   </symbol>
 
-  <symbol id="F#sus4" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="F#sus4" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     
     <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
@@ -2291,7 +2205,7 @@
 
   
 
-  <symbol id="G" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="G" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
       <!-- chords -->
@@ -2323,15 +2237,15 @@
     <!-- (X and O) -->
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
       <!-- position 0, cord 4 -->
-      <circle cx="102" cy="25" r="10"/>
+      <circle cx="112" cy="15" r="10"/>
       <!-- position 0, cord 3 -->
-      <circle cx="138" cy="25" r="10"/>
+      <circle cx="148" cy="15" r="10"/>
       <!-- position 0, cord 2 -->
-      <circle cx="174" cy="25" r="10"/>
+      <circle cx="184" cy="15" r="10"/>
     </g>
   </symbol>
 
-  <symbol id="Gm" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="Gm" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     
     <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
@@ -2359,13 +2273,13 @@
 
     <!-- extra fingers from 3rd fret -->
     <!-- position 3, cord 5 -->
-    <circle cx="66"  cy="150" r="11" fill="currentColor" />
+    <circle cx="76"  cy="150" r="11" fill="currentColor" />
     <!-- position 3, cord 4 -->
-    <circle cx="102" cy="150" r="11" fill="currentColor" />
+    <circle cx="112" cy="150" r="11" fill="currentColor" />
 
   </symbol>
 
-  <symbol id="G7" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="G7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
       <!-- chords -->
@@ -2392,13 +2306,13 @@
 
     <!-- extra fingers from 3rd fret -->
     <!-- position 3, cord 5 -->
-    <circle cx="66"  cy="150" r="11" fill="currentColor" />
+    <circle cx="76"  cy="150" r="11" fill="currentColor" />
     <!-- position 2, cord 3 -->
     <circle cx="138" cy="110" r="11" fill="currentColor" />
 
   </symbol>
 
-  <symbol id="Gm7" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="Gm7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
       <line x1="30"  y1="50" x2="30"  y2="240"/>
       <line x1="66"  y1="50" x2="66"  y2="240"/>
@@ -2426,7 +2340,7 @@
     </g>
   </symbol>
 
-  <symbol id="Gmaj7" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="Gmaj7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
       <line x1="30"  y1="50" x2="30"  y2="240"/>
       <line x1="66"  y1="50" x2="66"  y2="240"/>
@@ -2449,7 +2363,7 @@
     <!-- position 4, cord 3 -->
     <circle cx="138" cy="190" r="11" fill="currentColor" />
     <!-- position 3, cord 2 -->
-    <circle cx="174" cy="150" r="11" fill="currentColor" />
+    <circle cx="184" cy="150" r="11" fill="currentColor" />
 
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
       <!-- position 0, cord 5 -->
@@ -2461,7 +2375,7 @@
     </g>
   </symbol>
 
-  <symbol id="G9" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="G9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
       <line x1="30"  y1="50" x2="30"  y2="240"/>
       <line x1="66"  y1="50" x2="66"  y2="240"/>
@@ -2488,14 +2402,14 @@
       <line x1="58" y1="15" x2="74" y2="35"/>
       <line x1="74" y1="15" x2="58" y2="35"/>
       <!-- position 0 cord 4 -->
-      <circle cx="102" cy="25" r="10"/>
+      <circle cx="112" cy="15" r="10"/>
       <!-- position 0 cord 2 -->
-      <circle cx="174" cy="25" r="10"/>
+      <circle cx="184" cy="15" r="10"/>
 
     </g>
   </symbol>
 
-  <symbol id="Gsus2" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="Gsus2" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
       <line x1="30"  y1="50" x2="30"  y2="240"/>
       <line x1="66"  y1="50" x2="66"  y2="240"/>
@@ -2514,16 +2428,16 @@
 
     <circle cx="30" cy="150" r="11" fill="currentColor" />
     <circle cx="210" cy="150" r="11" fill="currentColor" />
-    <circle cx="174" cy="150" r="11" fill="currentColor" />
+    <circle cx="184" cy="150" r="11" fill="currentColor" />
 
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
       <circle cx="66" cy="25" r="10"/>
-      <circle cx="102" cy="25" r="10"/>
-      <circle cx="138" cy="25" r="10"/>
+      <circle cx="112" cy="15" r="10"/>
+      <circle cx="148" cy="15" r="10"/>
     </g>
   </symbol>
 
-  <symbol id="Gsus4" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="Gsus4" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     
     <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
@@ -2554,15 +2468,284 @@
     <!-- position 3 cord 5 -->
     <circle cx="66" cy="150" r="11" fill="currentColor" />
     <!-- position 3 cord 4 -->
-    <circle cx="102" cy="150" r="11" fill="currentColor" />
+    <circle cx="112" cy="150" r="11" fill="currentColor" />
     <!-- position 3 cord 3 -->
-    <circle cx="138" cy="150" r="11" fill="currentColor" />
+    <circle cx="148" cy="150" r="11" fill="currentColor" />
 
   </symbol>
 
   
 
-  <symbol id="A" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="G#" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
+    <!-- vertical and horizontal lines -->
+    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <!-- chords -->
+      <line x1="30"  y1="50" x2="30"  y2="240"/>
+      <line x1="66"  y1="50" x2="66"  y2="240"/>
+      <line x1="102" y1="50" x2="102" y2="240"/>
+      <line x1="138" y1="50" x2="138" y2="240"/>
+      <line x1="174" y1="50" x2="174" y2="240"/>
+      <line x1="210" y1="50" x2="210" y2="240"/>
+
+      <!-- 5 horizontal lines -->
+      <line x1="30" y1="50"  x2="210" y2="50"/>
+      <line x1="30" y1="90"  x2="210" y2="90"/>
+      <line x1="30" y1="130" x2="210" y2="130"/>
+      <line x1="30" y1="170" x2="210" y2="170"/>
+      <line x1="30" y1="210" x2="210" y2="210"/>
+    </g>
+
+    <!-- fret number -->
+    <text x="0" y="84" font-size="42" fill="currentColor">4</text>
+
+    <!-- barre fret position 1, from cord 1 to 6 -->
+    <rect x="22" y="62" width="196" height="12" rx="6" ry="6" fill="currentColor"/>
+
+    <!-- extra fingers from 3rd fret -->
+    <!-- position 3, cord 5 -->
+    <circle cx="76"  cy="150" r="11" fill="currentColor" />
+    <!-- position 3, cord 4 -->
+    <circle cx="112" cy="150" r="11" fill="currentColor" />
+    <!-- position 2, cord 3 -->
+    <circle cx="138" cy="110" r="11" fill="currentColor" />
+
+  </symbol>
+
+
+  <symbol id="G#m" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
+    
+    <!-- vertical and horizontal lines -->
+    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <!-- chords -->
+      <line x1="30"  y1="50" x2="30"  y2="240"/>
+      <line x1="66"  y1="50" x2="66"  y2="240"/>
+      <line x1="102" y1="50" x2="102" y2="240"/>
+      <line x1="138" y1="50" x2="138" y2="240"/>
+      <line x1="174" y1="50" x2="174" y2="240"/>
+      <line x1="210" y1="50" x2="210" y2="240"/>
+
+      <!-- 5 horizontal lines -->
+      <line x1="30" y1="50"  x2="210" y2="50"/>
+      <line x1="30" y1="90"  x2="210" y2="90"/>
+      <line x1="30" y1="130" x2="210" y2="130"/>
+      <line x1="30" y1="170" x2="210" y2="170"/>
+      <line x1="30" y1="210" x2="210" y2="210"/>
+    </g>
+
+    <!-- fret number -->
+    <text x="0" y="84" font-size="42" fill="currentColor">4</text>
+
+    <!-- barre fret position 1, from cord 1 to 6 -->
+    <rect x="22" y="62" width="196" height="12" rx="6" ry="6" fill="currentColor"/>
+
+    <!-- extra fingers from 3rd fret -->
+    <!-- position 3, cord 5 -->
+    <circle cx="76"  cy="150" r="11" fill="currentColor" />
+    <!-- position 3, cord 4 -->
+    <circle cx="112" cy="150" r="11" fill="currentColor" />
+
+  </symbol>
+
+  <symbol id="G#7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
+    <!-- vertical and horizontal lines -->
+    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <!-- chords -->
+      <line x1="30"  y1="50" x2="30"  y2="240"/>
+      <line x1="66"  y1="50" x2="66"  y2="240"/>
+      <line x1="102" y1="50" x2="102" y2="240"/>
+      <line x1="138" y1="50" x2="138" y2="240"/>
+      <line x1="174" y1="50" x2="174" y2="240"/>
+      <line x1="210" y1="50" x2="210" y2="240"/>
+
+      <!-- 5 horizontal lines -->
+      <line x1="30" y1="50"  x2="210" y2="50"/>
+      <line x1="30" y1="90"  x2="210" y2="90"/>
+      <line x1="30" y1="130" x2="210" y2="130"/>
+      <line x1="30" y1="170" x2="210" y2="170"/>
+      <line x1="30" y1="210" x2="210" y2="210"/>
+    </g>
+
+    <!-- fret number -->
+    <text x="0" y="84" font-size="42" fill="currentColor">4</text>
+
+    <!-- barre fret position 1, from cord 1 to 6 -->
+    <rect x="22" y="62" width="196" height="12" rx="6" ry="6" fill="currentColor"/>
+
+    <!-- extra fingers from 3rd fret -->
+    <!-- position 3, cord 5 -->
+    <circle cx="76"  cy="150" r="11" fill="currentColor" />
+    <!-- position 2, cord 3 -->
+    <circle cx="138" cy="110" r="11" fill="currentColor" />
+
+  </symbol>
+
+  <symbol id="G#m7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
+    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="30"  y1="50" x2="30"  y2="240"/>
+      <line x1="66"  y1="50" x2="66"  y2="240"/>
+      <line x1="102" y1="50" x2="102" y2="240"/>
+      <line x1="138" y1="50" x2="138" y2="240"/>
+      <line x1="174" y1="50" x2="174" y2="240"/>
+      <line x1="210" y1="50" x2="210" y2="240"/>
+
+      <line x1="30" y1="50"  x2="210" y2="50"/>
+      <line x1="30" y1="90"  x2="210" y2="90"/>
+      <line x1="30" y1="130" x2="210" y2="130"/>
+      <line x1="30" y1="170" x2="210" y2="170"/>
+      <line x1="30" y1="210" x2="210" y2="210"/>
+    </g>
+
+    <text x="0" y="84" font-size="42" fill="currentColor">4</text>
+
+    <rect x="22" y="62" width="196" height="12" rx="6" ry="6" fill="currentColor"/>
+
+    <circle cx="66" cy="150" r="11" fill="currentColor" />
+    <!-- position 4, cord 2  -->
+    <circle cx="174" cy="190" r="11" fill="currentColor" />
+
+    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
+    </g>
+  </symbol>
+
+  <symbol id="G#maj7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
+    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="30"  y1="50" x2="30"  y2="240"/>
+      <line x1="66"  y1="50" x2="66"  y2="240"/>
+      <line x1="102" y1="50" x2="102" y2="240"/>
+      <line x1="138" y1="50" x2="138" y2="240"/>
+      <line x1="174" y1="50" x2="174" y2="240"/>
+      <line x1="210" y1="50" x2="210" y2="240"/>
+
+      <line x1="30" y1="50"  x2="210" y2="50"/>
+      <line x1="30" y1="90"  x2="210" y2="90"/>
+      <line x1="30" y1="130" x2="210" y2="130"/>
+      <line x1="30" y1="170" x2="210" y2="170"/>
+      <line x1="30" y1="210" x2="210" y2="210"/>
+    </g>
+
+    <!-- fret number -->
+    <text x="0" y="84" font-size="42" fill="currentColor">4</text>
+
+    <circle cx="30" cy="150" r="11" fill="currentColor" />
+    <!-- position 4, cord 4 -->
+    <circle cx="102" cy="190" r="11" fill="currentColor" />
+    <!-- position 4, cord 3 -->
+    <circle cx="138" cy="190" r="11" fill="currentColor" />
+    <!-- position 3, cord 2 -->
+    <circle cx="184" cy="150" r="11" fill="currentColor" />
+
+    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
+      <!-- position 0, cord 5 -->
+      <line x1="58" y1="15" x2="74" y2="35"/>
+      <line x1="74" y1="15" x2="58" y2="35"/>
+      <!-- x on position 0 cord 1 -->
+      <line x1="202" y1="15" x2="218" y2="35"/>
+      <line x1="218" y1="15" x2="202" y2="35"/>
+    </g>
+  </symbol>
+
+  <symbol id="G#9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
+    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="30"  y1="50" x2="30"  y2="240"/>
+      <line x1="66"  y1="50" x2="66"  y2="240"/>
+      <line x1="102" y1="50" x2="102" y2="240"/>
+      <line x1="138" y1="50" x2="138" y2="240"/>
+      <line x1="174" y1="50" x2="174" y2="240"/>
+      <line x1="210" y1="50" x2="210" y2="240"/>
+
+      <line x1="30" y1="90"  x2="210" y2="90"/>
+      <line x1="30" y1="130" x2="210" y2="130"/>
+      <line x1="30" y1="170" x2="210" y2="170"/>
+      <line x1="30" y1="210" x2="210" y2="210"/>
+    </g>
+
+    <line x1="26" y1="40" x2="214" y2="40" stroke="currentColor" stroke-width="10"/>
+
+    <circle cx="30" cy="150" r="11" fill="currentColor" />
+    <circle cx="138" cy="110" r="11" fill="currentColor" />
+    <circle cx="210" cy="150" r="11" fill="currentColor" />
+
+    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
+
+      <!-- position 0, cord 5 -->
+      <line x1="58" y1="15" x2="74" y2="35"/>
+      <line x1="74" y1="15" x2="58" y2="35"/>
+      <!-- position 0 cord 4 -->
+      <circle cx="112" cy="15" r="10"/>
+      <!-- position 0 cord 2 -->
+      <circle cx="184" cy="15" r="10"/>
+
+    </g>
+  </symbol>
+
+  <symbol id="G#sus2" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
+    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="30"  y1="50" x2="30"  y2="240"/>
+      <line x1="66"  y1="50" x2="66"  y2="240"/>
+      <line x1="102" y1="50" x2="102" y2="240"/>
+      <line x1="138" y1="50" x2="138" y2="240"/>
+      <line x1="174" y1="50" x2="174" y2="240"/>
+      <line x1="210" y1="50" x2="210" y2="240"/>
+
+      <line x1="30" y1="90"  x2="210" y2="90"/>
+      <line x1="30" y1="130" x2="210" y2="130"/>
+      <line x1="30" y1="170" x2="210" y2="170"/>
+      <line x1="30" y1="210" x2="210" y2="210"/>
+    </g>
+
+    <line x1="26" y1="40" x2="214" y2="40" stroke="currentColor" stroke-width="10"/>
+
+    <circle cx="30" cy="150" r="11" fill="currentColor" />
+    <circle cx="210" cy="150" r="11" fill="currentColor" />
+    <circle cx="184" cy="150" r="11" fill="currentColor" />
+
+    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
+      <circle cx="66" cy="25" r="10"/>
+      <circle cx="112" cy="15" r="10"/>
+      <circle cx="148" cy="15" r="10"/>
+    </g>
+  </symbol>
+
+  <symbol id="G#sus4" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
+    
+    <!-- vertical and horizontal lines -->
+    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <!-- strings -->
+      <line x1="30"  y1="50" x2="30"  y2="240"/>
+      <line x1="66"  y1="50" x2="66"  y2="240"/>
+      <line x1="102" y1="50" x2="102" y2="240"/>
+      <line x1="138" y1="50" x2="138" y2="240"/>
+      <line x1="174" y1="50" x2="174" y2="240"/>
+      <line x1="210" y1="50" x2="210" y2="240"/>
+
+      <!-- frets -->
+      <line x1="30" y1="90"  x2="210" y2="90"/>
+      <line x1="30" y1="130" x2="210" y2="130"/>
+      <line x1="30" y1="170" x2="210" y2="170"/>
+      <line x1="30" y1="210" x2="210" y2="210"/>
+    </g>
+
+    <!-- nut -->
+    <line x1="26" y1="40" x2="214" y2="40" stroke="currentColor" stroke-width="10"/>
+
+    <text x="0" y="84" font-size="42" fill="currentColor">4</text>
+
+    <!-- barre -->
+    <rect x="22" y="62" width="196" height="12" rx="6" ry="6" fill="currentColor"/>
+
+    <!-- extra fingers -->
+    <!-- position 3 cord 5 -->
+    <circle cx="66" cy="150" r="11" fill="currentColor" />
+    <!-- position 3 cord 4 -->
+    <circle cx="112" cy="150" r="11" fill="currentColor" />
+    <!-- position 3 cord 3 -->
+    <circle cx="148" cy="150" r="11" fill="currentColor" />
+
+  </symbol>
+
+
+
+  <symbol id="A" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
       <!-- chords -->
@@ -2585,25 +2768,25 @@
 
     <!-- points (circles) -->
     <!-- position 2, cord 4 -->
-    <circle cx="102" cy="110" r="11" fill="currentColor" />
+    <circle cx="112" cy="110" r="11" fill="currentColor" />
     <!-- position 2, cord 3 -->
     <circle cx="138" cy="110" r="11" fill="currentColor" />
     <!-- position 2, cord 2 -->
-    <circle cx="174" cy="110" r="11" fill="currentColor" />
+    <circle cx="184" cy="110" r="11" fill="currentColor" />
 
     <!-- (X and O) -->
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
       <!-- position 0, cord 6 -->
-      <line x1="22" y1="15" x2="38" y2="35"/>
-      <line x1="38" y1="15" x2="22" y2="35"/>
+      <line x1="32" y1="5" x2="48" y2="25"/>
+      <line x1="48" y1="5" x2="32" y2="25"/>
       <!-- position 0, cord 5 -->
       <circle cx="66"  cy="25" r="10"/>
       <!-- position 0, cord 1 -->
-      <circle cx="210" cy="25" r="10"/>
+      <circle cx="220" cy="15" r="10"/>
     </g>
   </symbol>
 
-  <symbol id="Am" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="Am" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
       <!-- chords -->
@@ -2626,25 +2809,25 @@
 
     <!-- points (circles) -->
     <!-- position 2, cord 4 -->
-    <circle cx="102" cy="110" r="11" fill="currentColor" />
+    <circle cx="112" cy="110" r="11" fill="currentColor" />
     <!-- position 2, cord 3 -->
     <circle cx="138" cy="110" r="11" fill="currentColor" />
     <!-- position 1, cord 2 -->
-    <circle cx="174" cy="70"  r="11" fill="currentColor" />
+    <circle cx="184" cy="70"  r="11" fill="currentColor" />
 
     <!-- (X and O) -->
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
       <!-- position 0, cord 6 -->
-      <line x1="22" y1="15" x2="38" y2="35"/>
-      <line x1="38" y1="15" x2="22" y2="35"/>
+      <line x1="32" y1="5" x2="48" y2="25"/>
+      <line x1="48" y1="5" x2="32" y2="25"/>
       <!-- position 0, cord 5 -->
       <circle cx="66"  cy="25" r="10"/>
       <!-- position 0, cord 1 -->
-      <circle cx="210" cy="25" r="10"/>
+      <circle cx="220" cy="15" r="10"/>
     </g>
   </symbol>
 
-  <symbol id="A7" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="A7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
       <!-- chords -->
@@ -2667,26 +2850,26 @@
 
     <!-- points (circles) -->
     <!-- position 2, cord 4 -->
-    <circle cx="102" cy="110" r="11" fill="currentColor" />
+    <circle cx="112" cy="110" r="11" fill="currentColor" />
     <!-- position 2, cord 2 -->
-    <circle cx="174" cy="110" r="11" fill="currentColor" />
+    <circle cx="184" cy="110" r="11" fill="currentColor" />
     
 
     <!-- (X and O) -->
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
       <!-- position 0, cord 6 -->
-      <line x1="22" y1="15" x2="38" y2="35"/>
-      <line x1="38" y1="15" x2="22" y2="35"/>
+      <line x1="32" y1="5" x2="48" y2="25"/>
+      <line x1="48" y1="5" x2="32" y2="25"/>
       <!-- position 0, cord 5 -->
       <circle cx="66"  cy="25" r="10"/>
       <!-- position 0, cord 3 -->
-      <circle cx="138" cy="25" r="10"/>
+      <circle cx="148" cy="15" r="10"/>
       <!-- position 0, cord 1 -->
-      <circle cx="210" cy="25" r="10"/>
+      <circle cx="220" cy="15" r="10"/>
     </g>
   </symbol>
 
-  <symbol id="Am7" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="Am7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
       <line x1="30"  y1="50" x2="30"  y2="240"/>
       <line x1="66"  y1="50" x2="66"  y2="240"/>
@@ -2703,19 +2886,19 @@
 
     <line x1="26" y1="40" x2="214" y2="40" stroke="currentColor" stroke-width="10"/>
 
-    <circle cx="102" cy="110" r="11" fill="currentColor" />
+    <circle cx="112" cy="110" r="11" fill="currentColor" />
     <circle cx="138" cy="110" r="11" fill="currentColor" />
     <circle cx="174" cy="70" r="11" fill="currentColor" />
 
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <line x1="22" y1="15" x2="38" y2="35"/>
-      <line x1="38" y1="15" x2="22" y2="35"/>
+      <line x1="32" y1="5" x2="48" y2="25"/>
+      <line x1="48" y1="5" x2="32" y2="25"/>
       <circle cx="66" cy="25" r="10"/>
-      <circle cx="210" cy="25" r="10"/>
+      <circle cx="220" cy="15" r="10"/>
     </g>
   </symbol>
 
-  <symbol id="Amaj7" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="Amaj7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
       <line x1="30"  y1="50" x2="30"  y2="240"/>
       <line x1="66"  y1="50" x2="66"  y2="240"/>
@@ -2732,19 +2915,19 @@
 
     <line x1="26" y1="40" x2="214" y2="40" stroke="currentColor" stroke-width="10"/>
 
-    <circle cx="102" cy="110" r="11" fill="currentColor" />
+    <circle cx="112" cy="110" r="11" fill="currentColor" />
     <circle cx="138" cy="70" r="11" fill="currentColor" />
-    <circle cx="174" cy="110" r="11" fill="currentColor" />
+    <circle cx="184" cy="110" r="11" fill="currentColor" />
 
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <line x1="22" y1="15" x2="38" y2="35"/>
-      <line x1="38" y1="15" x2="22" y2="35"/>
+      <line x1="32" y1="5" x2="48" y2="25"/>
+      <line x1="48" y1="5" x2="32" y2="25"/>
       <circle cx="66" cy="25" r="10"/>
-      <circle cx="210" cy="25" r="10"/>
+      <circle cx="220" cy="15" r="10"/>
     </g>
   </symbol>
 
-  <symbol id="A9" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="A9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
       <line x1="30"  y1="50" x2="30"  y2="240"/>
       <line x1="66"  y1="50" x2="66"  y2="240"/>
@@ -2762,20 +2945,20 @@
 
     <text x="0" y="84" font-size="42" fill="currentColor">5</text>
 
-    <rect x="58" y="62" width="152" height="12" rx="6" ry="6" fill="currentColor"/>
+    <rect x="68" y="62" width="162" height="12" rx="6" ry="6" fill="currentColor"/>
 
-    <circle cx="102" cy="110" r="11" fill="currentColor" />
-    <circle cx="174" cy="150" r="11" fill="currentColor" />
+    <circle cx="112" cy="110" r="11" fill="currentColor" />
+    <circle cx="184" cy="150" r="11" fill="currentColor" />
     <circle cx="210" cy="150" r="11" fill="currentColor" />
 
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <line x1="22" y1="15" x2="38" y2="35"/>
-      <line x1="38" y1="15" x2="22" y2="35"/>
-      <circle cx="138" cy="25" r="10"/>
+      <line x1="32" y1="5" x2="48" y2="25"/>
+      <line x1="48" y1="5" x2="32" y2="25"/>
+      <circle cx="148" cy="15" r="10"/>
     </g>
   </symbol>
 
-  <symbol id="Asus2" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="Asus2" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
       <line x1="30"  y1="50" x2="30"  y2="240"/>
       <line x1="66"  y1="50" x2="66"  y2="240"/>
@@ -2792,19 +2975,19 @@
 
     <line x1="26" y1="40" x2="214" y2="40" stroke="currentColor" stroke-width="10"/>
 
-    <circle cx="102" cy="110" r="11" fill="currentColor" />
+    <circle cx="112" cy="110" r="11" fill="currentColor" />
     <circle cx="138" cy="110" r="11" fill="currentColor" />
 
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <line x1="22" y1="15" x2="38" y2="35"/>
-      <line x1="38" y1="15" x2="22" y2="35"/>
+      <line x1="32" y1="5" x2="48" y2="25"/>
+      <line x1="48" y1="5" x2="32" y2="25"/>
       <circle cx="66" cy="25" r="10"/>
-      <circle cx="174" cy="25" r="10"/>
-      <circle cx="210" cy="25" r="10"/>
+      <circle cx="184" cy="15" r="10"/>
+      <circle cx="220" cy="15" r="10"/>
     </g>
   </symbol>
 
-  <symbol id="Asus4" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="Asus4" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
       <line x1="30"  y1="50" x2="30"  y2="240"/>
       <line x1="66"  y1="50" x2="66"  y2="240"/>
@@ -2821,20 +3004,20 @@
 
     <line x1="26" y1="40" x2="214" y2="40" stroke="currentColor" stroke-width="10"/>
 
-    <circle cx="102" cy="110" r="11" fill="currentColor" />
+    <circle cx="112" cy="110" r="11" fill="currentColor" />
     <circle cx="138" cy="110" r="11" fill="currentColor" />
-    <circle cx="174" cy="150" r="11" fill="currentColor" />
+    <circle cx="184" cy="150" r="11" fill="currentColor" />
 
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <line x1="22" y1="15" x2="38" y2="35"/>
-      <line x1="38" y1="15" x2="22" y2="35"/>
+      <line x1="32" y1="5" x2="48" y2="25"/>
+      <line x1="48" y1="5" x2="32" y2="25"/>
       <circle cx="66" cy="25" r="10"/>
-      <circle cx="210" cy="25" r="10"/>
+      <circle cx="220" cy="15" r="10"/>
     </g>
   </symbol>
 
 
-  <symbol id="A#" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="A#" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     
     <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
@@ -2861,22 +3044,22 @@
 
     <!-- extra fingers -->
     <!-- 4º traste, 4ª cord -->
-    <circle cx="102" cy="150" r="11" fill="currentColor" />
+    <circle cx="112" cy="150" r="11" fill="currentColor" />
     <!-- 4º traste, 3ª cord -->
-    <circle cx="138" cy="150" r="11" fill="currentColor" />
+    <circle cx="148" cy="150" r="11" fill="currentColor" />
     <!-- 4º traste, 2ª cord -->
-    <circle cx="174" cy="150" r="11" fill="currentColor" />
+    <circle cx="184" cy="150" r="11" fill="currentColor" />
 
     <!-- (X) -->
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
       <!-- position 0, cord 6 -->
-      <line x1="22" y1="15" x2="38" y2="35"/>
-      <line x1="38" y1="15" x2="22" y2="35"/>
+      <line x1="32" y1="5" x2="48" y2="25"/>
+      <line x1="48" y1="5" x2="32" y2="25"/>
     </g>
 
   </symbol>
 
-  <symbol id="A#m" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="A#m" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     
     <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
@@ -2903,14 +3086,14 @@
 
     <!-- extra fingers from 3rd fret -->
     <!-- position 4, cord 4 -->
-    <circle cx="102" cy="150" r="11" fill="currentColor" />
+    <circle cx="112" cy="150" r="11" fill="currentColor" />
     <!-- position 4, cord 3 -->
-    <circle cx="138" cy="150" r="11" fill="currentColor" />
+    <circle cx="148" cy="150" r="11" fill="currentColor" />
     <!-- position 3, cord 2 -->
-    <circle cx="174" cy="110" r="11" fill="currentColor" />
+    <circle cx="184" cy="110" r="11" fill="currentColor" />
   </symbol>
 
-  <symbol id="A#7" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="A#7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     
     <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
@@ -2937,13 +3120,13 @@
 
     <!-- extra fingers -->
     <!-- position 4, cord 4 -->
-    <circle cx="102" cy="150" r="11" fill="currentColor" />
+    <circle cx="112" cy="150" r="11" fill="currentColor" />
     <!-- position 4, cord 2 -->
-    <circle cx="174" cy="150" r="11" fill="currentColor" />
+    <circle cx="184" cy="150" r="11" fill="currentColor" />
   </symbol>
 
 
-  <symbol id="B" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="B" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     
     <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
@@ -2979,13 +3162,13 @@
     <!-- (X) -->
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
       <!-- position 0, cord 6 -->
-      <line x1="22" y1="15" x2="38" y2="35"/>
-      <line x1="38" y1="15" x2="22" y2="35"/>
+      <line x1="32" y1="5" x2="48" y2="25"/>
+      <line x1="48" y1="5" x2="32" y2="25"/>
     </g>
 
   </symbol>
 
-  <symbol id="Bm" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="Bm" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     
     <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
@@ -3016,10 +3199,10 @@
     <!-- position 4, cord 3 -->
     <circle cx="138" cy="190" r="11" fill="currentColor" />
     <!-- position 3, cord 2 -->
-    <circle cx="174" cy="150" r="11" fill="currentColor" />
+    <circle cx="184" cy="150" r="11" fill="currentColor" />
   </symbol>
 
-  <symbol id="B7" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="B7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     
     <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
@@ -3051,7 +3234,7 @@
     <circle cx="174" cy="190" r="11" fill="currentColor" />
   </symbol>
 
-  <symbol id="Bm7" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="Bm7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
       <line x1="30"  y1="50" x2="30"  y2="240"/>
       <line x1="66"  y1="50" x2="66"  y2="240"/>
@@ -3072,15 +3255,15 @@
 
     <circle cx="102" cy="190" r="11" fill="currentColor" />
     <circle cx="138" cy="190" r="11" fill="currentColor" />
-    <circle cx="174" cy="150" r="11" fill="currentColor" />
+    <circle cx="184" cy="150" r="11" fill="currentColor" />
 
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <line x1="22" y1="15" x2="38" y2="35"/>
-      <line x1="38" y1="15" x2="22" y2="35"/>
+      <line x1="32" y1="5" x2="48" y2="25"/>
+      <line x1="48" y1="5" x2="32" y2="25"/>
     </g>
   </symbol>
 
-  <symbol id="Bmaj7" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="Bmaj7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
       <line x1="30"  y1="50" x2="30"  y2="240"/>
       <line x1="66"  y1="50" x2="66"  y2="240"/>
@@ -3100,16 +3283,16 @@
     <rect x="58" y="102" width="152" height="12" rx="6" ry="6" fill="currentColor"/>
 
     <circle cx="102" cy="190" r="11" fill="currentColor" />
-    <circle cx="138" cy="150" r="11" fill="currentColor" />
+    <circle cx="148" cy="150" r="11" fill="currentColor" />
     <circle cx="174" cy="190" r="11" fill="currentColor" />
 
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <line x1="22" y1="15" x2="38" y2="35"/>
-      <line x1="38" y1="15" x2="22" y2="35"/>
+      <line x1="32" y1="5" x2="48" y2="25"/>
+      <line x1="48" y1="5" x2="32" y2="25"/>
     </g>
   </symbol>
 
-  <symbol id="B9" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="B9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
 
     <!-- vertical and horizontal lines -->
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
@@ -3140,19 +3323,19 @@
     <!-- position 2, cord 3 -->
     <circle cx="138" cy="110" r="11" fill="currentColor" />
     <!-- position 2, cord 2 -->
-    <circle cx="174" cy="110" r="11" fill="currentColor" />
+    <circle cx="184" cy="110" r="11" fill="currentColor" />
 
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
       <!-- position 0, cord 6 -->
-      <line x1="22" y1="15" x2="38" y2="35"/>
-      <line x1="38" y1="15" x2="22" y2="35"/>
+      <line x1="32" y1="5" x2="48" y2="25"/>
+      <line x1="48" y1="5" x2="32" y2="25"/>
       <!-- position 0, cord 1 -->
       <line x1="196" y1="15" x2="212" y2="35"/>
       <line x1="212" y1="15" x2="196" y2="35"/>
     </g>
   </symbol>
 
-  <symbol id="Bsus2" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="Bsus2" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
       <line x1="30"  y1="50" x2="30"  y2="240"/>
       <line x1="66"  y1="50" x2="66"  y2="240"/>
@@ -3175,12 +3358,12 @@
     <circle cx="138" cy="190" r="11" fill="currentColor" />
 
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <line x1="22" y1="15" x2="38" y2="35"/>
-      <line x1="38" y1="15" x2="22" y2="35"/>
+      <line x1="32" y1="5" x2="48" y2="25"/>
+      <line x1="48" y1="5" x2="32" y2="25"/>
     </g>
   </symbol>
 
-  <symbol id="Bsus4" viewBox="0 0 240 260" preserveAspectRatio="xMinYMin meet">
+  <symbol id="Bsus4" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
       <line x1="30"  y1="50" x2="30"  y2="240"/>
       <line x1="66"  y1="50" x2="66"  y2="240"/>
@@ -3205,8 +3388,8 @@
     
 
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <line x1="22" y1="15" x2="38" y2="35"/>
-      <line x1="38" y1="15" x2="22" y2="35"/>
+      <line x1="32" y1="5" x2="48" y2="25"/>
+      <line x1="48" y1="5" x2="32" y2="25"/>
     </g>
   </symbol>
 
