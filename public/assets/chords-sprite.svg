@@ -1428,9 +1428,9 @@
 
     <!-- points (circles) -->
     <!-- position 3, cord 6 -->
-    <circle cx="30"  cy="150" r="11" fill="currentColor" />
+    <circle cx="40" cy="150" r="11" fill="currentColor" />
     <!-- position 2, cord 5 -->
-    <circle cx="76"  cy="110" r="11" fill="currentColor" />
+    <circle cx="76" cy="110" r="11" fill="currentColor" />
     <!-- position 3, cord 1 -->
     <circle cx="220" cy="150" r="11" fill="currentColor" />
 
@@ -1501,7 +1501,7 @@
     
     <use href="#main-grid-with-nut" />
 
-    <circle cx="30" cy="150" r="11" fill="currentColor" />
+    <circle cx="40" cy="150" r="11" fill="currentColor" />
     <!-- position 4, cord 4 -->
     <circle cx="112" cy="190" r="11" fill="currentColor" />
     <!-- position 4, cord 3 -->
@@ -1523,7 +1523,7 @@
     
     <use href="#main-grid-with-nut" />
 
-    <circle cx="30" cy="150" r="11" fill="currentColor" />
+    <circle cx="40" cy="150" r="11" fill="currentColor" />
     <circle cx="148" cy="110" r="11" fill="currentColor" />
     <circle cx="220" cy="150" r="11" fill="currentColor" />
 
@@ -1544,7 +1544,7 @@
     
     <use href="#main-grid-with-nut" />
 
-    <circle cx="30" cy="150" r="11" fill="currentColor" />
+    <circle cx="40" cy="150" r="11" fill="currentColor" />
     <circle cx="220" cy="150" r="11" fill="currentColor" />
     <circle cx="184" cy="150" r="11" fill="currentColor" />
 
@@ -1656,7 +1656,7 @@
     <!-- fret number -->
     <text x="0" y="84" font-size="42" fill="currentColor">4</text>
 
-    <circle cx="30" cy="150" r="11" fill="currentColor" />
+    <circle cx="40" cy="150" r="11" fill="currentColor" />
     <!-- position 4, cord 4 -->
     <circle cx="112" cy="190" r="11" fill="currentColor" />
     <!-- position 4, cord 3 -->
@@ -1678,7 +1678,7 @@
     
     <use href="#main-grid-no-nut" />
 
-    <circle cx="30" cy="150" r="11" fill="currentColor" />
+    <circle cx="40" cy="150" r="11" fill="currentColor" />
     <circle cx="148" cy="110" r="11" fill="currentColor" />
     <circle cx="220" cy="150" r="11" fill="currentColor" />
 
@@ -1699,7 +1699,7 @@
     
     <use href="#main-grid-no-nut" />
 
-    <circle cx="30" cy="150" r="11" fill="currentColor" />
+    <circle cx="40" cy="150" r="11" fill="currentColor" />
     <circle cx="220" cy="150" r="11" fill="currentColor" />
     <circle cx="184" cy="150" r="11" fill="currentColor" />
 
@@ -2076,7 +2076,7 @@
 
     <circle cx="112" cy="190" r="11" fill="currentColor" />
     <circle cx="148" cy="190" r="11" fill="currentColor" />
-    <circle cx="174" cy="224" r="11" fill="currentColor" />
+    <circle cx="184" cy="224" r="11" fill="currentColor" />
     
 
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
