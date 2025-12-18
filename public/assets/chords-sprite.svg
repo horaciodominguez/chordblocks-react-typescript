@@ -260,23 +260,7 @@
 
   <symbol id="C#" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
 
-    <!-- vertical and horizontal lines -->
-    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-      <!-- chords -->
-      <line x1="30"  y1="50" x2="30"  y2="240"/>
-      <line x1="66"  y1="50" x2="66"  y2="240"/>
-      <line x1="102" y1="50" x2="102" y2="240"/>
-      <line x1="138" y1="50" x2="138" y2="240"/>
-      <line x1="174" y1="50" x2="174" y2="240"/>
-      <line x1="210" y1="50" x2="210" y2="240"/>
-
-      <!-- 5 horizontal lines -->
-      <line x1="30" y1="50"  x2="210" y2="50"/>
-      <line x1="30" y1="90"  x2="210" y2="90"/>
-      <line x1="30" y1="130" x2="210" y2="130"/>
-      <line x1="30" y1="170" x2="210" y2="170"/>
-      <line x1="30" y1="210" x2="210" y2="210"/>
-    </g>
+    <use href="#main-grid-no-nut" />
 
     <!-- fret number -->
     <text x="0" y="84" font-size="42" fill="currentColor">4</text>
@@ -303,23 +287,8 @@
   </symbol>
 
   <symbol id="C#m" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    <!-- vertical and horizontal lines -->
-    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-      <!-- chords -->
-      <line x1="30"  y1="50" x2="30"  y2="240"/>
-      <line x1="66"  y1="50" x2="66"  y2="240"/>
-      <line x1="102" y1="50" x2="102" y2="240"/>
-      <line x1="138" y1="50" x2="138" y2="240"/>
-      <line x1="174" y1="50" x2="174" y2="240"/>
-      <line x1="210" y1="50" x2="210" y2="240"/>
-
-      <!-- 5 horizontal lines -->
-      <line x1="30" y1="50"  x2="210" y2="50"/>
-      <line x1="30" y1="90"  x2="210" y2="90"/>
-      <line x1="30" y1="130" x2="210" y2="130"/>
-      <line x1="30" y1="170" x2="210" y2="170"/>
-      <line x1="30" y1="210" x2="210" y2="210"/>
-    </g>
+    
+    <use href="#main-grid-no-nut" />
 
     <!-- fret number -->
     <text x="0" y="84" font-size="42" fill="currentColor">4</text>
@@ -346,23 +315,7 @@
 
   <symbol id="C#7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     
-    <!-- vertical and horizontal lines -->
-    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-      <!-- chords -->
-      <line x1="30"  y1="50" x2="30"  y2="240"/>
-      <line x1="66"  y1="50" x2="66"  y2="240"/>
-      <line x1="102" y1="50" x2="102" y2="240"/>
-      <line x1="138" y1="50" x2="138" y2="240"/>
-      <line x1="174" y1="50" x2="174" y2="240"/>
-      <line x1="210" y1="50" x2="210" y2="240"/>
-
-      <!-- 5 horizontal lines -->
-      <line x1="30" y1="50"  x2="210" y2="50"/>
-      <line x1="30" y1="90"  x2="210" y2="90"/>
-      <line x1="30" y1="130" x2="210" y2="130"/>
-      <line x1="30" y1="170" x2="210" y2="170"/>
-      <line x1="30" y1="210" x2="210" y2="210"/>
-    </g>
+    <use href="#main-grid-no-nut" />
 
     <!-- fret number -->
     <text x="0" y="84" font-size="42" fill="currentColor">4</text>
@@ -387,23 +340,7 @@
 
   <symbol id="C#m7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     
-    <!-- vertical and horizontal lines -->
-    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-      <!-- chords -->
-      <line x1="30"  y1="50" x2="30"  y2="240"/>
-      <line x1="66"  y1="50" x2="66"  y2="240"/>
-      <line x1="102" y1="50" x2="102" y2="240"/>
-      <line x1="138" y1="50" x2="138" y2="240"/>
-      <line x1="174" y1="50" x2="174" y2="240"/>
-      <line x1="210" y1="50" x2="210" y2="240"/>
-
-      <!-- 5 horizontal lines -->
-      <line x1="30" y1="50"  x2="210" y2="50"/>
-      <line x1="30" y1="90"  x2="210" y2="90"/>
-      <line x1="30" y1="130" x2="210" y2="130"/>
-      <line x1="30" y1="170" x2="210" y2="170"/>
-      <line x1="30" y1="210" x2="210" y2="210"/>
-    </g>
+    <use href="#main-grid-no-nut" />
 
     <!-- fret number -->
     <text x="0" y="84" font-size="42" fill="currentColor">4</text>
@@ -427,23 +364,8 @@
   </symbol>
 
   <symbol id="C#maj7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    <!-- vertical and horizontal lines -->
-    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-      <!-- chords -->
-      <line x1="30"  y1="50" x2="30"  y2="240"/>
-      <line x1="66"  y1="50" x2="66"  y2="240"/>
-      <line x1="102" y1="50" x2="102" y2="240"/>
-      <line x1="138" y1="50" x2="138" y2="240"/>
-      <line x1="174" y1="50" x2="174" y2="240"/>
-      <line x1="210" y1="50" x2="210" y2="240"/>
-
-      <!-- 5 horizontal lines -->
-      <line x1="30" y1="50"  x2="210" y2="50"/>
-      <line x1="30" y1="90"  x2="210" y2="90"/>
-      <line x1="30" y1="130" x2="210" y2="130"/>
-      <line x1="30" y1="170" x2="210" y2="170"/>
-      <line x1="30" y1="210" x2="210" y2="210"/>
-    </g>
+    
+    <use href="#main-grid-no-nut" />
 
     <!-- fret number -->
     <text x="0" y="84" font-size="42" fill="currentColor">4</text>
@@ -455,7 +377,7 @@
     <!-- position 3, cord 4 -->
     <circle cx="112" cy="150" r="11" fill="currentColor" />
     <!-- position 3, cord 3 -->
-    <circle cx="138" cy="110" r="11" fill="currentColor" />
+    <circle cx="148" cy="110" r="11" fill="currentColor" />
     <!-- position 2, cord 2 -->
     <circle cx="184" cy="150" r="11" fill="currentColor" />
 
@@ -467,23 +389,7 @@
 
   <symbol id="C#9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
 
-    <!-- vertical and horizontal lines -->
-    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-      <!-- chords -->
-      <line x1="30"  y1="50" x2="30"  y2="240"/>
-      <line x1="66"  y1="50" x2="66"  y2="240"/>
-      <line x1="102" y1="50" x2="102" y2="240"/>
-      <line x1="138" y1="50" x2="138" y2="240"/>
-      <line x1="174" y1="50" x2="174" y2="240"/>
-      <line x1="210" y1="50" x2="210" y2="240"/>
-
-      <!-- 5 horizontal lines -->
-      <line x1="30" y1="50"  x2="210" y2="50"/>
-      <line x1="30" y1="90"  x2="210" y2="90"/>
-      <line x1="30" y1="130" x2="210" y2="130"/>
-      <line x1="30" y1="170" x2="210" y2="170"/>
-      <line x1="30" y1="210" x2="210" y2="210"/>
-    </g>
+    <use href="#main-grid-no-nut" />
 
     <!-- fret number -->
     <text x="0" y="84" font-size="42" fill="currentColor">4</text>
@@ -493,9 +399,9 @@
 
     <!-- extra fingers from 3rd fret -->
     <!-- position 7, cord 4 -->
-    <circle cx="102" cy="150"  r="11" fill="currentColor" />
+    <circle cx="112" cy="150"  r="11" fill="currentColor" />
     <!-- position 7, cord 3 -->
-    <circle cx="138" cy="150"  r="11" fill="currentColor" />
+    <circle cx="148" cy="150"  r="11" fill="currentColor" />
 
 
 
@@ -509,23 +415,8 @@
   </symbol>
 
   <symbol id="C#sus2" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    <!-- vertical and horizontal lines -->
-    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-      <!-- chords -->
-      <line x1="30"  y1="50" x2="30"  y2="240"/>
-      <line x1="66"  y1="50" x2="66"  y2="240"/>
-      <line x1="102" y1="50" x2="102" y2="240"/>
-      <line x1="138" y1="50" x2="138" y2="240"/>
-      <line x1="174" y1="50" x2="174" y2="240"/>
-      <line x1="210" y1="50" x2="210" y2="240"/>
-
-      <!-- 5 horizontal lines -->
-      <line x1="30" y1="50"  x2="210" y2="50"/>
-      <line x1="30" y1="90"  x2="210" y2="90"/>
-      <line x1="30" y1="130" x2="210" y2="130"/>
-      <line x1="30" y1="170" x2="210" y2="170"/>
-      <line x1="30" y1="210" x2="210" y2="210"/>
-    </g>
+    
+    <use href="#main-grid-no-nut" />
 
     <!-- fret number -->
     <text x="0" y="84" font-size="42" fill="currentColor">4</text>
@@ -548,23 +439,8 @@
   </symbol>
 
   <symbol id="C#sus4" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    <!-- vertical and horizontal lines -->
-    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-      <!-- chords -->
-      <line x1="30"  y1="50" x2="30"  y2="240"/>
-      <line x1="66"  y1="50" x2="66"  y2="240"/>
-      <line x1="102" y1="50" x2="102" y2="240"/>
-      <line x1="138" y1="50" x2="138" y2="240"/>
-      <line x1="174" y1="50" x2="174" y2="240"/>
-      <line x1="210" y1="50" x2="210" y2="240"/>
-
-      <!-- 5 horizontal lines -->
-      <line x1="30" y1="50"  x2="210" y2="50"/>
-      <line x1="30" y1="90"  x2="210" y2="90"/>
-      <line x1="30" y1="130" x2="210" y2="130"/>
-      <line x1="30" y1="170" x2="210" y2="170"/>
-      <line x1="30" y1="210" x2="210" y2="210"/>
-    </g>
+    
+    <use href="#main-grid-no-nut" />
 
     <!-- fret number -->
     <text x="0" y="84" font-size="42" fill="currentColor">4</text>
@@ -578,7 +454,7 @@
     <!-- position 3 cord 3 -->
     <circle cx="148" cy="150" r="11" fill="currentColor" />
     <!-- position 4, cord 2 -->
-    <circle cx="174" cy="190" r="11" fill="currentColor" />
+    <circle cx="184" cy="190" r="11" fill="currentColor" />
 
     <!-- (X) -->
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
@@ -624,33 +500,16 @@
 
 
   <symbol id="D" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    <!-- vertical and horizontal lines -->
-    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-      <!-- chords -->
-      <line x1="30"  y1="50" x2="30"  y2="240"/>
-      <line x1="66"  y1="50" x2="66"  y2="240"/>
-      <line x1="102" y1="50" x2="102" y2="240"/>
-      <line x1="138" y1="50" x2="138" y2="240"/>
-      <line x1="174" y1="50" x2="174" y2="240"/>
-      <line x1="210" y1="50" x2="210" y2="240"/>
-
-      <!-- 4 horizontal lines -->
-      <line x1="30" y1="90"  x2="210" y2="90"/>
-      <line x1="30" y1="130" x2="210" y2="130"/>
-      <line x1="30" y1="170" x2="210" y2="170"/>
-      <line x1="30" y1="210" x2="210" y2="210"/>
-    </g>
-
-    <!-- nut -->
-    <line x1="26" y1="40" x2="214" y2="40" stroke="currentColor" stroke-width="10"/>
+    
+    <use href="#main-grid-with-nut" />
 
     <!-- points (circles) -->
     <!-- position 2, cord 3 -->
-    <circle cx="138" cy="110" r="11" fill="currentColor" />
+    <circle cx="148" cy="110" r="11" fill="currentColor" />
     <!-- position 3, cord 2 -->
     <circle cx="184" cy="150" r="11" fill="currentColor" />
     <!-- position 2, cord 1 -->
-    <circle cx="210" cy="110" r="11" fill="currentColor" />
+    <circle cx="220" cy="110" r="11" fill="currentColor" />
 
     <!-- (X and O) -->
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
@@ -658,8 +517,8 @@
       <line x1="32" y1="5" x2="48" y2="25"/>
       <line x1="48" y1="5" x2="32" y2="25"/>
       <!-- position 0, cord 5 -->
-      <line x1="58" y1="15" x2="74" y2="35"/>
-      <line x1="74" y1="15" x2="58" y2="35"/>
+      <line x1="68" y1="5" x2="84" y2="25"/>
+      <line x1="84" y1="5" x2="68" y2="25"/>
       <!-- position 0, cord 4 -->
       <circle cx="112" cy="15" r="10"/>
     </g>
@@ -668,33 +527,16 @@
   
 
   <symbol id="Dm" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    <!-- vertical and horizontal lines -->
-    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-      <!-- chords -->
-      <line x1="30"  y1="50" x2="30"  y2="240"/>
-      <line x1="66"  y1="50" x2="66"  y2="240"/>
-      <line x1="102" y1="50" x2="102" y2="240"/>
-      <line x1="138" y1="50" x2="138" y2="240"/>
-      <line x1="174" y1="50" x2="174" y2="240"/>
-      <line x1="210" y1="50" x2="210" y2="240"/>
-
-      <!-- 4 horizontal lines -->
-      <line x1="30" y1="90"  x2="210" y2="90"/>
-      <line x1="30" y1="130" x2="210" y2="130"/>
-      <line x1="30" y1="170" x2="210" y2="170"/>
-      <line x1="30" y1="210" x2="210" y2="210"/>
-    </g>
-
-    <!-- nut -->
-    <line x1="26" y1="40" x2="214" y2="40" stroke="currentColor" stroke-width="10"/>
+    
+    <use href="#main-grid-with-nut" />
 
     <!-- points (circles) -->
     <!-- position 2, cord 3 -->
-    <circle cx="138" cy="110" r="11" fill="currentColor" />
+    <circle cx="148" cy="110" r="11" fill="currentColor" />
     <!-- position 3, cord 2 -->
     <circle cx="184" cy="150" r="11" fill="currentColor" />
     <!-- position 1, cord 1 -->
-    <circle cx="210" cy="70"  r="11" fill="currentColor" />
+    <circle cx="220" cy="70"  r="11" fill="currentColor" />
 
     <!-- (X and O) -->
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
@@ -702,41 +544,24 @@
       <line x1="32" y1="5" x2="48" y2="25"/>
       <line x1="48" y1="5" x2="32" y2="25"/>
       <!-- position 0, cord 5 -->
-      <line x1="58" y1="15" x2="74" y2="35"/>
-      <line x1="74" y1="15" x2="58" y2="35"/>
+      <line x1="68" y1="5" x2="84" y2="25"/>
+      <line x1="84" y1="5" x2="68" y2="25"/>
       <!-- position 0, cord 4 -->
       <circle cx="112" cy="15" r="10"/>
     </g>
   </symbol>
 
   <symbol id="D7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    <!-- vertical and horizontal lines -->
-    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-      <!-- chords -->
-      <line x1="30"  y1="50" x2="30"  y2="240"/>
-      <line x1="66"  y1="50" x2="66"  y2="240"/>
-      <line x1="102" y1="50" x2="102" y2="240"/>
-      <line x1="138" y1="50" x2="138" y2="240"/>
-      <line x1="174" y1="50" x2="174" y2="240"/>
-      <line x1="210" y1="50" x2="210" y2="240"/>
-
-      <!-- 4 horizontal lines -->
-      <line x1="30" y1="90"  x2="210" y2="90"/>
-      <line x1="30" y1="130" x2="210" y2="130"/>
-      <line x1="30" y1="170" x2="210" y2="170"/>
-      <line x1="30" y1="210" x2="210" y2="210"/>
-    </g>
-
-    <!-- nut -->
-    <line x1="26" y1="40" x2="214" y2="40" stroke="currentColor" stroke-width="10"/>
+    
+    <use href="#main-grid-with-nut" />
 
     <!-- points (circles) -->
     <!-- position 2, cord 3 -->
-    <circle cx="138" cy="110" r="11" fill="currentColor" />
+    <circle cx="148" cy="110" r="11" fill="currentColor" />
     <!-- position 1, cord 2 -->
     <circle cx="184" cy="70"  r="11" fill="currentColor" />
     <!-- position 2, cord 1 -->
-    <circle cx="210" cy="110" r="11" fill="currentColor" />
+    <circle cx="220" cy="110" r="11" fill="currentColor" />
 
     <!-- (X) -->
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
@@ -744,8 +569,8 @@
       <line x1="32" y1="5" x2="48" y2="25"/>
       <line x1="48" y1="5" x2="32" y2="25"/>
       <!-- position 0, cord 5 -->
-      <line x1="58" y1="15" x2="74" y2="35"/>
-      <line x1="74" y1="15" x2="58" y2="35"/>
+      <line x1="68" y1="5" x2="84" y2="25"/>
+      <line x1="84" y1="5" x2="68" y2="25"/>
       <!-- position 0, cord 4 -->
       <circle cx="112" cy="15" r="10"/>
     </g>
@@ -753,32 +578,15 @@
 
 
   <symbol id="Dm7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    <!-- vertical and horizontal lines -->
-    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-      <!-- chords -->
-      <line x1="30"  y1="50" x2="30"  y2="240"/>
-      <line x1="66"  y1="50" x2="66"  y2="240"/>
-      <line x1="102" y1="50" x2="102" y2="240"/>
-      <line x1="138" y1="50" x2="138" y2="240"/>
-      <line x1="174" y1="50" x2="174" y2="240"/>
-      <line x1="210" y1="50" x2="210" y2="240"/>
-
-      <!-- 4 horizontal lines -->
-      <line x1="30" y1="90"  x2="210" y2="90"/>
-      <line x1="30" y1="130" x2="210" y2="130"/>
-      <line x1="30" y1="170" x2="210" y2="170"/>
-      <line x1="30" y1="210" x2="210" y2="210"/>
-    </g>
-
-    <!-- nut -->
-    <line x1="26" y1="40" x2="214" y2="40" stroke="currentColor" stroke-width="10"/>
+    
+    <use href="#main-grid-with-nut" />
 
     <!-- points (circles) -->
     <!-- position 2, cord 3 -->
-    <circle cx="138" cy="110" r="11" fill="currentColor" />
+    <circle cx="148" cy="110" r="11" fill="currentColor" />
     <!-- position 1, cord 2 -->
     <circle cx="184" cy="70"  r="11" fill="currentColor" />
-    <circle cx="210" cy="70"  r="11" fill="currentColor" />
+    <circle cx="220" cy="70"  r="11" fill="currentColor" />
 
     <!-- (X) -->
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
@@ -786,41 +594,24 @@
       <line x1="32" y1="5" x2="48" y2="25"/>
       <line x1="48" y1="5" x2="32" y2="25"/>
       <!-- position 0, cord 5 -->
-      <line x1="58" y1="15" x2="74" y2="35"/>
-      <line x1="74" y1="15" x2="58" y2="35"/>
+      <line x1="68" y1="5" x2="84" y2="25"/>
+      <line x1="84" y1="5" x2="68" y2="25"/>
       <!-- position 0, cord 4 -->
       <circle cx="112" cy="15" r="10"/>
     </g>
   </symbol>
 
   <symbol id="Dmaj7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    <!-- vertical and horizontal lines -->
-    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-      <!-- chords -->
-      <line x1="30"  y1="50" x2="30"  y2="240"/>
-      <line x1="66"  y1="50" x2="66"  y2="240"/>
-      <line x1="102" y1="50" x2="102" y2="240"/>
-      <line x1="138" y1="50" x2="138" y2="240"/>
-      <line x1="174" y1="50" x2="174" y2="240"/>
-      <line x1="210" y1="50" x2="210" y2="240"/>
-
-      <!-- 4 horizontal lines -->
-      <line x1="30" y1="90"  x2="210" y2="90"/>
-      <line x1="30" y1="130" x2="210" y2="130"/>
-      <line x1="30" y1="170" x2="210" y2="170"/>
-      <line x1="30" y1="210" x2="210" y2="210"/>
-    </g>
-
-    <!-- nut -->
-    <line x1="26" y1="40" x2="214" y2="40" stroke="currentColor" stroke-width="10"/>
+    
+    <use href="#main-grid-with-nut" />
 
     <!-- points (circles) -->
     <!-- position 2, cord 3 -->
-    <circle cx="138" cy="110" r="11" fill="currentColor" />
+    <circle cx="148" cy="110" r="11" fill="currentColor" />
     <!-- position 2, cord 2 -->
-    <circle cx="174" cy="110"  r="11" fill="currentColor" />
+    <circle cx="184" cy="110"  r="11" fill="currentColor" />
     <!-- position 2, cord 1 -->
-    <circle cx="210" cy="110"  r="11" fill="currentColor" />
+    <circle cx="220" cy="110"  r="11" fill="currentColor" />
 
     <!-- (X) -->
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
@@ -828,8 +619,8 @@
       <line x1="32" y1="5" x2="48" y2="25"/>
       <line x1="48" y1="5" x2="32" y2="25"/>
       <!-- position 0, cord 5 -->
-      <line x1="58" y1="15" x2="74" y2="35"/>
-      <line x1="74" y1="15" x2="58" y2="35"/>
+      <line x1="68" y1="5" x2="84" y2="25"/>
+      <line x1="84" y1="5" x2="68" y2="25"/>
       <!-- position 0, cord 4 -->
       <circle cx="112" cy="15" r="10"/>
     </g>
@@ -837,23 +628,7 @@
 
   <symbol id="D9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
 
-    <!-- vertical and horizontal lines -->
-    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-      <!-- chords -->
-      <line x1="30"  y1="50" x2="30"  y2="240"/>
-      <line x1="66"  y1="50" x2="66"  y2="240"/>
-      <line x1="102" y1="50" x2="102" y2="240"/>
-      <line x1="138" y1="50" x2="138" y2="240"/>
-      <line x1="174" y1="50" x2="174" y2="240"/>
-      <line x1="210" y1="50" x2="210" y2="240"/>
-
-      <!-- 5 horizontal lines -->
-      <line x1="30" y1="50"  x2="210" y2="50"/>
-      <line x1="30" y1="90"  x2="210" y2="90"/>
-      <line x1="30" y1="130" x2="210" y2="130"/>
-      <line x1="30" y1="170" x2="210" y2="170"/>
-      <line x1="30" y1="210" x2="210" y2="210"/>
-    </g>
+    <use href="#main-grid-no-nut" />
 
     <!-- fret number -->
     <text x="0" y="84" font-size="42" fill="currentColor">5</text>
@@ -863,9 +638,9 @@
 
     <!-- extra fingers from 3rd fret -->
     <!-- position 7, cord 4 -->
-    <circle cx="102" cy="150"  r="11" fill="currentColor" />
+    <circle cx="112" cy="150"  r="11" fill="currentColor" />
     <!-- position 7, cord 3 -->
-    <circle cx="138" cy="150"  r="11" fill="currentColor" />
+    <circle cx="148" cy="150"  r="11" fill="currentColor" />
 
 
 
@@ -879,29 +654,12 @@
   </symbol>
 
   <symbol id="Dsus2" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    <!-- vertical and horizontal lines -->
-    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-      <!-- chords -->
-      <line x1="30"  y1="50" x2="30"  y2="240"/>
-      <line x1="66"  y1="50" x2="66"  y2="240"/>
-      <line x1="102" y1="50" x2="102" y2="240"/>
-      <line x1="138" y1="50" x2="138" y2="240"/>
-      <line x1="174" y1="50" x2="174" y2="240"/>
-      <line x1="210" y1="50" x2="210" y2="240"/>
-
-      <!-- 4 horizontal lines -->
-      <line x1="30" y1="90"  x2="210" y2="90"/>
-      <line x1="30" y1="130" x2="210" y2="130"/>
-      <line x1="30" y1="170" x2="210" y2="170"/>
-      <line x1="30" y1="210" x2="210" y2="210"/>
-    </g>
-
-    <!-- nut -->
-    <line x1="26" y1="40" x2="214" y2="40" stroke="currentColor" stroke-width="10"/>
+    
+    <use href="#main-grid-with-nut" />
 
     <!-- points (circles) -->
     <!-- position 2, cord 3 -->
-    <circle cx="138" cy="110" r="11" fill="currentColor" />
+    <circle cx="148" cy="110" r="11" fill="currentColor" />
     <!-- position 3, cord 2 -->
     <circle cx="184" cy="150" r="11" fill="currentColor" />
 
@@ -911,8 +669,8 @@
       <line x1="32" y1="5" x2="48" y2="25"/>
       <line x1="48" y1="5" x2="32" y2="25"/>
       <!-- position 0, cord 5 -->
-      <line x1="58" y1="15" x2="74" y2="35"/>
-      <line x1="74" y1="15" x2="58" y2="35"/>
+      <line x1="68" y1="5" x2="84" y2="25"/>
+      <line x1="84" y1="5" x2="68" y2="25"/>
       <!-- position 0, cord 4 -->
       <circle cx="112" cy="15" r="10"/>
       <!-- position 0, cord 1 -->
@@ -922,33 +680,16 @@
   </symbol>
 
   <symbol id="Dsus4" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    <!-- vertical and horizontal lines -->
-    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-      <!-- chords -->
-      <line x1="30"  y1="50" x2="30"  y2="240"/>
-      <line x1="66"  y1="50" x2="66"  y2="240"/>
-      <line x1="102" y1="50" x2="102" y2="240"/>
-      <line x1="138" y1="50" x2="138" y2="240"/>
-      <line x1="174" y1="50" x2="174" y2="240"/>
-      <line x1="210" y1="50" x2="210" y2="240"/>
-
-      <!-- 4 horizontal lines -->
-      <line x1="30" y1="90"  x2="210" y2="90"/>
-      <line x1="30" y1="130" x2="210" y2="130"/>
-      <line x1="30" y1="170" x2="210" y2="170"/>
-      <line x1="30" y1="210" x2="210" y2="210"/>
-    </g>
-
-    <!-- nut -->
-    <line x1="26" y1="40" x2="214" y2="40" stroke="currentColor" stroke-width="10"/>
+    
+    <use href="#main-grid-with-nut" />
 
     <!-- points (circles) -->
     <!-- position 2, cord 3 -->
-    <circle cx="138" cy="110" r="11" fill="currentColor" />
+    <circle cx="148" cy="110" r="11" fill="currentColor" />
     <!-- position 3, cord 2 -->
     <circle cx="184" cy="150" r="11" fill="currentColor" />
     <!-- position 3, cord 1 -->
-    <circle cx="210" cy="150" r="11" fill="currentColor" />
+    <circle cx="220" cy="150" r="11" fill="currentColor" />
 
     <!-- (X and O) -->
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
@@ -956,8 +697,8 @@
       <line x1="32" y1="5" x2="48" y2="25"/>
       <line x1="48" y1="5" x2="32" y2="25"/>
       <!-- position 0, cord 5 -->
-      <line x1="58" y1="15" x2="74" y2="35"/>
-      <line x1="74" y1="15" x2="58" y2="35"/>
+      <line x1="68" y1="5" x2="84" y2="25"/>
+      <line x1="84" y1="5" x2="68" y2="25"/>
       <!-- position 0, cord 4 -->
       <circle cx="112" cy="15" r="10"/>
     </g>
@@ -968,23 +709,7 @@
   
   <symbol id="D#" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
 
-    <!-- vertical and horizontal lines -->
-    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-      <!-- chords -->
-      <line x1="30"  y1="50" x2="30"  y2="240"/>
-      <line x1="66"  y1="50" x2="66"  y2="240"/>
-      <line x1="102" y1="50" x2="102" y2="240"/>
-      <line x1="138" y1="50" x2="138" y2="240"/>
-      <line x1="174" y1="50" x2="174" y2="240"/>
-      <line x1="210" y1="50" x2="210" y2="240"/>
-
-      <!-- 5 horizontal lines -->
-      <line x1="30" y1="50"  x2="210" y2="50"/>
-      <line x1="30" y1="90"  x2="210" y2="90"/>
-      <line x1="30" y1="130" x2="210" y2="130"/>
-      <line x1="30" y1="170" x2="210" y2="170"/>
-      <line x1="30" y1="210" x2="210" y2="210"/>
-    </g>
+    <use href="#main-grid-no-nut" />
 
     <!-- fret number -->
     <text x="0" y="84" font-size="42" fill="currentColor">6</text>
@@ -1011,23 +736,8 @@
   </symbol>
 
   <symbol id="D#m" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    <!-- vertical and horizontal lines -->
-    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-      <!-- chords -->
-      <line x1="30"  y1="50" x2="30"  y2="240"/>
-      <line x1="66"  y1="50" x2="66"  y2="240"/>
-      <line x1="102" y1="50" x2="102" y2="240"/>
-      <line x1="138" y1="50" x2="138" y2="240"/>
-      <line x1="174" y1="50" x2="174" y2="240"/>
-      <line x1="210" y1="50" x2="210" y2="240"/>
-
-      <!-- 5 horizontal lines -->
-      <line x1="30" y1="50"  x2="210" y2="50"/>
-      <line x1="30" y1="90"  x2="210" y2="90"/>
-      <line x1="30" y1="130" x2="210" y2="130"/>
-      <line x1="30" y1="170" x2="210" y2="170"/>
-      <line x1="30" y1="210" x2="210" y2="210"/>
-    </g>
+    
+    <use href="#main-grid-no-nut" />
 
     <!-- fret number -->
     <text x="0" y="84" font-size="42" fill="currentColor">6</text>
@@ -1054,23 +764,7 @@
 
   <symbol id="D#7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     
-    <!-- vertical and horizontal lines -->
-    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-      <!-- chords -->
-      <line x1="30"  y1="50" x2="30"  y2="240"/>
-      <line x1="66"  y1="50" x2="66"  y2="240"/>
-      <line x1="102" y1="50" x2="102" y2="240"/>
-      <line x1="138" y1="50" x2="138" y2="240"/>
-      <line x1="174" y1="50" x2="174" y2="240"/>
-      <line x1="210" y1="50" x2="210" y2="240"/>
-
-      <!-- 5 horizontal lines -->
-      <line x1="30" y1="50"  x2="210" y2="50"/>
-      <line x1="30" y1="90"  x2="210" y2="90"/>
-      <line x1="30" y1="130" x2="210" y2="130"/>
-      <line x1="30" y1="170" x2="210" y2="170"/>
-      <line x1="30" y1="210" x2="210" y2="210"/>
-    </g>
+    <use href="#main-grid-no-nut" />
 
     <!-- fret number -->
     <text x="0" y="84" font-size="42" fill="currentColor">6</text>
@@ -1095,23 +789,7 @@
 
   <symbol id="D#m7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     
-    <!-- vertical and horizontal lines -->
-    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-      <!-- chords -->
-      <line x1="30"  y1="50" x2="30"  y2="240"/>
-      <line x1="66"  y1="50" x2="66"  y2="240"/>
-      <line x1="102" y1="50" x2="102" y2="240"/>
-      <line x1="138" y1="50" x2="138" y2="240"/>
-      <line x1="174" y1="50" x2="174" y2="240"/>
-      <line x1="210" y1="50" x2="210" y2="240"/>
-
-      <!-- 5 horizontal lines -->
-      <line x1="30" y1="50"  x2="210" y2="50"/>
-      <line x1="30" y1="90"  x2="210" y2="90"/>
-      <line x1="30" y1="130" x2="210" y2="130"/>
-      <line x1="30" y1="170" x2="210" y2="170"/>
-      <line x1="30" y1="210" x2="210" y2="210"/>
-    </g>
+    <use href="#main-grid-no-nut" />
 
     <!-- fret number -->
     <text x="0" y="84" font-size="42" fill="currentColor">6</text>
@@ -1135,23 +813,8 @@
   </symbol>
 
   <symbol id="D#maj7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    <!-- vertical and horizontal lines -->
-    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-      <!-- chords -->
-      <line x1="30"  y1="50" x2="30"  y2="240"/>
-      <line x1="66"  y1="50" x2="66"  y2="240"/>
-      <line x1="102" y1="50" x2="102" y2="240"/>
-      <line x1="138" y1="50" x2="138" y2="240"/>
-      <line x1="174" y1="50" x2="174" y2="240"/>
-      <line x1="210" y1="50" x2="210" y2="240"/>
-
-      <!-- 5 horizontal lines -->
-      <line x1="30" y1="50"  x2="210" y2="50"/>
-      <line x1="30" y1="90"  x2="210" y2="90"/>
-      <line x1="30" y1="130" x2="210" y2="130"/>
-      <line x1="30" y1="170" x2="210" y2="170"/>
-      <line x1="30" y1="210" x2="210" y2="210"/>
-    </g>
+    
+    <use href="#main-grid-no-nut" />
 
     <!-- fret number -->
     <text x="0" y="84" font-size="42" fill="currentColor">6</text>
@@ -1163,7 +826,7 @@
     <!-- position 3, cord 4 -->
     <circle cx="112" cy="150" r="11" fill="currentColor" />
     <!-- position 3, cord 3 -->
-    <circle cx="138" cy="110" r="11" fill="currentColor" />
+    <circle cx="148" cy="110" r="11" fill="currentColor" />
     <!-- position 2, cord 2 -->
     <circle cx="184" cy="150" r="11" fill="currentColor" />
 
@@ -1175,23 +838,7 @@
 
   <symbol id="D#9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
 
-    <!-- vertical and horizontal lines -->
-    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-      <!-- chords -->
-      <line x1="30"  y1="50" x2="30"  y2="240"/>
-      <line x1="66"  y1="50" x2="66"  y2="240"/>
-      <line x1="102" y1="50" x2="102" y2="240"/>
-      <line x1="138" y1="50" x2="138" y2="240"/>
-      <line x1="174" y1="50" x2="174" y2="240"/>
-      <line x1="210" y1="50" x2="210" y2="240"/>
-
-      <!-- 5 horizontal lines -->
-      <line x1="30" y1="50"  x2="210" y2="50"/>
-      <line x1="30" y1="90"  x2="210" y2="90"/>
-      <line x1="30" y1="130" x2="210" y2="130"/>
-      <line x1="30" y1="170" x2="210" y2="170"/>
-      <line x1="30" y1="210" x2="210" y2="210"/>
-    </g>
+    <use href="#main-grid-no-nut" />
 
     <!-- fret number -->
     <text x="0" y="84" font-size="42" fill="currentColor">6</text>
@@ -1201,9 +848,9 @@
 
     <!-- extra fingers from 3rd fret -->
     <!-- position 7, cord 4 -->
-    <circle cx="102" cy="150"  r="11" fill="currentColor" />
+    <circle cx="112" cy="150"  r="11" fill="currentColor" />
     <!-- position 7, cord 3 -->
-    <circle cx="138" cy="150"  r="11" fill="currentColor" />
+    <circle cx="148" cy="150"  r="11" fill="currentColor" />
 
 
 
@@ -1217,23 +864,8 @@
   </symbol>
 
   <symbol id="D#sus2" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    <!-- vertical and horizontal lines -->
-    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-      <!-- chords -->
-      <line x1="30"  y1="50" x2="30"  y2="240"/>
-      <line x1="66"  y1="50" x2="66"  y2="240"/>
-      <line x1="102" y1="50" x2="102" y2="240"/>
-      <line x1="138" y1="50" x2="138" y2="240"/>
-      <line x1="174" y1="50" x2="174" y2="240"/>
-      <line x1="210" y1="50" x2="210" y2="240"/>
-
-      <!-- 5 horizontal lines -->
-      <line x1="30" y1="50"  x2="210" y2="50"/>
-      <line x1="30" y1="90"  x2="210" y2="90"/>
-      <line x1="30" y1="130" x2="210" y2="130"/>
-      <line x1="30" y1="170" x2="210" y2="170"/>
-      <line x1="30" y1="210" x2="210" y2="210"/>
-    </g>
+    
+    <use href="#main-grid-no-nut" />
 
     <!-- fret number -->
     <text x="0" y="84" font-size="42" fill="currentColor">6</text>
@@ -1256,23 +888,8 @@
   </symbol>
 
   <symbol id="D#sus4" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    <!-- vertical and horizontal lines -->
-    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-      <!-- chords -->
-      <line x1="30"  y1="50" x2="30"  y2="240"/>
-      <line x1="66"  y1="50" x2="66"  y2="240"/>
-      <line x1="102" y1="50" x2="102" y2="240"/>
-      <line x1="138" y1="50" x2="138" y2="240"/>
-      <line x1="174" y1="50" x2="174" y2="240"/>
-      <line x1="210" y1="50" x2="210" y2="240"/>
-
-      <!-- 5 horizontal lines -->
-      <line x1="30" y1="50"  x2="210" y2="50"/>
-      <line x1="30" y1="90"  x2="210" y2="90"/>
-      <line x1="30" y1="130" x2="210" y2="130"/>
-      <line x1="30" y1="170" x2="210" y2="170"/>
-      <line x1="30" y1="210" x2="210" y2="210"/>
-    </g>
+    
+    <use href="#main-grid-no-nut" />
 
     <!-- fret number -->
     <text x="0" y="84" font-size="42" fill="currentColor">6</text>
@@ -1286,7 +903,7 @@
     <!-- position 3 cord 3 -->
     <circle cx="148" cy="150" r="11" fill="currentColor" />
     <!-- position 4, cord 2 -->
-    <circle cx="174" cy="190" r="11" fill="currentColor" />
+    <circle cx="184" cy="190" r="11" fill="currentColor" />
 
     <!-- (X) -->
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
@@ -1332,25 +949,8 @@
 
 
   <symbol id="E" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    <!-- vertical and horizontal lines -->
-    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-      <!-- chords -->
-      <line x1="30"  y1="50" x2="30"  y2="240"/>
-      <line x1="66"  y1="50" x2="66"  y2="240"/>
-      <line x1="102" y1="50" x2="102" y2="240"/>
-      <line x1="138" y1="50" x2="138" y2="240"/>
-      <line x1="174" y1="50" x2="174" y2="240"/>
-      <line x1="210" y1="50" x2="210" y2="240"/>
-
-      <!-- 4 horizontal lines -->
-      <line x1="30" y1="90"  x2="210" y2="90"/>
-      <line x1="30" y1="130" x2="210" y2="130"/>
-      <line x1="30" y1="170" x2="210" y2="170"/>
-      <line x1="30" y1="210" x2="210" y2="210"/>
-    </g>
-
-    <!-- nut -->
-    <line x1="26" y1="40" x2="214" y2="40" stroke="currentColor" stroke-width="10"/>
+    
+    <use href="#main-grid-with-nut" />
 
     <!-- points (circles) -->
     <!-- position 2, cord 5 -->
@@ -1373,25 +973,8 @@
   </symbol>
 
   <symbol id="Em" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    <!-- vertical and horizontal lines -->
-    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-      <!-- chords -->
-      <line x1="30"  y1="50" x2="30"  y2="240"/>
-      <line x1="66"  y1="50" x2="66"  y2="240"/>
-      <line x1="102" y1="50" x2="102" y2="240"/>
-      <line x1="138" y1="50" x2="138" y2="240"/>
-      <line x1="174" y1="50" x2="174" y2="240"/>
-      <line x1="210" y1="50" x2="210" y2="240"/>
-
-      <!-- 4 horizontal lines -->
-      <line x1="30" y1="90"  x2="210" y2="90"/>
-      <line x1="30" y1="130" x2="210" y2="130"/>
-      <line x1="30" y1="170" x2="210" y2="170"/>
-      <line x1="30" y1="210" x2="210" y2="210"/>
-    </g>
-
-    <!-- nut -->
-    <line x1="26" y1="40" x2="214" y2="40" stroke="currentColor" stroke-width="10"/>
+    
+    <use href="#main-grid-with-nut" />
 
     <!-- points (circles) -->
     <!-- position 2, cord 5 -->
@@ -1413,25 +996,8 @@
   </symbol>
 
   <symbol id="E7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    <!-- vertical and horizontal lines -->
-    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-      <!-- chords -->
-      <line x1="30"  y1="50" x2="30"  y2="240"/>
-      <line x1="66"  y1="50" x2="66"  y2="240"/>
-      <line x1="102" y1="50" x2="102" y2="240"/>
-      <line x1="138" y1="50" x2="138" y2="240"/>
-      <line x1="174" y1="50" x2="174" y2="240"/>
-      <line x1="210" y1="50" x2="210" y2="240"/>
-
-      <!-- 4 horizontal lines -->
-      <line x1="30" y1="90"  x2="210" y2="90"/>
-      <line x1="30" y1="130" x2="210" y2="130"/>
-      <line x1="30" y1="170" x2="210" y2="170"/>
-      <line x1="30" y1="210" x2="210" y2="210"/>
-    </g>
-
-    <!-- nut -->
-    <line x1="26" y1="40" x2="214" y2="40" stroke="currentColor" stroke-width="10"/>
+    
+    <use href="#main-grid-with-nut" />
 
     <!-- points (circles) -->
     <!-- position 2, cord 5 -->
@@ -1453,21 +1019,8 @@
   </symbol>
   
   <symbol id="Em7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-      <line x1="30"  y1="50" x2="30"  y2="240"/>
-      <line x1="66"  y1="50" x2="66"  y2="240"/>
-      <line x1="102" y1="50" x2="102" y2="240"/>
-      <line x1="138" y1="50" x2="138" y2="240"/>
-      <line x1="174" y1="50" x2="174" y2="240"/>
-      <line x1="210" y1="50" x2="210" y2="240"/>
-
-      <line x1="30" y1="90"  x2="210" y2="90"/>
-      <line x1="30" y1="130" x2="210" y2="130"/>
-      <line x1="30" y1="170" x2="210" y2="170"/>
-      <line x1="30" y1="210" x2="210" y2="210"/>
-    </g>
-
-    <line x1="26" y1="40" x2="214" y2="40" stroke="currentColor" stroke-width="10"/>
+    
+    <use href="#main-grid-with-nut" />
 
     <circle cx="66" cy="110" r="11" fill="currentColor" />
     <circle cx="112" cy="110" r="11" fill="currentColor" />
@@ -1481,21 +1034,8 @@
   </symbol>
 
   <symbol id="Emaj7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-      <line x1="30"  y1="50" x2="30"  y2="240"/>
-      <line x1="66"  y1="50" x2="66"  y2="240"/>
-      <line x1="102" y1="50" x2="102" y2="240"/>
-      <line x1="138" y1="50" x2="138" y2="240"/>
-      <line x1="174" y1="50" x2="174" y2="240"/>
-      <line x1="210" y1="50" x2="210" y2="240"/>
-
-      <line x1="30" y1="90"  x2="210" y2="90"/>
-      <line x1="30" y1="130" x2="210" y2="130"/>
-      <line x1="30" y1="170" x2="210" y2="170"/>
-      <line x1="30" y1="210" x2="210" y2="210"/>
-    </g>
-
-    <line x1="26" y1="40" x2="214" y2="40" stroke="currentColor" stroke-width="10"/>
+    
+    <use href="#main-grid-with-nut" />
 
     <circle cx="66" cy="110" r="11" fill="currentColor" />
     <circle cx="102" cy="70" r="11" fill="currentColor" />
@@ -1545,28 +1085,15 @@
   </symbol>
 
   <symbol id="Esus2" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-      <line x1="30"  y1="50" x2="30"  y2="240"/>
-      <line x1="66"  y1="50" x2="66"  y2="240"/>
-      <line x1="102" y1="50" x2="102" y2="240"/>
-      <line x1="138" y1="50" x2="138" y2="240"/>
-      <line x1="174" y1="50" x2="174" y2="240"/>
-      <line x1="210" y1="50" x2="210" y2="240"/>
-
-      <line x1="30" y1="90"  x2="210" y2="90"/>
-      <line x1="30" y1="130" x2="210" y2="130"/>
-      <line x1="30" y1="170" x2="210" y2="170"/>
-      <line x1="30" y1="210" x2="210" y2="210"/>
-    </g>
-
-    <line x1="26" y1="40" x2="214" y2="40" stroke="currentColor" stroke-width="10"/>
+    
+    <use href="#main-grid-with-nut" />
 
     <!-- pos 3, chord 5-->
     <circle cx="66" cy="110" r="11" fill="currentColor" />
     <!-- pos 2, chord 4-->
     <circle cx="112" cy="110" r="11" fill="currentColor" />
     <!-- pos 3, chord 1-->
-    <circle cx="210" cy="110" r="11" fill="currentColor" />
+    <circle cx="220" cy="110" r="11" fill="currentColor" />
     
 
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
@@ -1577,25 +1104,12 @@
   </symbol>
 
   <symbol id="Esus4" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-      <line x1="30"  y1="50" x2="30"  y2="240"/>
-      <line x1="66"  y1="50" x2="66"  y2="240"/>
-      <line x1="102" y1="50" x2="102" y2="240"/>
-      <line x1="138" y1="50" x2="138" y2="240"/>
-      <line x1="174" y1="50" x2="174" y2="240"/>
-      <line x1="210" y1="50" x2="210" y2="240"/>
-
-      <line x1="30" y1="90"  x2="210" y2="90"/>
-      <line x1="30" y1="130" x2="210" y2="130"/>
-      <line x1="30" y1="170" x2="210" y2="170"/>
-      <line x1="30" y1="210" x2="210" y2="210"/>
-    </g>
-
-    <line x1="26" y1="40" x2="214" y2="40" stroke="currentColor" stroke-width="10"/>
+    
+    <use href="#main-grid-with-nut" />
 
     <circle cx="66" cy="110" r="11" fill="currentColor" />
     <circle cx="112" cy="110" r="11" fill="currentColor" />
-    <circle cx="138" cy="110" r="11" fill="currentColor" />
+    <circle cx="148" cy="110" r="11" fill="currentColor" />
 
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
       <circle cx="30" cy="25" r="10"/>
@@ -1637,7 +1151,7 @@
     <!-- 3er traste, 4ª cord -->
     <circle cx="112" cy="150" r="11" fill="currentColor" />
     <!-- 2º traste, 3ª cord -->
-    <circle cx="138" cy="110" r="11" fill="currentColor" />
+    <circle cx="148" cy="110" r="11" fill="currentColor" />
   </symbol>
 
   <symbol id="Fm" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
@@ -1700,7 +1214,7 @@
     <!-- position 3, cord 5 -->
     <circle cx="76"  cy="150" r="11" fill="currentColor" />
     <!-- position 2, cord 3 -->
-    <circle cx="138" cy="110" r="11" fill="currentColor" />
+    <circle cx="148" cy="110" r="11" fill="currentColor" />
   </symbol>
 
 
@@ -1765,7 +1279,7 @@
     <circle cx="66" cy="150" r="11" fill="currentColor" />
     <!-- position 3, cord 4 -->
     <circle cx="112" cy="150" r="11" fill="currentColor" />
-    <circle cx="138" cy="110" r="11" fill="currentColor" />
+    <circle cx="148" cy="110" r="11" fill="currentColor" />
     <circle cx="174" cy="70" r="11" fill="currentColor" />
 
     <!-- (X and O) -->
@@ -1802,9 +1316,9 @@
 
     <!-- extra fingers -->
     <circle cx="66" cy="150" r="11" fill="currentColor" />
-    <circle cx="138" cy="110" r="11" fill="currentColor" />
+    <circle cx="148" cy="110" r="11" fill="currentColor" />
     <!-- position 3, cord 1 -->
-    <circle cx="210" cy="150" r="11" fill="currentColor" />
+    <circle cx="220" cy="150" r="11" fill="currentColor" />
     
   </symbol>
 
@@ -2045,8 +1559,8 @@
 
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
       <!-- position 0, cord 5 -->
-      <line x1="58" y1="15" x2="74" y2="35"/>
-      <line x1="74" y1="15" x2="58" y2="35"/>
+      <line x1="68" y1="5" x2="84" y2="25"/>
+      <line x1="84" y1="5" x2="68" y2="25"/>
       <!-- x on position 0 cord 1 -->
       <line x1="202" y1="15" x2="218" y2="35"/>
       <line x1="218" y1="15" x2="202" y2="35"/>
@@ -2079,9 +1593,9 @@
 
     <!-- extra fingers -->
     <circle cx="66" cy="150" r="11" fill="currentColor" />
-    <circle cx="138" cy="110" r="11" fill="currentColor" />
+    <circle cx="148" cy="110" r="11" fill="currentColor" />
     <!-- position 3, cord 1 -->
-    <circle cx="210" cy="150" r="11" fill="currentColor" />
+    <circle cx="220" cy="150" r="11" fill="currentColor" />
     
   </symbol>
 
@@ -2117,7 +1631,7 @@
     <!-- position 3, cord 3 -->
     <circle cx="148" cy="150" r="11" fill="currentColor" />
     <!-- position 4, cord 2 -->
-    <circle cx="174" cy="190" r="11" fill="currentColor" />
+    <circle cx="184" cy="190" r="11" fill="currentColor" />
     
 
     <!-- (X and O) -->
@@ -2232,7 +1746,7 @@
     <!-- position 2, cord 5 -->
     <circle cx="66"  cy="110" r="11" fill="currentColor" />
     <!-- position 3, cord 1 -->
-    <circle cx="210" cy="150" r="11" fill="currentColor" />
+    <circle cx="220" cy="150" r="11" fill="currentColor" />
 
     <!-- (X and O) -->
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
@@ -2308,7 +1822,7 @@
     <!-- position 3, cord 5 -->
     <circle cx="76"  cy="150" r="11" fill="currentColor" />
     <!-- position 2, cord 3 -->
-    <circle cx="138" cy="110" r="11" fill="currentColor" />
+    <circle cx="148" cy="110" r="11" fill="currentColor" />
 
   </symbol>
 
@@ -2334,7 +1848,7 @@
 
     <circle cx="66" cy="150" r="11" fill="currentColor" />
     <!-- position 4, cord 2  -->
-    <circle cx="174" cy="190" r="11" fill="currentColor" />
+    <circle cx="184" cy="190" r="11" fill="currentColor" />
 
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
     </g>
@@ -2367,8 +1881,8 @@
 
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
       <!-- position 0, cord 5 -->
-      <line x1="58" y1="15" x2="74" y2="35"/>
-      <line x1="74" y1="15" x2="58" y2="35"/>
+      <line x1="68" y1="5" x2="84" y2="25"/>
+      <line x1="84" y1="5" x2="68" y2="25"/>
       <!-- x on position 0 cord 1 -->
       <line x1="202" y1="15" x2="218" y2="35"/>
       <line x1="218" y1="15" x2="202" y2="35"/>
@@ -2393,14 +1907,14 @@
     <line x1="26" y1="40" x2="214" y2="40" stroke="currentColor" stroke-width="10"/>
 
     <circle cx="30" cy="150" r="11" fill="currentColor" />
-    <circle cx="138" cy="110" r="11" fill="currentColor" />
-    <circle cx="210" cy="150" r="11" fill="currentColor" />
+    <circle cx="148" cy="110" r="11" fill="currentColor" />
+    <circle cx="220" cy="150" r="11" fill="currentColor" />
 
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
 
       <!-- position 0, cord 5 -->
-      <line x1="58" y1="15" x2="74" y2="35"/>
-      <line x1="74" y1="15" x2="58" y2="35"/>
+      <line x1="68" y1="5" x2="84" y2="25"/>
+      <line x1="84" y1="5" x2="68" y2="25"/>
       <!-- position 0 cord 4 -->
       <circle cx="112" cy="15" r="10"/>
       <!-- position 0 cord 2 -->
@@ -2427,7 +1941,7 @@
     <line x1="26" y1="40" x2="214" y2="40" stroke="currentColor" stroke-width="10"/>
 
     <circle cx="30" cy="150" r="11" fill="currentColor" />
-    <circle cx="210" cy="150" r="11" fill="currentColor" />
+    <circle cx="220" cy="150" r="11" fill="currentColor" />
     <circle cx="184" cy="150" r="11" fill="currentColor" />
 
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
@@ -2507,7 +2021,7 @@
     <!-- position 3, cord 4 -->
     <circle cx="112" cy="150" r="11" fill="currentColor" />
     <!-- position 2, cord 3 -->
-    <circle cx="138" cy="110" r="11" fill="currentColor" />
+    <circle cx="148" cy="110" r="11" fill="currentColor" />
 
   </symbol>
 
@@ -2575,7 +2089,7 @@
     <!-- position 3, cord 5 -->
     <circle cx="76"  cy="150" r="11" fill="currentColor" />
     <!-- position 2, cord 3 -->
-    <circle cx="138" cy="110" r="11" fill="currentColor" />
+    <circle cx="148" cy="110" r="11" fill="currentColor" />
 
   </symbol>
 
@@ -2601,7 +2115,7 @@
 
     <circle cx="66" cy="150" r="11" fill="currentColor" />
     <!-- position 4, cord 2  -->
-    <circle cx="174" cy="190" r="11" fill="currentColor" />
+    <circle cx="184" cy="190" r="11" fill="currentColor" />
 
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
     </g>
@@ -2636,8 +2150,8 @@
 
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
       <!-- position 0, cord 5 -->
-      <line x1="58" y1="15" x2="74" y2="35"/>
-      <line x1="74" y1="15" x2="58" y2="35"/>
+      <line x1="68" y1="5" x2="84" y2="25"/>
+      <line x1="84" y1="5" x2="68" y2="25"/>
       <!-- x on position 0 cord 1 -->
       <line x1="202" y1="15" x2="218" y2="35"/>
       <line x1="218" y1="15" x2="202" y2="35"/>
@@ -2662,14 +2176,14 @@
     <line x1="26" y1="40" x2="214" y2="40" stroke="currentColor" stroke-width="10"/>
 
     <circle cx="30" cy="150" r="11" fill="currentColor" />
-    <circle cx="138" cy="110" r="11" fill="currentColor" />
-    <circle cx="210" cy="150" r="11" fill="currentColor" />
+    <circle cx="148" cy="110" r="11" fill="currentColor" />
+    <circle cx="220" cy="150" r="11" fill="currentColor" />
 
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
 
       <!-- position 0, cord 5 -->
-      <line x1="58" y1="15" x2="74" y2="35"/>
-      <line x1="74" y1="15" x2="58" y2="35"/>
+      <line x1="68" y1="5" x2="84" y2="25"/>
+      <line x1="84" y1="5" x2="68" y2="25"/>
       <!-- position 0 cord 4 -->
       <circle cx="112" cy="15" r="10"/>
       <!-- position 0 cord 2 -->
@@ -2696,7 +2210,7 @@
     <line x1="26" y1="40" x2="214" y2="40" stroke="currentColor" stroke-width="10"/>
 
     <circle cx="30" cy="150" r="11" fill="currentColor" />
-    <circle cx="210" cy="150" r="11" fill="currentColor" />
+    <circle cx="220" cy="150" r="11" fill="currentColor" />
     <circle cx="184" cy="150" r="11" fill="currentColor" />
 
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
@@ -2770,7 +2284,7 @@
     <!-- position 2, cord 4 -->
     <circle cx="112" cy="110" r="11" fill="currentColor" />
     <!-- position 2, cord 3 -->
-    <circle cx="138" cy="110" r="11" fill="currentColor" />
+    <circle cx="148" cy="110" r="11" fill="currentColor" />
     <!-- position 2, cord 2 -->
     <circle cx="184" cy="110" r="11" fill="currentColor" />
 
@@ -2811,7 +2325,7 @@
     <!-- position 2, cord 4 -->
     <circle cx="112" cy="110" r="11" fill="currentColor" />
     <!-- position 2, cord 3 -->
-    <circle cx="138" cy="110" r="11" fill="currentColor" />
+    <circle cx="148" cy="110" r="11" fill="currentColor" />
     <!-- position 1, cord 2 -->
     <circle cx="184" cy="70"  r="11" fill="currentColor" />
 
@@ -2887,7 +2401,7 @@
     <line x1="26" y1="40" x2="214" y2="40" stroke="currentColor" stroke-width="10"/>
 
     <circle cx="112" cy="110" r="11" fill="currentColor" />
-    <circle cx="138" cy="110" r="11" fill="currentColor" />
+    <circle cx="148" cy="110" r="11" fill="currentColor" />
     <circle cx="174" cy="70" r="11" fill="currentColor" />
 
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
@@ -2949,7 +2463,7 @@
 
     <circle cx="112" cy="110" r="11" fill="currentColor" />
     <circle cx="184" cy="150" r="11" fill="currentColor" />
-    <circle cx="210" cy="150" r="11" fill="currentColor" />
+    <circle cx="220" cy="150" r="11" fill="currentColor" />
 
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
       <line x1="32" y1="5" x2="48" y2="25"/>
@@ -2976,7 +2490,7 @@
     <line x1="26" y1="40" x2="214" y2="40" stroke="currentColor" stroke-width="10"/>
 
     <circle cx="112" cy="110" r="11" fill="currentColor" />
-    <circle cx="138" cy="110" r="11" fill="currentColor" />
+    <circle cx="148" cy="110" r="11" fill="currentColor" />
 
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
       <line x1="32" y1="5" x2="48" y2="25"/>
@@ -3005,7 +2519,7 @@
     <line x1="26" y1="40" x2="214" y2="40" stroke="currentColor" stroke-width="10"/>
 
     <circle cx="112" cy="110" r="11" fill="currentColor" />
-    <circle cx="138" cy="110" r="11" fill="currentColor" />
+    <circle cx="148" cy="110" r="11" fill="currentColor" />
     <circle cx="184" cy="150" r="11" fill="currentColor" />
 
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
@@ -3157,7 +2671,7 @@
     <!-- 4º traste, 3ª cord -->
     <circle cx="138" cy="190" r="11" fill="currentColor" />
     <!-- 4º traste, 2ª cord -->
-    <circle cx="174" cy="190" r="11" fill="currentColor" />
+    <circle cx="184" cy="190" r="11" fill="currentColor" />
 
     <!-- (X) -->
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
@@ -3231,7 +2745,7 @@
     <!-- position 4, cord 4 -->
     <circle cx="102" cy="190" r="11" fill="currentColor" />
     <!-- position 4, cord 2 -->
-    <circle cx="174" cy="190" r="11" fill="currentColor" />
+    <circle cx="184" cy="190" r="11" fill="currentColor" />
   </symbol>
 
   <symbol id="Bm7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
@@ -3284,7 +2798,7 @@
 
     <circle cx="102" cy="190" r="11" fill="currentColor" />
     <circle cx="148" cy="150" r="11" fill="currentColor" />
-    <circle cx="174" cy="190" r="11" fill="currentColor" />
+    <circle cx="184" cy="190" r="11" fill="currentColor" />
 
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
       <line x1="32" y1="5" x2="48" y2="25"/>
@@ -3321,7 +2835,7 @@
     <!-- position 1, cord 4 -->
     <circle cx="102" cy="70" r="11" fill="currentColor" />
     <!-- position 2, cord 3 -->
-    <circle cx="138" cy="110" r="11" fill="currentColor" />
+    <circle cx="148" cy="110" r="11" fill="currentColor" />
     <!-- position 2, cord 2 -->
     <circle cx="184" cy="110" r="11" fill="currentColor" />
 
