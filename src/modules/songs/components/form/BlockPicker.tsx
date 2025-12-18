@@ -123,7 +123,7 @@ export function BlockPicker({
                   handleSelect(`${v.root}${accidental}${v.suffix}`)
                   console.log(`${v.root}${accidental}${v.suffix}`)
                 }}
-                className="flex flex-col items-center rounded-lg border border-gray-800 bg-zinc-900/10 p-2 hover:bg-indigo-600/10 hover:text-white"
+                className="flex flex-col items-center rounded-lg border border-gray-800 bg-zinc-900/10 px-12 py-2 hover:bg-indigo-600/10 hover:text-white"
               >
                 {/* <Chord chord={v.name} />
                 <ChordDiagram chordName={v.name} /> */}

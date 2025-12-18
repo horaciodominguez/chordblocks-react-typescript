@@ -23,7 +23,7 @@ export function AppDialog({
         <Dialog.Content
           aria-describedby={description}
           className={`fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
-                      bg-zinc-900 rounded-md shadow-xl p-6 w-96 max-w-full
+                      bg-zinc-900 rounded-md shadow-xl p-6 w-lg max-w-full
                       focus:outline-none 
                       z-10
                       ${className}`}
