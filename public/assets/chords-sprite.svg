@@ -926,7 +926,7 @@
   </symbol>
 
   <symbol id="Ebmaj7">
-    <use href="#Dmaj7" />
+    <use href="#D#maj7" />
   </symbol>
 
   <symbol id="Eb9">
@@ -1405,7 +1405,7 @@
   </symbol>
 
   <symbol id="Gbmaj7">
-    <use href="#Fmaj7" />
+    <use href="#F#maj7" />
   </symbol>
 
   <symbol id="Gb9">
@@ -1656,13 +1656,14 @@
     <!-- fret number -->
     <text x="0" y="84" font-size="42" fill="currentColor">4</text>
 
-    <circle cx="40" cy="150" r="11" fill="currentColor" />
-    <!-- position 4, cord 4 -->
-    <circle cx="112" cy="190" r="11" fill="currentColor" />
-    <!-- position 4, cord 3 -->
-    <circle cx="148" cy="190" r="11" fill="currentColor" />
-    <!-- position 3, cord 2 -->
-    <circle cx="184" cy="150" r="11" fill="currentColor" />
+    <!-- position 1, cord 5 -->
+    <circle cx="40" cy="70" r="11" fill="currentColor" />
+    <!-- position 2, cord 4 -->
+    <circle cx="112" cy="120" r="11" fill="currentColor" />
+    <!-- position 2, cord 3 -->
+    <circle cx="148" cy="120" r="11" fill="currentColor" />
+    <!-- position 1, cord 2 -->
+    <circle cx="184" cy="70" r="11" fill="currentColor" />
 
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
       <!-- position 0, cord 5 -->
@@ -1675,39 +1676,50 @@
   </symbol>
 
   <symbol id="G#9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
+  
     <use href="#main-grid-no-nut" />
 
-    <circle cx="40" cy="150" r="11" fill="currentColor" />
+    <!-- fret number -->
+    <text x="0" y="84" font-size="42" fill="currentColor">4</text>
+
+    <!-- barre fret position 1, from cord 1 to 6 -->
+    <rect x="32" y="62" width="196" height="12" rx="6" ry="6" fill="currentColor"/>
+
+    <!-- position 3, cord 5 -->
+    <circle cx="76"  cy="150" r="11" fill="currentColor" />
+    <!-- position 2, cord 3 -->
     <circle cx="148" cy="110" r="11" fill="currentColor" />
+    <!-- position 3, cord 1 -->
     <circle cx="220" cy="150" r="11" fill="currentColor" />
 
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-
-      <!-- position 0, cord 5 -->
-      <line x1="68" y1="5" x2="84" y2="25"/>
-      <line x1="84" y1="5" x2="68" y2="25"/>
-      <!-- position 0 cord 4 -->
-      <circle cx="112" cy="15" r="10"/>
-      <!-- position 0 cord 2 -->
-      <circle cx="184" cy="15" r="10"/>
-
-    </g>
   </symbol>
 
   <symbol id="G#sus2" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
+
     <use href="#main-grid-no-nut" />
 
-    <circle cx="40" cy="150" r="11" fill="currentColor" />
-    <circle cx="220" cy="150" r="11" fill="currentColor" />
-    <circle cx="184" cy="150" r="11" fill="currentColor" />
+    <!-- fret number -->
+    <text x="0" y="84" font-size="42" fill="currentColor">6</text>
 
+    <!-- barre from cord 4 to cord 1 -->
+    <rect x="102" y="62" width="126" height="12" rx="6" ry="6" fill="currentColor"/>
+
+    <!-- extra fingers -->
+    <!-- position 3, cord 3 -->
+    <circle cx="148" cy="150" r="11" fill="currentColor" />
+    <!-- position 4, cord 2 -->
+    <circle cx="184" cy="190" r="11" fill="currentColor" />
+
+    <!-- (X and O) -->
     <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <circle cx="76" cy="15" r="10"/>
-      <circle cx="112" cy="15" r="10"/>
-      <circle cx="148" cy="15" r="10"/>
+      <!-- pos 0 cord 6 -->
+      <line x1="32" y1="5" x2="48" y2="25"/>
+      <line x1="48" y1="5" x2="32" y2="25"/>
+      <!-- pos 0 cord 5-->
+      <line x1="76" y1="5" x2="92" y2="25"/>
+      <line x1="92" y1="5" x2="76" y2="25"/>
     </g>
+
   </symbol>
 
   <symbol id="G#sus4" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
@@ -1727,6 +1739,33 @@
     <!-- position 3 cord 3 -->
     <circle cx="148" cy="150" r="11" fill="currentColor" />
 
+  </symbol>
+
+
+
+  <symbol id="Ab">
+    <use href="#G#" />
+  </symbol>
+  <symbol id="Abm">
+    <use href="#G#m" />
+  </symbol>
+  <symbol id="Ab7">
+    <use href="#G#7" />
+  </symbol>
+  <symbol id="Abm7">
+    <use href="#G#m7" />
+  </symbol>
+  <symbol id="Abmaj7">
+    <use href="#G#maj7" />
+  </symbol>
+  <symbol id="Ab9">
+    <use href="#G#9" />
+  </symbol>
+  <symbol id="Absus2">
+    <use href="#G#sus2" />
+  </symbol>
+  <symbol id="Absus4">
+    <use href="#G#sus4" />
   </symbol>
 
 
@@ -1940,6 +1979,128 @@
     <circle cx="112" cy="150" r="11" fill="currentColor" />
     <!-- position 4, cord 2 -->
     <circle cx="184" cy="150" r="11" fill="currentColor" />
+  </symbol>
+
+  <symbol id="A#m7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
+    
+    <use href="#main-grid-with-nut" />
+
+    <rect x="32" y="62" width="196" height="12" rx="6" ry="6" fill="currentColor"/>
+
+    <circle cx="112" cy="150" r="11" fill="currentColor" />
+    <circle cx="184" cy="110" r="11" fill="currentColor" />
+
+    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
+      <line x1="32" y1="5" x2="48" y2="25"/>
+      <line x1="48" y1="5" x2="32" y2="25"/>
+    </g>
+  </symbol>
+
+  <symbol id="A#maj7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
+    
+    <use href="#main-grid-with-nut" />
+
+    <rect x="32" y="62" width="196" height="12" rx="6" ry="6" fill="currentColor"/>
+
+    <circle cx="112" cy="150" r="11" fill="currentColor" />
+    <circle cx="148" cy="110" r="11" fill="currentColor" />
+    <circle cx="184" cy="150" r="11" fill="currentColor" />
+
+    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
+      <line x1="32" y1="5" x2="48" y2="25"/>
+      <line x1="48" y1="5" x2="32" y2="25"/>
+    </g>
+  </symbol>
+
+  <symbol id="A#9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
+  
+    <use href="#main-grid-no-nut" />
+
+    <!-- fret number -->
+    <text x="0" y="84" font-size="42" fill="currentColor">6</text>
+
+    <!-- barre fret position 1, from cord 1 to 6 -->
+    <rect x="32" y="62" width="196" height="12" rx="6" ry="6" fill="currentColor"/>
+
+    <!-- position 3, cord 5 -->
+    <circle cx="76"  cy="150" r="11" fill="currentColor" />
+    <!-- position 2, cord 3 -->
+    <circle cx="148" cy="110" r="11" fill="currentColor" />
+    <!-- position 3, cord 1 -->
+    <circle cx="220" cy="150" r="11" fill="currentColor" />
+
+  </symbol>
+
+  <symbol id="A#sus2" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
+
+    <use href="#main-grid-no-nut" />
+
+    <!-- fret number -->
+    <text x="0" y="84" font-size="42" fill="currentColor">8</text>
+
+    <!-- barre from cord 4 to cord 1 -->
+    <rect x="102" y="62" width="126" height="12" rx="6" ry="6" fill="currentColor"/>
+
+    <!-- extra fingers -->
+    <!-- position 3, cord 3 -->
+    <circle cx="148" cy="150" r="11" fill="currentColor" />
+    <!-- position 4, cord 2 -->
+    <circle cx="184" cy="190" r="11" fill="currentColor" />
+
+    <!-- (X and O) -->
+    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
+      <!-- pos 0 cord 6 -->
+      <line x1="32" y1="5" x2="48" y2="25"/>
+      <line x1="48" y1="5" x2="32" y2="25"/>
+      <!-- pos 0 cord 5-->
+      <line x1="76" y1="5" x2="92" y2="25"/>
+      <line x1="92" y1="5" x2="76" y2="25"/>
+    </g>
+  </symbol>
+
+
+  <symbol id="A#sus4" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
+    
+    <use href="#main-grid-no-nut" />
+
+    <text x="0" y="84" font-size="42" fill="currentColor">6</text>
+
+    <!-- barre -->
+    <rect x="32" y="62" width="196" height="12" rx="6" ry="6" fill="currentColor"/>
+
+    <!-- extra fingers -->
+    <!-- position 3 cord 5 -->
+    <circle cx="76" cy="150" r="11" fill="currentColor" />
+    <!-- position 3 cord 4 -->
+    <circle cx="112" cy="150" r="11" fill="currentColor" />
+    <!-- position 3 cord 3 -->
+    <circle cx="148" cy="150" r="11" fill="currentColor" />
+
+  </symbol>
+
+  <symbol id="Bb">
+    <use href="#A#" />
+  </symbol>
+  <symbol id="Bbm">
+    <use href="#A#m" />
+  </symbol>
+  <symbol id="Bb7">
+    <use href="#A#7" />
+  </symbol>
+  <symbol id="Bbm7">
+    <use href="#A#m7" />
+  </symbol>
+  <symbol id="Bbmaj7">
+    <use href="#A#maj7" />
+  </symbol>
+  <symbol id="Bb9">
+    <use href="#A#9" />
+  </symbol>
+  <symbol id="Bbsus2">
+    <use href="#A#sus2" />
+  </symbol>
+  <symbol id="Bbsus4">
+    <use href="#A#sus4" />
   </symbol>
 
 
