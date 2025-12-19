@@ -87,7 +87,11 @@ export function BlockPicker({
                   setAccidental("")
                 }
               }}
-              className="w-full border-2 border-gray-900 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="
+              w-full border text-white text-sm px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500
+              border-zinc-400/25
+              
+              "
             >
               {ROOTS.map((r) => (
                 <option key={r} value={r} className="bg-gray-800 text-white">
@@ -101,20 +105,25 @@ export function BlockPicker({
             <select
               value={accidental}
               onChange={(e) => setAccidental(e.target.value as "" | "#" | "b")}
-              className="w-full border-2 border-gray-900 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="
+              w-full border text-white text-sm px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500
+              border-zinc-400/25
+              "
             >
-              <option value="">Natural</option>
+              <option value="" className="bg-gray-800 text-white">
+                Natural
+              </option>
               <option
                 value="#"
                 disabled={!isSharpAllowed(root)}
-                className="disabled:text-gray-300 disabled:opacity-10"
+                className="bg-gray-800 text-white disabled:text-gray-500 disabled:opacity-10"
               >
                 Sharp (#)
               </option>
               <option
                 value="b"
                 disabled={!isFlatAllowed(root)}
-                className="disabled:text-gray-300 disabled:opacity-10"
+                className="bg-gray-800 text-white disabled:text-gray-500 disabled:opacity-10"
               >
                 Flat (b)
               </option>
