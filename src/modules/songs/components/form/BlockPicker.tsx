@@ -32,6 +32,12 @@ export function BlockPicker({
 
   const VARIATIONS = chordsData[root] ?? []
 
+  const DISALLOW_SHARP = ["E", "B"]
+  const DISALLOW_FLAT = ["F", "C"]
+
+  const isSharpAllowed = (root: string) => !DISALLOW_SHARP.includes(root)
+  const isFlatAllowed = (root: string) => !DISALLOW_FLAT.includes(root)
+
   const handleSelect = (chordName: string) => {
     onSelect(chordName)
   }
@@ -71,7 +77,16 @@ export function BlockPicker({
               id="root_chord"
               name="root_chord"
               value={root}
-              onChange={(e) => setRoot(e.target.value)}
+              onChange={(e) => {
+                const newRoot = e.target.value
+                setRoot(newRoot)
+                if (
+                  (accidental === "#" && !isSharpAllowed(newRoot)) ||
+                  (accidental === "b" && !isFlatAllowed(newRoot))
+                ) {
+                  setAccidental("")
+                }
+              }}
               className="w-full border-2 border-gray-900 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
             >
               {ROOTS.map((r) => (
@@ -89,8 +104,20 @@ export function BlockPicker({
               className="w-full border-2 border-gray-900 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
             >
               <option value="">Natural</option>
-              <option value="#">Sharp (#)</option>
-              <option value="b">Flat (b)</option>
+              <option
+                value="#"
+                disabled={!isSharpAllowed(root)}
+                className="disabled:text-gray-300 disabled:opacity-10"
+              >
+                Sharp (#)
+              </option>
+              <option
+                value="b"
+                disabled={!isFlatAllowed(root)}
+                className="disabled:text-gray-300 disabled:opacity-10"
+              >
+                Flat (b)
+              </option>
             </select>
           </div>
           <div>
@@ -119,14 +146,11 @@ export function BlockPicker({
                 id={v.name}
                 type="button"
                 onClick={() => {
-                  //handleSelect(v.name)
                   handleSelect(`${v.root}${accidental}${v.suffix}`)
                   console.log(`${v.root}${accidental}${v.suffix}`)
                 }}
                 className="flex flex-col items-center rounded-lg border border-gray-800 bg-zinc-900/10 px-12 py-2 hover:bg-indigo-600/10 hover:text-white"
               >
-                {/* <Chord chord={v.name} />
-                <ChordDiagram chordName={v.name} /> */}
                 <Chord chord={`${v.root}${accidental}${v.suffix}`} />
                 <ChordDiagram chordName={`${v.root}${accidental}${v.suffix}`} />
               </button>
