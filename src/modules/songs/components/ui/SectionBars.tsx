@@ -20,7 +20,7 @@ interface Props {
 
 export default function SectionBars({ children, section }: Props) {
   const gridPerMueasureValue = setBarsByLine(section)
-  const classBars = `SECTIONBARS-WRAP grid divide-x-2 divide-blue-300 gap-2 mb-4 ${
+  const classBars = `SECTIONBARS-WRAP grid divide-x-2 divide-blue-300 mb-4 ${
     gridPerMueasureValue === 1
       ? "grid-cols-1"
       : gridPerMueasureValue === 2
