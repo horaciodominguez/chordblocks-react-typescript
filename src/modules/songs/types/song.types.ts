@@ -4,6 +4,8 @@ export interface Song {
   id: string
   title: string
   artist: string
+  genre: string
+  year: number
   timeSignature: TimeSignature
   songSections: SongSection[]
   createdAt: string
