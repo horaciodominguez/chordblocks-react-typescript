@@ -1,5 +1,12 @@
 import { Link } from "react-router-dom"
-import { AudioLines, Edit, Trash } from "lucide-react"
+import {
+  AudioLines,
+  Edit,
+  Search,
+  SlidersHorizontal,
+  Trash,
+  X,
+} from "lucide-react"
 import { useSongs } from "../hooks/useSongs"
 
 import PanelContainer from "@/components/ui/PanelContainer"
@@ -7,6 +14,7 @@ import LoaderSpinner from "@/components/ui/LoaderSpinner"
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog"
 import { toast } from "sonner"
 import { useMemo, useState } from "react"
+import Button from "@/components/ui/Button"
 
 export const SongList = () => {
   const { songs, deleteSong, loading } = useSongs()
@@ -14,6 +22,8 @@ export const SongList = () => {
   const [search, setSearch] = useState("")
   const [year, setYear] = useState("")
   const [genre, setGenre] = useState("")
+
+  const [showFilters, setShowFilters] = useState(false)
 
   const genres = useMemo(() => {
     return Array.from(new Set(songs.map((s) => s.genre)))
@@ -53,42 +63,85 @@ export const SongList = () => {
       </div>
     )
 
+  const FilterChip = ({
+    label,
+    onClear,
+  }: {
+    label: string
+    onClear: () => void
+  }) => (
+    <button
+      onClick={onClear}
+      className="flex items-center gap-1 px-2 py-1 text-xs rounded-full bg-blue-900/40 text-blue-300 hover:bg-blue-900/60"
+    >
+      {label}
+      <X size={12} />
+    </button>
+  )
+
   return (
     <>
-      <div className="flex flex-wrap gap-2 mb-4">
-        <input
-          type="text"
-          placeholder="Search by title or artist"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="px-3 py-2 bg-zinc-900 border border-zinc-700 rounded-md text-sm"
-        />
-
-        <select
-          value={year}
-          onChange={(e) => setYear(e.target.value)}
-          className="px-3 py-2 bg-zinc-900 border border-zinc-700 rounded-md text-sm"
+      <div className="flex justify-end align-center">
+        <Button
+          variant="primary"
+          onClick={() => setShowFilters((v) => !v)}
+          className="flex items-center gap-2 "
         >
-          <option value="">All years</option>
-          {years.map((y) => (
-            <option key={y} value={y}>
-              {y}
-            </option>
-          ))}
-        </select>
+          <SlidersHorizontal size={16} />
+          Filters
+        </Button>
+      </div>
+      {showFilters && (
+        <div className="flex flex-wrap justify-end gap-2 mt-4 mb-4">
+          <div className="relative">
+            <Search
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500"
+              size={16}
+            />
+            <input
+              type="text"
+              placeholder="Search songs or artists"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="pl-9 pr-3 py-2 bg-zinc-900 border border-zinc-700 rounded-md text-sm
+               focus:outline-none focus:ring-2 focus:ring-blue-500/40
+               backdrop-blur-sm
+               "
+            />
+          </div>
 
-        <select
-          value={genre}
-          onChange={(e) => setGenre(e.target.value)}
-          className="px-3 py-2 bg-zinc-900 border border-zinc-700 rounded-md text-sm"
-        >
-          <option value="">All genres</option>
-          {genres.map((g) => (
-            <option key={g} value={g}>
-              {g}
-            </option>
-          ))}
-        </select>
+          <select
+            value={year}
+            onChange={(e) => setYear(e.target.value)}
+            className="px-3 py-2 bg-zinc-900 border border-zinc-700 rounded-md text-sm"
+          >
+            <option value="">All years</option>
+            {years.map((y) => (
+              <option key={y} value={y}>
+                {y}
+              </option>
+            ))}
+          </select>
+
+          <select
+            value={genre}
+            onChange={(e) => setGenre(e.target.value)}
+            className="px-3 py-2 bg-zinc-900 border border-zinc-700 rounded-md text-sm"
+          >
+            <option value="">All genres</option>
+            {genres.map((g) => (
+              <option key={g} value={g}>
+                {g}
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
+
+      <div className="flex gap-2 mb-4">
+        {search && <FilterChip label={search} onClear={() => setSearch("")} />}
+        {year && <FilterChip label={year} onClear={() => setYear("")} />}
+        {genre && <FilterChip label={genre} onClear={() => setGenre("")} />}
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 ">
