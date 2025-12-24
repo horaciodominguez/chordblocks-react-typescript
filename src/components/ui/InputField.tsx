@@ -7,8 +7,9 @@ type Props = React.InputHTMLAttributes<HTMLInputElement> & {
   label: string
   value: string
   type?: string
-  onChange: React.ChangeEventHandler<HTMLInputElement>
+  icon?: React.ReactNode
   tabIndex?: number
+  onChange: React.ChangeEventHandler<HTMLInputElement>
 }
 
 export default function InputInline({
@@ -18,6 +19,7 @@ export default function InputInline({
   type = "text",
   onChange,
   tabIndex,
+  icon,
 }: Props) {
   const fieldId = useId()
 
@@ -31,6 +33,7 @@ export default function InputInline({
         onChange={onChange}
         tabIndex={tabIndex}
         id={fieldId}
+        icon={icon}
       />
     </>
   )

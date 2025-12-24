@@ -15,6 +15,7 @@ import { ConfirmDialog } from "@/components/ui/ConfirmDialog"
 import { toast } from "sonner"
 import { useMemo, useState } from "react"
 import Button from "@/components/ui/Button"
+import Input from "@/components/ui/Input"
 
 export const SongList = () => {
   const { songs, deleteSong, loading } = useSongs()
@@ -93,23 +94,15 @@ export const SongList = () => {
       </div>
       {showFilters && (
         <div className="flex flex-wrap justify-end gap-2 mt-4 mb-4">
-          <div className="relative">
-            <Search
-              className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500"
-              size={16}
-            />
-            <input
-              type="text"
-              placeholder="Search songs or artists"
+          <div>
+            <Input
+              name="search"
               value={search}
+              placeholder="Search songs or artists"
+              icon={<Search size={16} />}
               onChange={(e) => setSearch(e.target.value)}
-              className="pl-9 pr-3 py-2 bg-zinc-900 border border-zinc-700 rounded-md text-sm
-               focus:outline-none focus:ring-2 focus:ring-blue-500/40
-               backdrop-blur-sm
-               "
             />
           </div>
-
           <select
             value={year}
             onChange={(e) => setYear(e.target.value)}
