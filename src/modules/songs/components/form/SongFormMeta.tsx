@@ -6,6 +6,7 @@ import type {
   SongFormState,
 } from "@/modules/songs/state/songFormReducer"
 import type { Song as SongType } from "@/modules/songs/types/song.types"
+import { Music, UserStar } from "lucide-react"
 
 type Props = {
   dispatch: React.Dispatch<Action>
@@ -28,6 +29,7 @@ export function SongFormMeta({ dispatch, state, song }: Props) {
           }}
           value={song.title}
           tabIndex={1}
+          icon={<Music size={16} />}
         />
         {state.errors?.title && (
           <p className="text-red-500 text-sm mt-1">{state.errors.title}</p>
@@ -47,6 +49,7 @@ export function SongFormMeta({ dispatch, state, song }: Props) {
               }}
               value={song.artist}
               tabIndex={2}
+              icon={<UserStar size={16} />}
             />
             {state.errors?.artist && (
               <p className="text-red-500 text-sm mt-1">{state.errors.artist}</p>
