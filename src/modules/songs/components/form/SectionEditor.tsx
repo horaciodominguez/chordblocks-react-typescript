@@ -40,7 +40,7 @@ export function SectionEditor({ state, dispatch, onStopEditing }: Props) {
               }
             }}
             value={state.pendingSection.type}
-            defaultValue=""
+            defaultValue="Select Section Type"
           />
         </div>
         <div className="w-1/2 flex justify-end items-end">

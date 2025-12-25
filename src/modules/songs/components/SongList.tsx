@@ -16,6 +16,7 @@ import { toast } from "sonner"
 import { useMemo, useState } from "react"
 import Button from "@/components/ui/Button"
 import Input from "@/components/ui/Input"
+import { Select } from "@/components/ui/Select"
 
 export const SongList = () => {
   const { songs, deleteSong, loading } = useSongs()
@@ -103,31 +104,26 @@ export const SongList = () => {
               onChange={(e) => setSearch(e.target.value)}
             />
           </div>
-          <select
-            value={year}
-            onChange={(e) => setYear(e.target.value)}
-            className="px-3 py-2 bg-zinc-900 border border-zinc-700 rounded-md text-sm"
-          >
-            <option value="">All years</option>
-            {years.map((y) => (
-              <option key={y} value={y}>
-                {y}
-              </option>
-            ))}
-          </select>
 
-          <select
-            value={genre}
-            onChange={(e) => setGenre(e.target.value)}
-            className="px-3 py-2 bg-zinc-900 border border-zinc-700 rounded-md text-sm"
-          >
-            <option value="">All genres</option>
-            {genres.map((g) => (
-              <option key={g} value={g}>
-                {g}
-              </option>
-            ))}
-          </select>
+          <div>
+            <Select
+              name="year"
+              options={years}
+              value={year}
+              defaultValue="All years"
+              onChange={(e) => setYear(e.target.value)}
+            />
+          </div>
+
+          <div>
+            <Select
+              name="genre"
+              options={genres}
+              value={genre}
+              defaultValue="All genres"
+              onChange={(e) => setGenre(e.target.value)}
+            />
+          </div>
         </div>
       )}
 

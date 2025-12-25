@@ -3,7 +3,7 @@ import Label from "./Label"
 
 type Props = {
   name: string
-  label: string
+  label?: string
   options: readonly (string | number)[]
   disabled?: boolean
   disabledMessage?: string
@@ -35,7 +35,7 @@ export const Select = ({
 
   return (
     <>
-      <Label htmlFor={name}>{label}</Label>
+      {label && <Label htmlFor={name}>{label}</Label>}
       {disabled && disabledMessage ? (
         <div
           id={name}
@@ -62,9 +62,9 @@ export const Select = ({
           }`}
           tabIndex={tabIndex}
         >
-          {defaultValue != undefined && defaultValue === "" ? (
+          {defaultValue != undefined && defaultValue != "" ? (
             <option value="" className="bg-gray-800 text-white">
-              SELECT...
+              {defaultValue}
             </option>
           ) : (
             ""
