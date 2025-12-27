@@ -2,6 +2,7 @@ import { Link } from "react-router-dom"
 import {
   AudioLines,
   Edit,
+  Music,
   Search,
   SlidersHorizontal,
   Trash,
@@ -144,59 +145,76 @@ export const SongList = () => {
                 {song.title}
               </Link>
             </h2>
-            <h3 className="text-sm text-gray-400 mb-4">
-              Artist: {song.artist}
-            </h3>
-            <p className="text-sm text-gray-400 mb-4">
-              Time Measure: {song.timeSignature.beatsPerMeasure} /{" "}
-              {song.timeSignature.noteValue}
-            </p>
-            <div className="flex justify-end gap-4">
-              <Link
-                className="
+            <div className="flex flex-row">
+              <div className="w-1/3 mr-4">
+                <div className="w-full">
+                  {song.imageUrl || song.imageBase64 ? (
+                    <img
+                      src={song.imageBase64 ? song.imageBase64 : song.imageUrl!}
+                      alt={song.title}
+                      className="w-full aspect-square object-cover rounded mb-4"
+                    />
+                  ) : (
+                    <div className="w-full aspect-square bg-zinc-800 rounded flex items-center justify-center mb-4">
+                      <Music size={48} className="text-zinc-500" />
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="w-2/3 flex flex-col justify-space-between">
+                <h3 className="text-sm text-gray-400 mb-2">{song.artist}</h3>
+                <p className="text-sm text-gray-400 mb-4">
+                  {song.timeSignature.beatsPerMeasure} /{" "}
+                  {song.timeSignature.noteValue}
+                </p>
+                <div className="flex justify-start gap-4">
+                  <Link
+                    className="
                 flex 
                 justify-center items-center
                 px-2 py-2 
                 border-1 border-zinc-700 rounded-md text-sm text-indigo-400 hover:text-gray-200"
-                to={`/song/${song.id}`}
-              >
-                <AudioLines width={16} height={16} />
-              </Link>
-              <Link
-                className="
+                    to={`/song/${song.id}`}
+                  >
+                    <AudioLines width={16} height={16} />
+                  </Link>
+                  <Link
+                    className="
                 flex 
                 justify-center items-center
                 px-2 py-2 
                 border-1 border-zinc-700 rounded-md text-sm text-indigo-400 hover:text-gray-200"
-                to={`/song/${song.id}/edit`}
-              >
-                <Edit width={16} height={16} />
-              </Link>
-              <ConfirmDialog
-                title="Delete song?"
-                description={`Are you sure you want to delete "${song.title}"? This action cannot be undone.`}
-                confirmLabel="Delete"
-                cancelLabel="Cancel"
-                onConfirm={async () => {
-                  try {
-                    await deleteSong(song.id)
-                    toast.success(`Song "${song.title}" deleted`)
-                  } catch {
-                    toast.error("Error deleting song")
-                  }
-                }}
-                trigger={
-                  <button
-                    className=" flex 
+                    to={`/song/${song.id}/edit`}
+                  >
+                    <Edit width={16} height={16} />
+                  </Link>
+                  <ConfirmDialog
+                    title="Delete song?"
+                    description={`Are you sure you want to delete "${song.title}"? This action cannot be undone.`}
+                    confirmLabel="Delete"
+                    cancelLabel="Cancel"
+                    onConfirm={async () => {
+                      try {
+                        await deleteSong(song.id)
+                        toast.success(`Song "${song.title}" deleted`)
+                      } catch {
+                        toast.error("Error deleting song")
+                      }
+                    }}
+                    trigger={
+                      <button
+                        className=" flex 
                               justify-center items-center
                               px-2 py-2 
                               border-1 border-zinc-700 
                               rounded-md text-sm text-red-500 hover:text-red-400"
-                  >
-                    <Trash width={16} height={16} />
-                  </button>
-                }
-              />
+                      >
+                        <Trash width={16} height={16} />
+                      </button>
+                    }
+                  />
+                </div>
+              </div>
             </div>
           </PanelContainer>
         ))}

@@ -60,6 +60,7 @@ export const SongSchema = z.object({
     .min(1900, "Year must be valid")
     .max(2100, "Year must be valid"),
   timeSignature: TimeSignatureSchema,
+  imageBase64: z.string().nullable(),
   songSections: z.array(SectionSchema).min(1, "Add at least one section"),
   createdAt: z.string(),
   updatedAt: z.string(),

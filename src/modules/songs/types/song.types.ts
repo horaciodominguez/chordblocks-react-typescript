@@ -7,6 +7,10 @@ export interface Song {
   genre: string
   year: number
   timeSignature: TimeSignature
+
+  imageUrl?: string | null // Supabase
+  imageBase64?: string | null // Local only
+
   songSections: SongSection[]
   createdAt: string
   updatedAt: string

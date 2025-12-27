@@ -35,6 +35,7 @@ export type Action =
   | { type: "SET_GENRE"; v: string }
   | { type: "SET_YEAR"; v: number }
   | { type: "SET_TIME_SIGNATURE"; v: TimeSignature }
+  | { type: "SET_IMAGE_BASE64"; v: string | null }
   | { type: "ADD_SECTION_TYPE"; v: SectionType }
   | { type: "ADD_BLOCK_TEMPORARY"; v: string }
   | { type: "ADD_REST" }
@@ -63,6 +64,7 @@ export const initialSong: SongType = {
     beatsPerMeasure: 4,
     noteValue: 4,
   },
+  imageBase64: null,
   songSections: [] as SongSection[],
   createdAt: new Date().toISOString(),
   updatedAt: new Date().toISOString(),
@@ -92,6 +94,12 @@ export const reducer = (
           ...state.song,
           timeSignature: { ...state.song.timeSignature, ...action.v },
         },
+      }
+
+    case "SET_IMAGE_BASE64":
+      return {
+        ...state,
+        song: { ...state.song, imageBase64: action.v },
       }
 
     case "ADD_SECTION_TYPE": {

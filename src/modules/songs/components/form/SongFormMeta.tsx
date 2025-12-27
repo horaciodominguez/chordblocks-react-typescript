@@ -1,4 +1,5 @@
 import InputField from "@/components/ui/InputField"
+import Label from "@/components/ui/Label"
 import { Select } from "@/components/ui/Select"
 
 import { BEAT_VALUES, noteValues } from "@/modules/songs/constants/song"
@@ -16,6 +17,22 @@ type Props = {
 }
 
 export function SongFormMeta({ dispatch, state, song }: Props) {
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+
+    const reader = new FileReader()
+
+    reader.onloadend = () => {
+      dispatch({
+        type: "SET_IMAGE_BASE64",
+        v: reader.result as string,
+      })
+    }
+
+    reader.readAsDataURL(file)
+  }
+
   return (
     <>
       <div className="mb-4">
@@ -139,6 +156,36 @@ export function SongFormMeta({ dispatch, state, song }: Props) {
               value={song.year.toString()}
               tabIndex={6}
               icon={<Calendar size={16} />}
+            />
+          </div>
+        </div>
+      </div>
+
+      <div className="mb-4">
+        <div className="flex flex-row">
+          <div className="">
+            {song.imageBase64 ? (
+              <img
+                src={song.imageBase64}
+                alt="Song cover"
+                className="w-32 h-32 object-cover rounded mb-4"
+              />
+            ) : (
+              <div className="w-32 h-32 bg-zinc-800 rounded flex items-center justify-center mb-4">
+                <Music size={24} className="text-zinc-500" />
+              </div>
+            )}
+          </div>
+          <div className="flex-1 ml-4">
+            <Label htmlFor="imageUpload">Upload Cover Image</Label>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageUpload}
+              className="
+            w-full px-3 py-2 rounded-md text-sm
+            border border-zinc-400/25 cursor-text text-indigo-300
+          "
             />
           </div>
         </div>
