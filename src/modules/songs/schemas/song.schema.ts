@@ -53,6 +53,12 @@ export const SongSchema = z.object({
   id: z.string(),
   title: z.string().min(1, "Title is required"),
   artist: z.string().min(1, "Artist is required"),
+  genre: z.string().min(1, "Genre is required"),
+  year: z
+    .number()
+    .int()
+    .min(1900, "Year must be valid")
+    .max(2100, "Year must be valid"),
   timeSignature: TimeSignatureSchema,
   songSections: z.array(SectionSchema).min(1, "Add at least one section"),
   createdAt: z.string(),

@@ -1,12 +1,13 @@
 import InputField from "@/components/ui/InputField"
 import { Select } from "@/components/ui/Select"
+
 import { BEAT_VALUES, noteValues } from "@/modules/songs/constants/song"
 import type {
   Action,
   SongFormState,
 } from "@/modules/songs/state/songFormReducer"
 import type { Song as SongType } from "@/modules/songs/types/song.types"
-import { Music, UserStar } from "lucide-react"
+import { Calendar, Music, Tag, UserStar } from "lucide-react"
 
 type Props = {
   dispatch: React.Dispatch<Action>
@@ -104,6 +105,41 @@ export function SongFormMeta({ dispatch, state, song }: Props) {
                 />
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="mb-4">
+        <div className="flex">
+          <div className="w-2/3 mr-2">
+            <InputField
+              label="Genre"
+              name="genre"
+              onChange={(e) => {
+                dispatch({ type: "SET_GENRE", v: e.target.value })
+              }}
+              value={song.genre}
+              tabIndex={5}
+              icon={<Tag size={16} />}
+            />
+          </div>
+          <div className="w-1/3 ml-2">
+            <InputField
+              label="Year"
+              name="year"
+              type="number"
+              onChange={(e) => {
+                const value = Number(e.target.value)
+
+                dispatch({
+                  type: "SET_YEAR",
+                  v: Number.isNaN(value) ? new Date().getFullYear() : value,
+                })
+              }}
+              value={song.year.toString()}
+              tabIndex={6}
+              icon={<Calendar size={16} />}
+            />
           </div>
         </div>
       </div>
