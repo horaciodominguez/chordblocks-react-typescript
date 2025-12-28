@@ -168,24 +168,42 @@ export function SongFormMeta({ dispatch, state, song }: Props) {
               <img
                 src={song.imageBase64}
                 alt="Song cover"
-                className="w-32 h-32 object-cover rounded mb-4"
+                className="w-16 h-16 object-cover rounded mb-4"
               />
             ) : (
-              <div className="w-32 h-32 bg-zinc-800 rounded flex items-center justify-center mb-4">
-                <Music size={24} className="text-zinc-500" />
+              <div className="w-16 h-16 bg-zinc-800 rounded flex items-center justify-center mb-4">
+                <Music size={16} className="text-zinc-500" />
               </div>
             )}
           </div>
           <div className="flex-1 ml-4">
             <Label htmlFor="imageUpload">Upload Cover Image</Label>
             <input
+              id="imageUpload"
               type="file"
               accept="image/*"
               onChange={handleImageUpload}
               className="
-            w-full px-3 py-2 rounded-md text-sm
-            border border-zinc-400/25 cursor-text text-indigo-300
-          "
+
+                w-full text-indigo-300 relative
+                file:px-3 file:py-2 file:rounded-md text-sm
+                 file:hover:bg-zinc-700/70
+                file:mr-2
+                file:border file:border-zinc-400/25 file:cursor-pointer 
+                file:relative
+                file:w-1/3
+
+                after:absolute
+                after:top-[0px] after:left-0 after:w-1/3 
+                after:h-[1px] after:bg-gradient-to-r after:from-indigo-700/0 
+                after:via-green-100/60 after:via-30% after:to-indigo-900/0 after:z-10
+
+                before:absolute 
+                before:bottom-[0] before:left-0 before:w-1/3 
+                before:h-[1px] before:bg-gradient-to-r before:from-indigo-700/0 
+                before:via-zinc-100/60 before:via-70% before:to-indigo-900/0 before:z-11
+
+              "
             />
           </div>
         </div>
