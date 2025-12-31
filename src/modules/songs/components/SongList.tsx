@@ -150,7 +150,7 @@ export const SongList = () => {
                 <div className="w-full">
                   {song.imageUrl || song.imageBase64 ? (
                     <img
-                      src={song.imageBase64 ? song.imageBase64 : song.imageUrl!}
+                      src={song.imageUrl ?? song.imageBase64!}
                       alt={song.title}
                       className="w-full aspect-square object-cover rounded mb-4"
                     />
@@ -170,20 +170,20 @@ export const SongList = () => {
                 <div className="flex justify-start gap-4">
                   <Link
                     className="
-                flex 
-                justify-center items-center
-                px-2 py-2 
-                border-1 border-zinc-700 rounded-md text-sm text-indigo-400 hover:text-gray-200"
+                      flex 
+                      justify-center items-center
+                      px-2 py-2 
+                      border-1 border-zinc-700 rounded-md text-sm text-indigo-400 hover:text-gray-200"
                     to={`/song/${song.id}`}
                   >
                     <AudioLines width={16} height={16} />
                   </Link>
                   <Link
                     className="
-                flex 
-                justify-center items-center
-                px-2 py-2 
-                border-1 border-zinc-700 rounded-md text-sm text-indigo-400 hover:text-gray-200"
+                      flex 
+                      justify-center items-center
+                      px-2 py-2 
+                      border-1 border-zinc-700 rounded-md text-sm text-indigo-400 hover:text-gray-200"
                     to={`/song/${song.id}/edit`}
                   >
                     <Edit width={16} height={16} />
