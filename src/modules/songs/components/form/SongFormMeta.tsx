@@ -168,11 +168,11 @@ export function SongFormMeta({ dispatch, state, song }: Props) {
               <img
                 src={song.imageBase64}
                 alt="Song cover"
-                className="w-16 h-16 object-cover rounded mb-4"
+                className="w-24 h-24 object-cover rounded mb-4"
               />
             ) : (
-              <div className="w-16 h-16 bg-zinc-800 rounded flex items-center justify-center mb-4">
-                <Music size={16} className="text-zinc-500" />
+              <div className="w-24 h-24 bg-zinc-800 rounded flex items-center justify-center mb-4">
+                <Music size={24} className="text-zinc-500" />
               </div>
             )}
           </div>
@@ -205,6 +205,10 @@ export function SongFormMeta({ dispatch, state, song }: Props) {
 
               "
             />
+            <p className="text-xs text-zinc-500 mt-2">
+              By uploading an image, you confirm you own the rights to it or
+              have permission to use it.
+            </p>
           </div>
         </div>
       </div>
