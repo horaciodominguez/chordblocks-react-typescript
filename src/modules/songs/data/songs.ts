@@ -8,6 +8,8 @@ export const songsData: Song[] = [
     artist: "Bob Dylan",
     genre: "Folk Rock",
     year: 1973,
+    imageUrl: null,
+    imageBase64: null,
     timeSignature: { beatsPerMeasure: 4, noteValue: 4 },
     songSections: [
       {
