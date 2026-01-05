@@ -45,7 +45,7 @@ export const SectionSchema = z.object({
 })
 
 export const TimeSignatureSchema = z.object({
-  beatsPerMeasure: oneOfNumbers(BEAT_VALUES, "Beats must be one of 1–12"),
+  beatsPerMeasure: oneOfNumbers(BEAT_VALUES, "Beats must be one of 1-12"),
   noteValue: oneOfNumbers(noteValues, "Note value must be 2, 4 or 8"),
 })
 
@@ -61,7 +61,7 @@ export const SongSchema = z.object({
     .max(2100, "Year must be valid"),
   timeSignature: TimeSignatureSchema,
   imageBase64: z.string().nullable(),
-  imagesUrl: z.string().nullable(),
+  imageUrl: z.string().nullable(),
   songSections: z.array(SectionSchema).min(1, "Add at least one section"),
   createdAt: z.string(),
   updatedAt: z.string(),
