@@ -64,6 +64,7 @@ export const initialSong: SongType = {
     beatsPerMeasure: 4,
     noteValue: 4,
   },
+  imageUrl: null,
   imageBase64: null,
   songSections: [] as SongSection[],
   createdAt: new Date().toISOString(),
