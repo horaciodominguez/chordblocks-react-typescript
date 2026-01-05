@@ -16,16 +16,25 @@ export function useSongs() {
 
     async function init() {
       try {
+        // Load songs from supabase storage
+        console.log("useSongs init: trying to load songs from storage")
         let dbSongs = await storage.getSongs()
+
         if (!dbSongs || dbSongs.length === 0) {
+          console.log(
+            "useSongs init: no songs in storage, loading default songs"
+          )
           for (const s of songsData) {
             await storage.saveSong(s)
           }
           dbSongs = songsData
+        } else {
+          console.log("useSongs init: loaded songs from storage", dbSongs)
         }
         if (mounted) setSongs(dbSongs)
       } catch (err) {
         console.error("useSongs init error:", err)
+        // Fallback to default songs in case of error
         if (mounted) setSongs(songsData)
       } finally {
         setTimeout(() => {
