@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { supabase } from "@/services/supabaseClient"
-import type { User } from "@supabase/supabase-js"
+import type { User, Session, AuthChangeEvent } from "@supabase/supabase-js"
 
 import { syncAll } from "@/services/sync/syncManager"
 
@@ -10,10 +10,14 @@ export function useAuth() {
   const [user, setUser] = useState<User | null>(null)
 
   useEffect(() => {
-    supabase.auth.getUser().then(({ data }) => setUser(data.user))
+    supabase.auth
+      .getUser()
+      .then(({ data }: { data: { user: User | null } }) => {
+        setUser(data.user)
+      })
 
     const { data: subscription } = supabase.auth.onAuthStateChange(
-      (_event, session) => {
+      (_event: AuthChangeEvent, session: Session | null) => {
         setUser(session?.user ?? null)
         syncdb()
       }
