@@ -7,10 +7,11 @@ import { type SongParsed } from "../../schemas/song.schema"
 import { validateSong } from "../../validation/song.validate"
 
 import { toast } from "sonner"
+import type { Song } from "../../types/song.types"
 
 type Props = {
   handleAddSong: (song: SongParsed) => void
-  initialSong?: SongParsed
+  initialSong?: Song
 }
 
 export const SongForm = ({ handleAddSong, initialSong }: Props) => {
