@@ -11,6 +11,13 @@ export function LoginForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+
+    //prevent input empty submission
+    if (email.trim() === "") {
+      console.log("Email is required")
+      return
+    }
+
     await signIn(email)
     setSent(true)
   }
