@@ -3,7 +3,7 @@ import { type Song } from "../types/song.types"
 
 export const songsData: Song[] = [
   {
-    id: uuidv4(),
+    id: "01b106ea-5559-4294-8414-0cb674b0cfb3",
     title: "Knockin' on Heaven's Door",
     artist: "Bob Dylan",
     genre: "Folk Rock",
@@ -451,12 +451,12 @@ export const songsData: Song[] = [
         repeats: 4,
       },
     ],
-    createdAt: "2025-01-01T00:00:00.000Z",
-    updatedAt: "2025-12-22T00:00:00.000Z",
+    createdAt: "2026-01-01T00:00:00.000Z",
+    updatedAt: "2026-01-01T00:00:00.000Z",
   },
 
   {
-    id: uuidv4(),
+    id: "1e26b321-8d51-4b4b-9ce4-2cf596f87870",
     title: "Have You Ever Seen the Rain",
     artist: "Creedence Clearwater Revival",
     genre: "Roots Rock",
@@ -991,7 +991,7 @@ export const songsData: Song[] = [
         repeats: 2,
       },
     ],
-    createdAt: "2025-12-27T12:00:00.000Z",
-    updatedAt: "2025-12-27T12:00:00.000Z",
+    createdAt: "2026-01-01T00:00:00.000Z",
+    updatedAt: "2026-01-01T00:00:00.000Z",
   },
 ]

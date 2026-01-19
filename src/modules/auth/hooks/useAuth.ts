@@ -1,32 +1,36 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import { supabase } from "@/services/supabaseClient"
 import type { User, Session, AuthChangeEvent } from "@supabase/supabase-js"
-
 import { syncAll } from "@/services/sync/syncManager"
 
 export const syncdb = async () => await syncAll()
 
 export function useAuth() {
+  console.log("🔑 useAuth hook initialized")
   const [user, setUser] = useState<User | null>(null)
+  const prevUserRef = useRef<User | null>(null)
+  const [ready, setReady] = useState(false)
 
   useEffect(() => {
-    supabase.auth
-      .getUser()
-      .then(({ data }: { data: { user: User | null } }) => {
-        setUser(data.user)
-      })
+    const { data: listener } = supabase.auth.onAuthStateChange(
+      async (_event: AuthChangeEvent, session: Session | null) => {
+        const newUser = session?.user ?? null
 
-    const { data: subscription } = supabase.auth.onAuthStateChange(
-      (_event: AuthChangeEvent, session: Session | null) => {
-        setUser(session?.user ?? null)
-        syncdb()
-      }
+        setReady(false)
+
+        if (!prevUserRef.current && newUser) {
+          await syncdb()
+        }
+
+        setUser(newUser)
+        prevUserRef.current = newUser
+
+        setReady(true)
+      },
     )
 
-    return () => {
-      subscription.subscription.unsubscribe()
-    }
+    return () => listener.subscription.unsubscribe()
   }, [])
 
-  return { user }
+  return { user, ready }
 }

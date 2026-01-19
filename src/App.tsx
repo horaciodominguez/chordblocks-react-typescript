@@ -9,8 +9,12 @@ import ViewSong from "@/pages/ViewSong"
 import { useSongs } from "./modules/songs/hooks/useSongs"
 import LoaderSpinner from "./components/ui/LoaderSpinner"
 import UITest from "./pages/UITest"
+import { useRef } from "react"
 
 export default function App() {
+  const count = useRef(0)
+  count.current += 1
+  console.log("App component rendered", count.current, "times")
   const { loading } = useSongs()
   if (loading)
     return (

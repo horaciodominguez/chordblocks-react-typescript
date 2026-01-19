@@ -20,6 +20,7 @@ import Input from "@/components/ui/Input"
 import { Select } from "@/components/ui/Select"
 
 export const SongList = () => {
+  console.log("SongList component rendered")
   const { songs, deleteSong, loading } = useSongs()
 
   const [search, setSearch] = useState("")
@@ -215,6 +216,16 @@ export const SongList = () => {
                   />
                 </div>
               </div>
+            </div>
+            <div>
+              <p className="text-sm text-gray-400">{song.genre}</p>
+              <p className="text-sm text-gray-400">{song.year}</p>
+              <p className="text-sm text-gray-400">
+                {new Date(song.createdAt).toLocaleDateString()}
+              </p>
+              <p className="text-sm text-gray-400">
+                {new Date(song.updatedAt).toLocaleDateString()}
+              </p>
             </div>
           </PanelContainer>
         ))}

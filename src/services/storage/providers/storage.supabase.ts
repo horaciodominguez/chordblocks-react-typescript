@@ -4,6 +4,7 @@ import { uploadSongImage } from "./storage.supabase.images"
 
 export const supabaseStorage = {
   getSongs: async (userId: string): Promise<Song[]> => {
+    console.log("supabaseStorage.getSongs called for userId:", userId)
     const { data, error } = await supabase
       .from("songs")
       .select("data")
@@ -14,6 +15,12 @@ export const supabaseStorage = {
   },
 
   saveSong: async (userId: string, song: Song): Promise<void> => {
+    console.log(
+      "supabaseStorage.saveSong called for userId:",
+      userId,
+      "song:",
+      song
+    )
     await supabase.auth.getSession()
 
     const now = new Date().toISOString()
@@ -42,6 +49,7 @@ export const supabaseStorage = {
   },
 
   getSong: async (userId: string, id: string): Promise<Song> => {
+    console.log("supabaseStorage.getSong called for userId:", userId, "id:", id)
     const { data, error } = await supabase
       .from("songs")
       .select("data")
@@ -54,6 +62,12 @@ export const supabaseStorage = {
   },
 
   deleteSong: async (userId: string, id: string) => {
+    console.log(
+      "supabaseStorage.deleteSong called for userId:",
+      userId,
+      "id:",
+      id
+    )
     const { error } = await supabase
       .from("songs")
       .delete()

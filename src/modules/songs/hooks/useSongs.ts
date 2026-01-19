@@ -7,49 +7,54 @@ import {
   saveSongWithSync,
 } from "@/services/sync/syncManager"
 
+import { useAuth } from "@/modules/auth/hooks/useAuth"
+
 export function useSongs() {
+  const { user, ready } = useAuth()
+
   const [songs, setSongs] = useState<Song[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    console.log("useSongs hook initialized")
     let mounted = true
 
     async function init() {
+      console.log("useSongs init function running")
       try {
-        // Load songs from supabase storage
-        console.log("useSongs init: trying to load songs from storage")
         let dbSongs = await storage.getSongs()
 
         if (!dbSongs || dbSongs.length === 0) {
-          console.log(
-            "useSongs init: no songs in storage, loading default songs"
-          )
           for (const s of songsData) {
             await storage.saveSong(s)
           }
           dbSongs = songsData
-        } else {
-          console.log("useSongs init: loaded songs from storage", dbSongs)
         }
+
         if (mounted) setSongs(dbSongs)
       } catch (err) {
         console.error("useSongs init error:", err)
-        // Fallback to default songs in case of error
         if (mounted) setSongs(songsData)
       } finally {
-        setTimeout(() => {
-          if (mounted) setLoading(false)
-        }, 500)
+        if (mounted) setLoading(false)
       }
     }
 
+    if (!ready) {
+      console.log("🎃 useSongs init: auth not ready, waiting...")
+      return
+    }
+
+    setLoading(true)
     init()
+
     return () => {
       mounted = false
     }
-  }, [])
+  }, [ready, user])
 
   const addSong = async (song: Song) => {
+    console.log("addSong called for song:", song)
     setLoading(true)
     try {
       await saveSongWithSync(song)
@@ -60,6 +65,7 @@ export function useSongs() {
   }
 
   const updateSong = async (song: Song) => {
+    console.log("updateSong called for song:", song)
     setLoading(true)
     try {
       await saveSongWithSync(song)
@@ -70,6 +76,7 @@ export function useSongs() {
   }
 
   const deleteSong = async (id: string) => {
+    console.log("deleteSong called for id:", id)
     setLoading(true)
     try {
       await deleteSongWithSync(id)
