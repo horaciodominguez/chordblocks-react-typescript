@@ -115,7 +115,7 @@ export const syncAll = async () => {
   const userId = await getCurrentUserId()
   if (!userId) return
 
-  // 1️⃣ Subir pendientes primero
+  // upload pending changes first
   const pendings = (await idbStorage.getPending()) as PendingDrafts[]
 
   for (const p of pendings) {
@@ -131,7 +131,7 @@ export const syncAll = async () => {
     }
   }
 
-  // 2️⃣ Comparar estados finales
+  // Merge local and remote
   const local = await idbStorage.getSongs()
   const remote = await supabaseStorage.getSongs(userId)
 
@@ -149,7 +149,7 @@ export const syncAll = async () => {
     }
   }
 
-  // 3️⃣ Aplicar estado final
+  // Upload merged songs to Supabase and save to idb
   for (const song of map.values()) {
     await supabaseStorage.saveSong(userId, song)
     await idbStorage.saveSong(song)
@@ -157,55 +157,3 @@ export const syncAll = async () => {
 
   await idbStorage.clearPending()
 }
-
-/*
-export const syncAll = async () => {
-  console.log("🛵 syncAll called")
-  const userId = await getCurrentUserId()
-  if (!userId) return
-
-  const songDrafts = (await idbStorage.getPending()) as PendingDrafts[]
-  if (songDrafts.length > 0) {
-    console.log("syncAll: syncing pending drafts", songDrafts)
-    for (const songDraft of songDrafts) {
-      try {
-        if ("_action" in songDraft && songDraft._action === "delete") {
-          await supabaseStorage.deleteSong(userId, songDraft.id)
-        } else {
-          await supabaseStorage.saveSong(userId, songDraft as Song)
-        }
-        await idbStorage.removePending(songDraft.id)
-      } catch (err) {
-        console.error("syncAll pending error:", err)
-      }
-    }
-  }
-
-  
-
-  const local = await idbStorage.getSongs()
-  const remote = await supabaseStorage.getSongs(userId)
-
-  const map = new Map<string, Song>()
-
-  for (const s of remote) map.set(s.id, s)
-  for (const s of local) {
-    const r = map.get(s.id)
-    if (!r || new Date(s.updatedAt) > new Date(r.updatedAt)) {
-      map.set(s.id, s)
-      console.log("syncAll: local song is newer, adding to sync:", s)
-    } else {
-      console.log("syncAll: remote song is newer, keeping remote:", r)
-    }
-  }
-
-  for (const song of map.values()) {
-    await supabaseStorage.saveSong(userId, song)
-    await idbStorage.saveSong(song)
-    console.log("syncAll: synced song", song)
-  }
-
-  await idbStorage.clearPending()
-}
-
-*/
