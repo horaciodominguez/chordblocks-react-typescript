@@ -12,6 +12,27 @@ export function useAuth() {
   const [ready, setReady] = useState(false)
 
   useEffect(() => {
+    let mounted = true
+
+    // 🔹 1️⃣ Inicializar sesión al montar
+    const init = async () => {
+      try {
+        const { data } = await supabase.auth.getUser()
+        if (!mounted) return
+
+        const currentUser = data?.user ?? null
+        setUser(currentUser)
+        prevUserRef.current = currentUser
+      } catch (err) {
+        console.error("getUser error:", err)
+      } finally {
+        if (mounted) setReady(true)
+      }
+    }
+
+    init()
+
+    // 🔹 2️⃣ Listener de cambios
     const { data: listener } = supabase.auth.onAuthStateChange(
       async (_event: AuthChangeEvent, session: Session | null) => {
         const newUser = session?.user ?? null
@@ -29,7 +50,10 @@ export function useAuth() {
       },
     )
 
-    return () => listener.subscription.unsubscribe()
+    return () => {
+      mounted = false
+      listener?.subscription?.unsubscribe()
+    }
   }, [])
 
   return { user, ready }

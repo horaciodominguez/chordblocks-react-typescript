@@ -21,14 +21,24 @@ if (supabaseUrl && supabaseAnonKey) {
 } else {
   console.warn(
     "%c Supabase not configured. DEMO MODE activated.",
-    "color: orange; font-weight: bold;"
+    "color: orange; font-weight: bold;",
   )
   console.warn(
-    "Create a .env.local file based on .env.example to enable the real connection."
+    "Create a .env.local file based on .env.example to enable the real connection.",
   )
 
   supabase = {
     auth: {
+      onAuthStateChange: (callback: any) => {
+        callback("SIGNED_OUT", { user: null })
+        return {
+          data: {
+            subscription: {
+              unsubscribe: () => {},
+            },
+          },
+        }
+      },
       signInWithOtp: async () => ({
         data: null,
         error: null,
