@@ -1,15 +1,5 @@
 import type { Song } from "@/modules/songs/types/song.types"
 
-export interface StorageProvider {
-  getSongs(): Promise<Song[]>
-  saveSong(song: Song): Promise<void>
-  getSong(userId: string, songId: string): Promise<Song>
-  addPending(song: Song): Promise<void>
-  getPending(): Promise<Song[]>
-  clearPending(): Promise<void>
-  deleteSong(songId: string): Promise<void>
-}
-
 export interface PendingDelete {
   id: string
   _action: "delete"
@@ -17,3 +7,27 @@ export interface PendingDelete {
 }
 
 export type PendingDrafts = Song | PendingDelete
+
+export function isPendingDelete(p: PendingDrafts): p is PendingDelete {
+  return "_action" in p && (p as PendingDelete)._action === "delete"
+}
+
+/** Local IDB-oriented contract (actual implementation). */
+export interface LocalStorageApi {
+  getSongs(): Promise<Song[]>
+  saveSong(song: Song): Promise<void>
+  getSong(id: string): Promise<Song | undefined>
+  deleteSong(songId: string): Promise<void>
+  clearSongs(): Promise<void>
+  addPending(song: Song): Promise<void>
+  getPending(): Promise<PendingDrafts[]>
+  clearPending(): Promise<void>
+  addPendingDelete(id: string): Promise<void>
+  removePending(id: string): Promise<void>
+  prepareForUser(userId: string | null): Promise<boolean>
+  getLastUserId(): string | null
+  setLastUserId(userId: string | null): void
+}
+
+/** @deprecated Prefer LocalStorageApi */
+export type StorageProvider = LocalStorageApi

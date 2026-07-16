@@ -52,10 +52,15 @@ npm install
 
 # local environment
 cp .env.example .env.local
-# 👉 configure your Supabase credentials in .env.local
+# Configure VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY.
+# Prefer the legacy anon JWT (eyJ...) from Project Settings → API Keys.
+# Avoid sb_publishable_... if you see Invalid JWT errors.
 
 # run in development
 npm run dev
+
+# unit tests (sync membership / seed cloning)
+npm test
 
 # build for production
 npm run build

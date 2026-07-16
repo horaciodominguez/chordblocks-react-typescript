@@ -2,8 +2,10 @@ import { createClient } from "@supabase/supabase-js"
 
 /**
  * Supabase Client Setup
- * ---------------------
  * Real client when env is set; otherwise a demo mock so the app still boots.
+ *
+ * Prefer the legacy JWT anon key (eyJ...) in VITE_SUPABASE_ANON_KEY.
+ * sb_publishable_... keys can cause Invalid JWT with some SDK/gateway combos.
  */
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
@@ -13,16 +15,13 @@ let supabase: ReturnType<typeof createClient> | any
 
 function createDemoAuth() {
   return {
-    onAuthStateChange: (_callback: any) => {
-      // Do not fire sync-triggering events on subscribe (was crashing UX / races)
-      return {
-        data: {
-          subscription: {
-            unsubscribe: () => {},
-          },
+    onAuthStateChange: (_callback: any) => ({
+      data: {
+        subscription: {
+          unsubscribe: () => {},
         },
-      }
-    },
+      },
+    }),
     signInWithOtp: async () => ({
       data: null,
       error: null,
@@ -41,7 +40,6 @@ function createDemoAuth() {
   }
 }
 
-/** Fluent chain stub: .from().select().eq().single() etc. */
 function createDemoQuery() {
   const result = { data: [] as unknown[], error: null as null }
   const singleResult = { data: null, error: null }
@@ -60,6 +58,16 @@ function createDemoQuery() {
 }
 
 if (supabaseUrl && supabaseAnonKey) {
+  if (
+    typeof supabaseAnonKey === "string" &&
+    supabaseAnonKey.startsWith("sb_publishable_")
+  ) {
+    console.warn(
+      "[ChordBlocks] VITE_SUPABASE_ANON_KEY looks like a publishable key (sb_publishable_…). " +
+        "Prefer the legacy anon JWT (eyJ…) from Project Settings → API Keys if you see Invalid JWT errors.",
+    )
+  }
+
   try {
     supabase = createClient(supabaseUrl, supabaseAnonKey)
   } catch (err) {
@@ -70,6 +78,7 @@ if (supabaseUrl && supabaseAnonKey) {
       storage: {
         from: () => ({
           upload: async () => ({ data: null, error: null }),
+          remove: async () => ({ data: null, error: null }),
           getPublicUrl: () => ({ data: { publicUrl: "" } }),
         }),
       },
@@ -90,6 +99,7 @@ if (supabaseUrl && supabaseAnonKey) {
     storage: {
       from: () => ({
         upload: async () => ({ data: null, error: null }),
+        remove: async () => ({ data: null, error: null }),
         getPublicUrl: () => ({ data: { publicUrl: "" } }),
       }),
     },

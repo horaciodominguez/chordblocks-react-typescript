@@ -357,15 +357,33 @@ export const reducer = (
       }
     }
 
-    case "RESET":
+    case "RESET": {
+      const bpm = initialSong.timeSignature.beatsPerMeasure
+      const freshSong: SongType = {
+        ...initialSong,
+        id: uuidv4(),
+        title: "",
+        artist: "",
+        genre: "",
+        year: new Date().getFullYear(),
+        imageUrl: null,
+        imageBase64: null,
+        songSections: [],
+        timeSignature: { ...initialSong.timeSignature },
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      }
       return {
         ...state,
-        song: initialSong,
+        song: freshSong,
         pendingSection: { id: "", type: "", bars: [], repeats: 1 },
         pendingBlock: undefined,
-        pendingBeats: String(initialSong.timeSignature.beatsPerMeasure),
-        availableBeats: initialSong.timeSignature.beatsPerMeasure,
+        pendingBeats: String(bpm),
+        availableBeats: bpm,
+        editingSectionId: null,
+        errors: {},
       }
+    }
 
     case "SET_ERRORS":
       return { ...state, errors: { ...state.errors, ...action.v } }

@@ -4,22 +4,34 @@ import { LogIn } from "lucide-react"
 import * as Dialog from "@radix-ui/react-dialog"
 import Button from "@/components/ui/Button"
 import Input from "@/components/ui/Input"
+import { toast } from "sonner"
 
 export function LoginForm() {
   const [email, setEmail] = useState("")
   const [sent, setSent] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    //prevent input empty submission
     if (email.trim() === "") {
-      console.log("Email is required")
+      toast.error("Email is required")
       return
     }
 
-    await signIn(email)
-    setSent(true)
+    setSubmitting(true)
+    try {
+      await signIn(email.trim())
+      setSent(true)
+      toast.success("Check your email for the login link")
+    } catch (err) {
+      console.error("signIn error:", err)
+      const message =
+        err instanceof Error ? err.message : "Could not send login link"
+      toast.error(message)
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   if (sent) {
@@ -46,6 +58,7 @@ export function LoginForm() {
         <Button
           variant="save"
           type="submit"
+          disabled={submitting}
           className="flex items-center justify-center gap-2"
         >
           <LogIn size={16} /> Login

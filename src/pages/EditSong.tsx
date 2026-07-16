@@ -20,12 +20,20 @@ export default function EditSong() {
     navigate("/")
   }
 
+  if (loading) {
+    return (
+      <>
+        <PageTitle>Edit Song</PageTitle>
+        <LoaderSpinner />
+      </>
+    )
+  }
+
   if (!song) return <div>Song not found</div>
 
   return (
     <>
       <PageTitle>Edit Song</PageTitle>
-      {loading && <LoaderSpinner />}
       <SongForm handleAddSong={handleSubmit} initialSong={song} />
     </>
   )

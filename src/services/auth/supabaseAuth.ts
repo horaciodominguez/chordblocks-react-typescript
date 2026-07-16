@@ -1,7 +1,12 @@
 import { supabase } from "@/services/supabaseClient"
 
 export async function signIn(email: string) {
-  const { data, error } = await supabase.auth.signInWithOtp({ email })
+  const { data, error } = await supabase.auth.signInWithOtp({
+    email,
+    options: {
+      emailRedirectTo: typeof window !== "undefined" ? window.location.origin : undefined,
+    },
+  })
   if (error) throw error
   return data
 }

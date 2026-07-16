@@ -11,21 +11,45 @@ import { supabase } from "@/services/supabaseClient"
 import type { User, Session, AuthChangeEvent } from "@supabase/supabase-js"
 import { syncAll } from "@/services/sync/syncManager"
 import { ensureLocalSongs } from "@/modules/songs/utils/seedLocalSongs"
+import { idbStorage } from "@/services/storage/providers/storage.idb"
+import { toast } from "sonner"
 
 type AuthContextValue = {
   user: User | null
   ready: boolean
-  /** Bumps after each successful/attempted sync so SongsProvider can refresh IDB */
   syncEpoch: number
+  syncing: boolean
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null)
 
-async function runSyncSafe(): Promise<void> {
+const SYNC_TIMEOUT_MS = 15_000
+const RESYNC_DEBOUNCE_MS = 2_000
+
+function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
+  return new Promise((resolve, reject) => {
+    const t = setTimeout(() => reject(new Error("sync timeout")), ms)
+    promise.then(
+      (v) => {
+        clearTimeout(t)
+        resolve(v)
+      },
+      (e) => {
+        clearTimeout(t)
+        reject(e)
+      },
+    )
+  })
+}
+
+async function runSyncSafe(showToastOnFail = false): Promise<void> {
   try {
-    await syncAll()
+    await withTimeout(syncAll(), SYNC_TIMEOUT_MS)
   } catch (err) {
     console.error("syncAll error:", err)
+    if (showToastOnFail) {
+      toast.error("Sync failed or timed out. Showing local data.")
+    }
   }
 }
 
@@ -34,18 +58,22 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const prevUserRef = useRef<User | null>(null)
   const [ready, setReady] = useState(false)
   const [syncEpoch, setSyncEpoch] = useState(0)
+  const [syncing, setSyncing] = useState(false)
   const syncingRef = useRef(false)
+  const userRef = useRef<User | null>(null)
 
   const bumpSyncEpoch = () => setSyncEpoch((n) => n + 1)
 
-  const syncInBackground = async () => {
+  const syncInBackground = async (showToastOnFail = false) => {
     if (syncingRef.current) return
     syncingRef.current = true
+    setSyncing(true)
     try {
-      await runSyncSafe()
+      await runSyncSafe(showToastOnFail)
       bumpSyncEpoch()
     } finally {
       syncingRef.current = false
+      setSyncing(false)
     }
   }
 
@@ -61,25 +89,24 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         const currentUser = data?.user ?? null
         setUser(currentUser)
         prevUserRef.current = currentUser
+        userRef.current = currentUser
 
         if (currentUser) {
-          // Logged in: pull cloud FIRST — never seed empty IDB before sync
-          // (seeding+pending was overwriting Supabase with mock titles)
-          await runSyncSafe()
-          if (mounted) bumpSyncEpoch()
+          await idbStorage.prepareForUser(currentUser.id)
+          // Unblock UI immediately — sync in background (A1)
+          if (mounted) setReady(true)
+          void syncInBackground(true)
         } else {
-          // Anonymous: seed mockups into local + pending
           await ensureLocalSongs({ hasSession: false })
+          if (mounted) setReady(true)
         }
       } catch (err) {
         console.error("auth init error:", err)
-        // Fallback: still try anonymous seed so UI has something
         try {
           await ensureLocalSongs({ hasSession: false })
         } catch {
           /* ignore */
         }
-      } finally {
         if (mounted) setReady(true)
       }
     }
@@ -95,6 +122,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           if (refreshed) {
             setUser(refreshed)
             prevUserRef.current = refreshed
+            userRef.current = refreshed
           }
           return
         }
@@ -102,32 +130,64 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         const newUser = session?.user ?? null
         const wasLoggedOut = !prevUserRef.current
         const isLogin = wasLoggedOut && !!newUser
+        const isUserSwitch =
+          !!prevUserRef.current &&
+          !!newUser &&
+          prevUserRef.current.id !== newUser.id
 
         setUser(newUser)
         prevUserRef.current = newUser
+        userRef.current = newUser
 
         if (event === "SIGNED_OUT" || (!newUser && !wasLoggedOut)) {
           bumpSyncEpoch()
           return
         }
 
-        // Login: sync pulls remote; do not seed first
-        if (isLogin || event === "SIGNED_IN") {
-          void syncInBackground()
+        if (isLogin || isUserSwitch || event === "SIGNED_IN") {
+          void (async () => {
+            if (newUser) {
+              await idbStorage.prepareForUser(newUser.id)
+            }
+            await syncInBackground(true)
+          })()
         }
       },
     )
 
+    // A5: re-sync on focus / online
+    let debounceTimer: ReturnType<typeof setTimeout> | null = null
+    const scheduleResync = () => {
+      if (!userRef.current) return
+      if (debounceTimer) clearTimeout(debounceTimer)
+      debounceTimer = setTimeout(() => {
+        if (document.visibilityState === "visible" && userRef.current) {
+          void syncInBackground(false)
+        }
+      }, RESYNC_DEBOUNCE_MS)
+    }
+
+    const onVisibility = () => {
+      if (document.visibilityState === "visible") scheduleResync()
+    }
+    const onOnline = () => scheduleResync()
+
+    document.addEventListener("visibilitychange", onVisibility)
+    window.addEventListener("online", onOnline)
+
     return () => {
       mounted = false
       listener?.subscription?.unsubscribe()
+      document.removeEventListener("visibilitychange", onVisibility)
+      window.removeEventListener("online", onOnline)
+      if (debounceTimer) clearTimeout(debounceTimer)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- mount-only auth bootstrap
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const value = useMemo(
-    () => ({ user, ready, syncEpoch }),
-    [user, ready, syncEpoch],
+    () => ({ user, ready, syncEpoch, syncing }),
+    [user, ready, syncEpoch, syncing],
   )
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
