@@ -3,15 +3,12 @@ import { idbStorage } from "@/services/storage/providers/storage.idb"
 import { supabaseStorage } from "@/services/storage/providers/storage.supabase"
 import type { Song } from "@/modules/songs/types/song.types"
 import type { PendingDrafts } from "@/services/storage/types/storage.types"
+import { seedIfRemoteAlsoEmpty } from "@/modules/songs/utils/seedLocalSongs"
 
 /**
- * @description Helper to get user id from supabase auth
- * @returns user id
- * --
- * Helper para obtener userId actual desde supabase auth
+ * Helper to get user id from supabase auth
  */
 async function getCurrentUserId(): Promise<string | null> {
-  console.log("🙍‍♂️ syncManager.ts  getCurrentUserId called")
   try {
     const { data } = await supabase.auth.getUser()
     return data?.user?.id ?? null
@@ -22,68 +19,60 @@ async function getCurrentUserId(): Promise<string | null> {
 }
 
 /**
- * @description Try to sync a song with Supabase.
- * If it fails, leave it in pending (idb pending store).
- * @param userId
- * @param song
- * @returns void
- * --
- * Intenta sincronizar una canción concreta con Supabase.
- * Si falla, la deja en pending (idb pending store).
+ * Stamp updatedAt before a user-driven persist (create/update).
+ * Sync merge must NOT call this — it preserves existing timestamps for LWW.
  */
+export function touchSong(song: Song): Song {
+  return {
+    ...song,
+    updatedAt: new Date().toISOString(),
+    createdAt: song.createdAt || new Date().toISOString(),
+  }
+}
 
+/**
+ * Try to sync a song with Supabase.
+ * If it fails, leave it in pending (idb pending store).
+ */
 export const syncSong = async (userId: string, song: Song) => {
-  console.log("syncSong called for song:", song)
   try {
     await supabaseStorage.saveSong(userId, song)
     await idbStorage.removePending(song.id)
-  } catch (error) {
+  } catch {
     await idbStorage.addPending(song)
   }
 }
 
 /**
- * @description Save song locally (idb) and then try to sync it with Supabase.
+ * Save song locally (idb) and then try to sync it with Supabase.
  * If it fails, mark it as pending.
- * @param song
- * @returns void
- * --
- * Guarda localmente siempre (idb) y luego intenta subir a Supabase si hay usuario.
- * Si no hay usuario o falla, marca la canción como pending.
+ * Sets updatedAt for user-driven saves.
  */
-
 export const saveSongWithSync = async (song: Song) => {
-  console.log("🎇 saveSongWithSync called for song:", song)
-  await idbStorage.saveSong(song)
+  const toSave = touchSong(song)
+  await idbStorage.saveSong(toSave)
 
   const userId = await getCurrentUserId()
 
   if (!userId) {
-    await idbStorage.addPending(song)
+    await idbStorage.addPending(toSave)
     return
   }
 
   try {
-    await supabaseStorage.saveSong(userId, song)
-    await idbStorage.removePending(song.id)
+    await supabaseStorage.saveSong(userId, toSave)
+    await idbStorage.removePending(toSave.id)
   } catch (error) {
     console.error("saveSongWithSync error:", error)
-    await idbStorage.addPending(song)
+    await idbStorage.addPending(toSave)
   }
 }
 
 /**
- * @description Delete song locally (idb) and then try to sync it with Supabase.
- * If it fails, mark it as pending.
- * @param songId
- * @returns void
- * --
- * Elimina localmente siempre (idb) y luego intenta borrar en Supabase si hay usuario.
- * Si no hay usuario o falla, marca la canción como pending.
+ * Delete song locally (idb) and then try to sync it with Supabase.
+ * If it fails, mark it as pending delete.
  */
-
 export const deleteSongWithSync = async (songId: string) => {
-  console.log("🧧 deleteSongWithSync called for songId:", songId)
   await idbStorage.deleteSong(songId)
 
   const userId = await getCurrentUserId()
@@ -102,58 +91,81 @@ export const deleteSongWithSync = async (songId: string) => {
   }
 }
 
+function isNewer(a: Song, b: Song): boolean {
+  return new Date(a.updatedAt) > new Date(b.updatedAt)
+}
+
 /**
- * @description Try to sync all songs with Supabase.
- * @returns void
- * --
- * Intenta sincronizar todas las canciones con Supabase.
+ * Sync local ↔ remote with LWW by updatedAt.
+ *
+ * Order matters:
+ * 1. Pull remote first (source of truth when logged in)
+ * 2. Flush pending with LWW — never upload stale seed over newer remote
+ * 3. If both empty → seed mockups (new account)
+ * 4. Merge and write winners to both stores
  */
-
 export const syncAll = async () => {
-  console.log("🛵 syncAll called")
-
   const userId = await getCurrentUserId()
   if (!userId) return
 
-  // upload pending changes first
+  // 1) Remote first — so we know cloud truth before touching pending
+  let remote = await supabaseStorage.getSongs(userId)
+  const remoteById = new Map(remote.map((r) => [r.id, r]))
+
+  // 2) Flush pending with LWW (stale mock seeds must not overwrite cloud)
   const pendings = (await idbStorage.getPending()) as PendingDrafts[]
 
   for (const p of pendings) {
     try {
       if ("_action" in p && p._action === "delete") {
         await supabaseStorage.deleteSong(userId, p.id)
-      } else {
-        await supabaseStorage.saveSong(userId, p as Song)
+        await idbStorage.removePending(p.id)
+        remoteById.delete(p.id)
+        continue
       }
-      await idbStorage.removePending(p.id)
+
+      const pendingSong = p as Song
+      const remoteSong = remoteById.get(pendingSong.id)
+
+      if (!remoteSong || isNewer(pendingSong, remoteSong)) {
+        await supabaseStorage.saveSong(userId, pendingSong)
+        remoteById.set(pendingSong.id, pendingSong)
+      }
+
+      // Drop pending once evaluated (including discarded stale seeds)
+      await idbStorage.removePending(pendingSong.id)
     } catch (err) {
       console.error("pending sync failed", err)
     }
   }
 
-  // Merge local and remote
-  const local = await idbStorage.getSongs()
-  const remote = await supabaseStorage.getSongs(userId)
+  // Refresh remote after pending pushes
+  remote = await supabaseStorage.getSongs(userId)
 
+  // 3) Brand-new account: nothing local, nothing remote → seed then continue
+  let local = await idbStorage.getSongs()
+  if (local.length === 0 && remote.length === 0) {
+    local = await seedIfRemoteAlsoEmpty(remote)
+  }
+
+  // 4) Merge LWW
   const map = new Map<string, Song>()
 
   for (const r of remote) map.set(r.id, r)
 
   for (const l of local) {
     const r = map.get(l.id)
-    if (!r || new Date(l.updatedAt) > new Date(r.updatedAt)) {
+    if (!r || isNewer(l, r)) {
       map.set(l.id, l)
-      console.log("syncAll: local song is newer, adding to sync:", l)
-    } else {
-      console.log("syncAll: remote song is newer, keeping remote:", r)
     }
   }
 
-  // Upload merged songs to Supabase and save to idb
+  // 5) Write mirror: cloud + IDB (preserve updatedAt)
   for (const song of map.values()) {
     await supabaseStorage.saveSong(userId, song)
     await idbStorage.saveSong(song)
   }
 
-  await idbStorage.clearPending()
+  // Drop local-only stale copies that lost to remote are already overwritten.
+  // If remote had data and local was empty, map === remote → IDB hydrated from cloud.
 }

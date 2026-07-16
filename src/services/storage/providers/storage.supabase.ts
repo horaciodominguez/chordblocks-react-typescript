@@ -23,9 +23,10 @@ export const supabaseStorage = {
     )
     await supabase.auth.getSession()
 
+    // Preserve song.updatedAt for LWW; only fill createdAt if missing
     const now = new Date().toISOString()
-    song.updatedAt = now
     song.createdAt = song.createdAt ?? now
+    song.updatedAt = song.updatedAt ?? now
 
     if (song.imageBase64) {
       const imageUrl = await uploadSongImage(userId, song.id, song.imageBase64)
