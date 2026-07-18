@@ -175,9 +175,9 @@ export function SongFormMeta({ dispatch, state, song }: Props) {
       <div className="mb-4">
         <div className="flex flex-col sm:flex-row gap-4 items-start">
           <div className="shrink-0">
-            {song.imageBase64 ? (
+            {song.imageBase64 || song.imageUrl ? (
               <img
-                src={song.imageBase64}
+                src={song.imageBase64 ?? song.imageUrl!}
                 alt="Song cover"
                 className="w-24 h-24 object-cover rounded"
               />

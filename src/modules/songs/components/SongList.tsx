@@ -164,9 +164,9 @@ export const SongList = () => {
             </h2>
             <div className="flex flex-col sm:flex-row gap-4">
               <div className="w-full sm:w-1/3 sm:mr-0 shrink-0">
-                {song.imageUrl || song.imageBase64 ? (
+                {song.imageBase64 || song.imageUrl ? (
                   <img
-                    src={song.imageUrl ?? song.imageBase64!}
+                    src={song.imageBase64 ?? song.imageUrl!}
                     alt={song.title}
                     className="w-full aspect-square object-cover rounded"
                   />
