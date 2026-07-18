@@ -15,7 +15,7 @@ export default function EditSong() {
   const handleSubmit = async (song: Song) => {
     if (!song) return
     await updateSong(song)
-    navigate(`/song/${song.id}`)
+    navigate(`/song/${song.id}`, { replace: true })
   }
 
   if (loading) {
@@ -42,7 +42,7 @@ export default function EditSong() {
       <SongForm
         handleAddSong={handleSubmit}
         initialSong={song}
-        onCancel={() => navigate(`/song/${song.id}`)}
+        onCancel={() => navigate(`/song/${song.id}`, { replace: true })}
       />
     </>
   )

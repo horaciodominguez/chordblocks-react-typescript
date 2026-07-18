@@ -43,31 +43,32 @@ export const Song = ({ song }: Props) => {
 
   return (
     <div key={song.id ? song.id : null} className="panel-variant-1">
-      <div className="flex flex-col gap-3 md:flex-row md:justify-between md:items-start mb-4">
-        <div className="flex flex-col sm:flex-row sm:flex-wrap sm:gap-4 gap-1">
-          <h3 className="text-sm text-zinc-400">
+      <div className="flex flex-col gap-3 mb-4 pb-3 border-b border-zinc-700/50">
+        <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 text-sm text-zinc-400">
+          <span>
             Artist:{" "}
-            <span className="font-bold text-zinc-200">{song.artist}</span>
-          </h3>
+            <span className="font-semibold text-zinc-200">{song.artist}</span>
+          </span>
           {displaySong.mainKey ? (
-            <p className="text-sm text-zinc-400">
+            <span>
               Key:{" "}
-              <span className="font-bold text-zinc-200">
+              <span className="font-semibold text-zinc-200">
                 {displaySong.mainKey}
               </span>
-            </p>
+            </span>
           ) : null}
-          <p className="text-sm text-zinc-400">
-            Time Measure:{" "}
-            <span className="font-bold text-zinc-200">
-              {song.timeSignature.beatsPerMeasure} /{" "}
+          <span>
+            Meter:{" "}
+            <span className="font-semibold text-zinc-200">
+              {song.timeSignature.beatsPerMeasure}/
               {song.timeSignature.noteValue}
             </span>
-          </p>
+          </span>
         </div>
-        <div className="flex flex-col sm:flex-row sm:items-center gap-3 shrink-0">
-          <div className="flex items-center gap-2">
-            <span className="text-sm text-gray-400">Transpose</span>
+
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="text-sm text-zinc-400">Transpose</span>
             <div className="flex items-center gap-1">
               <button
                 type="button"
@@ -76,7 +77,7 @@ export const Song = ({ song }: Props) => {
                 onClick={() =>
                   setSemitones((v) => Math.max(TRANSPOSE_MIN, v - 1))
                 }
-                className="flex items-center justify-center min-h-11 min-w-11 rounded-md border border-zinc-700 text-indigo-300 hover:bg-zinc-800/50 disabled:opacity-40 disabled:pointer-events-none"
+                className="flex items-center justify-center min-h-11 min-w-11 rounded-md border border-zinc-600 text-zinc-200 hover:bg-zinc-800/50 disabled:opacity-40 disabled:pointer-events-none"
               >
                 <Minus size={16} />
               </button>
@@ -93,7 +94,7 @@ export const Song = ({ song }: Props) => {
                 onClick={() =>
                   setSemitones((v) => Math.min(TRANSPOSE_MAX, v + 1))
                 }
-                className="flex items-center justify-center min-h-11 min-w-11 rounded-md border border-zinc-700 text-indigo-300 hover:bg-zinc-800/50 disabled:opacity-40 disabled:pointer-events-none"
+                className="flex items-center justify-center min-h-11 min-w-11 rounded-md border border-zinc-600 text-zinc-200 hover:bg-zinc-800/50 disabled:opacity-40 disabled:pointer-events-none"
               >
                 <Plus size={16} />
               </button>
@@ -104,8 +105,9 @@ export const Song = ({ song }: Props) => {
               </span>
             ) : null}
           </div>
-          <div className="flex items-center gap-3">
-            <label htmlFor="toggle-diagrams" className="text-sm text-gray-400">
+
+          <div className="flex items-center gap-3 sm:pl-4 sm:border-l sm:border-zinc-700/60">
+            <label htmlFor="toggle-diagrams" className="text-sm text-zinc-400">
               Diagrams
             </label>
             <Switch.Root

@@ -11,7 +11,7 @@ export default function NewSong() {
   const handleSubmit = async (song: Song) => {
     if (!song) return
     await addSong(song)
-    navigate(`/song/${song.id}`)
+    navigate(`/song/${song.id}`, { replace: true })
   }
 
   return (
