@@ -2,7 +2,11 @@ import InputField from "@/components/ui/InputField"
 import Label from "@/components/ui/Label"
 import { Select } from "@/components/ui/Select"
 
-import { BEAT_VALUES, noteValues } from "@/modules/songs/constants/song"
+import {
+  BEAT_VALUES,
+  MAIN_KEY_OPTIONS,
+  noteValues,
+} from "@/modules/songs/constants/song"
 import type {
   Action,
   SongFormState,
@@ -133,6 +137,22 @@ export function SongFormMeta({ dispatch, state, song }: Props) {
             icon={<Tag size={16} />}
           />
         </div>
+        <div className="w-full sm:w-28">
+          <Select
+            name="mainKey"
+            label="Key"
+            options={MAIN_KEY_OPTIONS}
+            defaultValue="—"
+            value={song.mainKey ?? ""}
+            onChange={(e) => {
+              dispatch({
+                type: "SET_MAIN_KEY",
+                v: e.target.value || undefined,
+              })
+            }}
+            tabIndex={6}
+          />
+        </div>
         <div className="w-full sm:w-32">
           <InputField
             label="Year"
@@ -146,7 +166,7 @@ export function SongFormMeta({ dispatch, state, song }: Props) {
               })
             }}
             value={song.year.toString()}
-            tabIndex={6}
+            tabIndex={7}
             icon={<Calendar size={16} />}
           />
         </div>

@@ -34,6 +34,7 @@ export type Action =
   | { type: "SET_ARTIST"; v: string }
   | { type: "SET_GENRE"; v: string }
   | { type: "SET_YEAR"; v: number }
+  | { type: "SET_MAIN_KEY"; v: string | undefined }
   | { type: "SET_TIME_SIGNATURE"; v: TimeSignature }
   | { type: "SET_IMAGE_BASE64"; v: string | null }
   | { type: "ADD_SECTION_TYPE"; v: SectionType }
@@ -88,6 +89,16 @@ export const reducer = (
 
     case "SET_YEAR":
       return { ...state, song: { ...state.song, year: action.v } }
+
+    case "SET_MAIN_KEY": {
+      const { mainKey: _, ...rest } = state.song
+      return {
+        ...state,
+        song: action.v
+          ? { ...state.song, mainKey: action.v }
+          : { ...rest },
+      }
+    }
 
     case "SET_TIME_SIGNATURE":
       return {
@@ -374,6 +385,7 @@ export const reducer = (
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
       }
+      delete freshSong.mainKey
       return {
         ...state,
         song: freshSong,

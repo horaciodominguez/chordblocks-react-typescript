@@ -23,6 +23,12 @@ export const Song = ({ song }: Props) => {
             Artist:{" "}
             <span className="font-bold text-zinc-200">{song.artist}</span>
           </h3>
+          {song.mainKey ? (
+            <p className="text-sm text-zinc-400">
+              Key:{" "}
+              <span className="font-bold text-zinc-200">{song.mainKey}</span>
+            </p>
+          ) : null}
           <p className="text-sm text-zinc-400">
             Time Measure:{" "}
             <span className="font-bold text-zinc-200">
