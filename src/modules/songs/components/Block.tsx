@@ -1,7 +1,7 @@
 import ChordDiagram from "@/modules/chords/components/ChordDiagram"
 import Chord from "@/modules/chords/components/Chord"
 import { Rest } from "@/modules/chords/components/Rest"
-import { chordWidth } from "@/modules/chords/utils/chord.utils"
+import { chordFlexStyle } from "@/modules/chords/utils/chord.utils"
 import type { Block as BlockType } from "@/modules/songs/types/block.types"
 import type { TimeSignature } from "@/modules/songs/types/song.types"
 import { ArrowLeftRight, Trash } from "lucide-react"
@@ -32,21 +32,20 @@ export const Block = forwardRef<HTMLDivElement, Props>(
     },
     ref,
   ) => {
-    const width = chordWidth(block.duration, timeSignature.beatsPerMeasure)
     const isRest = !!(block.type === "rest")
     const hasControls = !!(dragStyle || onDelete)
 
     return (
       <div
         ref={ref}
-        className={`BLOCK-WRAP relative group font-bold text-white text-xs ${hasControls ? "py-2 pb-8" : "py-2"}`}
+        className={`BLOCK-WRAP relative group font-bold text-white text-xs min-w-0 px-1 box-border ${hasControls ? "py-2 pb-8" : "py-2"}`}
         style={{
-          width,
+          ...chordFlexStyle(block.duration),
           visibility: isDragging ? "hidden" : "visible",
           ...(dragStyle ?? {}),
         }}
       >
-        <div className="flex flex-col gap-4 items-center justify-center">
+        <div className="flex flex-col gap-4 items-center justify-center min-w-0 w-full overflow-hidden">
           {isRest ? (
             <Rest
               duration={block.duration}

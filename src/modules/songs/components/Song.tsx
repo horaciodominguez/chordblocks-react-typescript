@@ -59,7 +59,7 @@ export const Song = ({ song }: Props) => {
             className="flex flex-col justify-start gap-3 mb-6"
           >
             <div className="flex items-center gap-2">
-              <SectionTag typeName={section.type} />
+              <SectionTag typeName={section.type} label={section.label} />
               {section.repeats && section.repeats > 1 && (
                 <span className="text-xs font-semibold text-blue-400 select-none">
                   ×{section.repeats}

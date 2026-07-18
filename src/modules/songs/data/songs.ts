@@ -88,6 +88,7 @@ export const songsData: Song[] = [
       {
         id: "00000000-0000-4000-8000-000000000012",
         type: "VERSE", // Verso 1: "Mama take this badge off of me..."
+        label: "A",
         bars: [
           {
             id: "00000000-0000-4000-8000-000000000013",
@@ -234,6 +235,7 @@ export const songsData: Song[] = [
       {
         id: "00000000-0000-4000-8000-000000000034",
         type: "VERSE", // Verso 2: "Mama put my guns in the ground..."
+        label: "A",
         bars: [
           {
             id: "00000000-0000-4000-8000-000000000035",
@@ -539,6 +541,7 @@ export const songsData: Song[] = [
       {
         id: "00000000-0000-4000-8000-000000000078",
         type: "VERSE", // "Someone told me long ago..."
+        label: "A",
         bars: [
           {
             id: "00000000-0000-4000-8000-000000000079",
@@ -624,6 +627,7 @@ export const songsData: Song[] = [
       {
         id: "00000000-0000-4000-8000-000000000091",
         type: "VERSE", // "Yesterday and days before..."
+        label: "A",
         bars: [
           {
             id: "00000000-0000-4000-8000-000000000092",
@@ -789,6 +793,7 @@ export const songsData: Song[] = [
       {
         id: "00000000-0000-4000-8000-000000000116",
         type: "VERSE", // "Sun is shining on a cloudy day..."
+        label: "A",
         bars: [
           {
             id: "00000000-0000-4000-8000-000000000117",

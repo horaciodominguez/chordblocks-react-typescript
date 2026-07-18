@@ -46,6 +46,7 @@ export type Action =
   | { type: "REORDER_BARS_IN_SECTION"; sectionId: string; order: string[] }
   | { type: "REORDER_BLOCKS"; barId: string; order: string[] }
   | { type: "SET_PENDING_SECTION_REPEATS"; v: number }
+  | { type: "SET_PENDING_SECTION_LABEL"; v: string | undefined }
   | { type: "CANCEL_SECTION" }
   | { type: "FINALIZE_SECTION" }
   | { type: "RESET" }
@@ -324,6 +325,16 @@ export const reducer = (
       }
     }
 
+    case "SET_PENDING_SECTION_LABEL": {
+      const { label: _, ...rest } = state.pendingSection
+      return {
+        ...state,
+        pendingSection: action.v
+          ? { ...state.pendingSection, label: action.v }
+          : { ...rest },
+      }
+    }
+
     case "CANCEL_SECTION": {
       return {
         ...state,
@@ -351,6 +362,9 @@ export const reducer = (
           })),
         })),
         repeats: state.pendingSection.repeats,
+        ...(state.pendingSection.label?.trim()
+          ? { label: state.pendingSection.label.trim() }
+          : {}),
       }
 
       const bpm = state.song.timeSignature.beatsPerMeasure
@@ -426,17 +440,30 @@ export const reducer = (
       }
     }
     case "UPDATE_SECTION": {
-      if (state.editingSectionId === null || !state.pendingSection) return state
+      if (
+        state.editingSectionId === null ||
+        !state.pendingSection ||
+        state.pendingSection.type === ""
+      )
+        return state
+
+      const label = state.pendingSection.label?.trim()
+      const updated: SongSection = {
+        id: state.pendingSection.id,
+        type: state.pendingSection.type,
+        bars: state.pendingSection.bars,
+        repeats: state.pendingSection.repeats,
+        ...(label ? { label } : {}),
+      }
 
       return {
         ...state,
         song: {
           ...state.song,
           songSections: state.song.songSections.map((s) =>
-            s.id === state.editingSectionId
-              ? { ...(state.pendingSection as SongSection) }
-              : s
+            s.id === state.editingSectionId ? updated : s
           ),
+          updatedAt: new Date().toISOString(),
         },
         editingSectionId: null,
         pendingSection: { id: "", type: "", bars: [], repeats: 1 },

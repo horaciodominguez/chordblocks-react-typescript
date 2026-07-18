@@ -1,4 +1,4 @@
-import { chordWidth } from "@/modules/chords/utils/chord.utils"
+import { chordOverlayWidth } from "@/modules/chords/utils/chord.utils"
 import {
   closestCenter,
   DndContext,
@@ -125,10 +125,10 @@ export default function ChordsReorder({
               timeSignature={timeSignature}
               block={bar.blocks.find((c) => c.id === activeChord)!}
               dragStyle={{
-                width: chordWidth(
+                width: chordOverlayWidth(
                   bar.blocks.find((c) => c.id === activeChord)!.duration,
-                  timeSignature.beatsPerMeasure,
                 ),
+                flex: "none",
                 display: "flex",
                 opacity: 0.9,
                 boxShadow: "0 4px 10px rgba(0,0,0,0.3)",

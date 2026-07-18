@@ -1,12 +1,14 @@
 type Props = {
   typeName: string
+  label?: string
 }
 
-export const SectionTag = ({ typeName }: Props) => {
+export const SectionTag = ({ typeName, label }: Props) => {
+  const display = label?.trim() ? label.trim() : typeName
+
   return (
-    <>
-      <p
-        className="
+    <p
+      className="
         inline-block 
         bg-blue-100/5
         text-violet-400/90  
@@ -15,9 +17,8 @@ export const SectionTag = ({ typeName }: Props) => {
         px-4 py-2 
         rounded-r-xl 
         text-xs"
-      >
-        {typeName}
-      </p>
-    </>
+    >
+      [{display}]
+    </p>
   )
 }

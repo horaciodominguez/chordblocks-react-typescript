@@ -3,7 +3,7 @@ import type {
   Action,
   SongFormState,
 } from "@/modules/songs/state/songFormReducer"
-import { BEAT_VALUES, SECTION_OPTIONS } from "@/modules/songs/constants/song"
+import { BLOCK_BEAT_VALUES, SECTION_OPTIONS } from "@/modules/songs/constants/song"
 import type {
   SectionType,
   SongSection,
@@ -15,6 +15,7 @@ import BarsReorder from "./BarsReorder"
 import type React from "react"
 import { BlockPicker } from "./BlockPicker"
 import Input from "@/components/ui/Input"
+import InputField from "@/components/ui/InputField"
 
 type Props = {
   dispatch: React.Dispatch<Action>
@@ -87,6 +88,25 @@ export function SectionEditor({ state, dispatch, onStopEditing }: Props) {
 
       {state.pendingSection.id !== "" && (
         <div className="mb-4">
+          <InputField
+            label="Label (optional)"
+            name="sectionLabel"
+            value={state.pendingSection.label ?? ""}
+            onChange={(e) => {
+              dispatch({
+                type: "SET_PENDING_SECTION_LABEL",
+                v: e.target.value === "" ? undefined : e.target.value,
+              })
+            }}
+          />
+          <p className="text-xs text-zinc-500 mt-1">
+            Keep-style name shown as [A]. Leave empty to show the section type.
+          </p>
+        </div>
+      )}
+
+      {state.pendingSection.id !== "" && (
+        <div className="mb-4">
           <div className="flex flex-col sm:flex-row gap-4">
             <div className="w-full sm:w-1/2">
               <BlockPicker
@@ -109,7 +129,9 @@ export function SectionEditor({ state, dispatch, onStopEditing }: Props) {
               <Select
                 name="addBeats"
                 label="Beats"
-                options={BEAT_VALUES.filter((v) => v <= state.availableBeats)}
+                options={BLOCK_BEAT_VALUES.filter(
+                  (v) => v <= state.availableBeats
+                )}
                 onChange={(e) => {
                   if (e.target.value) {
                     dispatch({ type: "ADD_BEATS", v: e.target.value })
@@ -151,7 +173,10 @@ export function SectionEditor({ state, dispatch, onStopEditing }: Props) {
           <h2 className="mb-4">Pending Section</h2>
 
           <div className="mb-4 flex items-center gap-2">
-            <SectionTag typeName={state.pendingSection.type} />
+            <SectionTag
+              typeName={state.pendingSection.type}
+              label={state.pendingSection.label}
+            />
             {(state.pendingSection.repeats ?? 1) > 1 && (
               <span className="text-xs font-semibold text-blue-400">
                 ×{state.pendingSection.repeats}

@@ -1,8 +1,16 @@
 import { chordsData } from "@/modules/chords/data/chords"
 import type { Chord } from "@/modules/chords/types/chord.types"
+import type { CSSProperties } from "react"
 
-export const chordWidth = (duration: number, beatsPerMeasure: number): string =>
-  `${(duration / beatsPerMeasure) * 100}%`
+/** Flex share of a bar by beat duration (e.g. 3 + 1 in 4/4 → 3:1). */
+export const chordFlexStyle = (duration: number): CSSProperties => ({
+  flex: `${Math.max(1, duration)} 1 0%`,
+  minWidth: 0,
+})
+
+/** Fixed width for drag overlay (portal has no bar parent). */
+export const chordOverlayWidth = (duration: number): string =>
+  `${Math.max(3.5, duration * 2.25)}rem`
 
 export function getChordByName(name?: string | null): Chord | null {
   if (!name) return null

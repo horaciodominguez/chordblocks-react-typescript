@@ -40,12 +40,16 @@ export const BarSchema = z.object({
 export const SectionSchema = z.object({
   id: z.string(),
   type: z.enum(SECTION_OPTIONS),
+  label: z.preprocess(
+    (v) => (v === "" || v === null || v === undefined ? undefined : v),
+    z.string().min(1).optional()
+  ),
   bars: z.array(BarSchema).min(1, "Section must have at least one bar"),
   repeats: z.number().int().min(1, "Min repeats is 1"),
 })
 
 export const TimeSignatureSchema = z.object({
-  beatsPerMeasure: oneOfNumbers(BEAT_VALUES, "Beats must be one of 1-12"),
+  beatsPerMeasure: oneOfNumbers(BEAT_VALUES, "Beats must be one of 2-12"),
   noteValue: oneOfNumbers(noteValues, "Note value must be 2, 4 or 8"),
 })
 
