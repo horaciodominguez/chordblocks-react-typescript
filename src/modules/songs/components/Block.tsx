@@ -30,16 +30,16 @@ export const Block = forwardRef<HTMLDivElement, Props>(
       onDelete,
       showDiagram,
     },
-    ref
+    ref,
   ) => {
     const width = chordWidth(block.duration, timeSignature.beatsPerMeasure)
-
     const isRest = !!(block.type === "rest")
+    const hasControls = !!(dragStyle || onDelete)
 
     return (
       <div
         ref={ref}
-        className="BLOCK-WRAP relative group py-2 font-bold text-white text-xs"
+        className={`BLOCK-WRAP relative group font-bold text-white text-xs ${hasControls ? "py-2 pb-8" : "py-2"}`}
         style={{
           width,
           visibility: isDragging ? "hidden" : "visible",
@@ -59,36 +59,40 @@ export const Block = forwardRef<HTMLDivElement, Props>(
           {showDiagram && <ChordDiagram chordName={block.chord?.name ?? ""} />}
         </div>
 
-        {(dragStyle || onDelete) && (
+        {hasControls && (
           <div
             className="
-            flex flex-row
-            justify-center
-            items-center
-            absolute -bottom-5 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition"
+            flex flex-row justify-center items-center gap-1
+            absolute bottom-0 left-1/2 -translate-x-1/2
+            opacity-100 md:opacity-0 md:group-hover:opacity-100 transition"
           >
             <div
               {...dragAttributes}
               {...dragListeners}
-              className="cursor-grab text-zinc-400 hover:text-zinc-200"
+              role="button"
+              tabIndex={0}
+              aria-label="Drag to reorder"
+              className="cursor-grab touch-none text-zinc-400 hover:text-zinc-200 p-1.5 min-h-9 min-w-9 flex items-center justify-center"
             >
               <ArrowLeftRight className="w-4 h-4" />
             </div>
 
-            <button
-              className="text-zinc-400 hover:text-zinc-200"
-              type="button"
-              onClick={onDelete}
-              aria-label="Delete chord"
-              title="Delete chord"
-            >
-              <Trash className="w-4 h-4" />
-            </button>
+            {onDelete && (
+              <button
+                className="text-zinc-400 hover:text-zinc-200 p-1.5 min-h-9 min-w-9 flex items-center justify-center"
+                type="button"
+                onClick={onDelete}
+                aria-label="Delete chord"
+                title="Delete chord"
+              >
+                <Trash className="w-4 h-4" />
+              </button>
+            )}
           </div>
         )}
       </div>
     )
-  }
+  },
 )
 
 Block.displayName = "Block"

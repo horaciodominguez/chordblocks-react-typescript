@@ -2,6 +2,7 @@ import {
   DndContext,
   closestCenter,
   PointerSensor,
+  TouchSensor,
   useSensor,
   useSensors,
   type DragEndEvent,
@@ -61,15 +62,15 @@ function SortableBar({
     <div
       ref={setNodeRef}
       style={style}
-      className="BAR-EDITION-WRAP mb-2 py-2 pb-4 pt-0 "
+      className="BAR-EDITION-WRAP mb-2 py-2 pb-2 pt-0 min-w-0"
     >
       <div
         {...attributes}
         {...listeners}
-        className="flex items-center gap-2 
-                  cursor-grab text-xs 
-                  opacity-0 hover:opacity-100 transition text-zinc-400 hover:text-zinc-200 
-                  mb-0"
+        className="flex items-center gap-2 cursor-grab touch-none text-xs
+                  opacity-100 md:opacity-0 md:hover:opacity-100 transition
+                  text-zinc-400 hover:text-zinc-200 mb-1 min-h-8 px-1"
+        aria-label={`Drag bar ${index + 1}`}
       >
         <ArrowLeftRight className="w-4 h-4" /> Bar {index + 1}
       </div>
@@ -90,7 +91,14 @@ export default function BarsReorder({
   onReorderBlocks,
   onDeleteChord,
 }: Props) {
-  const sensors = useSensors(useSensor(PointerSensor))
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: { distance: 8 },
+    }),
+    useSensor(TouchSensor, {
+      activationConstraint: { delay: 200, tolerance: 5 },
+    }),
+  )
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event

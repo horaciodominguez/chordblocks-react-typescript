@@ -24,9 +24,9 @@ type Props = {
 
 export function SectionEditor({ state, dispatch, onStopEditing }: Props) {
   return (
-    <div className="border-[.1px] border-gray-700 bg-black/20 rounded-md p-4 shadow-sm">
-      <div className="mb-4 flex flex-row gap-4">
-        <div className="w-1/2">
+    <div className="border border-gray-700 bg-black/20 rounded-md p-3 sm:p-4 shadow-sm">
+      <div className="mb-4 flex flex-col sm:flex-row gap-4">
+        <div className="w-full sm:w-1/2">
           <Select
             name="sectionType"
             label="Section Type"
@@ -43,12 +43,17 @@ export function SectionEditor({ state, dispatch, onStopEditing }: Props) {
             defaultValue="Select Section Type"
           />
         </div>
-        <div className="w-1/2 flex justify-end items-end">
+        <div className="w-full sm:w-1/2 flex justify-start sm:justify-end items-end">
           {state.pendingSection.id !== "" && (
-            <div className="flex justify-start items-center gap-4">
-              <label className="flex justify-center items-center gap-4">
+            <div className="flex flex-wrap justify-start items-center gap-3">
+              <label
+                htmlFor="section-repeat"
+                className="flex justify-center items-center gap-2 min-h-11"
+              >
                 <input
+                  id="section-repeat"
                   type="checkbox"
+                  className="w-4 h-4"
                   checked={(state.pendingSection.repeats ?? 1) > 1}
                   onChange={(e) => {
                     if (e.target.checked) {
@@ -82,8 +87,8 @@ export function SectionEditor({ state, dispatch, onStopEditing }: Props) {
 
       {state.pendingSection.id !== "" && (
         <div className="mb-4">
-          <div className="flex gap-4">
-            <div className="w-1/2">
+          <div className="flex flex-col sm:flex-row gap-4">
+            <div className="w-full sm:w-1/2">
               <BlockPicker
                 beatsPerMeasure={state.song.timeSignature.beatsPerMeasure}
                 label="Block"
@@ -100,7 +105,7 @@ export function SectionEditor({ state, dispatch, onStopEditing }: Props) {
                 }
               />
             </div>
-            <div className="w-1/2">
+            <div className="w-full sm:w-1/2">
               <Select
                 name="addBeats"
                 label="Beats"
@@ -123,22 +128,21 @@ export function SectionEditor({ state, dispatch, onStopEditing }: Props) {
         (state.pendingBlock.type === "rest" ||
           !!state.pendingBlock.chord?.name) && (
           <div className="mb-4 flex gap-4 mt-4 justify-end">
-            <div>
-              <Button
-                type="button"
-                variant="primary"
-                onClick={() => {
-                  dispatch({ type: "ADD_BLOCK" })
-                  const label =
-                    state.pendingBlock?.type === "rest"
-                      ? "Rest"
-                      : state.pendingBlock?.chord?.name ?? "Block"
-                  toast.info(`Block ${label} added to pending section`)
-                }}
-              >
-                Add Block
-              </Button>
-            </div>
+            <Button
+              type="button"
+              variant="primary"
+              className="min-h-11"
+              onClick={() => {
+                dispatch({ type: "ADD_BLOCK" })
+                const label =
+                  state.pendingBlock?.type === "rest"
+                    ? "Rest"
+                    : (state.pendingBlock?.chord?.name ?? "Block")
+                toast.info(`Block ${label} added to pending section`)
+              }}
+            >
+              Add Block
+            </Button>
           </div>
         )}
 
@@ -146,8 +150,13 @@ export function SectionEditor({ state, dispatch, onStopEditing }: Props) {
         <div className="mb-4">
           <h2 className="mb-4">Pending Section</h2>
 
-          <div className="mb-4">
+          <div className="mb-4 flex items-center gap-2">
             <SectionTag typeName={state.pendingSection.type} />
+            {(state.pendingSection.repeats ?? 1) > 1 && (
+              <span className="text-xs font-semibold text-blue-400">
+                ×{state.pendingSection.repeats}
+              </span>
+            )}
           </div>
 
           <BarsReorder
@@ -175,40 +184,39 @@ export function SectionEditor({ state, dispatch, onStopEditing }: Props) {
             }}
           />
 
-          <div className="mb-4 flex gap-4 mt-4 justify-end">
-            <div>
-              <Button
-                type="button"
-                variant="secondary"
-                onClick={() => (
-                  dispatch({ type: "CANCEL_SECTION" }), onStopEditing()
-                )}
-              >
-                Cancel
-              </Button>
-            </div>
-            <div>
-              <Button
-                type="button"
-                variant="primary"
-                onClick={() => {
-                  dispatch({
-                    type:
-                      state.editingSectionId === null ||
-                      state.editingSectionId === undefined
-                        ? "FINALIZE_SECTION"
-                        : "UPDATE_SECTION",
-                  })
-                  onStopEditing()
-                  if (state.errors?.songSections) {
-                    dispatch({ type: "CLEAR_ERROR", field: "songSections" })
-                  }
-                  toast.info(`${state.pendingSection.type} section saved`)
-                }}
-              >
-                Save Section
-              </Button>
-            </div>
+          <div className="mb-4 flex flex-wrap gap-3 mt-4 justify-end">
+            <Button
+              type="button"
+              variant="secondary"
+              className="min-h-11"
+              onClick={() => {
+                dispatch({ type: "CANCEL_SECTION" })
+                onStopEditing()
+              }}
+            >
+              Cancel
+            </Button>
+            <Button
+              type="button"
+              variant="primary"
+              className="min-h-11"
+              onClick={() => {
+                dispatch({
+                  type:
+                    state.editingSectionId === null ||
+                    state.editingSectionId === undefined
+                      ? "FINALIZE_SECTION"
+                      : "UPDATE_SECTION",
+                })
+                onStopEditing()
+                if (state.errors?.songSections) {
+                  dispatch({ type: "CLEAR_ERROR", field: "songSections" })
+                }
+                toast.info(`${state.pendingSection.type} section saved`)
+              }}
+            >
+              Save Section
+            </Button>
           </div>
         </div>
       )}

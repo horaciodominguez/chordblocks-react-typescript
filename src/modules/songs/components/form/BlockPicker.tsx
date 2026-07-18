@@ -25,22 +25,22 @@ export function BlockPicker({
   label,
 }: Props) {
   const [root, setRoot] = useState("C")
-
   const ROOTS = Object.keys(chordsData)
-
   const [accidental, setAccidental] = useState<"" | "#" | "b">("")
-
   const VARIATIONS = chordsData[root] ?? []
 
   const DISALLOW_SHARP = ["E", "B"]
   const DISALLOW_FLAT = ["F", "C"]
 
-  const isSharpAllowed = (root: string) => !DISALLOW_SHARP.includes(root)
-  const isFlatAllowed = (root: string) => !DISALLOW_FLAT.includes(root)
+  const isSharpAllowed = (r: string) => !DISALLOW_SHARP.includes(r)
+  const isFlatAllowed = (r: string) => !DISALLOW_FLAT.includes(r)
 
   const handleSelect = (chordName: string) => {
     onSelect(chordName)
   }
+
+  const selectClass =
+    "w-full border text-white text-sm px-3 py-2.5 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 border-zinc-400/25 min-h-11"
 
   return (
     <>
@@ -48,7 +48,7 @@ export function BlockPicker({
 
       <AppDialog
         trigger={
-          <Button variant="primary" className="w-full">
+          <Button variant="primary" className="w-full min-h-11">
             {selectedValue ? (
               selectedValue === "__REST__" ? (
                 <span className="inline-flex items-center">
@@ -70,8 +70,8 @@ export function BlockPicker({
         }
         title="Choose Block"
       >
-        <div className="flex flex-row justify-between items-center gap-4 mb-4">
-          <div>
+        <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-end gap-3 mb-4">
+          <div className="flex-1">
             <Label htmlFor="root_chord">Root</Label>
             <select
               id="root_chord"
@@ -87,11 +87,7 @@ export function BlockPicker({
                   setAccidental("")
                 }
               }}
-              className="
-              w-full border text-white text-sm px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500
-              border-zinc-400/25
-              
-              "
+              className={selectClass}
             >
               {ROOTS.map((r) => (
                 <option key={r} value={r} className="bg-gray-800 text-white">
@@ -100,15 +96,13 @@ export function BlockPicker({
               ))}
             </select>
           </div>
-          <div>
+          <div className="flex-1">
             <Label htmlFor="accidental_chord">Accidental</Label>
             <select
+              id="accidental_chord"
               value={accidental}
               onChange={(e) => setAccidental(e.target.value as "" | "#" | "b")}
-              className="
-              w-full border text-white text-sm px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500
-              border-zinc-400/25
-              "
+              className={selectClass}
             >
               <option value="" className="bg-gray-800 text-white">
                 Natural
@@ -129,13 +123,14 @@ export function BlockPicker({
               </option>
             </select>
           </div>
-          <div>
+          <div className="flex-1">
             <Label htmlFor="rest">Rest</Label>
             <Dialog.Close asChild>
               <Button
+                id="rest"
                 variant="primary"
                 onClick={() => onSelect("__REST__")}
-                className="w-full flex flex-row gap-4 justify-center items-center"
+                className="w-full flex flex-row gap-2 justify-center items-center min-h-11"
               >
                 <Rest
                   duration={Number(pendingBeats) || 1}
@@ -148,7 +143,10 @@ export function BlockPicker({
         </div>
 
         <Label htmlFor="variants">Variants</Label>
-        <div className="grid grid-cols-4 gap-2" id="variants">
+        <div
+          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2"
+          id="variants"
+        >
           {VARIATIONS.map((v: ChordType) => (
             <Dialog.Close asChild key={v.name}>
               <button
@@ -156,9 +154,8 @@ export function BlockPicker({
                 type="button"
                 onClick={() => {
                   handleSelect(`${v.root}${accidental}${v.suffix}`)
-                  console.log(`${v.root}${accidental}${v.suffix}`)
                 }}
-                className="flex flex-col items-center rounded-lg border border-gray-800 bg-zinc-900/10 px-12 py-2 hover:bg-indigo-600/10 hover:text-white"
+                className="flex flex-col items-center rounded-lg border border-gray-800 bg-zinc-900/10 p-3 hover:bg-indigo-600/10 hover:text-white min-h-11"
               >
                 <Chord chord={`${v.root}${accidental}${v.suffix}`} />
                 <ChordDiagram chordName={`${v.root}${accidental}${v.suffix}`} />

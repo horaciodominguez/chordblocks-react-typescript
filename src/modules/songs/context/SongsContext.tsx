@@ -21,6 +21,11 @@ import { ensureLocalSongs } from "@/modules/songs/utils/seedLocalSongs"
 type SongsContextValue = {
   songs: Song[]
   setSongs: React.Dispatch<React.SetStateAction<Song[]>>
+  /** True only during the first app hydration */
+  initialLoading: boolean
+  /** True while a mutation (add/update/delete) is in flight */
+  mutating: boolean
+  /** @deprecated Prefer initialLoading / mutating */
   loading: boolean
   addSong: (song: Song) => Promise<void>
   updateSong: (song: Song) => Promise<void>
@@ -33,7 +38,8 @@ const SongsContext = createContext<SongsContextValue | null>(null)
 export function SongsProvider({ children }: { children: ReactNode }) {
   const { user, ready, syncEpoch } = useAuth()
   const [songs, setSongs] = useState<Song[]>([])
-  const [loading, setLoading] = useState(true)
+  const [initialLoading, setInitialLoading] = useState(true)
+  const [mutating, setMutating] = useState(false)
   const initialLoadDone = useRef(false)
 
   const refreshSongs = useCallback(async () => {
@@ -41,17 +47,14 @@ export function SongsProvider({ children }: { children: ReactNode }) {
     setSongs(dbSongs)
   }, [])
 
-  // Initial load when auth becomes ready
   useEffect(() => {
     let mounted = true
 
     async function init() {
       const showFullLoader = !initialLoadDone.current
-      if (showFullLoader) setLoading(true)
+      if (showFullLoader) setInitialLoading(true)
 
       try {
-        // Logged-in: do not seed empty IDB (Auth/sync hydrates from Supabase).
-        // Anonymous: seed mockups if empty.
         const dbSongs = await ensureLocalSongs({ hasSession: !!user })
         if (mounted) setSongs(dbSongs)
       } catch (err) {
@@ -65,7 +68,7 @@ export function SongsProvider({ children }: { children: ReactNode }) {
         }
       } finally {
         if (mounted) {
-          setLoading(false)
+          setInitialLoading(false)
           initialLoadDone.current = true
         }
       }
@@ -80,7 +83,6 @@ export function SongsProvider({ children }: { children: ReactNode }) {
     }
   }, [ready, user])
 
-  // Soft refresh after background sync (no full-page spinner)
   useEffect(() => {
     if (!ready || !initialLoadDone.current) return
     if (syncEpoch === 0) return
@@ -88,32 +90,32 @@ export function SongsProvider({ children }: { children: ReactNode }) {
   }, [syncEpoch, ready, refreshSongs])
 
   const addSong = useCallback(async (song: Song) => {
-    setLoading(true)
+    setMutating(true)
     try {
       await saveSongWithSync(song)
       setSongs(await idbStorage.getSongs())
     } finally {
-      setLoading(false)
+      setMutating(false)
     }
   }, [])
 
   const updateSong = useCallback(async (song: Song) => {
-    setLoading(true)
+    setMutating(true)
     try {
       await saveSongWithSync(song)
       setSongs(await idbStorage.getSongs())
     } finally {
-      setLoading(false)
+      setMutating(false)
     }
   }, [])
 
   const deleteSong = useCallback(async (id: string) => {
-    setLoading(true)
+    setMutating(true)
     try {
       await deleteSongWithSync(id)
       setSongs(await idbStorage.getSongs())
     } finally {
-      setLoading(false)
+      setMutating(false)
     }
   }, [])
 
@@ -121,13 +123,23 @@ export function SongsProvider({ children }: { children: ReactNode }) {
     () => ({
       songs,
       setSongs,
-      loading,
+      initialLoading,
+      mutating,
+      loading: initialLoading,
       addSong,
       updateSong,
       deleteSong,
       refreshSongs,
     }),
-    [songs, loading, addSong, updateSong, deleteSong, refreshSongs],
+    [
+      songs,
+      initialLoading,
+      mutating,
+      addSong,
+      updateSong,
+      deleteSong,
+      refreshSongs,
+    ],
   )
 
   return (

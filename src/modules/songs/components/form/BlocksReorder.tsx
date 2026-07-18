@@ -4,6 +4,7 @@ import {
   DndContext,
   DragOverlay,
   PointerSensor,
+  TouchSensor,
   useSensor,
   useSensors,
   type DragEndEvent,
@@ -58,7 +59,7 @@ function SortableBlock({
         transform: CSS.Transform.toString(transform),
         transition,
         opacity: isDragging ? 0 : 1,
-        cursor: "cursor-grab",
+        cursor: "grab",
       }}
       dragAttributes={attributes}
       dragListeners={listeners}
@@ -74,7 +75,14 @@ export default function ChordsReorder({
   onReorder,
   onDeleteChord,
 }: Props) {
-  const sensors = useSensors(useSensor(PointerSensor))
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: { distance: 8 },
+    }),
+    useSensor(TouchSensor, {
+      activationConstraint: { delay: 200, tolerance: 5 },
+    }),
+  )
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event
@@ -119,7 +127,7 @@ export default function ChordsReorder({
               dragStyle={{
                 width: chordWidth(
                   bar.blocks.find((c) => c.id === activeChord)!.duration,
-                  timeSignature.beatsPerMeasure
+                  timeSignature.beatsPerMeasure,
                 ),
                 display: "flex",
                 opacity: 0.9,
@@ -128,7 +136,7 @@ export default function ChordsReorder({
             />
           ) : null}
         </DragOverlay>,
-        document.body
+        document.body,
       )}
     </DndContext>
   )

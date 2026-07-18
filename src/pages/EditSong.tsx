@@ -1,12 +1,10 @@
 import { SongForm } from "@/modules/songs/components/form/SongForm"
 import { useSong } from "@/modules/songs/hooks/useSong"
 import type { Song } from "@/modules/songs/types/song.types"
-
 import { useParams, useNavigate } from "react-router-dom"
-
 import { useSongs } from "@/modules/songs/hooks/useSongs"
-import PageTitle from "@/components/ui/PageTitle"
 import LoaderSpinner from "@/components/ui/LoaderSpinner"
+import { PageHeader } from "@/components/layout/PageHeader"
 
 export default function EditSong() {
   const { id } = useParams<{ id: string }>()
@@ -17,24 +15,35 @@ export default function EditSong() {
   const handleSubmit = async (song: Song) => {
     if (!song) return
     await updateSong(song)
-    navigate("/")
+    navigate(`/song/${song.id}`)
   }
 
   if (loading) {
     return (
       <>
-        <PageTitle>Edit Song</PageTitle>
+        <PageHeader title="Edit Song" backTo="/" />
         <LoaderSpinner />
       </>
     )
   }
 
-  if (!song) return <div>Song not found</div>
+  if (!song) {
+    return (
+      <>
+        <PageHeader title="Not found" backTo="/" />
+        <div className="text-center py-6">Song not found</div>
+      </>
+    )
+  }
 
   return (
     <>
-      <PageTitle>Edit Song</PageTitle>
-      <SongForm handleAddSong={handleSubmit} initialSong={song} />
+      <PageHeader title="Edit Song" backTo={`/song/${song.id}`} />
+      <SongForm
+        handleAddSong={handleSubmit}
+        initialSong={song}
+        onCancel={() => navigate(`/song/${song.id}`)}
+      />
     </>
   )
 }

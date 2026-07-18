@@ -53,6 +53,7 @@ export type Action =
   | { type: "EDIT_SECTION"; v: string }
   | { type: "CANCEL_EDIT_SECTION" }
   | { type: "UPDATE_SECTION" }
+  | { type: "DELETE_SECTION"; v: string }
 
 export const initialSong: SongType = {
   id: uuidv4(),
@@ -429,6 +430,32 @@ export const reducer = (
         pendingSection: { id: "", type: "", bars: [], repeats: 1 },
       }
     }
+
+    case "DELETE_SECTION": {
+      const bpm = state.song.timeSignature.beatsPerMeasure
+      const deletingCurrent =
+        state.editingSectionId === action.v ||
+        state.pendingSection.id === action.v
+
+      return {
+        ...state,
+        song: {
+          ...state.song,
+          songSections: state.song.songSections.filter((s) => s.id !== action.v),
+          updatedAt: new Date().toISOString(),
+        },
+        ...(deletingCurrent
+          ? {
+              editingSectionId: null,
+              pendingSection: { id: "", type: "", bars: [], repeats: 1 },
+              pendingBlock: undefined,
+              pendingBeats: String(bpm),
+              availableBeats: bpm,
+            }
+          : {}),
+      }
+    }
+
     default:
       return state
   }

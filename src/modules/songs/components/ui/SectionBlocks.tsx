@@ -4,10 +4,8 @@ interface Props {
 
 export default function SectionBlocks({ children }: Props) {
   return (
-    <>
-      <div className="SECTIONBLOCKS-WRAP flex py-2 divide-x-2 divide-blue-900 relative ">
-        {children}
-      </div>
-    </>
+    <div className="SECTIONBLOCKS-WRAP flex py-2 divide-x-2 divide-blue-900 relative min-w-0 overflow-x-auto">
+      {children}
+    </div>
   )
 }

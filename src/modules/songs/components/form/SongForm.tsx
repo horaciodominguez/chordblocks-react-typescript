@@ -8,15 +8,23 @@ import { validateSong } from "../../validation/song.validate"
 
 import { toast } from "sonner"
 import type { Song } from "../../types/song.types"
+import { StickyActionBar } from "@/components/layout/StickyActionBar"
+import { useSongs } from "../../hooks/useSongs"
 
 type Props = {
   handleAddSong: (song: SongParsed) => void
   initialSong?: Song
+  onCancel?: () => void
 }
 
-export const SongForm = ({ handleAddSong, initialSong }: Props) => {
+export const SongForm = ({
+  handleAddSong,
+  initialSong,
+  onCancel,
+}: Props) => {
   const { state, dispatch } = useSongForm(initialSong)
   const { song } = state
+  const { mutating } = useSongs()
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -38,11 +46,36 @@ export const SongForm = ({ handleAddSong, initialSong }: Props) => {
 
         <SongFormPendingSection dispatch={dispatch} state={state} />
 
-        <div className="mb-4 justify-end flex">
-          <Button type="submit" variant="save">
-            {initialSong ? "Update Song" : "Add Song"}
+        <StickyActionBar>
+          {onCancel && (
+            <Button
+              type="button"
+              variant="cancel"
+              onClick={onCancel}
+              disabled={mutating}
+              className="min-h-11"
+            >
+              Cancel
+            </Button>
+          )}
+          <Button
+            type="submit"
+            variant="save"
+            disabled={mutating}
+            className="min-h-11 min-w-[7rem] flex items-center justify-center gap-2"
+          >
+            {mutating ? (
+              <>
+                <span className="inline-block w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                Saving…
+              </>
+            ) : initialSong ? (
+              "Update Song"
+            ) : (
+              "Add Song"
+            )}
           </Button>
-        </div>
+        </StickyActionBar>
       </div>
     </form>
   )

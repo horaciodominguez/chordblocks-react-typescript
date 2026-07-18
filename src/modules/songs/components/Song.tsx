@@ -17,13 +17,13 @@ export const Song = ({ song }: Props) => {
 
   return (
     <div key={song.id ? song.id : null} className="panel-variant-1">
-      <div className="flex justify-between items-start mb-4">
-        <div className="flex flex-row gap-4">
-          <h3 className="text-sm text-zinc-400 mb-4">
+      <div className="flex flex-col gap-3 md:flex-row md:justify-between md:items-start mb-4">
+        <div className="flex flex-col sm:flex-row sm:gap-4 gap-1">
+          <h3 className="text-sm text-zinc-400">
             Artist:{" "}
             <span className="font-bold text-zinc-200">{song.artist}</span>
           </h3>
-          <p className="text-sm text-zinc-400 mb-4">
+          <p className="text-sm text-zinc-400">
             Time Measure:{" "}
             <span className="font-bold text-zinc-200">
               {song.timeSignature.beatsPerMeasure} /{" "}
@@ -31,12 +31,12 @@ export const Song = ({ song }: Props) => {
             </span>
           </p>
         </div>
-        <div className="flex gap-4">
+        <div className="flex items-center gap-3 shrink-0">
           <label htmlFor="toggle-diagrams" className="text-sm text-gray-400">
-            Toggle diagrams
+            Diagrams
           </label>
           <Switch.Root
-            className="w-10 h-6 bg-zinc-700 rounded-full relative data-[state=checked]:bg-green-600"
+            className="w-11 h-6 bg-zinc-700 rounded-full relative data-[state=checked]:bg-green-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-indigo-500"
             id="toggle-diagrams"
             checked={showDiagram}
             onCheckedChange={setShowDiagram}
@@ -50,10 +50,15 @@ export const Song = ({ song }: Props) => {
         {song.songSections.map((section) => (
           <li
             key={section.id}
-            className="flex flex-col justify-start gap-4 mb-4 "
+            className="flex flex-col justify-start gap-3 mb-6"
           >
-            <div>
+            <div className="flex items-center gap-2">
               <SectionTag typeName={section.type} />
+              {section.repeats && section.repeats > 1 && (
+                <span className="text-xs font-semibold text-blue-400 select-none">
+                  ×{section.repeats}
+                </span>
+              )}
             </div>
             <Section
               section={section}
