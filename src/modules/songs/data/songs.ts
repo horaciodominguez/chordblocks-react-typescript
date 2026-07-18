@@ -7,6 +7,7 @@ export const songsData: Song[] = [
     artist: "Bob Dylan",
     genre: "Folk Rock",
     year: 1973,
+    mainKey: "G",
     imageUrl: null,
     imageBase64: null,
     timeSignature: { beatsPerMeasure: 4, noteValue: 4 },
@@ -460,6 +461,7 @@ export const songsData: Song[] = [
     artist: "Creedence Clearwater Revival",
     genre: "Roots Rock",
     year: 1971,
+    mainKey: "C",
     timeSignature: { beatsPerMeasure: 4, noteValue: 4 },
     songSections: [
       {
