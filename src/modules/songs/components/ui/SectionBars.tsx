@@ -1,4 +1,5 @@
 import type { SongSection } from "@/modules/songs/types/section.types"
+import type { SongDensity } from "@/modules/songs/types/density.types"
 
 function setBarsByLine(section: SongSection) {
   let maxChords = 0
@@ -16,12 +17,24 @@ interface Props {
   id?: string
   section: SongSection
   children: React.ReactNode
+  density?: SongDensity
 }
 
-export default function SectionBars({ children, section }: Props) {
+export default function SectionBars({
+  children,
+  section,
+  density = "bars",
+}: Props) {
   const cols = setBarsByLine(section)
-  const colClass =
-    cols === 1
+  const isGuide = density === "guide"
+
+  const colClass = isGuide
+    ? cols <= 1
+      ? "grid-cols-1"
+      : cols === 2
+        ? "grid-cols-2"
+        : "grid-cols-2 sm:grid-cols-3 md:grid-cols-4"
+    : cols === 1
       ? "grid-cols-1"
       : cols === 2
         ? "grid-cols-1 sm:grid-cols-2"
@@ -31,7 +44,9 @@ export default function SectionBars({ children, section }: Props) {
 
   return (
     <div
-      className={`SECTIONBARS-WRAP grid divide-x-0 sm:divide-x-2 divide-blue-300 gap-y-2 mb-4 ${colClass}`}
+      className={`SECTIONBARS-WRAP grid divide-x-0 sm:divide-x-2 divide-blue-300 ${colClass} ${
+        isGuide ? "gap-y-0.5 mb-1" : "gap-y-2 mb-4"
+      }`}
     >
       {children}
     </div>

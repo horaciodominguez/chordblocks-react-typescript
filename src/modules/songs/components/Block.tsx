@@ -4,6 +4,7 @@ import { Rest } from "@/modules/chords/components/Rest"
 import { chordFlexStyle } from "@/modules/chords/utils/chord.utils"
 import type { Block as BlockType } from "@/modules/songs/types/block.types"
 import type { TimeSignature } from "@/modules/songs/types/song.types"
+import type { SongDensity } from "@/modules/songs/types/density.types"
 import { ArrowLeftRight, Trash } from "lucide-react"
 import React, { forwardRef } from "react"
 
@@ -16,6 +17,7 @@ type Props = {
   isDragging?: boolean
   onDelete?: React.MouseEventHandler<HTMLButtonElement>
   showDiagram?: boolean
+  density?: SongDensity
 }
 
 export const Block = forwardRef<HTMLDivElement, Props>(
@@ -29,23 +31,31 @@ export const Block = forwardRef<HTMLDivElement, Props>(
       isDragging,
       onDelete,
       showDiagram,
+      density = "bars",
     },
     ref,
   ) => {
     const isRest = !!(block.type === "rest")
     const hasControls = !!(dragStyle || onDelete)
+    const isGuide = density === "guide"
 
     return (
       <div
         ref={ref}
-        className={`BLOCK-WRAP relative group font-bold text-white text-xs min-w-0 px-1 box-border ${hasControls ? "py-2 pb-8" : "py-2"}`}
+        className={`BLOCK-WRAP relative group font-bold text-white text-xs min-w-0 box-border ${
+          isGuide ? "px-0.5" : "px-1"
+        } ${hasControls ? "py-2 pb-8" : isGuide ? "py-0.5" : "py-2"}`}
         style={{
           ...chordFlexStyle(block.duration),
           visibility: isDragging ? "hidden" : "visible",
           ...(dragStyle ?? {}),
         }}
       >
-        <div className="flex flex-col gap-4 items-center justify-center min-w-0 w-full overflow-hidden">
+        <div
+          className={`flex flex-col items-center justify-center min-w-0 w-full overflow-hidden ${
+            isGuide ? "gap-1" : "gap-4"
+          }`}
+        >
           {isRest ? (
             <Rest
               duration={block.duration}
@@ -55,7 +65,9 @@ export const Block = forwardRef<HTMLDivElement, Props>(
             <Chord chord={block.chord?.name} />
           )}
 
-          {showDiagram && <ChordDiagram chordName={block.chord?.name ?? ""} />}
+          {showDiagram && !isGuide && (
+            <ChordDiagram chordName={block.chord?.name ?? ""} />
+          )}
         </div>
 
         {hasControls && (

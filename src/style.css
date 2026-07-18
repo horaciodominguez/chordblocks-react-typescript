@@ -33,3 +33,32 @@
 .panel-variant-1 {
   @apply border-[.1px] border-gray-700 bg-gray-50/5 rounded-md p-4 shadow-md shadow-black/20 backdrop-blur-md backdrop-filter;
 }
+
+/* Guide density — Keep-like compact chart */
+[data-density="guide"] .chord-root {
+  @apply text-xs;
+}
+
+[data-density="guide"] .chord-suffix {
+  @apply text-[10px] leading-none mb-0;
+}
+
+[data-density="guide"] .BLOCK-WRAP {
+  @apply py-0.5 px-0.5;
+}
+
+[data-density="guide"] .SECTIONBLOCKS-WRAP {
+  @apply py-0.5;
+}
+
+[data-density="guide"] .SECTIONBARS-WRAP {
+  @apply gap-y-0.5 mb-1;
+}
+
+[data-density="guide"] .song-section-item {
+  @apply gap-1 mb-2;
+}
+
+[data-density="guide"] .section-tag {
+  @apply px-2 py-0.5 text-[10px] border;
+}

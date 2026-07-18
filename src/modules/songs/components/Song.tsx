@@ -1,9 +1,14 @@
 import type { Song as SongType } from "@/modules/songs/types/song.types"
+import type { SongDensity } from "@/modules/songs/types/density.types"
 import { SectionTag } from "@/modules/songs/components/ui/SectionTag"
 import { Section } from "./Section"
 import { useEffect, useMemo, useState } from "react"
 import * as Switch from "@radix-ui/react-switch"
 import { transposeSong } from "@/modules/chords/utils/transpose"
+import {
+  readDensityPreference,
+  writeDensityPreference,
+} from "@/modules/songs/utils/densityPreference"
 import { Minus, Plus } from "lucide-react"
 
 export interface TemporarySong extends Omit<SongType, "id"> {
@@ -24,10 +29,19 @@ function formatOffset(semitones: number): string {
 export const Song = ({ song }: Props) => {
   const [showDiagram, setShowDiagram] = useState(false)
   const [semitones, setSemitones] = useState(0)
+  const [density, setDensity] = useState<SongDensity>(() =>
+    readDensityPreference(),
+  )
 
   useEffect(() => {
     setSemitones(0)
   }, [song.id])
+
+  const setDensityAndPersist = (next: SongDensity) => {
+    setDensity(next)
+    writeDensityPreference(next)
+    if (next === "guide") setShowDiagram(false)
+  }
 
   const displaySong = useMemo(() => {
     if (semitones === 0) return song
@@ -41,8 +55,14 @@ export const Song = ({ song }: Props) => {
         : formatOffset(semitones)
       : null
 
+  const diagramsEnabled = density === "bars" && showDiagram
+
   return (
-    <div key={song.id ? song.id : null} className="panel-variant-1">
+    <div
+      key={song.id ? song.id : null}
+      className="panel-variant-1"
+      data-density={density}
+    >
       <div className="flex flex-col gap-3 mb-4 pb-3 border-b border-zinc-700/50">
         <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 text-sm text-zinc-400">
           <span>
@@ -106,19 +126,55 @@ export const Song = ({ song }: Props) => {
             ) : null}
           </div>
 
-          <div className="flex items-center gap-3 sm:pl-4 sm:border-l sm:border-zinc-700/60">
-            <label htmlFor="toggle-diagrams" className="text-sm text-zinc-400">
-              Diagrams
-            </label>
-            <Switch.Root
-              className="w-11 h-6 bg-zinc-700 rounded-full relative data-[state=checked]:bg-green-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
-              id="toggle-diagrams"
-              checked={showDiagram}
-              onCheckedChange={setShowDiagram}
-            >
-              <Switch.Thumb className="block w-4 h-4 bg-white rounded-full shadow transform translate-x-1 transition-transform data-[state=checked]:translate-x-5" />
-            </Switch.Root>
+          <div
+            className="flex items-center gap-1 sm:pl-4 sm:border-l sm:border-zinc-700/60"
+            role="group"
+            aria-label="View density"
+          >
+            <span className="text-sm text-zinc-400 mr-1">View</span>
+            <div className="flex rounded-md border border-zinc-600 overflow-hidden">
+              <button
+                type="button"
+                aria-pressed={density === "guide"}
+                onClick={() => setDensityAndPersist("guide")}
+                className={`min-h-11 px-3 text-sm font-medium transition-colors ${
+                  density === "guide"
+                    ? "bg-zinc-600 text-zinc-100"
+                    : "bg-transparent text-zinc-400 hover:bg-zinc-800/50 hover:text-zinc-200"
+                }`}
+              >
+                Guide
+              </button>
+              <button
+                type="button"
+                aria-pressed={density === "bars"}
+                onClick={() => setDensityAndPersist("bars")}
+                className={`min-h-11 px-3 text-sm font-medium border-l border-zinc-600 transition-colors ${
+                  density === "bars"
+                    ? "bg-zinc-600 text-zinc-100"
+                    : "bg-transparent text-zinc-400 hover:bg-zinc-800/50 hover:text-zinc-200"
+                }`}
+              >
+                Bars
+              </button>
+            </div>
           </div>
+
+          {density === "bars" ? (
+            <div className="flex items-center gap-3 sm:pl-4 sm:border-l sm:border-zinc-700/60">
+              <label htmlFor="toggle-diagrams" className="text-sm text-zinc-400">
+                Diagrams
+              </label>
+              <Switch.Root
+                className="w-11 h-6 bg-zinc-700 rounded-full relative data-[state=checked]:bg-green-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                id="toggle-diagrams"
+                checked={showDiagram}
+                onCheckedChange={setShowDiagram}
+              >
+                <Switch.Thumb className="block w-4 h-4 bg-white rounded-full shadow transform translate-x-1 transition-transform data-[state=checked]:translate-x-5" />
+              </Switch.Root>
+            </div>
+          ) : null}
         </div>
       </div>
 
@@ -126,7 +182,7 @@ export const Song = ({ song }: Props) => {
         {displaySong.songSections.map((section) => (
           <li
             key={section.id}
-            className="flex flex-col justify-start gap-3 mb-6"
+            className="song-section-item flex flex-col justify-start gap-3 mb-6"
           >
             <div className="flex items-center gap-2">
               <SectionTag typeName={section.type} label={section.label} />
@@ -139,7 +195,8 @@ export const Song = ({ song }: Props) => {
             <Section
               section={section}
               timeSignature={displaySong.timeSignature}
-              showDiagram={showDiagram}
+              showDiagram={diagramsEnabled}
+              density={density}
             />
           </li>
         ))}

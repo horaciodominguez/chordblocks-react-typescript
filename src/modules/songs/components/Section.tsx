@@ -1,4 +1,5 @@
 import type { TimeSignature } from "@/modules/songs/types/song.types"
+import type { SongDensity } from "@/modules/songs/types/density.types"
 
 import SectionBars from "@/modules/songs/components/ui/SectionBars"
 import type { SongSection } from "@/modules/songs/types/section.types"
@@ -11,11 +12,17 @@ type Props = {
   section: SongSection
   timeSignature: TimeSignature
   showDiagram?: boolean
+  density?: SongDensity
 }
 
-export const Section = ({ section, timeSignature, showDiagram }: Props) => {
+export const Section = ({
+  section,
+  timeSignature,
+  showDiagram,
+  density = "bars",
+}: Props) => {
   return (
-    <SectionBars id={section.id} section={section}>
+    <SectionBars id={section.id} section={section} density={density}>
       {section.bars.map((bar, index) => {
         const isLastBar = index === section.bars.length - 1
         return (
@@ -26,6 +33,7 @@ export const Section = ({ section, timeSignature, showDiagram }: Props) => {
                 block={block}
                 timeSignature={timeSignature}
                 showDiagram={showDiagram}
+                density={density}
               />
             ))}
             {isLastBar && section.repeats && section.repeats > 1 && (
