@@ -36,7 +36,7 @@ export const Song = ({ song }: Props) => {
             Diagrams
           </label>
           <Switch.Root
-            className="w-11 h-6 bg-zinc-700 rounded-full relative data-[state=checked]:bg-green-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-indigo-500"
+            className="w-11 h-6 bg-zinc-700 rounded-full relative data-[state=checked]:bg-green-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
             id="toggle-diagrams"
             checked={showDiagram}
             onCheckedChange={setShowDiagram}

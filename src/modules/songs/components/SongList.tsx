@@ -20,7 +20,7 @@ import Input from "@/components/ui/Input"
 import { Select } from "@/components/ui/Select"
 
 const actionBtnClass =
-  "flex justify-center items-center min-h-11 min-w-11 border border-zinc-700 rounded-md text-sm text-indigo-400 hover:text-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-indigo-500"
+  "flex justify-center items-center min-h-11 min-w-11 border border-zinc-700 rounded-md text-sm text-indigo-400 hover:text-gray-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
 
 export const SongList = () => {
   const { songs, deleteSong, initialLoading, mutating } = useSongs()
