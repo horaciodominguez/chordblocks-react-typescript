@@ -1,4 +1,4 @@
--- Repertoires table (mirror of songs JSON row pattern)
+-- Repertoires table (same JSON-row pattern as songs.sql)
 -- Run in Supabase SQL editor if the table does not exist yet.
 
 create table if not exists public.repertoires (
