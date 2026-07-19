@@ -1,5 +1,5 @@
 import { NavLink, useLocation } from "react-router-dom"
-import { ListMusic, ListPlus, User, LogOut } from "lucide-react"
+import { ListMusic, ListPlus, Library, User, LogOut } from "lucide-react"
 import { useAuth } from "@/modules/auth/hooks/useAuth"
 import { LoginForm } from "@/modules/auth/components/LoginForm"
 import { AppDialog } from "@/components/ui/AppDialog"
@@ -7,6 +7,7 @@ import { signOut } from "@/services/auth/supabaseAuth"
 
 const navItems = [
   { to: "/", label: "Songs", icon: ListMusic, end: true },
+  { to: "/repertoires", label: "Sets", icon: Library, end: false },
   { to: "/new", label: "Add", icon: ListPlus, end: false },
 ]
 
@@ -16,7 +17,8 @@ export function BottomNav() {
 
   const hideOnEdit =
     location.pathname === "/new" ||
-    /^\/song\/[^/]+\/edit$/.test(location.pathname)
+    /^\/song\/[^/]+\/edit$/.test(location.pathname) ||
+    /^\/repertoires\/[^/]+\/edit$/.test(location.pathname)
 
   if (hideOnEdit) return null
 

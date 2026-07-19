@@ -1,8 +1,9 @@
 import { NavLink } from "react-router-dom"
-import { ListMusic, ListPlus } from "lucide-react"
+import { ListMusic, ListPlus, Library } from "lucide-react"
 
 const navLinks = [
-  { to: "/", label: "Song List", icon: ListMusic, end: true },
+  { to: "/", label: "Songs", icon: ListMusic, end: true },
+  { to: "/repertoires", label: "Sets", icon: Library, end: false },
   { to: "/new", label: "Add Song", icon: ListPlus, end: false },
 ]
 

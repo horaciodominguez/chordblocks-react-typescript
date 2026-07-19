@@ -4,6 +4,9 @@ import EditSong from "@/pages/EditSong"
 import Home from "@/pages/Home"
 import NewSong from "@/pages/NewSong"
 import ViewSong from "@/pages/ViewSong"
+import Repertoires from "@/pages/Repertoires"
+import ViewRepertoire from "@/pages/ViewRepertoire"
+import EditRepertoire from "@/pages/EditRepertoire"
 import { useSongs } from "./modules/songs/hooks/useSongs"
 import LoaderSpinner from "./components/ui/LoaderSpinner"
 import { AppShell } from "./components/layout/AppShell"
@@ -40,6 +43,9 @@ export default function App() {
           <Route path="/song/:id" element={<ViewSong />} />
           <Route path="/song/:id/edit" element={<EditSong />} />
           <Route path="/new" element={<NewSong />} />
+          <Route path="/repertoires" element={<Repertoires />} />
+          <Route path="/repertoires/:id" element={<ViewRepertoire />} />
+          <Route path="/repertoires/:id/edit" element={<EditRepertoire />} />
           {UITest && (
             <Route
               path="/uitest"

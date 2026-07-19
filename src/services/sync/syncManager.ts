@@ -2,12 +2,18 @@ import { supabase } from "@/services/supabaseClient"
 import { idbStorage } from "@/services/storage/providers/storage.idb"
 import { supabaseStorage } from "@/services/storage/providers/storage.supabase"
 import type { Song } from "@/modules/songs/types/song.types"
+import type { Repertoire } from "@/modules/repertoires/types/repertoire.types"
 import {
   isPendingDelete,
   type PendingDrafts,
 } from "@/services/storage/types/storage.types"
+import {
+  isPendingRepertoireDelete,
+  type PendingRepertoireDrafts,
+} from "@/modules/repertoires/types/pending.types"
 import { seedIfRemoteAlsoEmpty } from "@/modules/songs/utils/seedLocalSongs"
 import { isNewer, planMembershipSync } from "@/services/sync/membership"
+import { touchRepertoire } from "@/modules/repertoires/utils/repertoire.factory"
 
 async function getCurrentUserId(): Promise<string | null> {
   try {
@@ -75,6 +81,101 @@ export const deleteSongWithSync = async (songId: string) => {
   } catch (error) {
     console.error("deleteSongWithSync error:", error)
     await idbStorage.addPendingDelete(songId)
+  }
+}
+
+export const saveRepertoireWithSync = async (rep: Repertoire) => {
+  const toSave = touchRepertoire(rep)
+  await idbStorage.saveRepertoire(toSave)
+
+  const userId = await getCurrentUserId()
+
+  if (!userId) {
+    await idbStorage.addPendingRepertoire(toSave)
+    return
+  }
+
+  try {
+    await supabaseStorage.saveRepertoire(userId, toSave)
+    await idbStorage.removePendingRepertoire(toSave.id)
+  } catch (error) {
+    console.error("saveRepertoireWithSync error:", error)
+    await idbStorage.addPendingRepertoire(toSave)
+  }
+}
+
+export const deleteRepertoireWithSync = async (repertoireId: string) => {
+  await idbStorage.deleteRepertoire(repertoireId)
+
+  const userId = await getCurrentUserId()
+
+  if (!userId) {
+    await idbStorage.addPendingRepertoireDelete(repertoireId)
+    return
+  }
+
+  try {
+    await supabaseStorage.deleteRepertoire(userId, repertoireId)
+    await idbStorage.removePendingRepertoire(repertoireId)
+  } catch (error) {
+    console.error("deleteRepertoireWithSync error:", error)
+    await idbStorage.addPendingRepertoireDelete(repertoireId)
+  }
+}
+
+async function syncRepertoires(userId: string) {
+  let remote: Repertoire[]
+  try {
+    remote = await supabaseStorage.getRepertoires(userId)
+  } catch (err) {
+    console.error("getRepertoires failed (table missing?)", err)
+    return
+  }
+
+  const remoteById = new Map(remote.map((r) => [r.id, r]))
+  const pendingsBefore =
+    (await idbStorage.getPendingRepertoires()) as PendingRepertoireDrafts[]
+  const pendingSaveIds = new Set(
+    pendingsBefore.filter((p) => !isPendingRepertoireDelete(p)).map((p) => p.id),
+  )
+
+  for (const p of pendingsBefore) {
+    try {
+      if (isPendingRepertoireDelete(p)) {
+        await supabaseStorage.deleteRepertoire(userId, p.id)
+        await idbStorage.removePendingRepertoire(p.id)
+        remoteById.delete(p.id)
+        continue
+      }
+
+      const pendingRep = p as Repertoire
+      const remoteRep = remoteById.get(pendingRep.id)
+
+      if (!remoteRep || isNewer(pendingRep, remoteRep)) {
+        await supabaseStorage.saveRepertoire(userId, pendingRep)
+        remoteById.set(pendingRep.id, pendingRep)
+      }
+
+      await idbStorage.removePendingRepertoire(pendingRep.id)
+    } catch (err) {
+      console.error("pending repertoire sync failed", err)
+    }
+  }
+
+  remote = await supabaseStorage.getRepertoires(userId)
+  const local = await idbStorage.getRepertoires()
+  const plan = planMembershipSync(local, remote, pendingSaveIds)
+
+  for (const id of plan.orphanLocalIds) {
+    await idbStorage.deleteRepertoire(id)
+  }
+
+  for (const rep of plan.toUpsertRemote) {
+    await supabaseStorage.saveRepertoire(userId, rep)
+  }
+
+  for (const rep of plan.toWriteIdb) {
+    await idbStorage.saveRepertoire(rep)
   }
 }
 
@@ -151,6 +252,8 @@ export const syncAll = async () => {
   for (const song of plan.toWriteIdb) {
     await idbStorage.saveSong(song)
   }
+
+  await syncRepertoires(userId)
 }
 
 export const __testables = { isNewer, planMembershipSync }

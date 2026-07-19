@@ -1,12 +1,15 @@
-import type { Song } from "@/modules/songs/types/song.types"
+export type SyncEntity = {
+  id: string
+  updatedAt: string
+}
 
-export function isNewer(a: Song, b: Song): boolean {
+export function isNewer(a: SyncEntity, b: SyncEntity): boolean {
   return new Date(a.updatedAt) > new Date(b.updatedAt)
 }
 
-export type MembershipPlan = {
-  toWriteIdb: Song[]
-  toUpsertRemote: Song[]
+export type MembershipPlan<T extends SyncEntity> = {
+  toWriteIdb: T[]
+  toUpsertRemote: T[]
   orphanLocalIds: string[]
 }
 
@@ -17,16 +20,16 @@ export type MembershipPlan = {
  * - local only + pendingSave → upsert
  * - local only without pending → orphan (purge)
  */
-export function planMembershipSync(
-  local: Song[],
-  remote: Song[],
+export function planMembershipSync<T extends SyncEntity>(
+  local: T[],
+  remote: T[],
   pendingSaveIds: Set<string>,
-): MembershipPlan {
+): MembershipPlan<T> {
   const remoteIds = new Set(remote.map((r) => r.id))
   const localById = new Map(local.map((l) => [l.id, l]))
 
-  const toWriteIdb: Song[] = []
-  const toUpsertRemote: Song[] = []
+  const toWriteIdb: T[] = []
+  const toUpsertRemote: T[] = []
   const orphanLocalIds: string[] = []
 
   for (const r of remote) {

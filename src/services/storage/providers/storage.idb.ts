@@ -1,24 +1,35 @@
 import { openDB } from "idb"
 import type { Song } from "@/modules/songs/types/song.types"
 import type { PendingDrafts } from "@/services/storage/types/storage.types"
+import type { Repertoire } from "@/modules/repertoires/types/repertoire.types"
+import type { PendingRepertoireDrafts } from "@/modules/repertoires/types/pending.types"
 
 const DB_NAME = "ChordBlocks"
 const STORE = "songs"
 const PENDING = "pending"
+const REPERTOIRES = "repertoires"
+const PENDING_REPERTOIRES = "pendingRepertoires"
 const LAST_USER_KEY = "chordblocks:lastUserId"
+const DB_VERSION = 3
 
 function log(...args: unknown[]) {
   if (import.meta.env.DEV) console.log(...args)
 }
 
 async function getDb() {
-  return openDB(DB_NAME, 2, {
+  return openDB(DB_NAME, DB_VERSION, {
     upgrade(db) {
       if (!db.objectStoreNames.contains(STORE)) {
         db.createObjectStore(STORE, { keyPath: "id" })
       }
       if (!db.objectStoreNames.contains(PENDING)) {
         db.createObjectStore(PENDING, { keyPath: "id" })
+      }
+      if (!db.objectStoreNames.contains(REPERTOIRES)) {
+        db.createObjectStore(REPERTOIRES, { keyPath: "id" })
+      }
+      if (!db.objectStoreNames.contains(PENDING_REPERTOIRES)) {
+        db.createObjectStore(PENDING_REPERTOIRES, { keyPath: "id" })
       }
     },
   })
@@ -87,6 +98,65 @@ export const idbStorage = {
     await db.delete(PENDING, id)
   },
 
+  // --- Repertoires ---
+
+  async getRepertoires(): Promise<Repertoire[]> {
+    log("💾 idbStorage.getRepertoires")
+    const db = await getDb()
+    return (await db.getAll(REPERTOIRES)) as Repertoire[]
+  },
+
+  async saveRepertoire(rep: Repertoire) {
+    log("💾 idbStorage.saveRepertoire", rep.id)
+    const db = await getDb()
+    await db.put(REPERTOIRES, rep)
+  },
+
+  async getRepertoire(id: string): Promise<Repertoire | undefined> {
+    const db = await getDb()
+    return (await db.get(REPERTOIRES, id)) as Repertoire | undefined
+  },
+
+  async deleteRepertoire(id: string) {
+    log("💾 idbStorage.deleteRepertoire", id)
+    const db = await getDb()
+    await db.delete(REPERTOIRES, id)
+  },
+
+  async clearRepertoires() {
+    const db = await getDb()
+    await db.clear(REPERTOIRES)
+  },
+
+  async addPendingRepertoire(rep: Repertoire) {
+    const db = await getDb()
+    await db.put(PENDING_REPERTOIRES, rep)
+  },
+
+  async getPendingRepertoires(): Promise<PendingRepertoireDrafts[]> {
+    const db = await getDb()
+    return (await db.getAll(PENDING_REPERTOIRES)) as PendingRepertoireDrafts[]
+  },
+
+  async clearPendingRepertoires() {
+    const db = await getDb()
+    await db.clear(PENDING_REPERTOIRES)
+  },
+
+  async addPendingRepertoireDelete(id: string) {
+    const db = await getDb()
+    await db.put(PENDING_REPERTOIRES, {
+      id,
+      _action: "delete" as const,
+      deletedAt: new Date().toISOString(),
+    })
+  },
+
+  async removePendingRepertoire(id: string) {
+    const db = await getDb()
+    await db.delete(PENDING_REPERTOIRES, id)
+  },
+
   getLastUserId(): string | null {
     try {
       return localStorage.getItem(LAST_USER_KEY)
@@ -112,7 +182,6 @@ export const idbStorage = {
   async prepareForUser(userId: string | null): Promise<boolean> {
     const previous = idbStorage.getLastUserId()
 
-    // Anonymous: keep local demo data; don't bind owner yet
     if (!userId) {
       return false
     }
@@ -120,6 +189,8 @@ export const idbStorage = {
     if (previous && previous !== userId) {
       await idbStorage.clearSongs()
       await idbStorage.clearPending()
+      await idbStorage.clearRepertoires()
+      await idbStorage.clearPendingRepertoires()
       idbStorage.setLastUserId(userId)
       return true
     }
