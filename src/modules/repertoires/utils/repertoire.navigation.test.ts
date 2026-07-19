@@ -55,6 +55,9 @@ describe("repertoire.navigation", () => {
     expect(setSongPath("s2", "rep-1", "i2")).toBe(
       "/song/s2?repertoireId=rep-1&itemId=i2",
     )
+    expect(setSongPath("s2", "rep-1", "i2", { mode: "play" })).toBe(
+      "/song/s2?repertoireId=rep-1&itemId=i2&mode=play",
+    )
   })
 
   it("resolves prev/next for middle, first, and last items", () => {

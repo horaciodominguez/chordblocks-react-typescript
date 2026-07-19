@@ -22,6 +22,8 @@ export interface Props {
    * Session stepper adjusts from this; does not mutate the song or set until saved in editor.
    */
   baseSemitones?: number
+  /** F13: atril — force guide density, hide edit chrome */
+  performanceMode?: boolean
 }
 
 const TRANSPOSE_MIN = -6
@@ -31,18 +33,30 @@ function formatOffset(semitones: number): string {
   return semitones > 0 ? `+${semitones}` : String(semitones)
 }
 
-export const Song = ({ song, baseSemitones = 0 }: Props) => {
+export const Song = ({
+  song,
+  baseSemitones = 0,
+  performanceMode = false,
+}: Props) => {
   const [showDiagram, setShowDiagram] = useState(false)
   const [semitones, setSemitones] = useState(baseSemitones)
   const [density, setDensity] = useState<SongDensity>(() =>
-    readDensityPreference(),
+    performanceMode ? "guide" : readDensityPreference(),
   )
 
   useEffect(() => {
     setSemitones(baseSemitones)
   }, [song.id, baseSemitones])
 
+  useEffect(() => {
+    if (performanceMode) {
+      setDensity("guide")
+      setShowDiagram(false)
+    }
+  }, [performanceMode])
+
   const setDensityAndPersist = (next: SongDensity) => {
+    if (performanceMode) return
     setDensity(next)
     writeDensityPreference(next)
     if (next === "guide") setShowDiagram(false)
@@ -60,14 +74,16 @@ export const Song = ({ song, baseSemitones = 0 }: Props) => {
         : formatOffset(semitones)
       : null
 
-  const diagramsEnabled = density === "bars" && showDiagram
+  const effectiveDensity: SongDensity = performanceMode ? "guide" : density
+  const diagramsEnabled = effectiveDensity === "bars" && showDiagram
 
   return (
     <div
       key={song.id ? song.id : null}
-      className="panel-variant-1"
-      data-density={density}
+      className={`panel-variant-1 ${performanceMode ? "border-0 bg-transparent p-0 shadow-none" : ""}`}
+      data-density={effectiveDensity}
     >
+      {!performanceMode ? (
       <div className="flex flex-col gap-3 mb-4 pb-3 border-b border-zinc-700/50">
         <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 text-sm text-zinc-400">
           <span>
@@ -182,12 +198,21 @@ export const Song = ({ song, baseSemitones = 0 }: Props) => {
           ) : null}
         </div>
       </div>
+      ) : badge ? (
+        <div className="mb-2">
+          <span className="text-xs font-medium text-amber-400/90 bg-amber-400/10 border border-amber-500/30 rounded px-2 py-1">
+            {badge}
+          </span>
+        </div>
+      ) : null}
 
-      <ul>
+      <ul className={performanceMode ? "mt-1" : undefined}>
         {displaySong.songSections.map((section) => (
           <li
             key={section.id}
-            className="song-section-item flex flex-col justify-start gap-3 mb-6"
+            className={`song-section-item flex flex-col justify-start gap-3 ${
+              performanceMode ? "mb-4" : "mb-6"
+            }`}
           >
             <div className="flex items-center gap-2">
               <SectionTag typeName={section.type} label={section.label} />
@@ -201,7 +226,7 @@ export const Song = ({ song, baseSemitones = 0 }: Props) => {
               section={section}
               timeSignature={displaySong.timeSignature}
               showDiagram={diagramsEnabled}
-              density={density}
+              density={effectiveDensity}
             />
           </li>
         ))}

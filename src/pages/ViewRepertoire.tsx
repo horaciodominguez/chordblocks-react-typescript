@@ -7,6 +7,10 @@ import Button from "@/components/ui/Button"
 import { toast } from "sonner"
 import { useMemo, useState } from "react"
 import { formatTransposePreview } from "@/modules/repertoires/utils/repertoire.transposePreview"
+import {
+  flattenRepertoireItems,
+  setSongPath,
+} from "@/modules/repertoires/utils/repertoire.navigation"
 
 export default function ViewRepertoire() {
   const { id } = useParams<{ id: string }>()
@@ -45,6 +49,19 @@ export default function ViewRepertoire() {
   const flatItems = repertoire.groups.flatMap((g) =>
     g.items.map((item) => ({ group: g, item })),
   )
+
+  const startPlay = () => {
+    const first = flattenRepertoireItems(repertoire)[0]
+    if (!first) {
+      toast.error("Add songs to the set first")
+      return
+    }
+    navigate(
+      setSongPath(first.item.songId, repertoire.id, first.item.id, {
+        mode: "play",
+      }),
+    )
+  }
 
   const startRename = () => {
     setTitleDraft(repertoire.title)
@@ -100,6 +117,15 @@ export default function ViewRepertoire() {
               {flatItems.length === 1 ? "song" : "songs"} in this set
             </p>
             <div className="flex flex-wrap gap-2">
+              <Button
+                type="button"
+                variant="save"
+                className="min-h-11"
+                onClick={startPlay}
+                disabled={flatItems.length === 0}
+              >
+                Play
+              </Button>
               <Button
                 type="button"
                 variant="secondary"
@@ -163,7 +189,11 @@ export default function ViewRepertoire() {
                             </span>
                             {song ? (
                               <Link
-                                to={`/song/${song.id}?repertoireId=${repertoire.id}&itemId=${item.id}`}
+                                to={setSongPath(
+                                  song.id,
+                                  repertoire.id,
+                                  item.id,
+                                )}
                                 className="text-zinc-100 font-medium hover:text-indigo-300"
                               >
                                 {song.title}
@@ -173,6 +203,11 @@ export default function ViewRepertoire() {
                                 Missing song ({item.songId.slice(0, 8)}…)
                               </span>
                             )}
+                            {item.notes?.trim() ? (
+                              <span className="block text-xs text-amber-200/70 mt-0.5 truncate">
+                                {item.notes.trim()}
+                              </span>
+                            ) : null}
                           </div>
                         {item.transposeSemitones !== 0 ? (
                           <span className="text-xs text-amber-400 shrink-0">
@@ -195,6 +230,15 @@ export default function ViewRepertoire() {
       )}
 
       <div className="mt-6 flex flex-wrap gap-2">
+        <Button
+          type="button"
+          variant="save"
+          className="min-h-11"
+          onClick={startPlay}
+          disabled={flatItems.length === 0}
+        >
+          Play
+        </Button>
         <Button
           type="button"
           variant="primary"

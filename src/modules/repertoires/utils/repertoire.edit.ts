@@ -104,6 +104,51 @@ export function setItemTranspose(
   }
 }
 
+export function setItemNotes(
+  rep: Repertoire,
+  itemId: string,
+  notes: string,
+): Repertoire {
+  return {
+    ...rep,
+    groups: rep.groups.map((g) => ({
+      ...g,
+      items: g.items.map((i) => {
+        if (i.id !== itemId) return i
+        if (!notes) {
+          return {
+            id: i.id,
+            songId: i.songId,
+            transposeSemitones: i.transposeSemitones,
+          }
+        }
+        return { ...i, notes }
+      }),
+    })),
+  }
+}
+
+/** Trim item notes before persist; drop empty notes. */
+export function normalizeRepertoireNotes(rep: Repertoire): Repertoire {
+  return {
+    ...rep,
+    groups: rep.groups.map((g) => ({
+      ...g,
+      items: g.items.map((i) => {
+        const trimmed = i.notes?.trim()
+        if (!trimmed) {
+          return {
+            id: i.id,
+            songId: i.songId,
+            transposeSemitones: i.transposeSemitones,
+          }
+        }
+        return { ...i, notes: trimmed }
+      }),
+    })),
+  }
+}
+
 export function setGroupTitle(
   rep: Repertoire,
   groupId: string,

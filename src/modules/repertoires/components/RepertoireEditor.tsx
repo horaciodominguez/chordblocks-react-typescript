@@ -32,6 +32,8 @@ import {
   reorderItem,
   setGroupTitle,
   setItemTranspose,
+  setItemNotes,
+  normalizeRepertoireNotes,
 } from "@/modules/repertoires/utils/repertoire.edit"
 import {
   formatSemitoneOffset,
@@ -55,7 +57,9 @@ function SortableItemRow({
   artist,
   song,
   transposeSemitones,
+  notes,
   onTranspose,
+  onNotesChange,
   onRemove,
 }: {
   id: string
@@ -63,7 +67,9 @@ function SortableItemRow({
   artist?: string
   song?: Song
   transposeSemitones: number
+  notes: string
   onTranspose: (next: number) => void
+  onNotesChange: (notes: string) => void
   onRemove: () => void
 }) {
   const {
@@ -157,6 +163,20 @@ function SortableItemRow({
           </span>
         ) : null}
       </div>
+
+      <div className="pl-12">
+        <label className="sr-only" htmlFor={`notes-${id}`}>
+          Night notes for {title}
+        </label>
+        <textarea
+          id={`notes-${id}`}
+          rows={2}
+          className="w-full min-h-16 rounded-md border border-zinc-700 bg-zinc-950/80 px-3 py-2 text-sm text-zinc-200 placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          placeholder="Night notes (e.g. tono B, mya y iara)…"
+          value={notes}
+          onChange={(e) => onNotesChange(e.target.value)}
+        />
+      </div>
     </li>
   )
 }
@@ -243,7 +263,7 @@ export function RepertoireEditor({
       toast.error("Title is required")
       return
     }
-    await onSave({ ...draft, title })
+    await onSave(normalizeRepertoireNotes({ ...draft, title }))
   }
 
   return (
@@ -385,9 +405,15 @@ export function RepertoireEditor({
                           artist={song?.artist}
                           song={song}
                           transposeSemitones={item.transposeSemitones}
+                          notes={item.notes ?? ""}
                           onTranspose={(next) =>
                             setDraft((prev) =>
                               setItemTranspose(prev, item.id, next),
+                            )
+                          }
+                          onNotesChange={(next) =>
+                            setDraft((prev) =>
+                              setItemNotes(prev, item.id, next),
                             )
                           }
                           onRemove={() =>

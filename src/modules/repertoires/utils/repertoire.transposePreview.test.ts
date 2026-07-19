@@ -5,7 +5,7 @@ import {
   formatTransposePreview,
   getSongKeyAnchor,
 } from "./repertoire.transposePreview"
-import { setItemTranspose } from "./repertoire.edit"
+import { setItemTranspose, setItemNotes } from "./repertoire.edit"
 import type { Repertoire } from "../types/repertoire.types"
 
 function songWithKey(mainKey?: string, firstChord?: string): Song {
@@ -87,5 +87,29 @@ describe("setItemTranspose", () => {
     expect(setItemTranspose(rep, "i1", 99).groups[0].items[0].transposeSemitones).toBe(
       12,
     )
+  })
+})
+
+describe("setItemNotes", () => {
+  it("sets and clears notes on an item", () => {
+    const rep: Repertoire = {
+      id: "r1",
+      title: "Gig",
+      groups: [
+        {
+          id: "g1",
+          title: "",
+          items: [{ id: "i1", songId: "s1", transposeSemitones: 0 }],
+        },
+      ],
+      createdAt: "2026-01-01T00:00:00.000Z",
+      updatedAt: "2026-01-01T00:00:00.000Z",
+    }
+
+    const withNotes = setItemNotes(rep, "i1", "tono B")
+    expect(withNotes.groups[0].items[0].notes).toBe("tono B")
+
+    const cleared = setItemNotes(withNotes, "i1", "")
+    expect(cleared.groups[0].items[0].notes).toBeUndefined()
   })
 })

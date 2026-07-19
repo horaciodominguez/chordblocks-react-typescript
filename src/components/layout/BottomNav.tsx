@@ -20,7 +20,10 @@ export function BottomNav() {
     /^\/song\/[^/]+\/edit$/.test(location.pathname) ||
     /^\/repertoires\/[^/]+\/edit$/.test(location.pathname)
 
-  if (hideOnEdit) return null
+  const playMode =
+    new URLSearchParams(location.search).get("mode") === "play"
+
+  if (hideOnEdit || playMode) return null
 
   return (
     <nav

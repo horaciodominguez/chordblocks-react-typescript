@@ -30,12 +30,20 @@ export function setSongPath(
   songId: string,
   repertoireId: string,
   itemId: string,
+  options?: { mode?: "play" },
 ): string {
   const params = new URLSearchParams({
     repertoireId,
     itemId,
   })
+  if (options?.mode === "play") {
+    params.set("mode", "play")
+  }
   return `/song/${songId}?${params.toString()}`
+}
+
+export function isPlayModeParam(mode: string | null): boolean {
+  return mode === "play"
 }
 
 export type SetNavContext = {

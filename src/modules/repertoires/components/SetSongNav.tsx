@@ -5,24 +5,34 @@ import { setSongPath } from "@/modules/repertoires/utils/repertoire.navigation"
 
 type Props = {
   nav: SetNavContext
+  playMode?: boolean
 }
 
-export function SetSongNav({ nav }: Props) {
+export function SetSongNav({ nav, playMode = false }: Props) {
   const { prev, next, current, total, repertoireId } = nav
   const position = current.index + 1
+  const pathOpts = playMode ? ({ mode: "play" } as const) : undefined
 
   return (
     <nav
       aria-label="Set navigation"
-      className="fixed inset-x-0 z-20
-        bottom-[calc(3.5rem+env(safe-area-inset-bottom))] md:bottom-0
+      className={`fixed inset-x-0 z-20
         border-t border-zinc-800 bg-zinc-950/95 backdrop-blur-md
-        pb-[max(0.5rem,env(safe-area-inset-bottom))] md:pb-3"
+        ${
+          playMode
+            ? "bottom-0 pb-[max(0.5rem,env(safe-area-inset-bottom))]"
+            : "bottom-[calc(3.5rem+env(safe-area-inset-bottom))] md:bottom-0 pb-[max(0.5rem,env(safe-area-inset-bottom))] md:pb-3"
+        }`}
     >
       <div className="max-w-3xl mx-auto px-4 py-2 flex items-center gap-2">
         {prev ? (
           <Link
-            to={setSongPath(prev.item.songId, repertoireId, prev.item.id)}
+            to={setSongPath(
+              prev.item.songId,
+              repertoireId,
+              prev.item.id,
+              pathOpts,
+            )}
             className="flex items-center justify-center gap-1 min-h-11 px-3 rounded-md border border-zinc-700 text-sm text-indigo-300 hover:text-gray-200 hover:bg-zinc-800/50"
             aria-label="Previous song in set"
           >
@@ -45,7 +55,12 @@ export function SetSongNav({ nav }: Props) {
 
         {next ? (
           <Link
-            to={setSongPath(next.item.songId, repertoireId, next.item.id)}
+            to={setSongPath(
+              next.item.songId,
+              repertoireId,
+              next.item.id,
+              pathOpts,
+            )}
             className="flex items-center justify-center gap-1 min-h-11 px-3 rounded-md border border-zinc-700 text-sm text-indigo-300 hover:text-gray-200 hover:bg-zinc-800/50"
             aria-label="Next song in set"
           >
