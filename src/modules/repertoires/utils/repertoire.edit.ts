@@ -77,6 +77,33 @@ export function removeItem(rep: Repertoire, itemId: string): Repertoire {
   }
 }
 
+const TRANSPOSE_CLAMP_MIN = -12
+const TRANSPOSE_CLAMP_MAX = 12
+
+export function clampItemTranspose(semitones: number): number {
+  return Math.max(
+    TRANSPOSE_CLAMP_MIN,
+    Math.min(TRANSPOSE_CLAMP_MAX, Math.round(semitones)),
+  )
+}
+
+export function setItemTranspose(
+  rep: Repertoire,
+  itemId: string,
+  semitones: number,
+): Repertoire {
+  const next = clampItemTranspose(semitones)
+  return {
+    ...rep,
+    groups: rep.groups.map((g) => ({
+      ...g,
+      items: g.items.map((i) =>
+        i.id === itemId ? { ...i, transposeSemitones: next } : i,
+      ),
+    })),
+  }
+}
+
 export function setGroupTitle(
   rep: Repertoire,
   groupId: string,

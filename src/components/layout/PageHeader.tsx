@@ -5,13 +5,23 @@ type Props = {
   title: string
   backTo?: string
   actions?: React.ReactNode
+  /**
+   * When true (default), prefer browser history (-1) if available.
+   * When false, always go to `backTo` (e.g. back to set from a song in set context).
+   */
+  preferHistory?: boolean
 }
 
-export function PageHeader({ title, backTo = "/", actions }: Props) {
+export function PageHeader({
+  title,
+  backTo = "/",
+  actions,
+  preferHistory = true,
+}: Props) {
   const navigate = useNavigate()
 
   const handleBack = () => {
-    if (window.history.length > 1) {
+    if (preferHistory && window.history.length > 1) {
       navigate(-1)
     } else {
       navigate(backTo)

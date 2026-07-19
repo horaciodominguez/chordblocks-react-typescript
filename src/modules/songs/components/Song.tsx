@@ -17,6 +17,11 @@ export interface TemporarySong extends Omit<SongType, "id"> {
 
 export interface Props {
   song: TemporarySong | SongType
+  /**
+   * Starting transpose from a repertoire item (F11).
+   * Session stepper adjusts from this; does not mutate the song or set until saved in editor.
+   */
+  baseSemitones?: number
 }
 
 const TRANSPOSE_MIN = -6
@@ -26,16 +31,16 @@ function formatOffset(semitones: number): string {
   return semitones > 0 ? `+${semitones}` : String(semitones)
 }
 
-export const Song = ({ song }: Props) => {
+export const Song = ({ song, baseSemitones = 0 }: Props) => {
   const [showDiagram, setShowDiagram] = useState(false)
-  const [semitones, setSemitones] = useState(0)
+  const [semitones, setSemitones] = useState(baseSemitones)
   const [density, setDensity] = useState<SongDensity>(() =>
     readDensityPreference(),
   )
 
   useEffect(() => {
-    setSemitones(0)
-  }, [song.id])
+    setSemitones(baseSemitones)
+  }, [song.id, baseSemitones])
 
   const setDensityAndPersist = (next: SongDensity) => {
     setDensity(next)

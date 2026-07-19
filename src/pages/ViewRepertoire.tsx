@@ -6,6 +6,7 @@ import LoaderSpinner from "@/components/ui/LoaderSpinner"
 import Button from "@/components/ui/Button"
 import { toast } from "sonner"
 import { useMemo, useState } from "react"
+import { formatTransposePreview } from "@/modules/repertoires/utils/repertoire.transposePreview"
 
 export default function ViewRepertoire() {
   const { id } = useParams<{ id: string }>()
@@ -173,12 +174,15 @@ export default function ViewRepertoire() {
                               </span>
                             )}
                           </div>
-                          {item.transposeSemitones !== 0 ? (
-                            <span className="text-xs text-amber-400 shrink-0">
-                              {item.transposeSemitones > 0 ? "+" : ""}
-                              {item.transposeSemitones}
-                            </span>
-                          ) : null}
+                        {item.transposeSemitones !== 0 ? (
+                          <span className="text-xs text-amber-400 shrink-0">
+                            {formatTransposePreview(
+                              song,
+                              item.transposeSemitones,
+                            ) ??
+                              `${item.transposeSemitones > 0 ? "+" : ""}${item.transposeSemitones}`}
+                          </span>
+                        ) : null}
                         </li>
                       )
                     })}

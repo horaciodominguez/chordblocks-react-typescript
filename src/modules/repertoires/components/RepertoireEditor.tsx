@@ -15,7 +15,7 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
-import { ChevronDown, ChevronUp, GripVertical, Plus, Trash } from "lucide-react"
+import { ChevronDown, ChevronUp, GripVertical, Minus, Plus, Trash } from "lucide-react"
 import { toast } from "sonner"
 import Button from "@/components/ui/Button"
 import { StickyActionBar } from "@/components/layout/StickyActionBar"
@@ -31,7 +31,16 @@ import {
   removeItem,
   reorderItem,
   setGroupTitle,
+  setItemTranspose,
 } from "@/modules/repertoires/utils/repertoire.edit"
+import {
+  formatSemitoneOffset,
+  formatTransposePreview,
+} from "@/modules/repertoires/utils/repertoire.transposePreview"
+import type { Song } from "@/modules/songs/types/song.types"
+
+const ITEM_TRANSPOSE_MIN = -6
+const ITEM_TRANSPOSE_MAX = 6
 
 type Props = {
   initial: Repertoire
@@ -44,11 +53,17 @@ function SortableItemRow({
   id,
   title,
   artist,
+  song,
+  transposeSemitones,
+  onTranspose,
   onRemove,
 }: {
   id: string
   title: string
   artist?: string
+  song?: Song
+  transposeSemitones: number
+  onTranspose: (next: number) => void
   onRemove: () => void
 }) {
   const {
@@ -66,35 +81,82 @@ function SortableItemRow({
     opacity: isDragging ? 0.5 : 1,
   }
 
+  const preview = formatTransposePreview(song, transposeSemitones)
+
   return (
     <li
       ref={setNodeRef}
       style={style}
-      className="flex items-center gap-2 rounded-md border border-zinc-800 bg-zinc-900/60 px-2 py-2"
+      className="flex flex-col gap-2 rounded-md border border-zinc-800 bg-zinc-900/60 px-2 py-2"
     >
-      <button
-        type="button"
-        className="shrink-0 touch-none cursor-grab text-zinc-500 hover:text-zinc-300 min-h-10 min-w-10 flex items-center justify-center"
-        aria-label={`Drag ${title}`}
-        {...attributes}
-        {...listeners}
-      >
-        <GripVertical size={18} />
-      </button>
-      <div className="min-w-0 flex-1">
-        <p className="text-sm text-zinc-100 truncate">{title}</p>
-        {artist ? (
-          <p className="text-xs text-zinc-500 truncate">{artist}</p>
+      <div className="flex items-center gap-2">
+        <button
+          type="button"
+          className="shrink-0 touch-none cursor-grab text-zinc-500 hover:text-zinc-300 min-h-10 min-w-10 flex items-center justify-center"
+          aria-label={`Drag ${title}`}
+          {...attributes}
+          {...listeners}
+        >
+          <GripVertical size={18} />
+        </button>
+        <div className="min-w-0 flex-1">
+          <p className="text-sm text-zinc-100 truncate">{title}</p>
+          {artist ? (
+            <p className="text-xs text-zinc-500 truncate">{artist}</p>
+          ) : null}
+        </div>
+        <button
+          type="button"
+          className="shrink-0 min-h-10 min-w-10 flex items-center justify-center text-red-400 hover:text-red-300"
+          aria-label={`Remove ${title}`}
+          onClick={onRemove}
+        >
+          <Trash size={16} />
+        </button>
+      </div>
+
+      <div className="flex flex-wrap items-center gap-2 pl-12">
+        <span className="text-xs text-zinc-500">Transpose</span>
+        <div className="flex items-center gap-1">
+          <button
+            type="button"
+            aria-label={`Transpose ${title} down`}
+            disabled={transposeSemitones <= ITEM_TRANSPOSE_MIN}
+            onClick={() =>
+              onTranspose(
+                Math.max(ITEM_TRANSPOSE_MIN, transposeSemitones - 1),
+              )
+            }
+            className="flex items-center justify-center min-h-10 min-w-10 rounded-md border border-zinc-600 text-zinc-200 hover:bg-zinc-800/50 disabled:opacity-40 disabled:pointer-events-none"
+          >
+            <Minus size={14} />
+          </button>
+          <span
+            className="min-w-9 text-center text-sm font-semibold text-zinc-200 tabular-nums"
+            aria-live="polite"
+          >
+            {formatSemitoneOffset(transposeSemitones)}
+          </span>
+          <button
+            type="button"
+            aria-label={`Transpose ${title} up`}
+            disabled={transposeSemitones >= ITEM_TRANSPOSE_MAX}
+            onClick={() =>
+              onTranspose(
+                Math.min(ITEM_TRANSPOSE_MAX, transposeSemitones + 1),
+              )
+            }
+            className="flex items-center justify-center min-h-10 min-w-10 rounded-md border border-zinc-600 text-zinc-200 hover:bg-zinc-800/50 disabled:opacity-40 disabled:pointer-events-none"
+          >
+            <Plus size={14} />
+          </button>
+        </div>
+        {preview ? (
+          <span className="text-xs font-medium text-amber-400/90 bg-amber-400/10 border border-amber-500/30 rounded px-2 py-1">
+            {preview}
+          </span>
         ) : null}
       </div>
-      <button
-        type="button"
-        className="shrink-0 min-h-10 min-w-10 flex items-center justify-center text-red-400 hover:text-red-300"
-        aria-label={`Remove ${title}`}
-        onClick={onRemove}
-      >
-        <Trash size={16} />
-      </button>
     </li>
   )
 }
@@ -321,6 +383,13 @@ export function RepertoireEditor({
                             `Missing song (${item.songId.slice(0, 8)}…)`
                           }
                           artist={song?.artist}
+                          song={song}
+                          transposeSemitones={item.transposeSemitones}
+                          onTranspose={(next) =>
+                            setDraft((prev) =>
+                              setItemTranspose(prev, item.id, next),
+                            )
+                          }
                           onRemove={() =>
                             setDraft((prev) => removeItem(prev, item.id))
                           }
