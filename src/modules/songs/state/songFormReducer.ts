@@ -51,6 +51,7 @@ export type Action =
   | { type: "UPDATE_BLOCK_DURATION"; blockId: string; duration: number }
   | { type: "REORDER_BARS_IN_SECTION"; sectionId: string; order: string[] }
   | { type: "REORDER_BLOCKS"; barId: string; order: string[] }
+  | { type: "REORDER_SECTIONS"; order: string[] }
   | { type: "SET_PENDING_SECTION_REPEATS"; v: number }
   | { type: "SET_PENDING_SECTION_LABEL"; v: string | undefined }
   | { type: "CANCEL_SECTION" }
@@ -389,6 +390,25 @@ export const reducer = (
                 .filter(Boolean) as typeof bar.blocks,
             }
           }),
+        },
+      }
+    }
+
+    case "REORDER_SECTIONS": {
+      const { order } = action
+      const byId = new Map(state.song.songSections.map((s) => [s.id, s]))
+      const reordered = order
+        .map((id) => byId.get(id))
+        .filter(Boolean) as SongSection[]
+
+      if (reordered.length !== state.song.songSections.length) return state
+
+      return {
+        ...state,
+        song: {
+          ...state.song,
+          songSections: reordered,
+          updatedAt: new Date().toISOString(),
         },
       }
     }

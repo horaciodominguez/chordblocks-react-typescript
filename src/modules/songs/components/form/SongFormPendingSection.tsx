@@ -12,6 +12,7 @@ import { toast } from "sonner"
 import { SquarePen, Trash2 } from "lucide-react"
 import { SectionEditor } from "./SectionEditor"
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog"
+import SectionsReorder from "./SectionsReorder"
 
 type Props = {
   dispatch: React.Dispatch<Action>
@@ -20,69 +21,78 @@ type Props = {
 
 export function SongFormPendingSection({ dispatch, state }: Props) {
   const [isEditingSection, setIsEditingSection] = useState(false)
+  const sectionReorderDisabled = isEditingSection
 
   return (
     <>
       {state.song.songSections.length > 0 && (
         <div className="mb-4">
-          {state.song.songSections.map((section) => (
-            <div key={section.id} className="mb-8">
-              <div className="flex gap-2 justify-start items-center mb-4">
-                <SectionTag typeName={section.type} label={section.label} />
-                {(section.repeats ?? 1) > 1 && (
-                  <span className="text-xs font-semibold text-blue-400">
-                    ×{section.repeats}
-                  </span>
-                )}
-                <button
-                  type="button"
-                  aria-label={`Edit ${section.type} section`}
-                  className="flex items-center justify-center min-h-9 min-w-9 rounded-md text-indigo-300 hover:bg-zinc-800/50"
-                  onClick={() => {
-                    setIsEditingSection(true)
-                    dispatch({ type: "EDIT_SECTION", v: section.id })
-                    toast.info("Started editing section")
-                  }}
-                >
-                  <SquarePen className="w-4 h-4 cursor-pointer" />
-                </button>
-                <ConfirmDialog
-                  title="Delete section?"
-                  description={`Delete the "${section.type}" section? This cannot be undone.`}
-                  confirmLabel="Delete"
-                  cancelLabel="Cancel"
-                  onConfirm={() => {
-                    dispatch({ type: "DELETE_SECTION", v: section.id })
-                    if (state.editingSectionId === section.id) {
-                      setIsEditingSection(false)
+          <SectionsReorder
+            sections={state.song.songSections}
+            disabled={sectionReorderDisabled}
+            onReorder={(order) =>
+              dispatch({ type: "REORDER_SECTIONS", order })
+            }
+          >
+            {(section) => (
+              <>
+                <div className="flex gap-2 justify-start items-center mb-4">
+                  <SectionTag typeName={section.type} label={section.label} />
+                  {(section.repeats ?? 1) > 1 && (
+                    <span className="text-xs font-semibold text-blue-400">
+                      ×{section.repeats}
+                    </span>
+                  )}
+                  <button
+                    type="button"
+                    aria-label={`Edit ${section.type} section`}
+                    className="flex items-center justify-center min-h-9 min-w-9 rounded-md text-indigo-300 hover:bg-zinc-800/50"
+                    onClick={() => {
+                      setIsEditingSection(true)
+                      dispatch({ type: "EDIT_SECTION", v: section.id })
+                      toast.info("Started editing section")
+                    }}
+                  >
+                    <SquarePen className="w-4 h-4 cursor-pointer" />
+                  </button>
+                  <ConfirmDialog
+                    title="Delete section?"
+                    description={`Delete the "${section.type}" section? This cannot be undone.`}
+                    confirmLabel="Delete"
+                    cancelLabel="Cancel"
+                    onConfirm={() => {
+                      dispatch({ type: "DELETE_SECTION", v: section.id })
+                      if (state.editingSectionId === section.id) {
+                        setIsEditingSection(false)
+                      }
+                      toast.success("Section deleted")
+                    }}
+                    trigger={
+                      <button
+                        type="button"
+                        aria-label={`Delete ${section.type} section`}
+                        className="flex items-center justify-center min-h-9 min-w-9 rounded-md text-red-400 hover:bg-zinc-800/50"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
                     }
-                    toast.success("Section deleted")
-                  }}
-                  trigger={
-                    <button
-                      type="button"
-                      aria-label={`Delete ${section.type} section`}
-                      className="flex items-center justify-center min-h-9 min-w-9 rounded-md text-red-400 hover:bg-zinc-800/50"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
-                  }
-                />
-              </div>
-              {section.id !== state?.editingSectionId ? (
-                <Section
-                  section={section}
-                  timeSignature={state.song.timeSignature}
-                />
-              ) : (
-                <SectionEditor
-                  state={state}
-                  dispatch={dispatch}
-                  onStopEditing={() => setIsEditingSection(false)}
-                />
-              )}
-            </div>
-          ))}
+                  />
+                </div>
+                {section.id !== state?.editingSectionId ? (
+                  <Section
+                    section={section}
+                    timeSignature={state.song.timeSignature}
+                  />
+                ) : (
+                  <SectionEditor
+                    state={state}
+                    dispatch={dispatch}
+                    onStopEditing={() => setIsEditingSection(false)}
+                  />
+                )}
+              </>
+            )}
+          </SectionsReorder>
         </div>
       )}
 
