@@ -1,18 +1,13 @@
 import { NavLink, useLocation } from "react-router-dom"
-import { ListMusic, ListPlus, Library, User, LogOut } from "lucide-react"
-import { useAuth } from "@/modules/auth/hooks/useAuth"
-import { LoginForm } from "@/modules/auth/components/LoginForm"
-import { AppDialog } from "@/components/ui/AppDialog"
-import { signOut } from "@/services/auth/supabaseAuth"
+import { ListMusic, Library, Settings } from "lucide-react"
 
 const navItems = [
   { to: "/", label: "Songs", icon: ListMusic, end: true },
   { to: "/repertoires", label: "Sets", icon: Library, end: false },
-  { to: "/new", label: "Add", icon: ListPlus, end: false },
+  { to: "/settings", label: "Settings", icon: Settings, end: false },
 ]
 
 export function BottomNav() {
-  const { user } = useAuth()
   const location = useLocation()
 
   const hideOnEdit =
@@ -53,39 +48,6 @@ export function BottomNav() {
             </li>
           )
         })}
-
-        <li className="flex-1">
-          {user ? (
-            <button
-              type="button"
-              onClick={() => signOut()}
-              aria-label="Sign out"
-              className="flex flex-col items-center justify-center gap-0.5 py-2 min-h-14 w-full
-                         text-[10px] uppercase tracking-wide text-zinc-500 hover:text-indigo-300"
-            >
-              <LogOut size={22} />
-              <span>Account</span>
-            </button>
-          ) : (
-            <AppDialog
-              trigger={
-                <button
-                  type="button"
-                  aria-label="Login"
-                  className="flex flex-col items-center justify-center gap-0.5 py-2 min-h-14 w-full
-                             text-[10px] uppercase tracking-wide text-zinc-500 hover:text-indigo-300"
-                >
-                  <User size={22} />
-                  <span>Account</span>
-                </button>
-              }
-              title="Login"
-              description="Enter your email to receive a login link"
-            >
-              <LoginForm />
-            </AppDialog>
-          )}
-        </li>
       </ul>
     </nav>
   )

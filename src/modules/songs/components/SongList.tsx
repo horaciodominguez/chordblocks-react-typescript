@@ -1,8 +1,9 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import {
   AudioLines,
   Edit,
   Music,
+  Plus,
   Search,
   SlidersHorizontal,
   Trash,
@@ -24,6 +25,7 @@ const actionBtnClass =
 
 export const SongList = () => {
   const { songs, deleteSong, initialLoading, mutating } = useSongs()
+  const navigate = useNavigate()
 
   const [search, setSearch] = useState("")
   const [year, setYear] = useState("")
@@ -63,12 +65,15 @@ export const SongList = () => {
         <p className="mb-6 text-sm text-zinc-500">
           Create your first chord progression to get started.
         </p>
-        <Link
-          to="/new"
-          className="inline-flex items-center justify-center min-h-11 px-6 rounded-md bg-indigo-600 hover:bg-indigo-700 text-white"
+        <Button
+          type="button"
+          variant="save"
+          className="min-h-11 inline-flex items-center gap-2 mx-auto"
+          onClick={() => navigate("/new")}
         >
-          Add your first song
-        </Link>
+          <Plus size={16} />
+          Create your first song
+        </Button>
       </div>
     )
   }
@@ -92,7 +97,16 @@ export const SongList = () => {
 
   return (
     <>
-      <div className="flex justify-end items-center mb-2">
+      <div className="flex justify-end items-center gap-2 mb-2">
+        <Button
+          type="button"
+          variant="primary"
+          className="min-h-11 inline-flex items-center gap-2"
+          onClick={() => navigate("/new")}
+        >
+          <Plus size={16} />
+          New song
+        </Button>
         <Button
           variant="primary"
           onClick={() => setShowFilters((v) => !v)}

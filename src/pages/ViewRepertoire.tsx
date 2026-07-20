@@ -1,4 +1,5 @@
 import { Link, useNavigate, useParams } from "react-router-dom"
+import { Download } from "lucide-react"
 import { useRepertoires } from "@/modules/repertoires/hooks/useRepertoires"
 import { useSongs } from "@/modules/songs/hooks/useSongs"
 import { PageHeader } from "@/components/layout/PageHeader"
@@ -11,6 +12,8 @@ import {
   flattenRepertoireItems,
   setSongPath,
 } from "@/modules/repertoires/utils/repertoire.navigation"
+import { buildExportPackage } from "@/modules/io/utils/buildExportPackage"
+import { downloadJson, exportFilename } from "@/modules/io/utils/downloadJson"
 
 export default function ViewRepertoire() {
   const { id } = useParams<{ id: string }>()
@@ -61,6 +64,27 @@ export default function ViewRepertoire() {
         mode: "play",
       }),
     )
+  }
+
+  const exportSet = () => {
+    try {
+      const pkg = buildExportPackage({
+        repertoires: [repertoire],
+        allSongs: songs,
+      })
+      const safe = repertoire.title
+        .trim()
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-|-$/g, "") || "set"
+      downloadJson(exportFilename(`chordblocks-${safe}`), pkg)
+      toast.success(
+        `Exported set with ${pkg.songs.length} song${pkg.songs.length === 1 ? "" : "s"}`,
+      )
+    } catch (err) {
+      console.error(err)
+      toast.error("Export failed — add songs to the set first")
+    }
   }
 
   const startRename = () => {
@@ -141,6 +165,16 @@ export default function ViewRepertoire() {
                 onClick={() => navigate(`/repertoires/${repertoire.id}/edit`)}
               >
                 Edit set
+              </Button>
+              <Button
+                type="button"
+                variant="secondary"
+                className="min-h-11 inline-flex items-center gap-2"
+                onClick={exportSet}
+                disabled={flatItems.length === 0}
+              >
+                <Download size={16} />
+                Export
               </Button>
             </div>
           </div>
@@ -246,6 +280,16 @@ export default function ViewRepertoire() {
           onClick={() => navigate(`/repertoires/${repertoire.id}/edit`)}
         >
           Edit set
+        </Button>
+        <Button
+          type="button"
+          variant="secondary"
+          className="min-h-11 inline-flex items-center gap-2"
+          onClick={exportSet}
+          disabled={flatItems.length === 0}
+        >
+          <Download size={16} />
+          Export
         </Button>
         <Button
           type="button"

@@ -4,6 +4,10 @@
 
 @import "tailwindcss";
 
+/* Keep Tailwind from scanning sibling apps outside this Vite root */
+@source not "../../createimport";
+@source not "../createimport";
+
 .maincontainer {
   
   font-family: "DM Sans", sans-serif;
