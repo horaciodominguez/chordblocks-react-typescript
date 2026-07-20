@@ -28,6 +28,7 @@ type Props = {
   onReorder: (bars: Bar[]) => void
   onReorderBlocks: (barId: string, blocks: Bar["blocks"]) => void
   onDeleteChord: (chordId: string) => void
+  onUpdateDuration?: (blockId: string, duration: number) => void
 }
 
 function SortableBar({
@@ -36,12 +37,14 @@ function SortableBar({
   timeSignature,
   onReorderBlocks,
   onDeleteChord,
+  onUpdateDuration,
 }: {
   bar: Bar
   index: number
   timeSignature: TimeSignature
   onReorderBlocks: (barId: string, chords: Bar["blocks"]) => void
   onDeleteChord: (chordId: string) => void
+  onUpdateDuration?: (blockId: string, duration: number) => void
 }) {
   const {
     attributes,
@@ -79,6 +82,7 @@ function SortableBar({
         timeSignature={timeSignature}
         onReorder={onReorderBlocks}
         onDeleteChord={onDeleteChord}
+        onUpdateDuration={onUpdateDuration}
       />
     </div>
   )
@@ -90,6 +94,7 @@ export default function BarsReorder({
   onReorder,
   onReorderBlocks,
   onDeleteChord,
+  onUpdateDuration,
 }: Props) {
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -127,6 +132,7 @@ export default function BarsReorder({
               timeSignature={timeSignature}
               onReorderBlocks={onReorderBlocks}
               onDeleteChord={onDeleteChord}
+              onUpdateDuration={onUpdateDuration}
             />
           ))}
         </SortableContext>

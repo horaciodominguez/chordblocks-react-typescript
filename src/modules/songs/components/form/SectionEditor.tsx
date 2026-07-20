@@ -218,6 +218,13 @@ export function SectionEditor({ state, dispatch, onStopEditing }: Props) {
                 v: blockId,
               })
             }}
+            onUpdateDuration={(blockId, duration) => {
+              dispatch({
+                type: "UPDATE_BLOCK_DURATION",
+                blockId,
+                duration,
+              })
+            }}
           />
 
           <div className="mb-4 flex flex-wrap gap-3 mt-4 justify-end">

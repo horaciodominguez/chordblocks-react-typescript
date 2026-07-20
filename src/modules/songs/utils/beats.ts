@@ -34,3 +34,15 @@ export const nextBeatsValue = (cap: number) => {
 
 export const remainingBeats = (bar: Bar, bpm: number) =>
   bpm - bar.blocks.reduce((a, c) => a + c.duration, 0)
+
+/** Valid duration options for an existing block within its bar. */
+export const allowedBlockDurations = (
+  bar: Bar,
+  blockId: string,
+  bpm: number,
+) => {
+  const block = bar.blocks.find((b) => b.id === blockId)
+  if (!block) return BLOCK_BEAT_VALUES.filter((v) => v <= bpm)
+  const max = block.duration + remainingBeats(bar, bpm)
+  return BLOCK_BEAT_VALUES.filter((v) => v <= max)
+}

@@ -48,6 +48,7 @@ export type Action =
   | { type: "ADD_BEATS"; v: string }
   | { type: "ADD_BLOCK" }
   | { type: "DELETE_BLOCK"; v: string }
+  | { type: "UPDATE_BLOCK_DURATION"; blockId: string; duration: number }
   | { type: "REORDER_BARS_IN_SECTION"; sectionId: string; order: string[] }
   | { type: "REORDER_BLOCKS"; barId: string; order: string[] }
   | { type: "SET_PENDING_SECTION_REPEATS"; v: number }
@@ -272,6 +273,43 @@ export const reducer = (
       }
     }
 
+    case "UPDATE_BLOCK_DURATION": {
+      if (state.pendingSection.id === "") return state
+
+      const bpm = state.song.timeSignature.beatsPerMeasure
+      const { blockId, duration } = action
+      if (duration < 1 || duration > 12) return state
+
+      let found = false
+      const updatedBars = state.pendingSection.bars.map((bar) => {
+        const blockIndex = bar.blocks.findIndex((b) => b.id === blockId)
+        if (blockIndex === -1) return bar
+
+        const block = bar.blocks[blockIndex]
+        const maxDuration = block.duration + remainingBeats(bar, bpm)
+        if (duration > maxDuration) return bar
+
+        found = true
+        const blocks = [...bar.blocks]
+        blocks[blockIndex] = { ...block, duration }
+        return { ...bar, blocks }
+      })
+
+      if (!found) return state
+
+      const lastBar = updatedBars[updatedBars.length - 1]
+      const availableBeats = lastBar
+        ? beatsCap(bpm, remainingBeats(lastBar, bpm))
+        : beatsCap(bpm, bpm)
+
+      return {
+        ...state,
+        pendingSection: { ...state.pendingSection, bars: updatedBars },
+        availableBeats,
+        pendingBeats: nextBeatsValue(availableBeats),
+      }
+    }
+
     case "DELETE_BLOCK": {
       if (state.pendingSection.id === "") return state
 
@@ -468,12 +506,22 @@ export const reducer = (
       const sectionToEdit = state.song.songSections.find(
         (s) => s.id === action.v
       )
+      const bpm = state.song.timeSignature.beatsPerMeasure
+      const bars = sectionToEdit?.bars ?? []
+      const lastBar = bars[bars.length - 1]
+      const availableBeats = lastBar
+        ? beatsCap(bpm, remainingBeats(lastBar, bpm))
+        : beatsCap(bpm, bpm)
+
       return {
         ...state,
         pendingSection: sectionToEdit
           ? { ...sectionToEdit }
           : { id: "", type: "", bars: [], repeats: 1 },
         editingSectionId: action.v,
+        availableBeats,
+        pendingBeats: nextBeatsValue(availableBeats),
+        pendingBlock: undefined,
       }
     }
     case "CANCEL_EDIT_SECTION": {

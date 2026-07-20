@@ -18,6 +18,8 @@ type Props = {
   dragListeners?: React.HTMLAttributes<HTMLDivElement>
   isDragging?: boolean
   onDelete?: React.MouseEventHandler<HTMLButtonElement>
+  onUpdateDuration?: (duration: number) => void
+  durationOptions?: readonly number[]
   showDiagram?: boolean
   density?: SongDensity
 }
@@ -67,12 +69,14 @@ export const Block = forwardRef<HTMLDivElement, Props>(
       dragListeners,
       isDragging,
       onDelete,
+      onUpdateDuration,
+      durationOptions,
       showDiagram,
       density = "bars",
     },
     ref,
   ) => {
-    const hasControls = !!(dragStyle || onDelete)
+    const hasControls = !!(dragStyle || onDelete || onUpdateDuration)
     const isGuide = density === "guide"
 
     return (
@@ -107,6 +111,25 @@ export const Block = forwardRef<HTMLDivElement, Props>(
             absolute bottom-0 left-1/2 -translate-x-1/2
             opacity-100 md:opacity-0 md:group-hover:opacity-100 transition"
           >
+            {onUpdateDuration && durationOptions && durationOptions.length > 0 && (
+              <select
+                value={block.duration}
+                onChange={(e) =>
+                  onUpdateDuration(parseInt(e.target.value, 10))
+                }
+                aria-label="Block beats"
+                title="Beats"
+                className="text-xs bg-zinc-800 border border-zinc-600 text-zinc-200 rounded px-1 py-1 min-h-9 cursor-pointer"
+                onPointerDown={(e) => e.stopPropagation()}
+              >
+                {durationOptions.map((v) => (
+                  <option key={v} value={v}>
+                    {v}b
+                  </option>
+                ))}
+              </select>
+            )}
+
             <div
               {...dragAttributes}
               {...dragListeners}

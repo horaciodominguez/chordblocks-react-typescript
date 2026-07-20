@@ -21,6 +21,7 @@ import { useState } from "react"
 import { createPortal } from "react-dom"
 import type { Bar } from "../../types/bar.types"
 import type { TimeSignature } from "../../types/song.types"
+import { allowedBlockDurations } from "../../utils/beats"
 import SectionChords from "../ui/SectionBlocks"
 import type { Block as BlockType } from "@/modules/songs/types/block.types"
 import { Block } from "../Block"
@@ -30,16 +31,21 @@ type Props = {
   timeSignature: TimeSignature
   onReorder?: (barId: string, blocks: BlockType[]) => void
   onDeleteChord?: (chordId: string) => void
+  onUpdateDuration?: (blockId: string, duration: number) => void
 }
 
 function SortableBlock({
+  bar,
   block,
   timeSignature,
   onDeleteChord,
+  onUpdateDuration,
 }: {
+  bar: Bar
   block: BlockType
   timeSignature: TimeSignature
   onDeleteChord?: (chordId: string) => void
+  onUpdateDuration?: (blockId: string, duration: number) => void
 }) {
   const {
     attributes,
@@ -65,6 +71,16 @@ function SortableBlock({
       dragListeners={listeners}
       isDragging={isDragging}
       onDelete={() => onDeleteChord?.(block.id)}
+      onUpdateDuration={
+        onUpdateDuration
+          ? (duration) => onUpdateDuration(block.id, duration)
+          : undefined
+      }
+      durationOptions={allowedBlockDurations(
+        bar,
+        block.id,
+        timeSignature.beatsPerMeasure,
+      )}
     />
   )
 }
@@ -74,6 +90,7 @@ export default function ChordsReorder({
   timeSignature,
   onReorder,
   onDeleteChord,
+  onUpdateDuration,
 }: Props) {
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -110,9 +127,11 @@ export default function ChordsReorder({
           {bar.blocks.map((block) => (
             <SortableBlock
               key={block.id}
+              bar={bar}
               block={block}
               timeSignature={timeSignature}
               onDeleteChord={onDeleteChord}
+              onUpdateDuration={onUpdateDuration}
             />
           ))}
         </SectionChords>
