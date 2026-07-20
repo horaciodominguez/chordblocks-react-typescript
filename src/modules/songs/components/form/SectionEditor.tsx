@@ -233,7 +233,12 @@ export function SectionEditor({ state, dispatch, onStopEditing }: Props) {
               variant="secondary"
               className="min-h-11"
               onClick={() => {
-                dispatch({ type: "CANCEL_SECTION" })
+                dispatch({
+                  type:
+                    state.editingSectionId === null
+                      ? "CANCEL_SECTION"
+                      : "CANCEL_EDIT_SECTION",
+                })
                 onStopEditing()
               }}
             >

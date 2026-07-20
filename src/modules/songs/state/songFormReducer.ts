@@ -18,6 +18,7 @@ import {
   transposeChordName,
 } from "@/modules/chords/utils/transpose"
 import { parseChordName } from "@/modules/chords/utils/chord.utils"
+import { cloneSectionWithNewIds } from "@/modules/songs/utils/cloneSection"
 
 export type SongFormState = {
   song: SongType
@@ -26,6 +27,7 @@ export type SongFormState = {
   pendingBlock?: Block
   pendingBeats: string
   availableBeats: number
+  duplicatedSectionId?: string
   errors: {
     title?: string
     artist?: string
@@ -52,6 +54,8 @@ export type Action =
   | { type: "REORDER_BARS_IN_SECTION"; sectionId: string; order: string[] }
   | { type: "REORDER_BLOCKS"; barId: string; order: string[] }
   | { type: "REORDER_SECTIONS"; order: string[] }
+  | { type: "DUPLICATE_SECTION"; v: string }
+  | { type: "CLEAR_DUPLICATED_SECTION" }
   | { type: "SET_PENDING_SECTION_REPEATS"; v: number }
   | { type: "SET_PENDING_SECTION_LABEL"; v: string | undefined }
   | { type: "CANCEL_SECTION" }
@@ -413,6 +417,33 @@ export const reducer = (
       }
     }
 
+    case "DUPLICATE_SECTION": {
+      const sectionToDuplicate = state.song.songSections.find(
+        (section) => section.id === action.v
+      )
+
+      if (!sectionToDuplicate) return state
+
+      const duplicate = cloneSectionWithNewIds(sectionToDuplicate)
+
+      return {
+        ...state,
+        duplicatedSectionId: duplicate.id,
+        song: {
+          ...state.song,
+          songSections: [...state.song.songSections, duplicate],
+          updatedAt: new Date().toISOString(),
+        },
+      }
+    }
+
+    case "CLEAR_DUPLICATED_SECTION": {
+      if (!state.duplicatedSectionId) return state
+
+      const { duplicatedSectionId: _, ...rest } = state
+      return rest
+    }
+
     case "SET_PENDING_SECTION_REPEATS": {
       const repeats = Math.max(1, Number(action.v || 1))
       return {
@@ -545,10 +576,15 @@ export const reducer = (
       }
     }
     case "CANCEL_EDIT_SECTION": {
+      const bpm = state.song.timeSignature.beatsPerMeasure
+
       return {
         ...state,
         editingSectionId: null,
         pendingSection: { id: "", type: "", bars: [], repeats: 1 },
+        pendingBlock: undefined,
+        pendingBeats: bpm.toString(),
+        availableBeats: bpm,
       }
     }
     case "UPDATE_SECTION": {

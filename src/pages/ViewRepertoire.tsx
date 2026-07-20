@@ -291,14 +291,6 @@ export default function ViewRepertoire() {
           <Download size={16} />
           Export
         </Button>
-        <Button
-          type="button"
-          variant="secondary"
-          className="min-h-11"
-          onClick={() => navigate("/repertoires")}
-        >
-          Back to sets
-        </Button>
       </div>
     </>
   )

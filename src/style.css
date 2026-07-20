@@ -71,3 +71,21 @@
 [data-density="guide"] .block-marker-solo {
   @apply text-[10px] tracking-wide;
 }
+
+@keyframes song-section-highlight {
+  0%,
+  100% {
+    background-color: transparent;
+    box-shadow: 0 0 0 0 transparent;
+  }
+
+  50% {
+    background-color: color-mix(in srgb, #6366f1 16%, transparent);
+    box-shadow: 0 0 0 2px color-mix(in srgb, #818cf8 65%, transparent);
+  }
+}
+
+.song-section-highlight {
+  animation: song-section-highlight 550ms ease-in-out 3;
+  border-radius: 0.375rem;
+}

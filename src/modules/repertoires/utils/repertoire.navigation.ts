@@ -26,6 +26,12 @@ export function flattenRepertoireItems(
   return flat
 }
 
+export type SetSongContext = {
+  repertoireId: string
+  itemId: string
+  mode?: "play"
+}
+
 export function setSongPath(
   songId: string,
   repertoireId: string,
@@ -40,6 +46,35 @@ export function setSongPath(
     params.set("mode", "play")
   }
   return `/song/${songId}?${params.toString()}`
+}
+
+/** Song detail URL, optionally preserving set context from query params. */
+export function songViewPath(
+  songId: string,
+  context?: Partial<SetSongContext> | null,
+): string {
+  const repertoireId = context?.repertoireId
+  const itemId = context?.itemId
+  if (!repertoireId || !itemId) return `/song/${songId}`
+  return setSongPath(songId, repertoireId, itemId, {
+    mode: context?.mode,
+  })
+}
+
+/** Edit song URL, optionally preserving set context. */
+export function songEditPath(
+  songId: string,
+  context?: Partial<SetSongContext> | null,
+): string {
+  const repertoireId = context?.repertoireId
+  const itemId = context?.itemId
+  if (!repertoireId || !itemId) return `/song/${songId}/edit`
+
+  const params = new URLSearchParams({ repertoireId, itemId })
+  if (context?.mode === "play") {
+    params.set("mode", "play")
+  }
+  return `/song/${songId}/edit?${params.toString()}`
 }
 
 export function isPlayModeParam(mode: string | null): boolean {

@@ -20,7 +20,9 @@ import type { SongSection } from "../../types/section.types"
 type Props = {
   sections: SongSection[]
   disabled?: boolean
+  highlightedSectionId?: string
   onReorder: (order: string[]) => void
+  onHighlightEnd?: () => void
   children: (section: SongSection, index: number) => React.ReactNode
 }
 
@@ -28,11 +30,15 @@ function SortableSection({
   section,
   index,
   disabled,
+  highlighted,
+  onHighlightEnd,
   children,
 }: {
   section: SongSection
   index: number
   disabled?: boolean
+  highlighted: boolean
+  onHighlightEnd?: () => void
   children: React.ReactNode
 }) {
   const {
@@ -51,7 +57,19 @@ function SortableSection({
   }
 
   return (
-    <div ref={setNodeRef} style={style} className="mb-8 min-w-0">
+    <div
+      ref={setNodeRef}
+      id={`song-section-${section.id}`}
+      style={style}
+      className={`mb-8 min-w-0${highlighted ? " song-section-highlight" : ""}`}
+      onAnimationEnd={
+        highlighted
+          ? (event) => {
+              if (event.target === event.currentTarget) onHighlightEnd?.()
+            }
+          : undefined
+      }
+    >
       {!disabled && (
         <div
           {...attributes}
@@ -72,7 +90,9 @@ function SortableSection({
 export default function SectionsReorder({
   sections,
   disabled,
+  highlightedSectionId,
   onReorder,
+  onHighlightEnd,
   children,
 }: Props) {
   const sensors = useSensors(
@@ -96,7 +116,18 @@ export default function SectionsReorder({
     return (
       <>
         {sections.map((section, index) => (
-          <div key={section.id} className="mb-8">
+          <div
+            key={section.id}
+            id={`song-section-${section.id}`}
+            className={`mb-8${section.id === highlightedSectionId ? " song-section-highlight" : ""}`}
+            onAnimationEnd={
+              section.id === highlightedSectionId
+                ? (event) => {
+                    if (event.target === event.currentTarget) onHighlightEnd?.()
+                  }
+                : undefined
+            }
+          >
             {children(section, index)}
           </div>
         ))}
@@ -115,7 +146,13 @@ export default function SectionsReorder({
         strategy={verticalListSortingStrategy}
       >
         {sections.map((section, index) => (
-          <SortableSection key={section.id} section={section} index={index}>
+          <SortableSection
+            key={section.id}
+            section={section}
+            index={index}
+            highlighted={section.id === highlightedSectionId}
+            onHighlightEnd={onHighlightEnd}
+          >
             {children(section, index)}
           </SortableSection>
         ))}

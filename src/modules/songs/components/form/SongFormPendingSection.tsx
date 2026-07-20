@@ -1,6 +1,6 @@
 import Button from "@/components/ui/Button"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import type {
   Action,
   SongFormState,
@@ -9,7 +9,7 @@ import { Section } from "@/modules/songs/components/Section"
 import { SectionTag } from "@/modules/songs/components/ui/SectionTag"
 
 import { toast } from "sonner"
-import { SquarePen, Trash2 } from "lucide-react"
+import { Copy, SquarePen, Trash2 } from "lucide-react"
 import { SectionEditor } from "./SectionEditor"
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog"
 import SectionsReorder from "./SectionsReorder"
@@ -21,7 +21,18 @@ type Props = {
 
 export function SongFormPendingSection({ dispatch, state }: Props) {
   const [isEditingSection, setIsEditingSection] = useState(false)
+  const [editingHighlightId, setEditingHighlightId] = useState<string>()
   const sectionReorderDisabled = isEditingSection
+  const duplicatedSectionId = state.duplicatedSectionId
+  const highlightedSectionId = duplicatedSectionId ?? editingHighlightId
+
+  useEffect(() => {
+    if (!highlightedSectionId) return
+
+    document
+      .getElementById(`song-section-${highlightedSectionId}`)
+      ?.scrollIntoView({ behavior: "smooth", block: "nearest" })
+  }, [highlightedSectionId])
 
   return (
     <>
@@ -30,9 +41,14 @@ export function SongFormPendingSection({ dispatch, state }: Props) {
           <SectionsReorder
             sections={state.song.songSections}
             disabled={sectionReorderDisabled}
+            highlightedSectionId={highlightedSectionId}
             onReorder={(order) =>
               dispatch({ type: "REORDER_SECTIONS", order })
             }
+            onHighlightEnd={() => {
+              setEditingHighlightId(undefined)
+              dispatch({ type: "CLEAR_DUPLICATED_SECTION" })
+            }}
           >
             {(section) => (
               <>
@@ -46,14 +62,26 @@ export function SongFormPendingSection({ dispatch, state }: Props) {
                   <button
                     type="button"
                     aria-label={`Edit ${section.type} section`}
-                    className="flex items-center justify-center min-h-9 min-w-9 rounded-md text-indigo-300 hover:bg-zinc-800/50"
+                    className="flex items-center justify-center min-h-9 min-w-9 cursor-pointer rounded-md text-indigo-300 hover:bg-zinc-800/50"
                     onClick={() => {
                       setIsEditingSection(true)
+                      setEditingHighlightId(section.id)
                       dispatch({ type: "EDIT_SECTION", v: section.id })
                       toast.info("Started editing section")
                     }}
                   >
                     <SquarePen className="w-4 h-4 cursor-pointer" />
+                  </button>
+                  <button
+                    type="button"
+                    aria-label={`Duplicate ${section.type} section`}
+                    className="flex items-center justify-center min-h-9 min-w-9 cursor-pointer rounded-md text-indigo-300 hover:bg-zinc-800/50"
+                    onClick={() => {
+                      dispatch({ type: "DUPLICATE_SECTION", v: section.id })
+                      toast.success("Section duplicated")
+                    }}
+                  >
+                    <Copy className="w-4 h-4" />
                   </button>
                   <ConfirmDialog
                     title="Delete section?"
@@ -71,7 +99,7 @@ export function SongFormPendingSection({ dispatch, state }: Props) {
                       <button
                         type="button"
                         aria-label={`Delete ${section.type} section`}
-                        className="flex items-center justify-center min-h-9 min-w-9 rounded-md text-red-400 hover:bg-zinc-800/50"
+                        className="flex items-center justify-center min-h-9 min-w-9 cursor-pointer rounded-md text-red-400 hover:bg-zinc-800/50"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>

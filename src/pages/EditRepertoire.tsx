@@ -25,10 +25,12 @@ export default function EditRepertoire() {
     }
   }
 
+  const parentPath = id ? `/repertoires/${id}` : "/repertoires"
+
   if (initialLoading) {
     return (
       <>
-        <PageHeader title="Edit set" backTo="/repertoires" />
+        <PageHeader title="Edit set" backTo={parentPath} />
         <LoaderSpinner />
       </>
     )
@@ -45,10 +47,7 @@ export default function EditRepertoire() {
 
   return (
     <>
-      <PageHeader
-        title="Edit set"
-        backTo={`/repertoires/${repertoire.id}`}
-      />
+      <PageHeader title="Edit set" backTo={parentPath} />
       <RepertoireEditor
         initial={repertoire}
         mutating={mutating}

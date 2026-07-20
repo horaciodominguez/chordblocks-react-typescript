@@ -3,36 +3,23 @@ import { ArrowLeft } from "lucide-react"
 
 type Props = {
   title: string
+  /** Explicit parent route in the app hierarchy (not browser history). */
   backTo?: string
   actions?: React.ReactNode
-  /**
-   * When true (default), prefer browser history (-1) if available.
-   * When false, always go to `backTo` (e.g. back to set from a song in set context).
-   */
-  preferHistory?: boolean
 }
 
 export function PageHeader({
   title,
   backTo = "/",
   actions,
-  preferHistory = true,
 }: Props) {
   const navigate = useNavigate()
-
-  const handleBack = () => {
-    if (preferHistory && window.history.length > 1) {
-      navigate(-1)
-    } else {
-      navigate(backTo)
-    }
-  }
 
   return (
     <div className="flex items-center gap-3 mb-4 min-h-11">
       <button
         type="button"
-        onClick={handleBack}
+        onClick={() => navigate(backTo)}
         aria-label="Go back"
         className="flex items-center justify-center min-h-11 min-w-11 rounded-md border border-zinc-700 text-indigo-300 hover:text-gray-200 hover:bg-zinc-800/50 shrink-0"
       >

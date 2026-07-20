@@ -4,6 +4,8 @@ import {
   flattenRepertoireItems,
   getSetNavContext,
   setSongPath,
+  songEditPath,
+  songViewPath,
 } from "./repertoire.navigation"
 
 function makeRep(): Repertoire {
@@ -58,6 +60,31 @@ describe("repertoire.navigation", () => {
     expect(setSongPath("s2", "rep-1", "i2", { mode: "play" })).toBe(
       "/song/s2?repertoireId=rep-1&itemId=i2&mode=play",
     )
+  })
+
+  it("builds song view paths with and without set context", () => {
+    expect(songViewPath("s2")).toBe("/song/s2")
+    expect(songViewPath("s2", null)).toBe("/song/s2")
+    expect(songViewPath("s2", { repertoireId: "rep-1" })).toBe("/song/s2")
+    expect(
+      songViewPath("s2", { repertoireId: "rep-1", itemId: "i2" }),
+    ).toBe("/song/s2?repertoireId=rep-1&itemId=i2")
+    expect(
+      songViewPath("s2", {
+        repertoireId: "rep-1",
+        itemId: "i2",
+        mode: "play",
+      }),
+    ).toBe("/song/s2?repertoireId=rep-1&itemId=i2&mode=play")
+  })
+
+  it("builds song edit paths with and without set context", () => {
+    expect(songEditPath("s2")).toBe("/song/s2/edit")
+    expect(songEditPath("s2", null)).toBe("/song/s2/edit")
+    expect(songEditPath("s2", { itemId: "i2" })).toBe("/song/s2/edit")
+    expect(
+      songEditPath("s2", { repertoireId: "rep-1", itemId: "i2" }),
+    ).toBe("/song/s2/edit?repertoireId=rep-1&itemId=i2")
   })
 
   it("resolves prev/next for middle, first, and last items", () => {

@@ -12,6 +12,7 @@ import {
   getSetNavContext,
   isPlayModeParam,
   setSongPath,
+  songEditPath,
 } from "@/modules/repertoires/utils/repertoire.navigation"
 import { useWakeLock } from "@/modules/repertoires/hooks/useWakeLock"
 import { Edit, ListMusic, Play } from "lucide-react"
@@ -38,16 +39,11 @@ export default function ViewSong() {
 
   const itemNotes = setNav?.current.item.notes?.trim() || ""
   const backTo = setNav ? `/repertoires/${setNav.repertoireId}` : "/"
-  const preferHistory = !setNav
 
   if (loading) {
     return (
       <>
-        <PageHeader
-          title="Loading…"
-          backTo={backTo}
-          preferHistory={preferHistory}
-        />
+        <PageHeader title="Loading…" backTo={backTo} />
         <LoaderSpinner />
       </>
     )
@@ -56,11 +52,7 @@ export default function ViewSong() {
   if (!song) {
     return (
       <>
-        <PageHeader
-          title="Not found"
-          backTo={backTo}
-          preferHistory={preferHistory}
-        />
+        <PageHeader title="Not found" backTo={backTo} />
         <div className="text-center py-6">Song not found</div>
         {setNav ? <SetSongNav nav={setNav} playMode={playMode} /> : null}
       </>
@@ -73,12 +65,16 @@ export default function ViewSong() {
       mode: "play",
     })
 
+  const editHref = songEditPath(song.id, {
+    repertoireId: setNav?.repertoireId,
+    itemId: setNav?.current.item.id,
+  })
+
   return (
     <>
       <PageHeader
         title={song.title}
         backTo={backTo}
-        preferHistory={preferHistory}
         actions={
           playMode ? null : (
             <>
@@ -97,7 +93,7 @@ export default function ViewSong() {
                   <span>Set</span>
                 </PageHeaderLink>
               ) : null}
-              <PageHeaderLink to={`/song/${song.id}/edit`}>
+              <PageHeaderLink to={editHref}>
                 <Edit size={16} />
                 <span className="hidden sm:inline">Edit</span>
               </PageHeaderLink>
