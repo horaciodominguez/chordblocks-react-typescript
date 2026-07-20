@@ -146,3 +146,12 @@ export function transposeSong(song: Song, semitones: number): Song {
     songSections: song.songSections.map((s) => transposeSection(s, semitones)),
   }
 }
+
+/**
+ * F16: same projection as `transposeSong`, named for the edit-time “bake as original”
+ * intent. Caller replaces the form/draft song with the result and persists on save.
+ * Does not mutate the input.
+ */
+export function bakeTranspose(song: Song, semitones: number): Song {
+  return transposeSong(song, semitones)
+}

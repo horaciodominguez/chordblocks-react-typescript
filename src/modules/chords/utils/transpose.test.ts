@@ -1,5 +1,6 @@
 import { describe, it, expect } from "vitest"
 import {
+  bakeTranspose,
   transposeChordName,
   transposeSong,
 } from "@/modules/chords/utils/transpose"
@@ -149,5 +150,22 @@ describe("transposeSong", () => {
     const projected = transposeSong(song, 1)
     expect(projected.mainKey).toBeUndefined()
     expect(projected.songSections[0].bars[0].blocks[0].chord?.name).toBe("Cm")
+  })
+})
+
+describe("bakeTranspose", () => {
+  it("rewrites chords and mainKey as the new original projection", () => {
+    const original = sampleSong()
+    const baked = bakeTranspose(original, 1)
+
+    expect(baked.mainKey).toBe("Cm")
+    expect(baked.songSections[0].bars[0].blocks[0].chord?.name).toBe("Cm")
+    expect(baked.songSections[0].bars[1].blocks[0].chord?.name).toBe("Gm7")
+    expect(original.mainKey).toBe("Bm")
+  })
+
+  it("is a no-op at 0 semitones (same projection as transposeSong)", () => {
+    const original = sampleSong()
+    expect(bakeTranspose(original, 0)).toEqual(transposeSong(original, 0))
   })
 })

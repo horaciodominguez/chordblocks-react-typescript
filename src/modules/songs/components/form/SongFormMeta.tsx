@@ -13,6 +13,7 @@ import type {
 } from "@/modules/songs/state/songFormReducer"
 import type { Song as SongType } from "@/modules/songs/types/song.types"
 import { Calendar, Music, Tag, UserStar } from "lucide-react"
+import { SongFormBakeTranspose } from "./SongFormBakeTranspose"
 
 type Props = {
   dispatch: React.Dispatch<Action>
@@ -171,6 +172,8 @@ export function SongFormMeta({ dispatch, state, song }: Props) {
           />
         </div>
       </div>
+
+      <SongFormBakeTranspose dispatch={dispatch} song={song} />
 
       <div className="mb-4">
         <div className="flex flex-col sm:flex-row gap-4 items-start">

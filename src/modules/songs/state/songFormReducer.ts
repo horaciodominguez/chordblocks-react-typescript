@@ -9,10 +9,14 @@ import { beatsCap, nextBeatsValue, remainingBeats } from "../utils/beats"
 import type {
   SectionType,
   SongSection,
-  PendingSongSection,
 } from "../types/section.types"
 
 import type { Block } from "@/modules/songs/types/block.types"
+import {
+  bakeTranspose,
+  transposeChordName,
+} from "@/modules/chords/utils/transpose"
+import { parseChordName } from "@/modules/chords/utils/chord.utils"
 
 export type SongFormState = {
   song: SongType
@@ -56,6 +60,7 @@ export type Action =
   | { type: "CANCEL_EDIT_SECTION" }
   | { type: "UPDATE_SECTION" }
   | { type: "DELETE_SECTION"; v: string }
+  | { type: "BAKE_TRANSPOSE"; v: number }
 
 export const initialSong: SongType = {
   id: uuidv4(),
@@ -492,6 +497,68 @@ export const reducer = (
               availableBeats: bpm,
             }
           : {}),
+      }
+    }
+
+    case "BAKE_TRANSPOSE": {
+      const semitones = action.v
+      if (!semitones) return state
+
+      const song = {
+        ...bakeTranspose(state.song, semitones),
+        updatedAt: new Date().toISOString(),
+      }
+
+      let pendingSection = state.pendingSection
+      if (pendingSection.bars.length > 0) {
+        const stubType = (pendingSection.type || "OTHER") as SectionType
+        const projected = bakeTranspose(
+          {
+            ...state.song,
+            songSections: [
+              {
+                id: pendingSection.id || "pending",
+                type: stubType,
+                bars: pendingSection.bars,
+                repeats: pendingSection.repeats,
+                ...(pendingSection.label
+                  ? { label: pendingSection.label }
+                  : {}),
+              },
+            ],
+          },
+          semitones,
+        )
+        pendingSection = {
+          ...pendingSection,
+          bars: projected.songSections[0].bars,
+        }
+      }
+
+      let pendingBlock = state.pendingBlock
+      if (pendingBlock?.type === "chord" && pendingBlock.chord?.name) {
+        const newName = transposeChordName(
+          pendingBlock.chord.name,
+          semitones,
+        )
+        const parsed = parseChordName(newName)
+        pendingBlock = {
+          ...pendingBlock,
+          chord: {
+            ...pendingBlock.chord,
+            name: newName,
+            ...(parsed?.root != null ? { root: parsed.root } : {}),
+            ...(parsed?.suffix != null ? { suffix: parsed.suffix } : {}),
+            ...(parsed?.type != null ? { type: parsed.type } : {}),
+          },
+        }
+      }
+
+      return {
+        ...state,
+        song,
+        pendingSection,
+        pendingBlock,
       }
     }
 
