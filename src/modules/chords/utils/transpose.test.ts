@@ -136,6 +136,45 @@ describe("transposeSong", () => {
     expect(rest.chord).toBeUndefined()
   })
 
+  it("leaves riff and solo blocks unchanged", () => {
+    const song = sampleSong()
+    song.songSections[0].bars.push(
+      {
+        id: "bar-riff",
+        position: 3,
+        blocks: [
+          {
+            id: "b-riff",
+            type: "riff",
+            label: "Riff 1",
+            duration: 4,
+            position: 1,
+          },
+        ],
+      },
+      {
+        id: "bar-solo",
+        position: 4,
+        blocks: [
+          {
+            id: "b-solo",
+            type: "solo",
+            duration: 4,
+            position: 1,
+          },
+        ],
+      },
+    )
+    const projected = transposeSong(song, 3)
+    const riff = projected.songSections[0].bars[2].blocks[0]
+    const solo = projected.songSections[0].bars[3].blocks[0]
+    expect(riff.type).toBe("riff")
+    expect(riff.label).toBe("Riff 1")
+    expect(riff.chord).toBeUndefined()
+    expect(solo.type).toBe("solo")
+    expect(solo.chord).toBeUndefined()
+  })
+
   it("preserves section label and structure", () => {
     const projected = transposeSong(sampleSong(), 2)
     expect(projected.songSections[0].label).toBe("A")

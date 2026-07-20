@@ -7,6 +7,7 @@ import type {
 
 import { beatsCap, nextBeatsValue, remainingBeats } from "../utils/beats"
 import type {
+  PendingSongSection,
   SectionType,
   SongSection,
 } from "../types/section.types"
@@ -122,7 +123,15 @@ export const reducer = (
       }
 
     case "ADD_SECTION_TYPE": {
-      if (state.pendingSection.id !== "") return state
+      if (state.pendingSection.id !== "") {
+        return {
+          ...state,
+          pendingSection: {
+            ...state.pendingSection,
+            type: action.v,
+          },
+        }
+      }
 
       const newSection: PendingSongSection = {
         id: uuidv4(),
@@ -142,9 +151,10 @@ export const reducer = (
     }
     case "ADD_BLOCK_TEMPORARY": {
       const REST_TOKEN = "__REST__"
-      const isRest = action.v === REST_TOKEN
+      const SOLO_TOKEN = "__SOLO__"
+      const RIFF_PREFIX = "__RIFF:"
 
-      if (isRest) {
+      if (action.v === REST_TOKEN) {
         return {
           ...state,
           pendingBlock: {
@@ -152,6 +162,32 @@ export const reducer = (
             type: "rest",
             duration: 0,
             position: 0,
+          } as Block,
+        }
+      }
+
+      if (action.v === SOLO_TOKEN) {
+        return {
+          ...state,
+          pendingBlock: {
+            id: uuidv4(),
+            type: "solo",
+            duration: 0,
+            position: 0,
+          } as Block,
+        }
+      }
+
+      if (action.v.startsWith(RIFF_PREFIX) && action.v.endsWith("__")) {
+        const inner = action.v.slice(RIFF_PREFIX.length, -2).trim()
+        return {
+          ...state,
+          pendingBlock: {
+            id: uuidv4(),
+            type: "riff",
+            duration: 0,
+            position: 0,
+            ...(inner ? { label: inner } : {}),
           } as Block,
         }
       }
@@ -363,6 +399,9 @@ export const reducer = (
             ...block,
             ...(block.type === "chord" && block.chord
               ? { chord: { ...block.chord } }
+              : {}),
+            ...(block.type === "riff" && block.label?.trim()
+              ? { label: block.label.trim() }
               : {}),
           })),
         })),

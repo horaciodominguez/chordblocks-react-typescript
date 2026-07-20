@@ -66,3 +66,8 @@
 [data-density="guide"] .section-tag {
   @apply px-2 py-0.5 text-[10px] border;
 }
+
+[data-density="guide"] .block-marker-riff,
+[data-density="guide"] .block-marker-solo {
+  @apply text-[10px] tracking-wide;
+}

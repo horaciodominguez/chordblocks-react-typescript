@@ -26,9 +26,29 @@ const RestBlockSchema = z.object({
   position: z.number().int().min(1, "Min position is 1"),
 })
 
+const RiffBlockSchema = z.object({
+  id: z.string(),
+  type: z.literal("riff"),
+  label: z.preprocess(
+    (v) => (v === "" || v === null || v === undefined ? undefined : v),
+    z.string().min(1).optional(),
+  ),
+  duration: z.number().int().min(1, "Min duration is 1").max(12, "Max is 12"),
+  position: z.number().int().min(1, "Min position is 1"),
+})
+
+const SoloBlockSchema = z.object({
+  id: z.string(),
+  type: z.literal("solo"),
+  duration: z.number().int().min(1, "Min duration is 1").max(12, "Max is 12"),
+  position: z.number().int().min(1, "Min position is 1"),
+})
+
 export const BlockSchema = z.discriminatedUnion("type", [
   ChordBlockSchema,
   RestBlockSchema,
+  RiffBlockSchema,
+  SoloBlockSchema,
 ])
 
 export const BarSchema = z.object({

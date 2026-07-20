@@ -1,6 +1,8 @@
 import ChordDiagram from "@/modules/chords/components/ChordDiagram"
 import Chord from "@/modules/chords/components/Chord"
 import { Rest } from "@/modules/chords/components/Rest"
+import { RiffMarker } from "@/modules/chords/components/RiffMarker"
+import { SoloMarker } from "@/modules/chords/components/SoloMarker"
 import { chordFlexStyle } from "@/modules/chords/utils/chord.utils"
 import type { Block as BlockType } from "@/modules/songs/types/block.types"
 import type { TimeSignature } from "@/modules/songs/types/song.types"
@@ -20,6 +22,41 @@ type Props = {
   density?: SongDensity
 }
 
+function BlockContent({
+  block,
+  timeSignature,
+  showDiagram,
+  isGuide,
+}: {
+  block: BlockType
+  timeSignature: TimeSignature
+  showDiagram?: boolean
+  isGuide: boolean
+}) {
+  if (block.type === "rest") {
+    return (
+      <Rest
+        duration={block.duration}
+        beatsPerMeasure={timeSignature.beatsPerMeasure}
+      />
+    )
+  }
+  if (block.type === "riff") {
+    return <RiffMarker label={block.label} />
+  }
+  if (block.type === "solo") {
+    return <SoloMarker />
+  }
+  return (
+    <>
+      <Chord chord={block.chord?.name} />
+      {showDiagram && !isGuide && (
+        <ChordDiagram chordName={block.chord?.name ?? ""} />
+      )}
+    </>
+  )
+}
+
 export const Block = forwardRef<HTMLDivElement, Props>(
   (
     {
@@ -35,7 +72,6 @@ export const Block = forwardRef<HTMLDivElement, Props>(
     },
     ref,
   ) => {
-    const isRest = !!(block.type === "rest")
     const hasControls = !!(dragStyle || onDelete)
     const isGuide = density === "guide"
 
@@ -56,18 +92,12 @@ export const Block = forwardRef<HTMLDivElement, Props>(
             isGuide ? "gap-1" : "gap-4"
           }`}
         >
-          {isRest ? (
-            <Rest
-              duration={block.duration}
-              beatsPerMeasure={timeSignature.beatsPerMeasure}
-            />
-          ) : (
-            <Chord chord={block.chord?.name} />
-          )}
-
-          {showDiagram && !isGuide && (
-            <ChordDiagram chordName={block.chord?.name ?? ""} />
-          )}
+          <BlockContent
+            block={block}
+            timeSignature={timeSignature}
+            showDiagram={showDiagram}
+            isGuide={isGuide}
+          />
         </div>
 
         {hasControls && (
@@ -93,8 +123,8 @@ export const Block = forwardRef<HTMLDivElement, Props>(
                 className="text-zinc-400 hover:text-zinc-200 p-1.5 min-h-9 min-w-9 flex items-center justify-center"
                 type="button"
                 onClick={onDelete}
-                aria-label="Delete chord"
-                title="Delete chord"
+                aria-label="Delete block"
+                title="Delete block"
               >
                 <Trash className="w-4 h-4" />
               </button>

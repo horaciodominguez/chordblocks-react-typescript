@@ -4,10 +4,33 @@ import Label from "@/components/ui/Label"
 import Chord from "@/modules/chords/components/Chord"
 import ChordDiagram from "@/modules/chords/components/ChordDiagram"
 import Rest from "@/modules/chords/components/Rest"
+import { RiffMarker } from "@/modules/chords/components/RiffMarker"
+import { SoloMarker } from "@/modules/chords/components/SoloMarker"
 import { chordsData } from "@/modules/chords/data/chords"
 import type { Chord as ChordType } from "@/modules/chords/types/chord.types"
 import * as Dialog from "@radix-ui/react-dialog"
 import { useState } from "react"
+
+export const REST_TOKEN = "__REST__"
+export const SOLO_TOKEN = "__SOLO__"
+export const RIFF_TOKEN_PREFIX = "__RIFF:"
+
+export function riffToken(label?: string): string {
+  const trimmed = label?.trim()
+  return `${RIFF_TOKEN_PREFIX}${trimmed ?? ""}__`
+}
+
+export function parseRiffToken(token: string): string | undefined {
+  if (!token.startsWith(RIFF_TOKEN_PREFIX) || !token.endsWith("__")) {
+    return undefined
+  }
+  const inner = token.slice(RIFF_TOKEN_PREFIX.length, -2)
+  return inner.trim() || undefined
+}
+
+export function isRiffToken(token: string): boolean {
+  return token.startsWith(RIFF_TOKEN_PREFIX) && token.endsWith("__")
+}
 
 type Props = {
   onSelect: (chordName: string) => void
@@ -27,6 +50,7 @@ export function BlockPicker({
   const [root, setRoot] = useState("C")
   const ROOTS = Object.keys(chordsData)
   const [accidental, setAccidental] = useState<"" | "#" | "b">("")
+  const [riffLabel, setRiffLabel] = useState("")
   const VARIATIONS = chordsData[root] ?? []
 
   const DISALLOW_SHARP = ["E", "B"]
@@ -42,6 +66,11 @@ export function BlockPicker({
   const selectClass =
     "w-full border text-white text-sm px-3 py-2.5 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 border-zinc-400/25 min-h-11"
 
+  const selectedRiffLabel =
+    selectedValue && isRiffToken(selectedValue)
+      ? parseRiffToken(selectedValue)
+      : undefined
+
   return (
     <>
       {label && <Label>{label}</Label>}
@@ -50,7 +79,7 @@ export function BlockPicker({
         trigger={
           <Button variant="primary" className="w-full min-h-11">
             {selectedValue ? (
-              selectedValue === "__REST__" ? (
+              selectedValue === REST_TOKEN ? (
                 <span className="inline-flex items-center">
                   <Rest
                     duration={Number(pendingBeats) || 1}
@@ -58,6 +87,10 @@ export function BlockPicker({
                   />
                   <span className="sr-only">Rest selected</span>
                 </span>
+              ) : selectedValue === SOLO_TOKEN ? (
+                <SoloMarker />
+              ) : isRiffToken(selectedValue) ? (
+                <RiffMarker label={selectedRiffLabel} />
               ) : (
                 <span>
                   <Chord chord={selectedValue} asText={false} />
@@ -123,13 +156,16 @@ export function BlockPicker({
               </option>
             </select>
           </div>
-          <div className="flex-1">
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
+          <div>
             <Label htmlFor="rest">Rest</Label>
             <Dialog.Close asChild>
               <Button
                 id="rest"
                 variant="primary"
-                onClick={() => onSelect("__REST__")}
+                onClick={() => onSelect(REST_TOKEN)}
                 className="w-full flex flex-row gap-2 justify-center items-center min-h-11"
               >
                 <Rest
@@ -139,6 +175,42 @@ export function BlockPicker({
                 Add Rest
               </Button>
             </Dialog.Close>
+          </div>
+          <div>
+            <Label htmlFor="solo">Solo</Label>
+            <Dialog.Close asChild>
+              <Button
+                id="solo"
+                variant="primary"
+                onClick={() => onSelect(SOLO_TOKEN)}
+                className="w-full flex flex-row gap-2 justify-center items-center min-h-11"
+              >
+                <SoloMarker />
+              </Button>
+            </Dialog.Close>
+          </div>
+          <div>
+            <Label htmlFor="riff-label">Riff</Label>
+            <div className="flex gap-2">
+              <input
+                id="riff-label"
+                type="text"
+                value={riffLabel}
+                onChange={(e) => setRiffLabel(e.target.value)}
+                placeholder="Riff 1"
+                className={`${selectClass} flex-1 min-w-0`}
+              />
+              <Dialog.Close asChild>
+                <Button
+                  type="button"
+                  variant="primary"
+                  onClick={() => onSelect(riffToken(riffLabel))}
+                  className="min-h-11 shrink-0 px-3"
+                >
+                  Add
+                </Button>
+              </Dialog.Close>
+            </div>
           </div>
         </div>
 

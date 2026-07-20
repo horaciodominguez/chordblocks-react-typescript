@@ -13,7 +13,7 @@ import { toast } from "sonner"
 import { SectionTag } from "@/modules/songs/components/ui/SectionTag"
 import BarsReorder from "./BarsReorder"
 import type React from "react"
-import { BlockPicker } from "./BlockPicker"
+import { BlockPicker, REST_TOKEN, riffToken, SOLO_TOKEN } from "./BlockPicker"
 import Input from "@/components/ui/Input"
 import InputField from "@/components/ui/InputField"
 
@@ -119,8 +119,12 @@ export function SectionEditor({ state, dispatch, onStopEditing }: Props) {
                 selectedValue={
                   state.pendingBlock
                     ? state.pendingBlock.type === "rest"
-                      ? "__REST__"
-                      : state.pendingBlock.chord?.name
+                      ? REST_TOKEN
+                      : state.pendingBlock.type === "solo"
+                        ? SOLO_TOKEN
+                        : state.pendingBlock.type === "riff"
+                          ? riffToken(state.pendingBlock.label)
+                          : state.pendingBlock.chord?.name
                     : undefined
                 }
               />
@@ -148,6 +152,8 @@ export function SectionEditor({ state, dispatch, onStopEditing }: Props) {
         state.pendingBlock &&
         state.pendingBeats !== "" &&
         (state.pendingBlock.type === "rest" ||
+          state.pendingBlock.type === "riff" ||
+          state.pendingBlock.type === "solo" ||
           !!state.pendingBlock.chord?.name) && (
           <div className="mb-4 flex gap-4 mt-4 justify-end">
             <Button
@@ -156,10 +162,15 @@ export function SectionEditor({ state, dispatch, onStopEditing }: Props) {
               className="min-h-11"
               onClick={() => {
                 dispatch({ type: "ADD_BLOCK" })
+                const pb = state.pendingBlock
                 const label =
-                  state.pendingBlock?.type === "rest"
+                  pb?.type === "rest"
                     ? "Rest"
-                    : (state.pendingBlock?.chord?.name ?? "Block")
+                    : pb?.type === "solo"
+                      ? "Solo"
+                      : pb?.type === "riff"
+                        ? pb.label?.trim() || "Riff"
+                        : (pb?.chord?.name ?? "Block")
                 toast.info(`Block ${label} added to pending section`)
               }}
             >
