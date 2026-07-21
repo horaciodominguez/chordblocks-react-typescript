@@ -2,7 +2,7 @@
 
   <symbol id="main-grid-with-nut" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     <!-- vertical and horizontal lines -->
-    <g fill="none" stroke="#00b5fdff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
       <!-- chords -->
       <line x1="40"  y1="50" x2="40"  y2="240"/>
       <line x1="76"  y1="50" x2="76"  y2="240"/>
@@ -19,13 +19,13 @@
     </g>
 
     <!-- nut -->
-    <line x1="36" y1="40" x2="224" y2="40" stroke="#00b5fdff" stroke-width="10"/>
+    <line x1="36" y1="40" x2="224" y2="40" stroke="currentColor" stroke-width="10"/>
 
   </symbol>
 
   <symbol id="main-grid-no-nut" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
     <!-- vertical and horizontal lines -->
-    <g fill="none" stroke="#00b5fdff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
       <!-- chords -->
       <line x1="40"  y1="50" x2="40"  y2="240"/>
       <line x1="76"  y1="50" x2="76"  y2="240"/>

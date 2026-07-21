@@ -14,7 +14,7 @@ export default function ChordDiagram({ chordName, size }: Props) {
         >
           <use
             href={`/assets/chords-sprite.svg#${chordName}`}
-            className="text-white"
+            className="text-zinc-100 light:text-zinc-700"
             fill="currentColor"
             width={size || 64}
             height={size || 64}
