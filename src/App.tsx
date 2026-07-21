@@ -2,13 +2,16 @@ import { Toaster } from "sonner"
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import EditSong from "@/pages/EditSong"
 import Home from "@/pages/Home"
+import Songs from "@/pages/Songs"
 import NewSong from "@/pages/NewSong"
 import ViewSong from "@/pages/ViewSong"
 import Repertoires from "@/pages/Repertoires"
 import ViewRepertoire from "@/pages/ViewRepertoire"
 import EditRepertoire from "@/pages/EditRepertoire"
 import Settings from "@/pages/Settings"
+import NotFound from "@/pages/NotFound"
 import { useSongs } from "./modules/songs/hooks/useSongs"
+import { useRepertoires } from "./modules/repertoires/hooks/useRepertoires"
 import LoaderSpinner from "./components/ui/LoaderSpinner"
 import { AppShell } from "./components/layout/AppShell"
 import { lazy, Suspense } from "react"
@@ -18,7 +21,9 @@ const UITest = import.meta.env.DEV
   : null
 
 export default function App() {
-  const { initialLoading } = useSongs()
+  const { initialLoading: songsLoading } = useSongs()
+  const { initialLoading: setsLoading } = useRepertoires()
+  const initialLoading = songsLoading || setsLoading
 
   if (initialLoading) {
     return (
@@ -41,6 +46,7 @@ export default function App() {
       <AppShell>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/songs" element={<Songs />} />
           <Route path="/song/:id" element={<ViewSong />} />
           <Route path="/song/:id/edit" element={<EditSong />} />
           <Route path="/new" element={<NewSong />} />
@@ -58,6 +64,7 @@ export default function App() {
               }
             />
           )}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </AppShell>
       <Toaster richColors position="top-center" theme="dark" />

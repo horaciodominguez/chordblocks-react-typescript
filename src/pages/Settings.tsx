@@ -1,6 +1,7 @@
 import { useSearchParams } from "react-router-dom"
 import { User } from "lucide-react"
 import PageTitle from "@/components/ui/PageTitle"
+import SegmentedTabs from "@/components/ui/SegmentedTabs"
 import { DataTransferPanel } from "@/modules/io/components/DataTransferPanel"
 import { useAuth } from "@/modules/auth/hooks/useAuth"
 import { LoginForm } from "@/modules/auth/components/LoginForm"
@@ -31,30 +32,15 @@ export default function Settings() {
     <>
       <PageTitle>Settings</PageTitle>
 
-      <div
-        role="tablist"
+      <SegmentedTabs
+        className="mb-6"
         aria-label="Settings sections"
-        className="flex gap-1 mb-6 p-1 rounded-lg bg-zinc-900/80 border border-zinc-800"
-      >
-        {TABS.map((t) => (
-          <button
-            key={t.id}
-            type="button"
-            role="tab"
-            aria-selected={tab === t.id}
-            id={`settings-tab-${t.id}`}
-            aria-controls={`settings-panel-${t.id}`}
-            className={`flex-1 min-h-11 rounded-md text-sm uppercase tracking-wide transition-colors ${
-              tab === t.id
-                ? "bg-indigo-600/30 text-indigo-200"
-                : "text-zinc-500 hover:text-zinc-300"
-            }`}
-            onClick={() => setTab(t.id)}
-          >
-            {t.label}
-          </button>
-        ))}
-      </div>
+        items={TABS}
+        value={tab}
+        onChange={(id) => setTab(id as TabId)}
+        getTabId={(id) => `settings-tab-${id}`}
+        getPanelId={(id) => `settings-panel-${id}`}
+      />
 
       {tab === "data" ? (
         <div

@@ -1,7 +1,6 @@
 import { useState } from "react"
 import { signIn } from "@/services/auth/supabaseAuth"
 import { LogIn } from "lucide-react"
-import * as Dialog from "@radix-ui/react-dialog"
 import Button from "@/components/ui/Button"
 import Input from "@/components/ui/Input"
 import { toast } from "sonner"
@@ -52,9 +51,6 @@ export function LoginForm() {
         />
       </div>
       <div className="flex justify-end gap-2 w-full">
-        <Dialog.Close asChild>
-          <Button variant="cancel">Cancel</Button>
-        </Dialog.Close>
         <Button
           variant="save"
           type="submit"

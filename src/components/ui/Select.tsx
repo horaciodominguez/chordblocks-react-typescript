@@ -1,10 +1,14 @@
-import { useState } from "react"
+import { useId, useState } from "react"
 import Label from "./Label"
+import { toast } from "sonner"
+import { controlSurfaceClass } from "./Input"
 
 type Props = {
   name: string
   label?: string
   options: readonly (string | number)[]
+  /** Optional display labels keyed by option value (e.g. sort keys). */
+  optionLabels?: Record<string, string>
   disabled?: boolean
   disabledMessage?: string
   value?: string | number
@@ -12,12 +16,14 @@ type Props = {
   defaultValue?: string
   ref?: React.Ref<HTMLSelectElement>
   tabIndex?: number
+  id?: string
 }
 
 export const Select = ({
   name,
   label,
   options,
+  optionLabels,
   disabled,
   disabledMessage,
   value,
@@ -25,61 +31,67 @@ export const Select = ({
   defaultValue,
   ref,
   tabIndex,
+  id,
 }: Props) => {
   const isControlled = value !== undefined && onChange !== undefined
+  const generatedId = useId()
+  const fieldId = id ?? name ?? generatedId
 
   const [isEditing, setIsEditing] = useState(false)
 
-  const baseClass =
-    "w-full border text-white text-sm px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-
   return (
-    <>
-      {label && <Label htmlFor={name}>{label}</Label>}
+    <div className="w-full">
+      {label && <Label htmlFor={fieldId}>{label}</Label>}
       {disabled && disabledMessage ? (
         <div
-          id={name}
-          aria-label={label}
-          onClick={() => alert(disabledMessage)}
-          className={`${baseClass} border-indigo-600`}
-          title={label}
-          tabIndex={tabIndex}
+          id={fieldId}
+          role="button"
+          aria-disabled="true"
+          aria-label={label ?? name}
+          onClick={() => toast.message(disabledMessage)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault()
+              toast.message(disabledMessage)
+            }
+          }}
+          className={`${controlSurfaceClass} w-full px-3 py-2 opacity-80 cursor-not-allowed`}
+          title={disabledMessage}
+          tabIndex={tabIndex ?? 0}
         >
           {value || defaultValue}
         </div>
       ) : (
         <select
           name={name}
-          id={name}
+          id={fieldId}
           onChange={onChange}
           disabled={disabled}
-          aria-label={label}
+          aria-label={label ?? name}
           {...(isControlled ? { value } : { defaultValue, ref })}
           onClick={() => setIsEditing(true)}
           onBlur={() => setIsEditing(false)}
-          className={`${baseClass} ${
-            isEditing ? "border-gray-300" : "border-zinc-400/25"
+          className={`w-full px-3 py-2 ${controlSurfaceClass} ${
+            isEditing ? "border-indigo-500/40" : ""
           }`}
           tabIndex={tabIndex}
         >
           {defaultValue != undefined && defaultValue != "" ? (
-            <option value="" className="bg-gray-800 text-white">
+            <option value="" className="bg-zinc-800 text-white">
               {defaultValue}
             </option>
-          ) : (
-            ""
-          )}
+          ) : null}
           {options.map((option) => (
             <option
               key={option}
               value={option}
-              className="bg-gray-800 text-white"
+              className="bg-zinc-800 text-white"
             >
-              {option}
+              {optionLabels?.[String(option)] ?? option}
             </option>
           ))}
         </select>
       )}
-    </>
+    </div>
   )
 }

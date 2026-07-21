@@ -17,6 +17,7 @@ export const RepertoireSchema = z.object({
   id: z.string().min(1),
   title: z.string().min(1, "Title is required"),
   date: z.string().optional(),
+  isPinned: z.boolean().optional(),
   groups: z.array(RepertoireGroupSchema),
   createdAt: z.string(),
   updatedAt: z.string(),

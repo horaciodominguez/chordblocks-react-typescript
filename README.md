@@ -20,12 +20,30 @@ It works **offline-first** with automatic synchronization via **Supabase**.
 
 ## ✨ Features
 
-- 🎼 Create, edit, and delete songs with sections and chords.  
-- 💾 **Offline persistence** with IndexedDB (`idb`).  
-- 🔄 **Automatic synchronization** with Supabase when online.  
-- 📱 Modern UI with TailwindCSS + Radix UI.  
-- 🛠️ Drag & drop for chords and sections with `@dnd-kit`.  
-- 🔔 Instant feedback with **toasts** (sonner).  
+- Create, edit, and delete songs with sections and chords.
+- **Sets** (repertoires) with pin, date, search, and play mode for gigs.
+- **Home** shows pinned sets sorted by date.
+- **Songs** catalog with list / by-artist views, search and filters.
+- Offline persistence with IndexedDB (`idb`).
+- Sync with Supabase when signed in.
+- Modern UI with TailwindCSS + Radix UI.
+- Drag & drop for chords, sections and set items (`@dnd-kit`).
+- Instant feedback with toasts (sonner).
+
+---
+
+## Information architecture
+
+| Route | Purpose |
+|-------|---------|
+| `/` | Home — pinned sets |
+| `/songs` | Song library (list / by artist) |
+| `/song/:id` | Song view (± set context query params) |
+| `/repertoires` | Sets list (pinned first + search) |
+| `/repertoires/:id` | Set detail / play |
+| `/settings` | Data import/export + account |
+
+UI copy uses **Set**; code/types use `Repertoire`.
 
 ---
 

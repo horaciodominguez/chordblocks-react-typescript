@@ -1,10 +1,12 @@
 import { useNavigate, useParams } from "react-router-dom"
 import { toast } from "sonner"
 import { PageHeader } from "@/components/layout/PageHeader"
-import LoaderSpinner from "@/components/ui/LoaderSpinner"
+import PageState from "@/components/ui/PageState"
 import { RepertoireEditor } from "@/modules/repertoires/components/RepertoireEditor"
 import { useRepertoires } from "@/modules/repertoires/hooks/useRepertoires"
 import type { Repertoire } from "@/modules/repertoires/types/repertoire.types"
+import { ROUTES } from "@/config/navigation"
+import { touchRepertoire } from "@/modules/repertoires/utils/repertoire.factory"
 
 export default function EditRepertoire() {
   const { id } = useParams<{ id: string }>()
@@ -16,32 +18,29 @@ export default function EditRepertoire() {
 
   const handleSave = async (rep: Repertoire) => {
     try {
-      await updateRepertoire(rep)
+      await updateRepertoire(touchRepertoire(rep))
       toast.success("Set saved")
-      navigate(`/repertoires/${rep.id}`, { replace: true })
+      navigate(ROUTES.set(rep.id), { replace: true })
     } catch (err) {
       console.error(err)
       toast.error("Could not save set")
     }
   }
 
-  const parentPath = id ? `/repertoires/${id}` : "/repertoires"
+  const parentPath = id ? ROUTES.set(id) : ROUTES.sets
 
   if (initialLoading) {
-    return (
-      <>
-        <PageHeader title="Edit set" backTo={parentPath} />
-        <LoaderSpinner />
-      </>
-    )
+    return <PageState variant="loading" backTo={parentPath} />
   }
 
   if (!repertoire) {
     return (
-      <>
-        <PageHeader title="Not found" backTo="/repertoires" />
-        <div className="text-center py-6">Set not found</div>
-      </>
+      <PageState
+        variant="notFound"
+        message="Set not found"
+        backTo={ROUTES.sets}
+        backLabel="Back to sets"
+      />
     )
   }
 
@@ -53,7 +52,7 @@ export default function EditRepertoire() {
         mutating={mutating}
         onSave={handleSave}
         onCancel={() =>
-          navigate(`/repertoires/${repertoire.id}`, { replace: true })
+          navigate(ROUTES.set(repertoire.id), { replace: true })
         }
       />
     </>

@@ -41,8 +41,8 @@ import {
 } from "@/modules/repertoires/utils/repertoire.transposePreview"
 import type { Song } from "@/modules/songs/types/song.types"
 
-const ITEM_TRANSPOSE_MIN = -6
-const ITEM_TRANSPOSE_MAX = 6
+const ITEM_TRANSPOSE_MIN = -12
+const ITEM_TRANSPOSE_MAX = 12
 
 type Props = {
   initial: Repertoire
@@ -280,6 +280,35 @@ export function RepertoireEditor({
             setDraft((prev) => ({ ...prev, title: e.target.value }))
           }
         />
+        <label className="text-xs text-zinc-500 mt-2" htmlFor="set-date">
+          Date (optional)
+        </label>
+        <input
+          id="set-date"
+          type="date"
+          className="min-h-11 rounded-md border border-zinc-600 bg-zinc-900 px-3 text-zinc-100"
+          value={draft.date ?? ""}
+          onChange={(e) =>
+            setDraft((prev) => ({
+              ...prev,
+              date: e.target.value || undefined,
+            }))
+          }
+        />
+        <label className="flex items-center gap-2 min-h-11 mt-1 text-sm text-zinc-300">
+          <input
+            type="checkbox"
+            className="size-4 accent-indigo-500"
+            checked={Boolean(draft.isPinned)}
+            onChange={(e) =>
+              setDraft((prev) => ({
+                ...prev,
+                isPinned: e.target.checked || undefined,
+              }))
+            }
+          />
+          Pin this set on Home
+        </label>
       </div>
 
       <SongSearchPicker

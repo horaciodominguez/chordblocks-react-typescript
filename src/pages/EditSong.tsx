@@ -3,12 +3,13 @@ import { useSong } from "@/modules/songs/hooks/useSong"
 import type { Song } from "@/modules/songs/types/song.types"
 import { useParams, useNavigate, useSearchParams } from "react-router-dom"
 import { useSongs } from "@/modules/songs/hooks/useSongs"
-import LoaderSpinner from "@/components/ui/LoaderSpinner"
+import PageState from "@/components/ui/PageState"
 import { PageHeader } from "@/components/layout/PageHeader"
 import {
   isPlayModeParam,
   songViewPath,
 } from "@/modules/repertoires/utils/repertoire.navigation"
+import { ROUTES } from "@/config/navigation"
 
 export default function EditSong() {
   const { id } = useParams<{ id: string }>()
@@ -20,13 +21,15 @@ export default function EditSong() {
   const setContext = {
     repertoireId: searchParams.get("repertoireId") ?? undefined,
     itemId: searchParams.get("itemId") ?? undefined,
-    mode: isPlayModeParam(searchParams.get("mode")) ? ("play" as const) : undefined,
+    mode: isPlayModeParam(searchParams.get("mode"))
+      ? ("play" as const)
+      : undefined,
   }
   const hasSetContext = Boolean(setContext.repertoireId && setContext.itemId)
 
   const parentPath = id
     ? songViewPath(id, hasSetContext ? setContext : null)
-    : "/"
+    : ROUTES.songs
 
   const handleSubmit = async (nextSong: Song) => {
     if (!nextSong) return
@@ -37,26 +40,25 @@ export default function EditSong() {
   }
 
   if (loading) {
-    return (
-      <>
-        <PageHeader title="Edit Song" backTo={parentPath} />
-        <LoaderSpinner />
-      </>
-    )
+    return <PageState variant="loading" title="Loading…" backTo={parentPath} />
   }
 
   if (!song) {
     return (
-      <>
-        <PageHeader title="Not found" backTo={parentPath} />
-        <div className="text-center py-6">Song not found</div>
-      </>
+      <PageState
+        variant="notFound"
+        message="Song not found"
+        backTo={parentPath}
+        backLabel="Go back"
+        secondaryTo={ROUTES.songs}
+        secondaryLabel="Songs"
+      />
     )
   }
 
   return (
     <>
-      <PageHeader title="Edit Song" backTo={parentPath} />
+      <PageHeader title="Edit song" backTo={parentPath} />
       <SongForm
         handleAddSong={handleSubmit}
         initialSong={song}

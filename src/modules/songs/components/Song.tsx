@@ -3,6 +3,7 @@ import type { SongDensity } from "@/modules/songs/types/density.types"
 import { SectionTag } from "@/modules/songs/components/ui/SectionTag"
 import { Section } from "./Section"
 import { useEffect, useMemo, useState } from "react"
+import { Link } from "react-router-dom"
 import * as Switch from "@radix-ui/react-switch"
 import { transposeSong } from "@/modules/chords/utils/transpose"
 import {
@@ -24,10 +25,12 @@ export interface Props {
   baseSemitones?: number
   /** F13: atril — force guide density, hide edit chrome */
   performanceMode?: boolean
+  /** Optional link for the artist name (catalog by artist). */
+  artistHref?: string
 }
 
-const TRANSPOSE_MIN = -6
-const TRANSPOSE_MAX = 6
+const TRANSPOSE_MIN = -12
+const TRANSPOSE_MAX = 12
 
 function formatOffset(semitones: number): string {
   return semitones > 0 ? `+${semitones}` : String(semitones)
@@ -37,6 +40,7 @@ export const Song = ({
   song,
   baseSemitones = 0,
   performanceMode = false,
+  artistHref,
 }: Props) => {
   const [showDiagram, setShowDiagram] = useState(false)
   const [semitones, setSemitones] = useState(baseSemitones)
@@ -88,7 +92,16 @@ export const Song = ({
         <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 text-sm text-zinc-400">
           <span>
             Artist:{" "}
-            <span className="font-semibold text-zinc-200">{song.artist}</span>
+            {artistHref ? (
+              <Link
+                to={artistHref}
+                className="font-semibold text-zinc-200 hover:text-indigo-300"
+              >
+                {song.artist}
+              </Link>
+            ) : (
+              <span className="font-semibold text-zinc-200">{song.artist}</span>
+            )}
           </span>
           {displaySong.mainKey ? (
             <span>

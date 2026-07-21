@@ -1,24 +1,15 @@
 import { NavLink, useLocation } from "react-router-dom"
-import { ListMusic, Library, Settings } from "lucide-react"
-
-const navItems = [
-  { to: "/", label: "Songs", icon: ListMusic, end: true },
-  { to: "/repertoires", label: "Sets", icon: Library, end: false },
-  { to: "/settings", label: "Settings", icon: Settings, end: false },
-]
+import { NAV_ITEMS, isEditPath, isNavItemActive } from "@/config/navigation"
+import { isPlayModeParam } from "@/modules/repertoires/utils/repertoire.navigation"
 
 export function BottomNav() {
   const location = useLocation()
 
-  const hideOnEdit =
-    location.pathname === "/new" ||
-    /^\/song\/[^/]+\/edit$/.test(location.pathname) ||
-    /^\/repertoires\/[^/]+\/edit$/.test(location.pathname)
+  const playMode = isPlayModeParam(
+    new URLSearchParams(location.search).get("mode"),
+  )
 
-  const playMode =
-    new URLSearchParams(location.search).get("mode") === "play"
-
-  if (hideOnEdit || playMode) return null
+  if (isEditPath(location.pathname) || playMode) return null
 
   return (
     <nav
@@ -28,19 +19,19 @@ export function BottomNav() {
       aria-label="Main navigation"
     >
       <ul className="flex justify-around items-stretch max-w-3xl mx-auto">
-        {navItems.map((item) => {
+        {NAV_ITEMS.map((item) => {
           const Icon = item.icon
+          const active = isNavItemActive(item, location.pathname)
           return (
-            <li key={item.to} className="flex-1">
+            <li key={item.id} className="flex-1">
               <NavLink
                 to={item.to}
                 end={item.end}
-                aria-label={item.label}
-                className={({ isActive }) =>
-                  `flex flex-col items-center justify-center gap-0.5 py-2 min-h-14
+                aria-current={active ? "page" : undefined}
+                className={`flex flex-col items-center justify-center gap-0.5 py-2 min-h-14
                    text-[10px] uppercase tracking-wide
-                   ${isActive ? "text-indigo-300" : "text-zinc-500"}`
-                }
+                   focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500
+                   ${active ? "text-indigo-300" : "text-zinc-500"}`}
               >
                 <Icon size={22} />
                 <span>{item.label}</span>

@@ -83,7 +83,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const init = async () => {
       try {
         const { data, error } = await supabase.auth.getUser()
-        if (error) console.error("getUser error:", error)
+        // No session is normal when logged out — only log unexpected errors
+        if (
+          error &&
+          error.name !== "AuthSessionMissingError" &&
+          error.message !== "Auth session missing!"
+        ) {
+          console.error("getUser error:", error)
+        }
         if (!mounted) return
 
         const currentUser = data?.user ?? null

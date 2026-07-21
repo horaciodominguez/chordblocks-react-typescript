@@ -1,3 +1,4 @@
+import { useId } from "react"
 import * as Dialog from "@radix-ui/react-dialog"
 
 type AppDialogProps = {
@@ -15,13 +16,15 @@ export function AppDialog({
   children,
   className = "",
 }: AppDialogProps) {
+  const descriptionId = useId()
+
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>{trigger}</Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40" />
         <Dialog.Content
-          aria-describedby={description}
+          aria-describedby={description ? descriptionId : undefined}
           className={`
             fixed z-50 focus:outline-none
             bg-zinc-900 shadow-xl p-4 sm:p-6
@@ -39,7 +42,10 @@ export function AppDialog({
             </Dialog.Title>
           )}
           {description && (
-            <Dialog.Description className="text-sm text-gray-400 mb-4">
+            <Dialog.Description
+              id={descriptionId}
+              className="text-sm text-zinc-400 mb-4"
+            >
               {description}
             </Dialog.Description>
           )}

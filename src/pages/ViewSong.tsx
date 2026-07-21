@@ -1,8 +1,8 @@
 import { Song } from "@/modules/songs/components/Song"
-import { useParams, useSearchParams } from "react-router-dom"
+import { Link, useParams, useSearchParams } from "react-router-dom"
 import { useSong } from "@/modules/songs/hooks/useSong"
 import { useRepertoires } from "@/modules/repertoires/hooks/useRepertoires"
-import LoaderSpinner from "@/components/ui/LoaderSpinner"
+import PageState from "@/components/ui/PageState"
 import {
   PageHeader,
   PageHeaderLink,
@@ -15,8 +15,10 @@ import {
   songEditPath,
 } from "@/modules/repertoires/utils/repertoire.navigation"
 import { useWakeLock } from "@/modules/repertoires/hooks/useWakeLock"
-import { Edit, ListMusic, Play } from "lucide-react"
+import { Edit, ListMusic, Play, X } from "lucide-react"
 import { useMemo } from "react"
+import { ROUTES } from "@/config/navigation"
+import { normalizeArtistKey } from "@/modules/songs/utils/songCatalog"
 
 export default function ViewSong() {
   const { id } = useParams<{ id: string }>()
@@ -27,6 +29,7 @@ export default function ViewSong() {
   const repertoireId = searchParams.get("repertoireId")
   const itemId = searchParams.get("itemId")
   const playMode = isPlayModeParam(searchParams.get("mode"))
+  const requestedSetContext = Boolean(repertoireId || itemId)
 
   const setNav = useMemo(() => {
     if (!repertoireId || !itemId) return null
@@ -35,25 +38,33 @@ export default function ViewSong() {
     return getSetNavContext(repertoire, itemId)
   }, [repertoireId, itemId, getRepertoire, repertoires])
 
+  const invalidSetContext = requestedSetContext && !setNav
+
   useWakeLock(playMode && !!setNav)
 
   const itemNotes = setNav?.current.item.notes?.trim() || ""
-  const backTo = setNav ? `/repertoires/${setNav.repertoireId}` : "/"
+  const backTo = setNav
+    ? ROUTES.set(setNav.repertoireId)
+    : ROUTES.songs
+  const exitPlayTo = setNav
+    ? setSongPath(setNav.current.item.songId, setNav.repertoireId, setNav.current.item.id)
+    : backTo
 
   if (loading) {
-    return (
-      <>
-        <PageHeader title="Loading…" backTo={backTo} />
-        <LoaderSpinner />
-      </>
-    )
+    return <PageState variant="loading" backTo={backTo} />
   }
 
   if (!song) {
     return (
       <>
-        <PageHeader title="Not found" backTo={backTo} />
-        <div className="text-center py-6">Song not found</div>
+        <PageState
+          variant="notFound"
+          message="Song not found"
+          backTo={backTo}
+          backLabel="Back to songs"
+          secondaryTo={ROUTES.sets}
+          secondaryLabel="Sets"
+        />
         {setNav ? <SetSongNav nav={setNav} playMode={playMode} /> : null}
       </>
     )
@@ -74,9 +85,14 @@ export default function ViewSong() {
     <>
       <PageHeader
         title={song.title}
-        backTo={backTo}
+        backTo={playMode ? exitPlayTo : backTo}
         actions={
-          playMode ? null : (
+          playMode ? (
+            <PageHeaderLink to={exitPlayTo} aria-label="Exit play mode">
+              <X size={16} />
+              <span className="hidden sm:inline">Exit</span>
+            </PageHeaderLink>
+          ) : (
             <>
               {setNav && playHref ? (
                 <PageHeaderLink to={playHref}>
@@ -86,7 +102,7 @@ export default function ViewSong() {
               ) : null}
               {setNav ? (
                 <PageHeaderLink
-                  to={`/repertoires/${setNav.repertoireId}`}
+                  to={ROUTES.set(setNav.repertoireId)}
                   className="hidden sm:inline-flex"
                 >
                   <ListMusic size={16} />
@@ -101,6 +117,16 @@ export default function ViewSong() {
           )
         }
       />
+
+      {invalidSetContext ? (
+        <div className="mb-3 rounded-md border border-amber-500/30 bg-amber-400/5 px-3 py-2 text-sm text-amber-200/90">
+          Set context is invalid or incomplete. Showing the song from your
+          library.{" "}
+          <Link to={ROUTES.sets} className="underline hover:text-amber-100">
+            Back to sets
+          </Link>
+        </div>
+      ) : null}
 
       {!playMode && setNav ? (
         <p className="text-xs text-zinc-500 mb-2 -mt-2">
@@ -134,6 +160,7 @@ export default function ViewSong() {
           song={song}
           baseSemitones={setNav?.current.item.transposeSemitones ?? 0}
           performanceMode={playMode}
+          artistHref={`${ROUTES.songs}?view=artists&artist=${encodeURIComponent(normalizeArtistKey(song.artist))}`}
         />
       </div>
       {setNav ? <SetSongNav nav={setNav} playMode={playMode} /> : null}

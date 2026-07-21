@@ -41,17 +41,20 @@ type PageHeaderLinkProps = {
   to: string
   children: React.ReactNode
   className?: string
+  "aria-label"?: string
 }
 
 export function PageHeaderLink({
   to,
   children,
   className = "",
+  "aria-label": ariaLabel,
 }: PageHeaderLinkProps) {
   return (
     <Link
       to={to}
-      className={`flex items-center justify-center gap-1.5 min-h-11 px-3 rounded-md border border-zinc-700 text-sm text-indigo-300 hover:text-gray-200 hover:bg-zinc-800/50 ${className}`}
+      aria-label={ariaLabel}
+      className={`flex items-center justify-center gap-1.5 min-h-11 px-3 rounded-md border border-zinc-700 text-sm text-indigo-300 hover:text-gray-200 hover:bg-zinc-800/50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 ${className}`}
     >
       {children}
     </Link>
