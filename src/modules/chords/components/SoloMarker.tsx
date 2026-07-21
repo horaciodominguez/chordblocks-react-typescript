@@ -2,7 +2,7 @@
 export function SoloMarker() {
   return (
     <span
-      className="block-marker-solo inline-flex items-center justify-center text-violet-300/90 font-semibold uppercase tracking-wide text-xs sm:text-sm"
+      className="inline-flex items-center justify-center text-xs font-semibold uppercase tracking-wide text-violet-300/90 sm:text-sm guide:text-[10px] guide:tracking-wide"
       title="Solo"
       aria-label="Solo"
     >

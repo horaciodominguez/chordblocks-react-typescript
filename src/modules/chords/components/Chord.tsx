@@ -24,9 +24,15 @@ export default function Chord({ chord, asText = false }: Props) {
   if (asText) return <>{root + suffix}</>
 
   return (
-    <span className={`chord-display flex flex-row justify-center items-end`}>
-      <span className={`chord-root `}>{root}</span>
-      {suffix && <span className={`chord-suffix `}>{suffix}</span>}
+    <span className="flex flex-row items-end justify-center">
+      <span className="text-center text-sm font-bold font-display text-zinc-200 light:text-zinc-800 guide:text-xs">
+        {root}
+      </span>
+      {suffix && (
+        <span className="mb-0.5 text-center text-xs font-thin italic font-display text-zinc-200 light:text-zinc-800 guide:mb-0 guide:text-[10px] guide:leading-none">
+          {suffix}
+        </span>
+      )}
     </span>
   )
 }

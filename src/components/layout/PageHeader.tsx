@@ -1,4 +1,5 @@
 import { Link, useNavigate } from "react-router-dom"
+import { pageTitleClass } from "@/components/ui/PageTitle"
 import { ArrowLeft } from "lucide-react"
 
 type Props = {
@@ -26,7 +27,7 @@ export function PageHeader({
         <ArrowLeft size={20} />
       </button>
 
-      <h2 className="page-title m-0 flex-1 text-left text-lg sm:text-2xl truncate">
+      <h2 className={`${pageTitleClass} m-0 flex-1 truncate text-left text-lg sm:text-2xl`}>
         {title}
       </h2>
 

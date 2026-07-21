@@ -8,16 +8,7 @@ export const SectionTag = ({ typeName, label }: Props) => {
 
   return (
     <p
-      className="
-        section-tag
-        inline-block 
-        bg-blue-100/5
-        text-violet-400/90  
-        border-2 
-        border-violet-900/60 
-        px-4 py-2 
-        rounded-r-xl 
-        text-xs"
+      className="inline-block rounded-r-xl border-2 border-violet-900/60 bg-blue-100/5 px-4 py-2 text-xs text-violet-400/90 guide:border guide:px-2 guide:py-0.5 guide:text-[10px]"
     >
       [{display}]
     </p>

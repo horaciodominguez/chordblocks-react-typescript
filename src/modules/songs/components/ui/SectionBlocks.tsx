@@ -1,10 +1,22 @@
 interface Props {
   children: React.ReactNode
+  /** Draw a vertical line after this measure (all except the last in the section). */
+  showMeasureSeparator?: boolean
 }
 
-export default function SectionBlocks({ children }: Props) {
+const measureSeparatorClass =
+  "after:pointer-events-none after:absolute after:top-1 after:right-0 after:bottom-1 after:w-0.5 after:bg-blue-400 after:content-[''] light:after:bg-blue-500"
+
+export default function SectionBlocks({
+  children,
+  showMeasureSeparator = false,
+}: Props) {
   return (
-    <div className="SECTIONBLOCKS-WRAP flex w-full py-2 divide-x-2 divide-blue-900 relative min-w-0">
+    <div
+      className={`relative flex min-w-0 w-full items-stretch py-2 guide:py-1 ${
+        showMeasureSeparator ? measureSeparatorClass : ""
+      }`}
+    >
       {children}
     </div>
   )

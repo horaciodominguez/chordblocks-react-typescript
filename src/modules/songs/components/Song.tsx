@@ -1,6 +1,7 @@
 import type { Song as SongType } from "@/modules/songs/types/song.types"
 import type { SongDensity } from "@/modules/songs/types/density.types"
 import { SectionTag } from "@/modules/songs/components/ui/SectionTag"
+import { panelFlatClass } from "@/components/ui/Panel"
 import { Section } from "./Section"
 import { useEffect, useMemo, useState } from "react"
 import { Link } from "react-router-dom"
@@ -84,7 +85,7 @@ export const Song = ({
   return (
     <div
       key={song.id ? song.id : null}
-      className={`panel-variant-1 ${performanceMode ? "border-0 bg-transparent p-0 shadow-none" : ""}`}
+      className={`${panelFlatClass} ${performanceMode ? "border-0 bg-transparent p-0 shadow-none" : ""}`}
       data-density={effectiveDensity}
     >
       {!performanceMode ? (
@@ -223,8 +224,8 @@ export const Song = ({
         {displaySong.songSections.map((section) => (
           <li
             key={section.id}
-            className={`song-section-item flex flex-col justify-start gap-3 ${
-              performanceMode ? "mb-4" : "mb-6"
+            className={`flex flex-col justify-start gap-3 guide:gap-1 ${
+              performanceMode ? "mb-4" : "mb-6 guide:mb-2"
             }`}
           >
             <div className="flex items-center gap-2">

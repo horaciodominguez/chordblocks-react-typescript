@@ -82,9 +82,9 @@ export const Block = forwardRef<HTMLDivElement, Props>(
     return (
       <div
         ref={ref}
-        className={`BLOCK-WRAP relative group font-bold text-white text-xs min-w-0 box-border light:text-zinc-900 ${
-          isGuide ? "px-0.5" : "px-1"
-        } ${hasControls ? "py-2 pb-8" : isGuide ? "py-0.5" : "py-2"}`}
+        className={`relative group box-border flex min-w-0 flex-col items-center justify-center text-xs font-bold text-white light:text-zinc-900 ${
+          isGuide ? "min-h-7 px-0.5" : "min-h-10 px-1"
+        } ${hasControls ? "min-h-16 py-2 pb-8" : isGuide ? "py-0.5" : "py-2"}`}
         style={{
           ...chordFlexStyle(block.duration),
           visibility: isDragging ? "hidden" : "visible",
@@ -92,7 +92,7 @@ export const Block = forwardRef<HTMLDivElement, Props>(
         }}
       >
         <div
-          className={`flex flex-col items-center justify-center min-w-0 w-full overflow-hidden ${
+          className={`flex flex-col items-center min-w-0 w-full overflow-hidden ${
             isGuide ? "gap-1" : "gap-4"
           }`}
         >

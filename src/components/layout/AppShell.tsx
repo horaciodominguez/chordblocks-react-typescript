@@ -27,7 +27,7 @@ export function AppShell({ children }: Props) {
       <main
         id="main-content"
         className="
-          maincontainer
+          font-sans
           max-w-3xl mx-auto px-3 py-2
           flex flex-col
           min-h-screen
@@ -50,7 +50,7 @@ export function AppShell({ children }: Props) {
       <main
         id="main-content"
         className="
-          maincontainer
+          font-sans
           max-w-3xl mx-auto px-4 py-4 md:py-8
           flex flex-col justify-between
           min-h-screen

@@ -9,6 +9,7 @@ import { validateSong } from "../../validation/song.validate"
 import { toast } from "sonner"
 import type { Song } from "../../types/song.types"
 import { StickyActionBar } from "@/components/layout/StickyActionBar"
+import { panelFlatClass } from "@/components/ui/Panel"
 import { useSongs } from "../../hooks/useSongs"
 
 type Props = {
@@ -41,7 +42,7 @@ export const SongForm = ({
 
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-2 text-white">
-      <div className="flex flex-col gap-4 panel-variant-1">
+      <div className={`flex flex-col gap-4 ${panelFlatClass}`}>
         <SongFormMeta dispatch={dispatch} state={state} song={song} />
 
         <SongFormPendingSection dispatch={dispatch} state={state} />

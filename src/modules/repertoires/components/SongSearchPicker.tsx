@@ -3,6 +3,7 @@ import { Search } from "lucide-react"
 import { useSongs } from "@/modules/songs/hooks/useSongs"
 import Button from "@/components/ui/Button"
 import Input from "@/components/ui/Input"
+import { panelFlatClass } from "@/components/ui/Panel"
 import { Select } from "@/components/ui/Select"
 import type { RepertoireGroup } from "@/modules/repertoires/types/repertoire.types"
 
@@ -43,7 +44,7 @@ export function SongSearchPicker({
   )
 
   return (
-    <div className="panel-variant-1 flex flex-col gap-3">
+    <div className={`${panelFlatClass} flex flex-col gap-3`}>
       <div className="flex flex-col sm:flex-row gap-2 sm:items-end">
         <div className="flex-1 min-w-0">
           <Input

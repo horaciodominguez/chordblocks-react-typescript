@@ -1,6 +1,7 @@
 import { useSearchParams } from "react-router-dom"
 import { User } from "lucide-react"
 import PageTitle from "@/components/ui/PageTitle"
+import { panelFlatClass } from "@/components/ui/Panel"
 import SegmentedTabs from "@/components/ui/SegmentedTabs"
 import { DataTransferPanel } from "@/modules/io/components/DataTransferPanel"
 import { useAuth } from "@/modules/auth/hooks/useAuth"
@@ -49,7 +50,7 @@ export default function Settings() {
           role="tabpanel"
           id="settings-panel-data"
           aria-labelledby="settings-tab-data"
-          className="panel-variant-1"
+          className={panelFlatClass}
         >
           <DataTransferPanel />
         </div>
@@ -58,7 +59,7 @@ export default function Settings() {
           role="tabpanel"
           id="settings-panel-account"
           aria-labelledby="settings-tab-account"
-          className="panel-variant-1 flex flex-col gap-4"
+          className={`${panelFlatClass} flex flex-col gap-4`}
         >
           {user ? (
             <>
@@ -87,7 +88,7 @@ export default function Settings() {
           role="tabpanel"
           id="settings-panel-appearance"
           aria-labelledby="settings-tab-appearance"
-          className="panel-variant-1 flex flex-col gap-4"
+          className={`${panelFlatClass} flex flex-col gap-4`}
         >
           <div>
             <h2 className="text-sm font-medium text-zinc-200 mb-1 light:text-zinc-900">Theme</h2>

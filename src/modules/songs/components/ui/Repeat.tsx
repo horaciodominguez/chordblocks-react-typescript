@@ -10,7 +10,7 @@ export const Repeat: React.FC<Props> = ({ repeats }) => {
 
   return (
     <div
-      className="flex flex-col items-center justify-center text-gray-300 pl-2 shrink-0 self-stretch"
+      className="flex flex-col items-center justify-center text-gray-300 pl-2 shrink-0 self-center min-h-10"
       aria-label={`Repeat ${repeats} times`}
     >
       {repeats > 2 && (

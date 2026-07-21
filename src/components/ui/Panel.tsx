@@ -11,6 +11,9 @@ const variants: Record<PanelVariant, string> = {
   flat: "border border-zinc-700 rounded-md bg-zinc-50/5 p-4 shadow-md shadow-black/20 backdrop-blur-md light:border-zinc-200 light:bg-white/90 light:shadow-zinc-300/30",
 }
 
+/** Flat panel surface — use on a div or via `<Panel variant="flat" />`. */
+export const panelFlatClass = variants.flat
+
 /**
  * Shared surface container.
  * - `card`: list items (formerly PanelContainer)

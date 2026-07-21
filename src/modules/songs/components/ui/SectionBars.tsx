@@ -44,9 +44,7 @@ export default function SectionBars({
 
   return (
     <div
-      className={`SECTIONBARS-WRAP grid divide-x-0 sm:divide-x-2 divide-blue-300 ${colClass} ${
-        isGuide ? "gap-y-0.5 mb-1" : "gap-y-2 mb-4"
-      }`}
+      className={`grid ${colClass} gap-y-4 mb-4 guide:gap-y-2 guide:mb-2`}
     >
       {children}
     </div>

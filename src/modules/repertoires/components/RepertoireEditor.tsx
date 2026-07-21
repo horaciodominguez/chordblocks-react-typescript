@@ -19,6 +19,7 @@ import { ChevronDown, ChevronUp, GripVertical, Minus, Plus, Trash } from "lucide
 import { toast } from "sonner"
 import Button from "@/components/ui/Button"
 import Input from "@/components/ui/Input"
+import { panelFlatClass } from "@/components/ui/Panel"
 import Textarea from "@/components/ui/Textarea"
 import { StickyActionBar } from "@/components/layout/StickyActionBar"
 import { useSongs } from "@/modules/songs/hooks/useSongs"
@@ -268,7 +269,7 @@ export function RepertoireEditor({
 
   return (
     <div className="flex flex-col gap-4 mb-4">
-      <div className="panel-variant-1 flex flex-col gap-2">
+      <div className={`${panelFlatClass} flex flex-col gap-2`}>
         <Input
           id="set-title"
           name="set-title"
@@ -346,7 +347,7 @@ export function RepertoireEditor({
           {draft.groups.map((group, groupIndex) => (
             <section
               key={group.id}
-              className="panel-variant-1 flex flex-col gap-3"
+              className={`${panelFlatClass} flex flex-col gap-3`}
             >
               <div className="flex flex-col sm:flex-row gap-2 sm:items-center">
                 <Input

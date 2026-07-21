@@ -31,7 +31,7 @@ export default function App() {
     return (
       <main
         className="
-        maincontainer
+        font-sans
         max-w-3xl mx-auto px-4 py-8
         flex flex-col justify-center
         items-center

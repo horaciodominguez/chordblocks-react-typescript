@@ -17,6 +17,9 @@ import { CSS } from "@dnd-kit/utilities"
 import { ArrowUpDown } from "lucide-react"
 import type { SongSection } from "../../types/section.types"
 
+const sectionHighlightClass =
+  "rounded-md motion-safe:animate-section-highlight motion-safe:light:animate-section-highlight-light motion-reduce:bg-indigo-500/15 motion-reduce:shadow-[0_0_0_2px_rgb(129_140_248/0.5)] motion-reduce:light:bg-indigo-500/10 motion-reduce:light:shadow-[0_0_0_2px_rgb(99_102_241/0.25)]"
+
 type Props = {
   sections: SongSection[]
   disabled?: boolean
@@ -61,7 +64,7 @@ function SortableSection({
       ref={setNodeRef}
       id={`song-section-${section.id}`}
       style={style}
-      className={`mb-8 min-w-0${highlighted ? " song-section-highlight" : ""}`}
+      className={`mb-8 min-w-0${highlighted ? ` ${sectionHighlightClass}` : ""}`}
       onAnimationEnd={
         highlighted
           ? (event) => {
@@ -119,7 +122,7 @@ export default function SectionsReorder({
           <div
             key={section.id}
             id={`song-section-${section.id}`}
-            className={`mb-8${section.id === highlightedSectionId ? " song-section-highlight" : ""}`}
+            className={`mb-8${section.id === highlightedSectionId ? ` ${sectionHighlightClass}` : ""}`}
             onAnimationEnd={
               section.id === highlightedSectionId
                 ? (event) => {
