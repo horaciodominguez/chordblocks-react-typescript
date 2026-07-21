@@ -1,6 +1,8 @@
 import { AppDialog } from "@/components/ui/AppDialog"
 import Button from "@/components/ui/Button"
+import Input, { controlSurfaceClass } from "@/components/ui/Input"
 import Label from "@/components/ui/Label"
+import { Select } from "@/components/ui/Select"
 import Chord from "@/modules/chords/components/Chord"
 import ChordDiagram from "@/modules/chords/components/ChordDiagram"
 import Rest from "@/modules/chords/components/Rest"
@@ -63,9 +65,6 @@ export function BlockPicker({
     onSelect(chordName)
   }
 
-  const selectClass =
-    "w-full border text-white text-sm px-3 py-2.5 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 border-zinc-400/25 min-h-11"
-
   const selectedRiffLabel =
     selectedValue && isRiffToken(selectedValue)
       ? parseRiffToken(selectedValue)
@@ -105,10 +104,10 @@ export function BlockPicker({
       >
         <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-end gap-3 mb-4">
           <div className="flex-1">
-            <Label htmlFor="root_chord">Root</Label>
-            <select
-              id="root_chord"
+            <Select
               name="root_chord"
+              label="Root"
+              options={ROOTS}
               value={root}
               onChange={(e) => {
                 const newRoot = e.target.value
@@ -120,14 +119,7 @@ export function BlockPicker({
                   setAccidental("")
                 }
               }}
-              className={selectClass}
-            >
-              {ROOTS.map((r) => (
-                <option key={r} value={r} className="bg-gray-800 text-white">
-                  {r}
-                </option>
-              ))}
-            </select>
+            />
           </div>
           <div className="flex-1">
             <Label htmlFor="accidental_chord">Accidental</Label>
@@ -135,22 +127,22 @@ export function BlockPicker({
               id="accidental_chord"
               value={accidental}
               onChange={(e) => setAccidental(e.target.value as "" | "#" | "b")}
-              className={selectClass}
+              className={`w-full px-3 py-2 ${controlSurfaceClass}`}
             >
-              <option value="" className="bg-gray-800 text-white">
+              <option value="" className="bg-zinc-800 text-white">
                 Natural
               </option>
               <option
                 value="#"
                 disabled={!isSharpAllowed(root)}
-                className="bg-gray-800 text-white disabled:text-gray-500 disabled:opacity-10"
+                className="bg-zinc-800 text-white disabled:text-zinc-500"
               >
                 Sharp (#)
               </option>
               <option
                 value="b"
                 disabled={!isFlatAllowed(root)}
-                className="bg-gray-800 text-white disabled:text-gray-500 disabled:opacity-10"
+                className="bg-zinc-800 text-white disabled:text-zinc-500"
               >
                 Flat (b)
               </option>
@@ -191,14 +183,15 @@ export function BlockPicker({
           </div>
           <div>
             <Label htmlFor="riff-label">Riff</Label>
-            <div className="flex gap-2">
-              <input
+            <div className="flex gap-2 items-end">
+              <Input
                 id="riff-label"
-                type="text"
+                name="riff-label"
+                alwaysEditable
                 value={riffLabel}
                 onChange={(e) => setRiffLabel(e.target.value)}
                 placeholder="Riff 1"
-                className={`${selectClass} flex-1 min-w-0`}
+                className="flex-1 min-w-0"
               />
               <Dialog.Close asChild>
                 <Button

@@ -18,6 +18,8 @@ import { CSS } from "@dnd-kit/utilities"
 import { ChevronDown, ChevronUp, GripVertical, Minus, Plus, Trash } from "lucide-react"
 import { toast } from "sonner"
 import Button from "@/components/ui/Button"
+import Input from "@/components/ui/Input"
+import Textarea from "@/components/ui/Textarea"
 import { StickyActionBar } from "@/components/layout/StickyActionBar"
 import { useSongs } from "@/modules/songs/hooks/useSongs"
 import type { Repertoire } from "@/modules/repertoires/types/repertoire.types"
@@ -165,16 +167,14 @@ function SortableItemRow({
       </div>
 
       <div className="pl-12">
-        <label className="sr-only" htmlFor={`notes-${id}`}>
-          Night notes for {title}
-        </label>
-        <textarea
+        <Textarea
           id={`notes-${id}`}
+          name={`notes-${id}`}
           rows={2}
-          className="w-full min-h-16 rounded-md border border-zinc-700 bg-zinc-950/80 px-3 py-2 text-sm text-zinc-200 placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-indigo-500"
           placeholder="Night notes (e.g. tono B, mya y iara)…"
           value={notes}
           onChange={(e) => onNotesChange(e.target.value)}
+          aria-label={`Night notes for ${title}`}
         />
       </div>
     </li>
@@ -269,24 +269,22 @@ export function RepertoireEditor({
   return (
     <div className="flex flex-col gap-4 mb-4">
       <div className="panel-variant-1 flex flex-col gap-2">
-        <label className="text-xs text-zinc-500" htmlFor="set-title">
-          Set title
-        </label>
-        <input
+        <Input
           id="set-title"
-          className="min-h-11 rounded-md border border-zinc-600 bg-zinc-900 px-3 text-zinc-100"
+          name="set-title"
+          alwaysEditable
           value={draft.title}
           onChange={(e) =>
             setDraft((prev) => ({ ...prev, title: e.target.value }))
           }
+          aria-label="Set title"
+          placeholder="Set title"
         />
-        <label className="text-xs text-zinc-500 mt-2" htmlFor="set-date">
-          Date (optional)
-        </label>
-        <input
+        <Input
           id="set-date"
+          name="set-date"
           type="date"
-          className="min-h-11 rounded-md border border-zinc-600 bg-zinc-900 px-3 text-zinc-100"
+          alwaysEditable
           value={draft.date ?? ""}
           onChange={(e) =>
             setDraft((prev) => ({
@@ -294,6 +292,7 @@ export function RepertoireEditor({
               date: e.target.value || undefined,
             }))
           }
+          aria-label="Set date (optional)"
         />
         <label className="flex items-center gap-2 min-h-11 mt-1 text-sm text-zinc-300">
           <input
@@ -350,8 +349,10 @@ export function RepertoireEditor({
               className="panel-variant-1 flex flex-col gap-3"
             >
               <div className="flex flex-col sm:flex-row gap-2 sm:items-center">
-                <input
-                  className="flex-1 min-h-11 rounded-md border border-zinc-600 bg-zinc-900 px-3 text-zinc-100"
+                <Input
+                  name={`group-title-${group.id}`}
+                  alwaysEditable
+                  className="flex-1"
                   value={group.title}
                   placeholder={`Group ${groupIndex + 1} title`}
                   aria-label={`Group ${groupIndex + 1} title`}

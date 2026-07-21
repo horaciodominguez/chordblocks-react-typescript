@@ -2,10 +2,9 @@ import { useMemo, useState } from "react"
 import { Search } from "lucide-react"
 import { useSongs } from "@/modules/songs/hooks/useSongs"
 import Button from "@/components/ui/Button"
+import Input from "@/components/ui/Input"
+import { Select } from "@/components/ui/Select"
 import type { RepertoireGroup } from "@/modules/repertoires/types/repertoire.types"
-
-const fieldClass =
-  "w-full min-h-11 rounded-md border border-zinc-600 bg-zinc-900 px-3 text-sm text-zinc-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
 
 type Props = {
   groups: RepertoireGroup[]
@@ -35,34 +34,38 @@ export function SongSearchPicker({
       .slice(0, 20)
   }, [songs, search])
 
+  const groupOptions = groups.map((g) => g.id)
+  const groupLabels = Object.fromEntries(
+    groups.map((g, index) => [
+      g.id,
+      g.title.trim() || `Group ${index + 1}`,
+    ]),
+  )
+
   return (
     <div className="panel-variant-1 flex flex-col gap-3">
-      <div className="flex flex-col sm:flex-row gap-2">
-        <div className="relative flex-1">
-          <Search
-            size={16}
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500 pointer-events-none"
-          />
-          <input
-            className={`${fieldClass} pl-9`}
-            placeholder="Search library…"
+      <div className="flex flex-col sm:flex-row gap-2 sm:items-end">
+        <div className="flex-1 min-w-0">
+          <Input
+            name="library-search"
+            alwaysEditable
             value={search}
+            placeholder="Search library…"
+            icon={<Search size={16} />}
             onChange={(e) => setSearch(e.target.value)}
             aria-label="Search songs"
           />
         </div>
-        <select
-          className={`${fieldClass} sm:w-44`}
-          value={targetGroupId}
-          onChange={(e) => onTargetGroupChange(e.target.value)}
-          aria-label="Target group"
-        >
-          {groups.map((g, index) => (
-            <option key={g.id} value={g.id}>
-              {g.title.trim() || `Group ${index + 1}`}
-            </option>
-          ))}
-        </select>
+        <div className="sm:w-44 shrink-0">
+          <Select
+            name="target-group"
+            label="Target group"
+            options={groupOptions}
+            optionLabels={groupLabels}
+            value={targetGroupId}
+            onChange={(e) => onTargetGroupChange(e.target.value)}
+          />
+        </div>
       </div>
 
       {songs.length === 0 ? (

@@ -45,9 +45,12 @@ export function LoginForm() {
       <div className="w-full">
         <Input
           name="email"
+          type="email"
+          alwaysEditable
           onChange={(e) => setEmail(e.target.value)}
           placeholder="email@email.com"
           value={email}
+          aria-label="Email"
         />
       </div>
       <div className="flex justify-end gap-2 w-full">

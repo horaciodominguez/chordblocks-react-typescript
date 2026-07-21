@@ -7,6 +7,7 @@ import PageState from "@/components/ui/PageState"
 import EmptyState from "@/components/ui/EmptyState"
 import Panel from "@/components/ui/Panel"
 import Button from "@/components/ui/Button"
+import Input from "@/components/ui/Input"
 import IconButton from "@/components/ui/IconButton"
 import { toast } from "sonner"
 import { useMemo, useState } from "react"
@@ -162,8 +163,10 @@ export default function ViewRepertoire() {
       <Panel variant="flat" className="flex flex-col gap-4 mb-4">
         {editingTitle ? (
           <div className="flex flex-col sm:flex-row gap-2">
-            <input
-              className="flex-1 min-h-11 rounded-md border border-zinc-600 bg-zinc-900 px-3 text-zinc-100"
+            <Input
+              name="rename-set"
+              alwaysEditable
+              className="flex-1"
               value={titleDraft}
               onChange={(e) => setTitleDraft(e.target.value)}
               aria-label="Set title"

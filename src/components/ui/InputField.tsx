@@ -20,7 +20,8 @@ export default function InputInline({
   onChange,
   tabIndex,
   icon,
-}: Props) {
+  alwaysEditable,
+}: Props & { alwaysEditable?: boolean }) {
   const fieldId = useId()
 
   return (
@@ -34,6 +35,7 @@ export default function InputInline({
         tabIndex={tabIndex}
         id={fieldId}
         icon={icon}
+        alwaysEditable={alwaysEditable}
       />
     </>
   )

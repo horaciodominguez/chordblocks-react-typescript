@@ -3,6 +3,7 @@ import * as Dialog from "@radix-ui/react-dialog"
 import { Download, Upload } from "lucide-react"
 import { toast } from "sonner"
 import Button from "@/components/ui/Button"
+import { Select } from "@/components/ui/Select"
 import { useSongs } from "@/modules/songs/hooks/useSongs"
 import { useRepertoires } from "@/modules/repertoires/hooks/useRepertoires"
 import { buildExportPackage } from "@/modules/io/utils/buildExportPackage"
@@ -284,19 +285,17 @@ export function DataTransferPanel() {
         <p className="text-sm text-zinc-500">
           Includes the set and each referenced song once (no duplicates).
         </p>
-        <select
-          className="min-h-11 rounded-md border border-zinc-700 bg-zinc-900 px-3 text-zinc-100"
+        <Select
+          name="export-set"
+          label="Set to export"
+          options={repertoires.map((r) => r.id)}
+          optionLabels={Object.fromEntries(
+            repertoires.map((r) => [r.id, r.title]),
+          )}
           value={exportRepId}
+          defaultValue="Choose a set…"
           onChange={(e) => setExportRepId(e.target.value)}
-          aria-label="Set to export"
-        >
-          <option value="">Choose a set…</option>
-          {repertoires.map((r) => (
-            <option key={r.id} value={r.id}>
-              {r.title}
-            </option>
-          ))}
-        </select>
+        />
         <Button
           type="button"
           variant="primary"
