@@ -96,6 +96,22 @@ describe("planMembershipSync", () => {
     expect(plan.orphanLocalIds).toEqual(["gone"])
     expect(plan.toUpsertRemote.find((s) => s.id === "gone")).toBeUndefined()
   })
+
+  it("keeps holdIds local without upsert or orphan", () => {
+    const remote: Song[] = []
+    const local = [
+      song({ id: "held", updatedAt: "2026-01-01T00:00:00.000Z" }),
+    ]
+    const plan = planMembershipSync(
+      local,
+      remote,
+      new Set(["held"]),
+      new Set(["held"]),
+    )
+    expect(plan.orphanLocalIds).toHaveLength(0)
+    expect(plan.toUpsertRemote).toHaveLength(0)
+    expect(plan.toWriteIdb.map((s) => s.id)).toEqual(["held"])
+  })
 })
 
 describe("cloneSongWithNewIds", () => {
@@ -128,6 +144,7 @@ describe("cloneSongWithNewIds", () => {
     })
     const clone = cloneSongWithNewIds(template)
     expect(clone.id).not.toBe(template.id)
+    expect(clone.seedOriginId).toBe("fixed-song")
     expect(clone.songSections[0].id).not.toBe("sec")
     expect(clone.songSections[0].bars[0].id).not.toBe("bar")
     expect(clone.songSections[0].bars[0].blocks[0].id).not.toBe("blk")
