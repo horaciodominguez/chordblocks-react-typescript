@@ -29,6 +29,8 @@ type Props = {
   onReorderBlocks: (barId: string, blocks: Bar["blocks"]) => void
   onDeleteChord: (chordId: string) => void
   onUpdateDuration?: (blockId: string, duration: number) => void
+  onUpdateRefTime?: (blockId: string, refTime: number | undefined) => void
+  hasYoutubeUrl?: boolean
 }
 
 function SortableBar({
@@ -38,6 +40,8 @@ function SortableBar({
   onReorderBlocks,
   onDeleteChord,
   onUpdateDuration,
+  onUpdateRefTime,
+  hasYoutubeUrl,
 }: {
   bar: Bar
   index: number
@@ -45,6 +49,8 @@ function SortableBar({
   onReorderBlocks: (barId: string, chords: Bar["blocks"]) => void
   onDeleteChord: (chordId: string) => void
   onUpdateDuration?: (blockId: string, duration: number) => void
+  onUpdateRefTime?: (blockId: string, refTime: number | undefined) => void
+  hasYoutubeUrl?: boolean
 }) {
   const {
     attributes,
@@ -83,6 +89,8 @@ function SortableBar({
         onReorder={onReorderBlocks}
         onDeleteChord={onDeleteChord}
         onUpdateDuration={onUpdateDuration}
+        onUpdateRefTime={onUpdateRefTime}
+        hasYoutubeUrl={hasYoutubeUrl}
       />
     </div>
   )
@@ -95,6 +103,8 @@ export default function BarsReorder({
   onReorderBlocks,
   onDeleteChord,
   onUpdateDuration,
+  onUpdateRefTime,
+  hasYoutubeUrl,
 }: Props) {
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -133,6 +143,8 @@ export default function BarsReorder({
               onReorderBlocks={onReorderBlocks}
               onDeleteChord={onDeleteChord}
               onUpdateDuration={onUpdateDuration}
+              onUpdateRefTime={onUpdateRefTime}
+              hasYoutubeUrl={hasYoutubeUrl}
             />
           ))}
         </SortableContext>

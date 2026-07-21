@@ -149,6 +149,7 @@ describe("transposeSong", () => {
             label: "Riff 1",
             duration: 4,
             position: 1,
+            refTime: 45,
           },
         ],
       },
@@ -161,6 +162,7 @@ describe("transposeSong", () => {
             type: "solo",
             duration: 4,
             position: 1,
+            refTime: 90,
           },
         ],
       },
@@ -171,8 +173,10 @@ describe("transposeSong", () => {
     expect(riff.type).toBe("riff")
     expect(riff.label).toBe("Riff 1")
     expect(riff.chord).toBeUndefined()
+    expect(riff.refTime).toBe(45)
     expect(solo.type).toBe("solo")
     expect(solo.chord).toBeUndefined()
+    expect(solo.refTime).toBe(90)
   })
 
   it("preserves section label and structure", () => {

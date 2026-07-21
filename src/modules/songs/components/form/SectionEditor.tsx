@@ -225,6 +225,14 @@ export function SectionEditor({ state, dispatch, onStopEditing }: Props) {
                 duration,
               })
             }}
+            onUpdateRefTime={(blockId, refTime) => {
+              dispatch({
+                type: "UPDATE_BLOCK_REF_TIME",
+                blockId,
+                refTime,
+              })
+            }}
+            hasYoutubeUrl={Boolean(state.song.youtubeUrl)}
           />
 
           <div className="mb-4 flex flex-wrap gap-3 mt-4 justify-end">

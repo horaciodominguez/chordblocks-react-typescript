@@ -11,7 +11,8 @@ import {
   readDensityPreference,
   writeDensityPreference,
 } from "@/modules/songs/utils/densityPreference"
-import { Minus, Plus } from "lucide-react"
+import { useSongPlayer } from "@/modules/player/hooks/useSongPlayer"
+import { Minus, Plus, Youtube } from "lucide-react"
 
 export interface TemporarySong extends Omit<SongType, "id"> {
   id?: string
@@ -44,6 +45,7 @@ export const Song = ({
   artistHref,
 }: Props) => {
   const [showDiagram, setShowDiagram] = useState(false)
+  const player = useSongPlayer()
   const [semitones, setSemitones] = useState(baseSemitones)
   const [density, setDensity] = useState<SongDensity>(() =>
     performanceMode ? "guide" : readDensityPreference(),
@@ -119,6 +121,22 @@ export const Song = ({
               {song.timeSignature.noteValue}
             </span>
           </span>
+          {player.videoId ? (
+            <button
+              type="button"
+              onClick={() => (player.isOpen ? player.close() : player.open())}
+              aria-pressed={player.isOpen}
+              title="Listen to the YouTube reference"
+              className={`inline-flex items-center gap-1.5 self-center min-h-9 rounded-md border px-2.5 text-xs font-semibold transition-colors ${
+                player.isOpen
+                  ? "border-indigo-500/50 bg-indigo-500/15 text-indigo-300 light:border-indigo-400 light:bg-indigo-50 light:text-indigo-700"
+                  : "border-zinc-600 text-zinc-300 hover:bg-zinc-800/50 hover:text-zinc-100 light:border-zinc-300 light:text-zinc-700 light:hover:bg-zinc-100 light:hover:text-zinc-900"
+              }`}
+            >
+              <Youtube size={14} className="text-red-500" />
+              Listen
+            </button>
+          ) : null}
         </div>
 
         <div className="flex flex-wrap items-center gap-x-4 gap-y-2">

@@ -32,6 +32,8 @@ type Props = {
   onReorder?: (barId: string, blocks: BlockType[]) => void
   onDeleteChord?: (chordId: string) => void
   onUpdateDuration?: (blockId: string, duration: number) => void
+  onUpdateRefTime?: (blockId: string, refTime: number | undefined) => void
+  hasYoutubeUrl?: boolean
 }
 
 function SortableBlock({
@@ -40,12 +42,16 @@ function SortableBlock({
   timeSignature,
   onDeleteChord,
   onUpdateDuration,
+  onUpdateRefTime,
+  hasYoutubeUrl,
 }: {
   bar: Bar
   block: BlockType
   timeSignature: TimeSignature
   onDeleteChord?: (chordId: string) => void
   onUpdateDuration?: (blockId: string, duration: number) => void
+  onUpdateRefTime?: (blockId: string, refTime: number | undefined) => void
+  hasYoutubeUrl?: boolean
 }) {
   const {
     attributes,
@@ -76,6 +82,12 @@ function SortableBlock({
           ? (duration) => onUpdateDuration(block.id, duration)
           : undefined
       }
+      onUpdateRefTime={
+        onUpdateRefTime
+          ? (refTime) => onUpdateRefTime(block.id, refTime)
+          : undefined
+      }
+      hasYoutubeUrl={hasYoutubeUrl}
       durationOptions={allowedBlockDurations(
         bar,
         block.id,
@@ -91,6 +103,8 @@ export default function ChordsReorder({
   onReorder,
   onDeleteChord,
   onUpdateDuration,
+  onUpdateRefTime,
+  hasYoutubeUrl,
 }: Props) {
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -132,6 +146,8 @@ export default function ChordsReorder({
               timeSignature={timeSignature}
               onDeleteChord={onDeleteChord}
               onUpdateDuration={onUpdateDuration}
+              onUpdateRefTime={onUpdateRefTime}
+              hasYoutubeUrl={hasYoutubeUrl}
             />
           ))}
         </SectionChords>

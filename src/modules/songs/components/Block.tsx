@@ -7,6 +7,8 @@ import { chordFlexStyle } from "@/modules/chords/utils/chord.utils"
 import type { Block as BlockType } from "@/modules/songs/types/block.types"
 import type { TimeSignature } from "@/modules/songs/types/song.types"
 import type { SongDensity } from "@/modules/songs/types/density.types"
+import { useSongPlayer } from "@/modules/player/hooks/useSongPlayer"
+import { BlockRefTimeDialog } from "./form/BlockRefTimeDialog"
 import { ArrowLeftRight, Trash } from "lucide-react"
 import React, { forwardRef } from "react"
 
@@ -20,6 +22,10 @@ type Props = {
   onDelete?: React.MouseEventHandler<HTMLButtonElement>
   onUpdateDuration?: (duration: number) => void
   durationOptions?: readonly number[]
+  /** Edit mode: set/edit the YouTube reference time of a riff/solo block. */
+  onUpdateRefTime?: (refTime: number | undefined) => void
+  /** Edit mode: whether the song has a YouTube link (hint in time dialog). */
+  hasYoutubeUrl?: boolean
   showDiagram?: boolean
   density?: SongDensity
 }
@@ -29,11 +35,13 @@ function BlockContent({
   timeSignature,
   showDiagram,
   isGuide,
+  onSeek,
 }: {
   block: BlockType
   timeSignature: TimeSignature
   showDiagram?: boolean
   isGuide: boolean
+  onSeek?: () => void
 }) {
   if (block.type === "rest") {
     return (
@@ -44,10 +52,10 @@ function BlockContent({
     )
   }
   if (block.type === "riff") {
-    return <RiffMarker label={block.label} />
+    return <RiffMarker label={block.label} refTime={block.refTime} onSeek={onSeek} />
   }
   if (block.type === "solo") {
-    return <SoloMarker />
+    return <SoloMarker refTime={block.refTime} onSeek={onSeek} />
   }
   return (
     <>
@@ -71,6 +79,8 @@ export const Block = forwardRef<HTMLDivElement, Props>(
       onDelete,
       onUpdateDuration,
       durationOptions,
+      onUpdateRefTime,
+      hasYoutubeUrl,
       showDiagram,
       density = "bars",
     },
@@ -78,6 +88,15 @@ export const Block = forwardRef<HTMLDivElement, Props>(
   ) => {
     const hasControls = !!(dragStyle || onDelete || onUpdateDuration)
     const isGuide = density === "guide"
+
+    const player = useSongPlayer()
+    const refTime = block.refTime
+    const onSeek =
+      !hasControls && player.videoId && refTime !== undefined
+        ? () => player.open(refTime)
+        : undefined
+
+    const isTimedBlockType = block.type === "riff" || block.type === "solo"
 
     return (
       <div
@@ -101,6 +120,7 @@ export const Block = forwardRef<HTMLDivElement, Props>(
             timeSignature={timeSignature}
             showDiagram={showDiagram}
             isGuide={isGuide}
+            onSeek={onSeek}
           />
         </div>
 
@@ -128,6 +148,17 @@ export const Block = forwardRef<HTMLDivElement, Props>(
                   </option>
                 ))}
               </select>
+            )}
+
+            {onUpdateRefTime && isTimedBlockType && (
+              <BlockRefTimeDialog
+                blockLabel={
+                  block.type === "riff" ? block.label?.trim() || "Riff" : "Solo"
+                }
+                refTime={block.refTime}
+                hasYoutubeUrl={hasYoutubeUrl}
+                onSave={onUpdateRefTime}
+              />
             )}
 
             <div

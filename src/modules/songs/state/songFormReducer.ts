@@ -33,6 +33,7 @@ export type SongFormState = {
     artist?: string
     timeSignature?: string
     songSections?: string
+    youtubeUrl?: string
   }
 }
 
@@ -42,6 +43,7 @@ export type Action =
   | { type: "SET_GENRE"; v: string }
   | { type: "SET_YEAR"; v: number }
   | { type: "SET_MAIN_KEY"; v: string | undefined }
+  | { type: "SET_YOUTUBE_URL"; v: string | undefined }
   | { type: "SET_TIME_SIGNATURE"; v: TimeSignature }
   | { type: "SET_IMAGE_BASE64"; v: string | null }
   | { type: "ADD_SECTION_TYPE"; v: SectionType }
@@ -51,6 +53,11 @@ export type Action =
   | { type: "ADD_BLOCK" }
   | { type: "DELETE_BLOCK"; v: string }
   | { type: "UPDATE_BLOCK_DURATION"; blockId: string; duration: number }
+  | {
+      type: "UPDATE_BLOCK_REF_TIME"
+      blockId: string
+      refTime: number | undefined
+    }
   | { type: "REORDER_BARS_IN_SECTION"; sectionId: string; order: string[] }
   | { type: "REORDER_BLOCKS"; barId: string; order: string[] }
   | { type: "REORDER_SECTIONS"; order: string[] }
@@ -109,6 +116,16 @@ export const reducer = (
         ...state,
         song: action.v
           ? { ...state.song, mainKey: action.v }
+          : { ...rest },
+      }
+    }
+
+    case "SET_YOUTUBE_URL": {
+      const { youtubeUrl: _, ...rest } = state.song
+      return {
+        ...state,
+        song: action.v !== undefined && action.v !== ""
+          ? { ...state.song, youtubeUrl: action.v }
           : { ...rest },
       }
     }
@@ -312,6 +329,44 @@ export const reducer = (
         pendingSection: { ...state.pendingSection, bars: updatedBars },
         availableBeats,
         pendingBeats: nextBeatsValue(availableBeats),
+      }
+    }
+
+    case "UPDATE_BLOCK_REF_TIME": {
+      if (state.pendingSection.id === "") return state
+
+      const { blockId, refTime } = action
+      if (
+        refTime !== undefined &&
+        (!Number.isInteger(refTime) || refTime < 0)
+      ) {
+        return state
+      }
+
+      let found = false
+      const updatedBars = state.pendingSection.bars.map((bar) => {
+        const blockIndex = bar.blocks.findIndex((b) => b.id === blockId)
+        if (blockIndex === -1) return bar
+
+        const block = bar.blocks[blockIndex]
+        if (block.type !== "riff" && block.type !== "solo") return bar
+
+        found = true
+        const blocks = [...bar.blocks]
+        if (refTime === undefined) {
+          const { refTime: _, ...rest } = block
+          blocks[blockIndex] = rest
+        } else {
+          blocks[blockIndex] = { ...block, refTime }
+        }
+        return { ...bar, blocks }
+      })
+
+      if (!found) return state
+
+      return {
+        ...state,
+        pendingSection: { ...state.pendingSection, bars: updatedBars },
       }
     }
 

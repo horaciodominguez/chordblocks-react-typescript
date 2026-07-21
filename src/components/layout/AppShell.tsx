@@ -9,6 +9,13 @@ type Props = {
   children: React.ReactNode
 }
 
+/** Song view with set prev/next chrome (`SetSongNav`) — fixed bar above BottomNav. */
+function hasSetSongNav(pathname: string, search: string): boolean {
+  if (!/^\/song\/[^/]+$/.test(pathname)) return false
+  const params = new URLSearchParams(search)
+  return Boolean(params.get("repertoireId") && params.get("itemId"))
+}
+
 /**
  * Shell modes:
  * - default: Header + content + Footer + BottomNav (mobile)
@@ -21,6 +28,7 @@ export function AppShell({ children }: Props) {
   const playMode = isPlayModeParam(
     new URLSearchParams(location.search).get("mode"),
   )
+  const setSongNav = hasSetSongNav(location.pathname, location.search)
 
   if (playMode) {
     return (
@@ -39,6 +47,11 @@ export function AppShell({ children }: Props) {
     )
   }
 
+  // BottomNav (~3.5rem) + optional SetSongNav (~3.75rem) + safe area
+  const mainPaddingBottom = setSongNav
+    ? "pb-[calc(8.25rem+env(safe-area-inset-bottom))] md:pb-[5.5rem]"
+    : "pb-[calc(4.5rem+env(safe-area-inset-bottom))] md:pb-8"
+
   return (
     <>
       <a
@@ -49,17 +62,18 @@ export function AppShell({ children }: Props) {
       </a>
       <main
         id="main-content"
-        className="
+        className={`
           font-sans
           max-w-3xl mx-auto px-4 py-4 md:py-8
           flex flex-col justify-between
           min-h-screen
-          pb-[calc(4.5rem+env(safe-area-inset-bottom))] md:pb-8
-        "
+          ${mainPaddingBottom}
+        `}
       >
         <Header />
         <div className="flex-grow">{children}</div>
-        {!editMode && <Footer />}
+        {/* Footer would sit under fixed SetSongNav — skip it in set song context */}
+        {!editMode && !setSongNav && <Footer />}
         <BottomNav />
       </main>
     </>

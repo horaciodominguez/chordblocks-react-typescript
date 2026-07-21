@@ -12,7 +12,8 @@ import type {
   SongFormState,
 } from "@/modules/songs/state/songFormReducer"
 import type { Song as SongType } from "@/modules/songs/types/song.types"
-import { Calendar, Music, Tag, UserStar } from "lucide-react"
+import { isValidYouTubeUrl } from "@/modules/songs/utils/youtube"
+import { Calendar, Music, Tag, UserStar, Youtube } from "lucide-react"
 import { SongFormBakeTranspose } from "./SongFormBakeTranspose"
 
 type Props = {
@@ -171,6 +172,39 @@ export function SongFormMeta({ dispatch, state, song }: Props) {
             icon={<Calendar size={16} />}
           />
         </div>
+      </div>
+
+      <div className="mb-4">
+        <InputField
+          label="YouTube reference (optional)"
+          name="youtubeUrl"
+          alwaysEditable
+          placeholder="https://www.youtube.com/watch?v=…"
+          onChange={(e) => {
+            dispatch({
+              type: "SET_YOUTUBE_URL",
+              v: e.target.value || undefined,
+            })
+            if (state.errors?.youtubeUrl) {
+              dispatch({ type: "CLEAR_ERROR", field: "youtubeUrl" })
+            }
+          }}
+          value={song.youtubeUrl ?? ""}
+          tabIndex={8}
+          icon={<Youtube size={16} />}
+        />
+        {song.youtubeUrl && !isValidYouTubeUrl(song.youtubeUrl) ? (
+          <p className="text-red-500 text-sm mt-1">
+            Enter a valid YouTube link (youtube.com/watch?v=… or youtu.be/…)
+          </p>
+        ) : state.errors?.youtubeUrl ? (
+          <p className="text-red-500 text-sm mt-1">{state.errors.youtubeUrl}</p>
+        ) : (
+          <p className="text-xs text-zinc-500 mt-1 light:text-zinc-600">
+            Used as listening reference. Riffs and solos can point to a time in
+            this video.
+          </p>
+        )}
       </div>
 
       <SongFormBakeTranspose dispatch={dispatch} song={song} />

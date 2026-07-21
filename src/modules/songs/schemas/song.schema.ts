@@ -1,5 +1,6 @@
 import { z } from "zod"
 import { SECTION_OPTIONS, BEAT_VALUES, noteValues } from "../constants/song"
+import { isValidYouTubeUrl } from "../utils/youtube"
 
 const oneOfNumbers = (allowed: readonly number[], message: string) =>
   z
@@ -26,6 +27,12 @@ const RestBlockSchema = z.object({
   position: z.number().int().min(1, "Min position is 1"),
 })
 
+const RefTimeSchema = z
+  .number()
+  .int()
+  .min(0, "Time must be 0 or more seconds")
+  .optional()
+
 const RiffBlockSchema = z.object({
   id: z.string(),
   type: z.literal("riff"),
@@ -35,6 +42,7 @@ const RiffBlockSchema = z.object({
   ),
   duration: z.number().int().min(1, "Min duration is 1").max(12, "Max is 12"),
   position: z.number().int().min(1, "Min position is 1"),
+  refTime: RefTimeSchema,
 })
 
 const SoloBlockSchema = z.object({
@@ -42,6 +50,7 @@ const SoloBlockSchema = z.object({
   type: z.literal("solo"),
   duration: z.number().int().min(1, "Min duration is 1").max(12, "Max is 12"),
   position: z.number().int().min(1, "Min position is 1"),
+  refTime: RefTimeSchema,
 })
 
 export const BlockSchema = z.discriminatedUnion("type", [
@@ -87,6 +96,13 @@ export const SongSchema = z.object({
   mainKey: z.preprocess(
     (v) => (v === "" || v === null || v === undefined ? undefined : v),
     z.string().min(1).optional()
+  ),
+  youtubeUrl: z.preprocess(
+    (v) => (v === "" || v === null || v === undefined ? undefined : v),
+    z
+      .string()
+      .refine(isValidYouTubeUrl, "Enter a valid YouTube link")
+      .optional()
   ),
   imageBase64: z.string().nullable(),
   imageUrl: z.string().nullable(),

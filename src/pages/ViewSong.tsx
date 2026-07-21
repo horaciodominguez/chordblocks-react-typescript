@@ -19,6 +19,12 @@ import { Edit, ListMusic, Play, X } from "lucide-react"
 import { useMemo } from "react"
 import { ROUTES } from "@/config/navigation"
 import { normalizeArtistKey } from "@/modules/songs/utils/songCatalog"
+import { parseYouTubeVideoId } from "@/modules/songs/utils/youtube"
+import { SongPlayerProvider } from "@/modules/player/context/SongPlayerContext"
+import {
+  YouTubeDock,
+  PlayerDockSpacer,
+} from "@/modules/player/components/YouTubeDock"
 
 export default function ViewSong() {
   const { id } = useParams<{ id: string }>()
@@ -81,8 +87,17 @@ export default function ViewSong() {
     itemId: setNav?.current.item.id,
   })
 
+  // Reference player is hidden in play mode (atril): no accidental playback live.
+  const videoId =
+    !playMode && song.youtubeUrl ? parseYouTubeVideoId(song.youtubeUrl) : null
+
+  // Keep the dock above SetSongNav (and the mobile BottomNav) when present.
+  const dockBottomClass = setNav
+    ? "bottom-[calc(7.75rem+env(safe-area-inset-bottom))] md:bottom-[4.5rem]"
+    : undefined
+
   return (
-    <>
+    <SongPlayerProvider videoId={videoId}>
       <PageHeader
         title={song.title}
         backTo={playMode ? exitPlayTo : backTo}
@@ -162,8 +177,10 @@ export default function ViewSong() {
           performanceMode={playMode}
           artistHref={`${ROUTES.songs}?view=artists&artist=${encodeURIComponent(normalizeArtistKey(song.artist))}`}
         />
+        <PlayerDockSpacer />
       </div>
       {setNav ? <SetSongNav nav={setNav} playMode={playMode} /> : null}
-    </>
+      <YouTubeDock bottomClass={dockBottomClass} />
+    </SongPlayerProvider>
   )
 }
