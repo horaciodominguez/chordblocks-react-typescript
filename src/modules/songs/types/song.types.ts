@@ -11,6 +11,12 @@ export interface Song {
   /** Reference key of the chart as written (transpose anchor). Optional. */
   mainKey?: string
 
+  /**
+   * Stable id of the mockup template this song was cloned from.
+   * Used to reconcile the same demo song across devices (different UUIDs).
+   */
+  seedOriginId?: string
+
   imageUrl?: string | null // Supabase
   imageBase64?: string | null // Local only
 

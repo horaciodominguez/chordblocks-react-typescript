@@ -90,6 +90,7 @@ export const SongSchema = z.object({
   ),
   imageBase64: z.string().nullable(),
   imageUrl: z.string().nullable(),
+  seedOriginId: z.string().optional(),
   songSections: z.array(SectionSchema).min(1, "Add at least one section"),
   createdAt: z.string(),
   updatedAt: z.string(),

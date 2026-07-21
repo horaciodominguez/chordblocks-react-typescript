@@ -18,12 +18,14 @@ export type MembershipPlan<T extends SyncEntity> = {
  * - both → LWW
  * - remote only → IDB
  * - local only + pendingSave → upsert
+ * - local only + holdIds → keep in IDB (awaiting conflict resolution)
  * - local only without pending → orphan (purge)
  */
 export function planMembershipSync<T extends SyncEntity>(
   local: T[],
   remote: T[],
   pendingSaveIds: Set<string>,
+  holdIds: Set<string> = new Set(),
 ): MembershipPlan<T> {
   const remoteIds = new Set(remote.map((r) => r.id))
   const localById = new Map(local.map((l) => [l.id, l]))
@@ -44,6 +46,10 @@ export function planMembershipSync<T extends SyncEntity>(
 
   for (const l of local) {
     if (remoteIds.has(l.id)) continue
+    if (holdIds.has(l.id)) {
+      toWriteIdb.push(l)
+      continue
+    }
     if (pendingSaveIds.has(l.id)) {
       toWriteIdb.push(l)
       toUpsertRemote.push(l)

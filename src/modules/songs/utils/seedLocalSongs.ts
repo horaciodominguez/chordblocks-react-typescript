@@ -31,6 +31,7 @@ export function cloneSongWithNewIds(template: Song): Song {
   return {
     ...template,
     id: uuidv4(),
+    seedOriginId: template.seedOriginId ?? template.id,
     imageUrl: template.imageUrl ?? null,
     imageBase64: template.imageBase64 ?? null,
     timeSignature: { ...template.timeSignature },

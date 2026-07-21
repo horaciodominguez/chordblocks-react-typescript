@@ -9,10 +9,16 @@ import {
 } from "react"
 import { supabase } from "@/services/supabaseClient"
 import type { User, Session, AuthChangeEvent } from "@supabase/supabase-js"
-import { syncAll } from "@/services/sync/syncManager"
+import {
+  syncAll,
+  resolveSyncConflicts,
+  type SongSyncConflict,
+  type SongSyncConflictResolution,
+} from "@/services/sync/syncManager"
 import { ensureLocalSongs } from "@/modules/songs/utils/seedLocalSongs"
 import { idbStorage } from "@/services/storage/providers/storage.idb"
 import { toast } from "sonner"
+import { SongSyncConflictDialog } from "@/modules/auth/components/SongSyncConflictDialog"
 
 type AuthContextValue = {
   user: User | null
@@ -42,23 +48,14 @@ function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
   })
 }
 
-async function runSyncSafe(showToastOnFail = false): Promise<void> {
-  try {
-    await withTimeout(syncAll(), SYNC_TIMEOUT_MS)
-  } catch (err) {
-    console.error("syncAll error:", err)
-    if (showToastOnFail) {
-      toast.error("Sync failed or timed out. Showing local data.")
-    }
-  }
-}
-
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
   const prevUserRef = useRef<User | null>(null)
   const [ready, setReady] = useState(false)
   const [syncEpoch, setSyncEpoch] = useState(0)
   const [syncing, setSyncing] = useState(false)
+  const [conflicts, setConflicts] = useState<SongSyncConflict[]>([])
+  const [resolvingConflicts, setResolvingConflicts] = useState(false)
   const syncingRef = useRef(false)
   const userRef = useRef<User | null>(null)
 
@@ -69,11 +66,40 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     syncingRef.current = true
     setSyncing(true)
     try {
-      await runSyncSafe(showToastOnFail)
+      const result = await withTimeout(syncAll(), SYNC_TIMEOUT_MS)
+      if (result.conflicts.length > 0) {
+        setConflicts(result.conflicts)
+      } else {
+        setConflicts([])
+      }
       bumpSyncEpoch()
+    } catch (err) {
+      console.error("syncAll error:", err)
+      if (showToastOnFail) {
+        toast.error("Sync failed or timed out. Showing local data.")
+      }
     } finally {
       syncingRef.current = false
       setSyncing(false)
+    }
+  }
+
+  const handleApplyResolutions = async (
+    resolutions: SongSyncConflictResolution[],
+  ) => {
+    setResolvingConflicts(true)
+    try {
+      const result = await withTimeout(
+        resolveSyncConflicts(resolutions),
+        SYNC_TIMEOUT_MS,
+      )
+      setConflicts(result.conflicts)
+      bumpSyncEpoch()
+    } catch (err) {
+      console.error("resolveSyncConflicts error:", err)
+      toast.error("Could not apply sync choices. Try again.")
+    } finally {
+      setResolvingConflicts(false)
     }
   }
 
@@ -147,6 +173,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         userRef.current = newUser
 
         if (event === "SIGNED_OUT" || (!newUser && !wasLoggedOut)) {
+          setConflicts([])
           bumpSyncEpoch()
           return
         }
@@ -197,7 +224,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     [user, ready, syncEpoch, syncing],
   )
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
+  return (
+    <AuthContext.Provider value={value}>
+      {children}
+      <SongSyncConflictDialog
+        conflicts={conflicts}
+        open={conflicts.length > 0}
+        applying={resolvingConflicts}
+        onApply={handleApplyResolutions}
+      />
+    </AuthContext.Provider>
+  )
 }
 
 export function useAuth(): AuthContextValue {

@@ -14,6 +14,15 @@ import {
 import { seedIfRemoteAlsoEmpty } from "@/modules/songs/utils/seedLocalSongs"
 import { isNewer, planMembershipSync } from "@/services/sync/membership"
 import { touchRepertoire } from "@/modules/repertoires/utils/repertoire.factory"
+import {
+  classifyPendingByContent,
+  planContentMerge,
+  planDuplicateGroups,
+  type ContentMergePlan,
+  type SongSyncConflict,
+  type SongSyncConflictResolution,
+} from "@/services/sync/contentIdentity"
+import { remapSongIdInRepertoire } from "@/services/sync/remapSongIds"
 
 async function getCurrentUserId(): Promise<string | null> {
   try {
@@ -123,6 +132,68 @@ export const deleteRepertoireWithSync = async (repertoireId: string) => {
   }
 }
 
+async function remapSongIdsEverywhere(fromId: string, toId: string) {
+  if (fromId === toId) return
+
+  const reps = await idbStorage.getRepertoires()
+  for (const rep of reps) {
+    const next = remapSongIdInRepertoire(rep, fromId, toId)
+    if (next === rep) continue
+    await idbStorage.saveRepertoire(next)
+    await idbStorage.addPendingRepertoire(next)
+  }
+
+  const pendingReps =
+    (await idbStorage.getPendingRepertoires()) as PendingRepertoireDrafts[]
+  for (const p of pendingReps) {
+    if (isPendingRepertoireDelete(p)) continue
+    const next = remapSongIdInRepertoire(p as Repertoire, fromId, toId)
+    if (next === p) continue
+    await idbStorage.addPendingRepertoire(next)
+  }
+}
+
+async function applyMergePlan(
+  userId: string,
+  plan: ContentMergePlan,
+): Promise<void> {
+  const { keeperId, discardId, winner, upsertRemote } = plan
+
+  if (discardId !== keeperId) {
+    await remapSongIdsEverywhere(discardId, keeperId)
+    await idbStorage.deleteSong(discardId)
+    await idbStorage.removePending(discardId)
+    try {
+      await supabaseStorage.deleteSong(userId, discardId)
+    } catch {
+      /* discard may not exist remotely */
+    }
+  }
+
+  await idbStorage.saveSong(winner)
+  await idbStorage.removePending(keeperId)
+
+  if (upsertRemote) {
+    try {
+      await supabaseStorage.saveSong(userId, winner)
+    } catch (err) {
+      console.error("applyMergePlan upsert failed", err)
+      await idbStorage.addPending(winner)
+    }
+  }
+}
+
+function dedupeConflicts(conflicts: SongSyncConflict[]): SongSyncConflict[] {
+  const seen = new Set<string>()
+  const out: SongSyncConflict[] = []
+  for (const c of conflicts) {
+    if (seen.has(c.id)) continue
+    seen.add(c.id)
+    out.push(c)
+  }
+  return out
+}
+
 async function syncRepertoires(userId: string) {
   let remote: Repertoire[]
   try {
@@ -179,21 +250,72 @@ async function syncRepertoires(userId: string) {
   }
 }
 
+export type SyncAllResult = {
+  conflicts: SongSyncConflict[]
+}
+
+export type SyncAllOptions = {
+  resolutions?: SongSyncConflictResolution[]
+}
+
 /**
- * Sync local ↔ remote with LWW + membership (Supabase wins set of IDs).
+ * Sync local ↔ remote with content-identity reconciliation, then LWW membership.
+ * Returns user↔user conflicts that need UI resolution (seeds auto-merge).
  */
-export const syncAll = async () => {
+export const syncAll = async (
+  options: SyncAllOptions = {},
+): Promise<SyncAllResult> => {
   const userId = await getCurrentUserId()
-  if (!userId) return
+  if (!userId) return { conflicts: [] }
 
   await idbStorage.prepareForUser(userId)
 
   let remote = await supabaseStorage.getSongs(userId)
+  const resolutionById = new Map(
+    (options.resolutions ?? []).map((r) => [r.conflictId, r.action]),
+  )
+
+  const pendingsForClassify = (await idbStorage.getPending()) as PendingDrafts[]
+  const pendingSaves = pendingsForClassify.filter(
+    (p) => !isPendingDelete(p),
+  ) as Song[]
+
+  const classification = classifyPendingByContent(pendingSaves, remote)
+
+  for (const { local, remote: match } of classification.autoMerges) {
+    await applyMergePlan(userId, planContentMerge(local, match))
+  }
+
+  const unresolved: SongSyncConflict[] = []
+  for (const conflict of classification.userConflicts) {
+    const action = resolutionById.get(conflict.id)
+    if (action === "keepNewest") {
+      await applyMergePlan(
+        userId,
+        planContentMerge(conflict.songA, conflict.songB),
+      )
+    } else if (action === "keepBoth") {
+      // leave pending — flush uploads as a distinct song
+    } else {
+      unresolved.push(conflict)
+    }
+  }
+
+  const holdIds = new Set(
+    unresolved
+      .filter((c) => c.source === "pending_vs_remote")
+      .map((c) => c.songA.id),
+  )
+
+  remote = await supabaseStorage.getSongs(userId)
   const remoteById = new Map(remote.map((r) => [r.id, r]))
 
   const pendingsBefore = (await idbStorage.getPending()) as PendingDrafts[]
   const pendingSaveIds = new Set(
-    pendingsBefore.filter((p) => !isPendingDelete(p)).map((p) => p.id),
+    pendingsBefore
+      .filter((p) => !isPendingDelete(p))
+      .map((p) => p.id)
+      .filter((id) => !holdIds.has(id)),
   )
 
   for (const p of pendingsBefore) {
@@ -204,6 +326,8 @@ export const syncAll = async () => {
         remoteById.delete(p.id)
         continue
       }
+
+      if (holdIds.has(p.id)) continue
 
       const pendingSong = p as Song
       const remoteSong = remoteById.get(pendingSong.id)
@@ -239,7 +363,7 @@ export const syncAll = async () => {
     local = await idbStorage.getSongs()
   }
 
-  const plan = planMembershipSync(local, remote, pendingSaveIds)
+  const plan = planMembershipSync(local, remote, pendingSaveIds, holdIds)
 
   for (const id of plan.orphanLocalIds) {
     await idbStorage.deleteSong(id)
@@ -253,7 +377,47 @@ export const syncAll = async () => {
     await idbStorage.saveSong(song)
   }
 
+  // Post-membership content dedupe
+  local = await idbStorage.getSongs()
+  const dedupe = planDuplicateGroups(local)
+
+  for (const merge of dedupe.autoMerges) {
+    await applyMergePlan(userId, merge)
+  }
+
+  for (const conflict of dedupe.userConflicts) {
+    const action = resolutionById.get(conflict.id)
+    if (action === "keepNewest") {
+      await applyMergePlan(
+        userId,
+        planContentMerge(conflict.songA, conflict.songB),
+      )
+    } else if (action === "keepBoth") {
+      // keep both ids as-is
+    } else {
+      unresolved.push(conflict)
+    }
+  }
+
   await syncRepertoires(userId)
+
+  return { conflicts: dedupeConflicts(unresolved) }
 }
 
-export const __testables = { isNewer, planMembershipSync }
+/** Apply UI resolutions and re-run sync. */
+export const resolveSyncConflicts = async (
+  resolutions: SongSyncConflictResolution[],
+): Promise<SyncAllResult> => {
+  return syncAll({ resolutions })
+}
+
+export const __testables = {
+  isNewer,
+  planMembershipSync,
+  applyMergePlan,
+  classifyPendingByContent,
+  planContentMerge,
+  planDuplicateGroups,
+}
+
+export type { SongSyncConflict, SongSyncConflictResolution }
