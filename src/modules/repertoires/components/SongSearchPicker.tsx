@@ -70,7 +70,7 @@ export function SongSearchPicker({
       ) : filtered.length === 0 ? (
         <p className="text-sm text-zinc-500">No matches.</p>
       ) : (
-        <ul className="flex flex-col gap-1 max-h-56 overflow-y-auto">
+        <ul className="flex flex-col gap-1 max-h-56 overflow-y-auto scrollbar-app pr-1">
           {filtered.map((song) => (
             <li
               key={song.id}

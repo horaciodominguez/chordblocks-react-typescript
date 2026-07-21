@@ -232,7 +232,7 @@ export function DataTransferPanel() {
               />
               Select all ({songs.length})
             </label>
-            <ul className="max-h-56 overflow-y-auto border border-zinc-800 rounded-md divide-y divide-zinc-800">
+            <ul className="max-h-56 overflow-y-auto scrollbar-app border border-zinc-800 rounded-md divide-y divide-zinc-800">
               {songs.map((song) => (
                 <li key={song.id}>
                   <label className="flex items-center gap-3 px-3 py-2.5 min-h-11 cursor-pointer hover:bg-zinc-900/60">
@@ -318,7 +318,7 @@ export function DataTransferPanel() {
       >
         <Dialog.Portal>
           <Dialog.Overlay className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40" />
-          <Dialog.Content className="fixed z-50 focus:outline-none bg-zinc-900 shadow-xl p-4 sm:p-6 w-[calc(100vw-1.5rem)] max-w-lg max-h-[85dvh] overflow-y-auto left-1/2 -translate-x-1/2 bottom-3 sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2 rounded-xl sm:rounded-md">
+          <Dialog.Content className="fixed z-50 focus:outline-none bg-zinc-900 shadow-xl p-4 sm:p-6 w-[calc(100vw-1.5rem)] max-w-lg max-h-[85dvh] overflow-y-auto scrollbar-app left-1/2 -translate-x-1/2 bottom-3 sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2 rounded-xl sm:rounded-md">
             <Dialog.Title className="text-lg font-bold mb-2 text-white">
               Import songs
             </Dialog.Title>
