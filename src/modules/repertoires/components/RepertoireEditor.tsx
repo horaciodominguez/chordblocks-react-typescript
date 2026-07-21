@@ -171,7 +171,7 @@ function SortableItemRow({
           id={`notes-${id}`}
           name={`notes-${id}`}
           rows={2}
-          placeholder="Night notes (e.g. tono B, mya y iara)…"
+          placeholder="Notes for this set (key, cue, arrangement…)"
           value={notes}
           onChange={(e) => onNotesChange(e.target.value)}
           aria-label={`Night notes for ${title}`}
