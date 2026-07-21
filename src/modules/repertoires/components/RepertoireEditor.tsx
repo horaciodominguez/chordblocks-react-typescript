@@ -95,12 +95,12 @@ function SortableItemRow({
     <li
       ref={setNodeRef}
       style={style}
-      className="flex flex-col gap-2 rounded-md border border-zinc-800 bg-zinc-900/60 px-2 py-2"
+      className="flex flex-col gap-2 rounded-md border border-zinc-800 bg-zinc-900/60 px-2 py-2 light:border-zinc-200 light:bg-zinc-100"
     >
       <div className="flex items-center gap-2">
         <button
           type="button"
-          className="shrink-0 touch-none cursor-grab text-zinc-500 hover:text-zinc-300 min-h-10 min-w-10 flex items-center justify-center"
+          className="shrink-0 touch-none cursor-grab text-zinc-500 hover:text-zinc-300 min-h-10 min-w-10 flex items-center justify-center light:text-zinc-600 light:hover:text-zinc-800"
           aria-label={`Drag ${title}`}
           {...attributes}
           {...listeners}
@@ -108,9 +108,9 @@ function SortableItemRow({
           <GripVertical size={18} />
         </button>
         <div className="min-w-0 flex-1">
-          <p className="text-sm text-zinc-100 truncate">{title}</p>
+          <p className="text-sm text-zinc-100 truncate light:text-zinc-900">{title}</p>
           {artist ? (
-            <p className="text-xs text-zinc-500 truncate">{artist}</p>
+            <p className="text-xs text-zinc-500 truncate light:text-zinc-600">{artist}</p>
           ) : null}
         </div>
         <button
@@ -124,7 +124,7 @@ function SortableItemRow({
       </div>
 
       <div className="flex flex-wrap items-center gap-2 pl-12">
-        <span className="text-xs text-zinc-500">Transpose</span>
+        <span className="text-xs text-zinc-500 light:text-zinc-600">Transpose</span>
         <div className="flex items-center gap-1">
           <button
             type="button"
@@ -135,12 +135,12 @@ function SortableItemRow({
                 Math.max(ITEM_TRANSPOSE_MIN, transposeSemitones - 1),
               )
             }
-            className="flex items-center justify-center min-h-10 min-w-10 rounded-md border border-zinc-600 text-zinc-200 hover:bg-zinc-800/50 disabled:opacity-40 disabled:pointer-events-none"
+            className="flex items-center justify-center min-h-10 min-w-10 rounded-md border border-zinc-600 text-zinc-200 hover:bg-zinc-800/50 disabled:opacity-40 disabled:pointer-events-none light:border-zinc-300 light:text-zinc-900 light:hover:bg-zinc-100"
           >
             <Minus size={14} />
           </button>
           <span
-            className="min-w-9 text-center text-sm font-semibold text-zinc-200 tabular-nums"
+            className="min-w-9 text-center text-sm font-semibold text-zinc-200 tabular-nums light:text-zinc-900"
             aria-live="polite"
           >
             {formatSemitoneOffset(transposeSemitones)}
@@ -154,7 +154,7 @@ function SortableItemRow({
                 Math.min(ITEM_TRANSPOSE_MAX, transposeSemitones + 1),
               )
             }
-            className="flex items-center justify-center min-h-10 min-w-10 rounded-md border border-zinc-600 text-zinc-200 hover:bg-zinc-800/50 disabled:opacity-40 disabled:pointer-events-none"
+            className="flex items-center justify-center min-h-10 min-w-10 rounded-md border border-zinc-600 text-zinc-200 hover:bg-zinc-800/50 disabled:opacity-40 disabled:pointer-events-none light:border-zinc-300 light:text-zinc-900 light:hover:bg-zinc-100"
           >
             <Plus size={14} />
           </button>
@@ -196,7 +196,7 @@ function GroupDropZone({
     <ul
       ref={setNodeRef}
       className={`flex flex-col gap-2 min-h-12 rounded-md p-1 transition-colors ${
-        isOver ? "bg-indigo-950/40 ring-1 ring-indigo-500/40" : ""
+        isOver ? "bg-indigo-950/40 ring-1 ring-indigo-500/40 light:bg-indigo-100 light:ring-indigo-500/40" : ""
       }`}
     >
       {children}
@@ -294,7 +294,7 @@ export function RepertoireEditor({
           }
           aria-label="Set date (optional)"
         />
-        <label className="flex items-center gap-2 min-h-11 mt-1 text-sm text-zinc-300">
+        <label className="flex items-center gap-2 min-h-11 mt-1 text-sm text-zinc-300 light:text-zinc-800">
           <input
             type="checkbox"
             className="size-4 accent-indigo-500"
@@ -318,7 +318,7 @@ export function RepertoireEditor({
       />
 
       <div className="flex items-center justify-between gap-2">
-        <h2 className="text-sm font-medium text-zinc-300">Groups</h2>
+        <h2 className="text-sm font-medium text-zinc-300 light:text-zinc-800">Groups</h2>
         <Button
           type="button"
           variant="secondary"
@@ -365,7 +365,7 @@ export function RepertoireEditor({
                 <div className="flex gap-1 shrink-0">
                   <button
                     type="button"
-                    className="min-h-11 min-w-11 flex items-center justify-center border border-zinc-700 rounded-md text-zinc-400 hover:text-zinc-200 disabled:opacity-40"
+                    className="min-h-11 min-w-11 flex items-center justify-center border border-zinc-700 rounded-md text-zinc-400 hover:text-zinc-200 disabled:opacity-40 light:border-zinc-200 light:text-zinc-600 light:hover:text-zinc-900"
                     aria-label="Move group up"
                     disabled={groupIndex === 0}
                     onClick={() =>
@@ -376,7 +376,7 @@ export function RepertoireEditor({
                   </button>
                   <button
                     type="button"
-                    className="min-h-11 min-w-11 flex items-center justify-center border border-zinc-700 rounded-md text-zinc-400 hover:text-zinc-200 disabled:opacity-40"
+                    className="min-h-11 min-w-11 flex items-center justify-center border border-zinc-700 rounded-md text-zinc-400 hover:text-zinc-200 disabled:opacity-40 light:border-zinc-200 light:text-zinc-600 light:hover:text-zinc-900"
                     aria-label="Move group down"
                     disabled={groupIndex === draft.groups.length - 1}
                     onClick={() =>
@@ -387,7 +387,7 @@ export function RepertoireEditor({
                   </button>
                   <button
                     type="button"
-                    className="min-h-11 min-w-11 flex items-center justify-center border border-zinc-700 rounded-md text-red-400 hover:text-red-300 disabled:opacity-40"
+                    className="min-h-11 min-w-11 flex items-center justify-center border border-zinc-700 rounded-md text-red-400 hover:text-red-300 disabled:opacity-40 light:border-zinc-200"
                     aria-label="Remove empty group"
                     disabled={
                       group.items.length > 0 || draft.groups.length <= 1
@@ -418,7 +418,7 @@ export function RepertoireEditor({
               >
                 <GroupDropZone groupId={group.id}>
                   {group.items.length === 0 ? (
-                    <li className="list-none text-sm text-zinc-500 px-2 py-3 text-center">
+                    <li className="list-none text-sm text-zinc-500 px-2 py-3 text-center light:text-zinc-600">
                       Drop songs here or add from search
                     </li>
                   ) : (

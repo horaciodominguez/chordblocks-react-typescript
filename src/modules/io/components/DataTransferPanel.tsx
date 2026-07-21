@@ -186,8 +186,8 @@ export function DataTransferPanel() {
   return (
     <div className="flex flex-col gap-6">
       <section className="flex flex-col gap-3">
-        <h2 className="text-sm font-medium text-zinc-200">Import</h2>
-        <p className="text-sm text-zinc-500">
+        <h2 className="text-sm font-medium text-zinc-200 light:text-zinc-900">Import</h2>
+        <p className="text-sm text-zinc-500 light:text-zinc-600">
           Load a ChordBlocks JSON package (songs and optional sets). Title
           conflicts ask before overwriting.
         </p>
@@ -217,15 +217,15 @@ export function DataTransferPanel() {
       </section>
 
       <section className="flex flex-col gap-3">
-        <h2 className="text-sm font-medium text-zinc-200">Export songs</h2>
-        <p className="text-sm text-zinc-500">
+        <h2 className="text-sm font-medium text-zinc-200 light:text-zinc-900">Export songs</h2>
+        <p className="text-sm text-zinc-500 light:text-zinc-600">
           Choose songs to export, or export the whole library.
         </p>
         {songs.length === 0 ? (
-          <p className="text-sm text-zinc-500">No songs in the library yet.</p>
+          <p className="text-sm text-zinc-500 light:text-zinc-600">No songs in the library yet.</p>
         ) : (
           <>
-            <label className="inline-flex items-center gap-2 text-sm text-zinc-400 min-h-11 cursor-pointer">
+            <label className="inline-flex items-center gap-2 text-sm text-zinc-400 min-h-11 cursor-pointer light:text-zinc-600">
               <input
                 type="checkbox"
                 checked={allSelected}
@@ -233,20 +233,20 @@ export function DataTransferPanel() {
               />
               Select all ({songs.length})
             </label>
-            <ul className="max-h-56 overflow-y-auto scrollbar-app border border-zinc-800 rounded-md divide-y divide-zinc-800">
+            <ul className="max-h-56 overflow-y-auto scrollbar-app border border-zinc-800 rounded-md divide-y divide-zinc-800 light:border-zinc-200 light:divide-zinc-200">
               {songs.map((song) => (
                 <li key={song.id}>
-                  <label className="flex items-center gap-3 px-3 py-2.5 min-h-11 cursor-pointer hover:bg-zinc-900/60">
+                  <label className="flex items-center gap-3 px-3 py-2.5 min-h-11 cursor-pointer hover:bg-zinc-900/60 light:hover:bg-zinc-100">
                     <input
                       type="checkbox"
                       checked={selectedIds.has(song.id)}
                       onChange={() => toggleSong(song.id)}
                     />
                     <span className="min-w-0">
-                      <span className="block text-sm text-zinc-100 truncate">
+                      <span className="block text-sm text-zinc-100 truncate light:text-zinc-900">
                         {song.title}
                       </span>
-                      <span className="block text-xs text-zinc-500 truncate">
+                      <span className="block text-xs text-zinc-500 truncate light:text-zinc-600">
                         {song.artist}
                       </span>
                     </span>
@@ -281,8 +281,8 @@ export function DataTransferPanel() {
       </section>
 
       <section className="flex flex-col gap-3">
-        <h2 className="text-sm font-medium text-zinc-200">Export set</h2>
-        <p className="text-sm text-zinc-500">
+        <h2 className="text-sm font-medium text-zinc-200 light:text-zinc-900">Export set</h2>
+        <p className="text-sm text-zinc-500 light:text-zinc-600">
           Includes the set and each referenced song once (no duplicates).
         </p>
         <Select
@@ -316,12 +316,12 @@ export function DataTransferPanel() {
         }}
       >
         <Dialog.Portal>
-          <Dialog.Overlay className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40" />
-          <Dialog.Content className="fixed z-50 focus:outline-none bg-zinc-900 shadow-xl p-4 sm:p-6 w-[calc(100vw-1.5rem)] max-w-lg max-h-[85dvh] overflow-y-auto scrollbar-app left-1/2 -translate-x-1/2 bottom-3 sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2 rounded-xl sm:rounded-md">
+          <Dialog.Overlay className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 light:bg-zinc-900/40" />
+          <Dialog.Content className="fixed z-50 focus:outline-none bg-zinc-900 shadow-xl p-4 sm:p-6 w-[calc(100vw-1.5rem)] max-w-lg max-h-[85dvh] overflow-y-auto scrollbar-app left-1/2 -translate-x-1/2 bottom-3 sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2 rounded-xl sm:rounded-md light:bg-white">
             <Dialog.Title className="text-lg font-bold mb-2 text-white">
               Import songs
             </Dialog.Title>
-            <Dialog.Description className="text-sm text-gray-400 mb-4">
+            <Dialog.Description className="text-sm text-gray-400 mb-4 light:text-zinc-600">
               {pendingPkg
                 ? `${pendingPkg.songs.length} song(s)` +
                   (pendingPkg.repertoires?.length
@@ -342,16 +342,16 @@ export function DataTransferPanel() {
                   return (
                     <li
                       key={c.packageSong.id}
-                      className="border border-zinc-700 rounded-md p-3"
+                      className="border border-zinc-700 rounded-md p-3 light:border-zinc-200"
                     >
-                      <p className="text-sm text-zinc-100 font-medium">
+                      <p className="text-sm text-zinc-100 font-medium light:text-zinc-900">
                         {c.packageSong.title}
                       </p>
-                      <p className="text-xs text-zinc-500 mb-2">
+                      <p className="text-xs text-zinc-500 mb-2 light:text-zinc-600">
                         Import: {c.packageSong.artist} · Local:{" "}
                         {c.localSong.artist}
                       </p>
-                      <div className="flex flex-wrap gap-3 text-sm text-zinc-300">
+                      <div className="flex flex-wrap gap-3 text-sm text-zinc-300 light:text-zinc-800">
                         {(
                           [
                             ["skip", "Skip"],
@@ -380,13 +380,13 @@ export function DataTransferPanel() {
                 })}
               </ul>
             ) : (
-              <p className="text-sm text-zinc-400 mb-4">
+              <p className="text-sm text-zinc-400 mb-4 light:text-zinc-600">
                 No title conflicts. Songs will be added as new copies.
               </p>
             )}
 
             {pendingPkg && conflictByPkgId.size < pendingPkg.songs.length ? (
-              <p className="text-xs text-zinc-500 mb-4">
+              <p className="text-xs text-zinc-500 mb-4 light:text-zinc-600">
                 {pendingPkg.songs.length - conflictByPkgId.size} song(s) without
                 conflict will be added.
               </p>

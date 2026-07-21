@@ -4,10 +4,10 @@ import { Link } from "react-router-dom"
 type Variant = "default" | "danger" | "ghost"
 
 const variantClass: Record<Variant, string> = {
-  default: "border border-zinc-700 text-indigo-400 hover:text-zinc-200",
-  danger: "border border-zinc-700 text-red-400 hover:text-red-300",
+  default: "border border-zinc-700 text-indigo-400 hover:text-zinc-200 light:border-zinc-200 light:text-indigo-600 light:hover:text-indigo-800",
+  danger: "border border-zinc-700 text-red-400 hover:text-red-300 light:border-zinc-200 light:text-red-600 light:hover:text-red-700",
   ghost:
-    "border border-transparent text-zinc-400 hover:text-zinc-200 hover:border-zinc-700",
+    "border border-transparent text-zinc-400 hover:text-zinc-200 hover:border-zinc-700 light:text-zinc-600 light:hover:text-zinc-900 light:hover:border-zinc-200",
 }
 
 const baseClass =

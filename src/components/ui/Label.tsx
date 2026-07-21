@@ -6,7 +6,7 @@ type Props = {
 export default function Label({ children, htmlFor }: Props) {
   return (
     <label
-      className="block text-xs font-medium text-zinc-400 mb-1"
+      className="block text-xs font-medium text-zinc-400 mb-1 light:text-zinc-600"
       htmlFor={htmlFor}
     >
       {children}

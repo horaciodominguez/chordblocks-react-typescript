@@ -129,7 +129,7 @@ export default function ViewSong() {
       ) : null}
 
       {!playMode && setNav ? (
-        <p className="text-xs text-zinc-500 mb-2 -mt-2">
+        <p className="text-xs text-zinc-500 mb-2 -mt-2 light:text-zinc-600">
           {setNav.repertoireTitle} · {setNav.current.index + 1} of{" "}
           {setNav.total}
         </p>

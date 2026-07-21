@@ -35,7 +35,7 @@ export function Textarea({
         value={value}
         onChange={onChange}
         rows={rows}
-        className={`w-full px-3 py-2 min-h-16 ${controlSurfaceClass} placeholder:text-zinc-500 resize-y ${className}`}
+        className={`w-full px-3 py-2 min-h-16 ${controlSurfaceClass} placeholder:text-zinc-500 light:placeholder:text-zinc-400 resize-y ${className}`}
         {...rest}
       />
     </div>

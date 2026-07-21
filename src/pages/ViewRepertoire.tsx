@@ -191,7 +191,7 @@ export default function ViewRepertoire() {
           </div>
         ) : (
           <div className="flex flex-wrap items-center justify-between gap-2">
-            <p className="text-sm text-zinc-400">
+            <p className="text-sm text-zinc-400 light:text-zinc-600">
               {flatItems.length}{" "}
               {flatItems.length === 1 ? "song" : "songs"} in this set
               {dateLabel ? ` · ${dateLabel}` : ""}
@@ -283,7 +283,7 @@ export default function ViewRepertoire() {
               return (
                 <section key={group.id} className="flex flex-col gap-2">
                   {group.title.trim() ? (
-                    <h2 className="text-xs uppercase tracking-wide text-zinc-500 px-1">
+                    <h2 className="text-xs uppercase tracking-wide text-zinc-500 px-1 light:text-zinc-600">
                       {group.title}
                     </h2>
                   ) : null}
@@ -294,10 +294,10 @@ export default function ViewRepertoire() {
                       return (
                         <li
                           key={item.id}
-                          className="flex items-center justify-between gap-3 rounded-md border border-zinc-700 bg-zinc-50/5 p-4"
+                          className="flex items-center justify-between gap-3 rounded-md border border-zinc-700 bg-zinc-50/5 p-4 light:border-zinc-200 light:bg-white/90"
                         >
                           <div className="min-w-0">
-                            <span className="text-zinc-500 mr-2">
+                            <span className="text-zinc-500 mr-2 light:text-zinc-600">
                               {index + 1}.
                             </span>
                             {song ? (
@@ -307,12 +307,12 @@ export default function ViewRepertoire() {
                                   repertoire.id,
                                   item.id,
                                 )}
-                                className="text-zinc-100 font-medium hover:text-indigo-300"
+                                className="text-zinc-100 font-medium hover:text-indigo-300 light:text-zinc-900 light:hover:text-indigo-700"
                               >
                                 {song.title}
                               </Link>
                             ) : (
-                              <span className="text-zinc-500 italic">
+                              <span className="text-zinc-500 italic light:text-zinc-600">
                                 Missing song ({item.songId.slice(0, 8)}…)
                               </span>
                             )}

@@ -43,7 +43,7 @@ export function AppShell({ children }: Props) {
     <>
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:rounded-md focus:bg-indigo-800 focus:px-3 focus:py-2 focus:text-sm focus:text-white"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:rounded-md focus:bg-indigo-800 focus:px-3 focus:py-2 focus:text-sm focus:text-white light:focus:bg-indigo-600"
       >
         Skip to content
       </a>

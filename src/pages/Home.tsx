@@ -41,10 +41,10 @@ export default function Home() {
       ) : (
         <div className="flex flex-col gap-4">
           <div className="flex items-center justify-between gap-2">
-            <h2 className="text-sm font-medium text-zinc-300">Pinned sets</h2>
+            <h2 className="text-sm font-medium text-zinc-300 light:text-zinc-800">Pinned sets</h2>
             <Link
               to={ROUTES.sets}
-              className="text-sm text-indigo-400 hover:text-indigo-300 min-h-11 inline-flex items-center"
+              className="text-sm text-indigo-400 hover:text-indigo-300 light:text-indigo-600 light:hover:text-indigo-700 min-h-11 inline-flex items-center"
             >
               View all sets
             </Link>
@@ -62,7 +62,7 @@ export default function Home() {
                       className="flex items-start justify-between gap-3"
                     >
                       <div className="min-w-0">
-                        <h3 className="text-base font-semibold text-zinc-100 truncate flex items-center gap-2">
+                        <h3 className="text-base font-semibold text-zinc-100 truncate flex items-center gap-2 light:text-zinc-900">
                           <Pin
                             size={16}
                             className="text-amber-400 shrink-0"
@@ -70,7 +70,7 @@ export default function Home() {
                           />
                           {rep.title}
                         </h3>
-                        <p className="text-sm text-zinc-500 mt-1">
+                        <p className="text-sm text-zinc-500 mt-1 light:text-zinc-600">
                           {itemCount} {itemCount === 1 ? "song" : "songs"}
                           {dateLabel ? ` · ${dateLabel}` : ""}
                         </p>

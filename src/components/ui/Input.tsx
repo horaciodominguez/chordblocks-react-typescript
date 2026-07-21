@@ -2,7 +2,7 @@ import { useId, useRef, useState } from "react"
 
 /** Shared surface for inputs / selects / textareas — matches primary Button chrome. */
 export const controlSurfaceClass =
-  "min-h-11 rounded-sm border border-zinc-100/10 bg-zinc-200/5 text-sm text-zinc-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500/40"
+  "min-h-11 rounded-sm border border-zinc-100/10 bg-zinc-200/5 text-sm text-zinc-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500/40 light:border-zinc-200 light:bg-white light:text-zinc-900 light:focus:ring-indigo-400 light:focus:border-indigo-400/40"
 
 type Props = Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange"> & {
   name: string
@@ -61,7 +61,7 @@ export default function Input({
   return (
     <div className={`relative w-full ${className}`}>
       {icon && (
-        <div className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500">
+        <div className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500 light:text-zinc-400">
           {icon}
         </div>
       )}
@@ -78,7 +78,7 @@ export default function Input({
         onClick={handleClick}
         readOnly={!editable}
         aria-readonly={!editable}
-        className={`w-full px-3 py-2 ${controlSurfaceClass} placeholder:text-zinc-500 ${
+        className={`w-full px-3 py-2 ${controlSurfaceClass} placeholder:text-zinc-500 light:placeholder:text-zinc-400 ${
           icon ? "pl-9 pr-3" : "px-3"
         } ${editable ? "" : "cursor-text"}`}
         placeholder={placeholder}

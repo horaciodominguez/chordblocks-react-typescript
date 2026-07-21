@@ -6,10 +6,12 @@ import { DataTransferPanel } from "@/modules/io/components/DataTransferPanel"
 import { useAuth } from "@/modules/auth/hooks/useAuth"
 import { LoginForm } from "@/modules/auth/components/LoginForm"
 import { LogoutButton } from "@/modules/auth/components/LogoutButton"
+import { ThemePicker } from "@/modules/ui/components/ThemePicker"
 
 const TABS = [
   { id: "data", label: "Data" },
   { id: "account", label: "Account" },
+  { id: "appearance", label: "Appearance" },
 ] as const
 
 type TabId = (typeof TABS)[number]["id"]
@@ -51,7 +53,7 @@ export default function Settings() {
         >
           <DataTransferPanel />
         </div>
-      ) : (
+      ) : tab === "account" ? (
         <div
           role="tabpanel"
           id="settings-panel-account"
@@ -61,24 +63,39 @@ export default function Settings() {
           {user ? (
             <>
               <div className="flex items-center gap-3">
-                <div className="flex items-center justify-center min-h-11 min-w-11 rounded-full bg-zinc-800">
-                  <User size={20} className="text-indigo-300" />
+                <div className="flex items-center justify-center min-h-11 min-w-11 rounded-full bg-zinc-800 light:bg-zinc-100">
+                  <User size={20} className="text-indigo-300 light:text-indigo-600" />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-sm text-zinc-200 truncate">{user.email}</p>
-                  <p className="text-xs text-zinc-500">Signed in</p>
+                  <p className="text-sm text-zinc-200 truncate light:text-zinc-900">{user.email}</p>
+                  <p className="text-xs text-zinc-500 light:text-zinc-600">Signed in</p>
                 </div>
               </div>
               <LogoutButton />
             </>
           ) : (
             <>
-              <p className="text-sm text-zinc-400">
+              <p className="text-sm text-zinc-400 light:text-zinc-600">
                 Sign in to sync songs and sets across devices.
               </p>
               <LoginForm />
             </>
           )}
+        </div>
+      ) : (
+        <div
+          role="tabpanel"
+          id="settings-panel-appearance"
+          aria-labelledby="settings-tab-appearance"
+          className="panel-variant-1 flex flex-col gap-4"
+        >
+          <div>
+            <h2 className="text-sm font-medium text-zinc-200 mb-1 light:text-zinc-900">Theme</h2>
+            <p className="text-sm text-zinc-500 mb-4 light:text-zinc-600">
+              Choose how ChordBlocks looks on this device.
+            </p>
+            <ThemePicker />
+          </div>
         </div>
       )}
     </>

@@ -72,12 +72,12 @@ export const Select = ({
           onClick={() => setIsEditing(true)}
           onBlur={() => setIsEditing(false)}
           className={`w-full px-3 py-2 ${controlSurfaceClass} ${
-            isEditing ? "border-indigo-500/40" : ""
+            isEditing ? "border-indigo-500/40 light:border-indigo-400/50" : ""
           }`}
           tabIndex={tabIndex}
         >
           {defaultValue != undefined && defaultValue != "" ? (
-            <option value="" className="bg-zinc-800 text-white">
+            <option value="" className="bg-zinc-800 text-white light:bg-white light:text-zinc-900">
               {defaultValue}
             </option>
           ) : null}
@@ -85,7 +85,7 @@ export const Select = ({
             <option
               key={option}
               value={option}
-              className="bg-zinc-800 text-white"
+              className="bg-zinc-800 text-white light:bg-white light:text-zinc-900"
             >
               {optionLabels?.[String(option)] ?? option}
             </option>

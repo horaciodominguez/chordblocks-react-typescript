@@ -12,7 +12,7 @@ export default function UITest() {
       <PageTitle>UI catalog</PageTitle>
 
       <section className="flex flex-col gap-3">
-        <h2 className="text-sm font-medium text-zinc-300">Buttons</h2>
+        <h2 className="text-sm font-medium text-zinc-300 light:text-zinc-800">Buttons</h2>
         <div className="flex flex-wrap gap-4">
           <Button variant="primary">Primary</Button>
           <Button variant="secondary">Secondary</Button>
@@ -34,13 +34,13 @@ export default function UITest() {
       </section>
 
       <section className="flex flex-col gap-3">
-        <h2 className="text-sm font-medium text-zinc-300">Panels</h2>
+        <h2 className="text-sm font-medium text-zinc-300 light:text-zinc-800">Panels</h2>
         <Panel variant="card">Card panel</Panel>
         <Panel variant="flat">Flat panel</Panel>
       </section>
 
       <section className="flex flex-col gap-3">
-        <h2 className="text-sm font-medium text-zinc-300">States</h2>
+        <h2 className="text-sm font-medium text-zinc-300 light:text-zinc-800">States</h2>
         <EmptyState
           icon={<Music size={48} />}
           title="Empty state"

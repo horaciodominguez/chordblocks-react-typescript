@@ -17,11 +17,11 @@ export default function Nav() {
                 end={link.end}
                 aria-current={active ? "page" : undefined}
                 className={`flex flex-row rounded-md px-4 py-2 justify-center items-center min-h-11 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 ${
-                  active ? "bg-indigo-600/20" : ""
+                  active ? "bg-indigo-600/20 light:bg-indigo-100" : ""
                 }`}
               >
-                <NavLinkIcon className="text-indigo-200 mr-1" size={16} />
-                <span className="text-indigo-400 text-[10px] uppercase">
+                <NavLinkIcon className="text-indigo-200 mr-1 light:text-indigo-700" size={16} />
+                <span className="text-indigo-400 text-[10px] uppercase light:text-indigo-600">
                   {link.label}
                 </span>
               </NavLink>

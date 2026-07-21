@@ -32,7 +32,7 @@ export function SegmentedTabs({
     <div
       role="tablist"
       aria-label={ariaLabel}
-      className={`flex gap-1 p-1 rounded-lg bg-zinc-900/80 border border-zinc-800 ${className}`}
+      className={`flex gap-1 p-1 rounded-lg bg-zinc-900/80 border border-zinc-800 light:bg-zinc-100 light:border-zinc-200 ${className}`}
     >
       {items.map((item) => {
         const selected = value === item.id
@@ -46,8 +46,8 @@ export function SegmentedTabs({
             aria-controls={getPanelId?.(item.id)}
             className={`${fullWidth ? "flex-1" : "px-4"} min-h-11 rounded-md text-sm uppercase tracking-wide transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 ${
               selected
-                ? "bg-indigo-600/30 text-indigo-200"
-                : "text-zinc-500 hover:text-zinc-300"
+                ? "bg-indigo-600/30 text-indigo-200 light:bg-indigo-100 light:text-indigo-800"
+                : "text-zinc-500 hover:text-zinc-300 light:text-zinc-600 light:hover:text-zinc-900"
             }`}
             onClick={() => onChange(item.id)}
           >

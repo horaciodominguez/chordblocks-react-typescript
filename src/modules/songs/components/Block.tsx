@@ -82,7 +82,7 @@ export const Block = forwardRef<HTMLDivElement, Props>(
     return (
       <div
         ref={ref}
-        className={`BLOCK-WRAP relative group font-bold text-white text-xs min-w-0 box-border ${
+        className={`BLOCK-WRAP relative group font-bold text-white text-xs min-w-0 box-border light:text-zinc-900 ${
           isGuide ? "px-0.5" : "px-1"
         } ${hasControls ? "py-2 pb-8" : isGuide ? "py-0.5" : "py-2"}`}
         style={{
@@ -119,7 +119,7 @@ export const Block = forwardRef<HTMLDivElement, Props>(
                 }
                 aria-label="Block beats"
                 title="Beats"
-                className="text-xs bg-zinc-800 border border-zinc-600 text-zinc-200 rounded px-1 py-1 min-h-9 cursor-pointer"
+                className="text-xs bg-zinc-800 border border-zinc-600 text-zinc-200 rounded px-1 py-1 min-h-9 cursor-pointer light:bg-white light:border-zinc-300 light:text-zinc-900"
                 onPointerDown={(e) => e.stopPropagation()}
               >
                 {durationOptions.map((v) => (
@@ -136,14 +136,14 @@ export const Block = forwardRef<HTMLDivElement, Props>(
               role="button"
               tabIndex={0}
               aria-label="Drag to reorder"
-              className="cursor-grab touch-none text-zinc-400 hover:text-zinc-200 p-1.5 min-h-9 min-w-9 flex items-center justify-center"
+              className="cursor-grab touch-none text-zinc-400 hover:text-zinc-200 p-1.5 min-h-9 min-w-9 flex items-center justify-center light:text-zinc-600 light:hover:text-zinc-900"
             >
               <ArrowLeftRight className="w-4 h-4" />
             </div>
 
             {onDelete && (
               <button
-                className="text-zinc-400 hover:text-zinc-200 p-1.5 min-h-9 min-w-9 flex items-center justify-center"
+                className="text-zinc-400 hover:text-zinc-200 p-1.5 min-h-9 min-w-9 flex items-center justify-center light:text-zinc-600 light:hover:text-zinc-900"
                 type="button"
                 onClick={onDelete}
                 aria-label="Delete block"

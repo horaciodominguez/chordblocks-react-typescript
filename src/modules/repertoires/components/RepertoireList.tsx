@@ -40,13 +40,13 @@ function SetCard({
     <Panel variant="card">
       <div className="flex items-start justify-between gap-3">
         <Link to={ROUTES.set(rep.id)} className="flex-1 min-w-0">
-          <h2 className="text-base font-semibold text-zinc-100 truncate flex items-center gap-2">
+          <h2 className="text-base font-semibold text-zinc-100 truncate flex items-center gap-2 light:text-zinc-900">
             {pinned ? (
               <Pin size={16} className="text-amber-400 shrink-0" aria-hidden />
             ) : null}
             {rep.title}
           </h2>
-          <p className="text-sm text-zinc-500 mt-1">
+          <p className="text-sm text-zinc-500 mt-1 light:text-zinc-600">
             {itemCount} {itemCount === 1 ? "song" : "songs"}
             {dateLabel ? ` · ${dateLabel}` : ""}
           </p>
@@ -178,14 +178,14 @@ export function RepertoireList() {
       </div>
 
       {filtered.length === 0 ? (
-        <p className="text-center text-zinc-500 py-8">
+        <p className="text-center text-zinc-500 py-8 light:text-zinc-600">
           No sets match your search.
         </p>
       ) : (
         <>
           {pinned.length > 0 ? (
             <section className="flex flex-col gap-3">
-              <h2 className="text-sm font-medium text-zinc-300 px-1">Pinned</h2>
+              <h2 className="text-sm font-medium text-zinc-300 px-1 light:text-zinc-800">Pinned</h2>
               <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 {pinned.map((rep) => (
                   <li key={rep.id} className="min-w-0">
@@ -202,11 +202,11 @@ export function RepertoireList() {
           ) : null}
 
           <section className="flex flex-col gap-3">
-            <h2 className="text-sm font-medium text-zinc-300 px-1">
+            <h2 className="text-sm font-medium text-zinc-300 px-1 light:text-zinc-800">
               {pinned.length > 0 ? "All other sets" : "All sets"}
             </h2>
             {unpinned.length === 0 ? (
-              <p className="text-sm text-zinc-500 px-1">
+              <p className="text-sm text-zinc-500 px-1 light:text-zinc-600">
                 {pinned.length > 0
                   ? "Every matching set is pinned."
                   : "No unpinned sets."}

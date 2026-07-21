@@ -20,11 +20,11 @@ export function EmptyState({
   return (
     <div className="text-center py-12 px-4">
       {icon ? (
-        <div className="mx-auto mb-4 flex justify-center text-zinc-600">{icon}</div>
+        <div className="mx-auto mb-4 flex justify-center text-zinc-600 light:text-zinc-400">{icon}</div>
       ) : null}
-      <p className="mb-2 text-lg text-zinc-200">{title}</p>
+      <p className="mb-2 text-lg text-zinc-200 light:text-zinc-900">{title}</p>
       {description ? (
-        <p className="mb-6 text-sm text-zinc-500 max-w-md mx-auto">{description}</p>
+        <p className="mb-6 text-sm text-zinc-500 max-w-md mx-auto light:text-zinc-600">{description}</p>
       ) : null}
       {action
         ? action

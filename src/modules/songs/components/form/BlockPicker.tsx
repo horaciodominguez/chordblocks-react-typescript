@@ -129,20 +129,20 @@ export function BlockPicker({
               onChange={(e) => setAccidental(e.target.value as "" | "#" | "b")}
               className={`w-full px-3 py-2 ${controlSurfaceClass}`}
             >
-              <option value="" className="bg-zinc-800 text-white">
+              <option value="" className="bg-zinc-800 text-white light:bg-white light:text-zinc-900">
                 Natural
               </option>
               <option
                 value="#"
                 disabled={!isSharpAllowed(root)}
-                className="bg-zinc-800 text-white disabled:text-zinc-500"
+                className="bg-zinc-800 text-white disabled:text-zinc-500 light:bg-white light:text-zinc-900 light:disabled:text-zinc-400"
               >
                 Sharp (#)
               </option>
               <option
                 value="b"
                 disabled={!isFlatAllowed(root)}
-                className="bg-zinc-800 text-white disabled:text-zinc-500"
+                className="bg-zinc-800 text-white disabled:text-zinc-500 light:bg-white light:text-zinc-900 light:disabled:text-zinc-400"
               >
                 Flat (b)
               </option>
@@ -220,7 +220,7 @@ export function BlockPicker({
                 onClick={() => {
                   handleSelect(`${v.root}${accidental}${v.suffix}`)
                 }}
-                className="flex flex-col items-center rounded-lg border border-gray-800 bg-zinc-900/10 p-3 hover:bg-indigo-600/10 hover:text-white min-h-11"
+                className="flex flex-col items-center rounded-lg border border-gray-800 bg-zinc-900/10 p-3 hover:bg-indigo-600/10 hover:text-white min-h-11 light:border-zinc-200 light:bg-white/90 light:hover:bg-indigo-100 light:hover:text-zinc-900"
               >
                 <Chord chord={`${v.root}${accidental}${v.suffix}`} />
                 <ChordDiagram chordName={`${v.root}${accidental}${v.suffix}`} />

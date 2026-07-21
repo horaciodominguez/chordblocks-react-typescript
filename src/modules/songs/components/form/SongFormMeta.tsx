@@ -185,8 +185,8 @@ export function SongFormMeta({ dispatch, state, song }: Props) {
                 className="w-24 h-24 object-cover rounded"
               />
             ) : (
-              <div className="w-24 h-24 bg-zinc-800 rounded flex items-center justify-center">
-                <Music size={24} className="text-zinc-500" />
+              <div className="w-24 h-24 bg-zinc-800 rounded flex items-center justify-center light:bg-zinc-100">
+                <Music size={24} className="text-zinc-500 light:text-zinc-600" />
               </div>
             )}
           </div>
@@ -198,15 +198,15 @@ export function SongFormMeta({ dispatch, state, song }: Props) {
               accept="image/*"
               onChange={handleImageUpload}
               className="
-                w-full text-indigo-300 relative mt-1
+                w-full text-indigo-300 relative mt-1 light:text-indigo-700
                 file:px-3 file:py-2 file:rounded-md text-sm
-                file:hover:bg-zinc-700/70
+                file:hover:bg-zinc-700/70 light:file:hover:bg-zinc-200
                 file:mr-2
-                file:border file:border-zinc-400/25 file:cursor-pointer
-                file:bg-zinc-800 file:text-indigo-300
+                file:border file:border-zinc-400/25 file:cursor-pointer light:file:border-zinc-300
+                file:bg-zinc-800 file:text-indigo-300 light:file:bg-white light:file:text-indigo-700
               "
             />
-            <p className="text-xs text-zinc-500 mt-2">
+            <p className="text-xs text-zinc-500 mt-2 light:text-zinc-600">
               By uploading an image, you confirm you own the rights to it or
               have permission to use it.
             </p>

@@ -43,16 +43,16 @@ export function SongSyncConflictDialog({
   return (
     <Dialog.Root open={open}>
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40" />
+        <Dialog.Overlay className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 light:bg-zinc-900/40" />
         <Dialog.Content
-          className="fixed z-50 focus:outline-none bg-zinc-900 shadow-xl p-4 sm:p-6 w-[calc(100vw-1.5rem)] max-w-lg max-h-[85dvh] overflow-y-auto scrollbar-app left-1/2 -translate-x-1/2 bottom-3 sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2 rounded-xl sm:rounded-md"
+          className="fixed z-50 focus:outline-none bg-zinc-900 shadow-xl p-4 sm:p-6 w-[calc(100vw-1.5rem)] max-w-lg max-h-[85dvh] overflow-y-auto scrollbar-app left-1/2 -translate-x-1/2 bottom-3 sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2 rounded-xl sm:rounded-md light:bg-white"
           onEscapeKeyDown={(e) => e.preventDefault()}
           onPointerDownOutside={(e) => e.preventDefault()}
         >
           <Dialog.Title className="text-lg font-bold mb-2 text-white">
             Song sync conflicts
           </Dialog.Title>
-          <Dialog.Description className="text-sm text-gray-400 mb-4">
+          <Dialog.Description className="text-sm text-gray-400 mb-4 light:text-zinc-600">
             Same title and artist found on this device and in the cloud. Choose
             whether to keep the newest version or keep both songs.
           </Dialog.Description>
@@ -63,18 +63,18 @@ export function SongSyncConflictDialog({
               return (
                 <li
                   key={c.id}
-                  className="border border-zinc-700 rounded-md p-3"
+                  className="border border-zinc-700 rounded-md p-3 light:border-zinc-200"
                 >
-                  <p className="text-sm text-zinc-100 font-medium">
+                  <p className="text-sm text-zinc-100 font-medium light:text-zinc-900">
                     {c.songA.title}
                   </p>
-                  <p className="text-xs text-zinc-500 mb-2">{c.songA.artist}</p>
-                  <p className="text-xs text-zinc-400 mb-2">
+                  <p className="text-xs text-zinc-500 mb-2 light:text-zinc-600">{c.songA.artist}</p>
+                  <p className="text-xs text-zinc-400 mb-2 light:text-zinc-600">
                     A: {formatDate(c.songA.updatedAt)}
                     <br />
                     B: {formatDate(c.songB.updatedAt)}
                   </p>
-                  <div className="flex flex-wrap gap-3 text-sm text-zinc-300">
+                  <div className="flex flex-wrap gap-3 text-sm text-zinc-300 light:text-zinc-800">
                     {(
                       [
                         ["keepNewest", "Keep newest"],

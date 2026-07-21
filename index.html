@@ -7,6 +7,16 @@
     <meta name="theme-color" content="#0a0a0a" />
     <meta name="description" content="ChordBlocks — create and manage chord progressions" />
     <title>ChordBlocks</title>
+    <script>
+      try {
+        if (localStorage.getItem("chordblocks:theme") === "light") {
+          document.documentElement.dataset.theme = "light";
+          document.querySelector('meta[name="theme-color"]')?.setAttribute("content", "#eef1f5");
+        }
+      } catch (error) {
+        /* ignore */
+      }
+    </script>
     <link href="/src/style.css" rel="stylesheet">
   </head>
   <body class="bg-[url('/assets/bg2.jpg')] bg-cover bg-top text-gray-400 relative">

@@ -21,7 +21,7 @@ export function PageHeader({
         type="button"
         onClick={() => navigate(backTo)}
         aria-label="Go back"
-        className="flex items-center justify-center min-h-11 min-w-11 rounded-md border border-zinc-700 text-indigo-300 hover:text-gray-200 hover:bg-zinc-800/50 shrink-0"
+        className="flex items-center justify-center min-h-11 min-w-11 rounded-md border border-zinc-700 text-indigo-300 hover:text-gray-200 hover:bg-zinc-800/50 shrink-0 light:border-zinc-200 light:text-indigo-700 light:hover:text-zinc-900 light:hover:bg-zinc-100"
       >
         <ArrowLeft size={20} />
       </button>
@@ -54,7 +54,7 @@ export function PageHeaderLink({
     <Link
       to={to}
       aria-label={ariaLabel}
-      className={`flex items-center justify-center gap-1.5 min-h-11 px-3 rounded-md border border-zinc-700 text-sm text-indigo-300 hover:text-gray-200 hover:bg-zinc-800/50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 ${className}`}
+      className={`flex items-center justify-center gap-1.5 min-h-11 px-3 rounded-md border border-zinc-700 text-sm text-indigo-300 hover:text-gray-200 hover:bg-zinc-800/50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 light:border-zinc-200 light:text-indigo-700 light:hover:text-zinc-900 light:hover:bg-zinc-100 ${className}`}
     >
       {children}
     </Link>

@@ -76,7 +76,7 @@ function SortableSection({
           {...listeners}
           className="flex items-center gap-2 cursor-grab touch-none text-xs
                     opacity-100 md:opacity-0 md:hover:opacity-100 transition
-                    text-zinc-400 hover:text-zinc-200 mb-2 min-h-8 px-1"
+                    text-zinc-400 hover:text-zinc-200 mb-2 min-h-8 px-1 light:text-zinc-600 light:hover:text-zinc-900"
           aria-label={`Drag section ${index + 1}`}
         >
           <ArrowUpDown className="w-4 h-4" /> Section {index + 1}

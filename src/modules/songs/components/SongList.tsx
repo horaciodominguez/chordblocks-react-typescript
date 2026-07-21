@@ -43,7 +43,7 @@ const SORT_OPTIONS = [
 ] as const
 
 const actionBtnClass =
-  "flex justify-center items-center min-h-11 min-w-11 border border-zinc-700 rounded-md text-sm text-indigo-400 hover:text-zinc-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+  "flex justify-center items-center min-h-11 min-w-11 border border-zinc-700 rounded-md text-sm text-indigo-400 hover:text-zinc-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 light:border-zinc-200 light:text-indigo-600 light:hover:text-zinc-900"
 
 function parseSort(value: string | null): SongSort {
   if (
@@ -137,7 +137,7 @@ export const SongList = () => {
     <button
       type="button"
       onClick={onClear}
-      className="flex items-center gap-1 px-2.5 py-1 text-xs rounded-full bg-indigo-900/40 text-indigo-300 hover:bg-indigo-900/60"
+      className="flex items-center gap-1 px-2.5 py-1 text-xs rounded-full bg-indigo-900/40 text-indigo-300 hover:bg-indigo-900/60 light:bg-indigo-100 light:text-indigo-700 light:hover:bg-indigo-100"
     >
       {label}
       <X size={12} />
@@ -179,7 +179,7 @@ export const SongList = () => {
     <Panel key={song.id} variant="card">
       <h2 className="mb-4">
         <Link
-          className="uppercase font-bold text-zinc-200 hover:text-indigo-300"
+          className="uppercase font-bold text-zinc-200 hover:text-indigo-300 light:text-zinc-900 light:hover:text-indigo-700"
           to={ROUTES.song(song.id)}
         >
           {song.title}
@@ -194,26 +194,26 @@ export const SongList = () => {
               className="w-full aspect-square object-cover rounded"
             />
           ) : (
-            <div className="w-full aspect-square bg-zinc-800 rounded flex items-center justify-center">
-              <Music size={48} className="text-zinc-500" />
+            <div className="w-full aspect-square bg-zinc-800 rounded flex items-center justify-center light:bg-zinc-100">
+              <Music size={48} className="text-zinc-500 light:text-zinc-600" />
             </div>
           )}
         </div>
         <div className="flex-1 flex flex-col justify-between gap-3">
           <div>
-            <h3 className="text-sm text-zinc-400 mb-1">
+            <h3 className="text-sm text-zinc-400 mb-1 light:text-zinc-600">
               <Link
                 to={`${ROUTES.songs}?view=artists&artist=${encodeURIComponent(normalizeArtistKey(song.artist))}`}
-                className="hover:text-indigo-300"
+                className="hover:text-indigo-300 light:hover:text-indigo-700"
               >
                 {artistDisplayName(song.artist)}
               </Link>
             </h3>
-            <p className="text-sm text-zinc-400 mb-2">
+            <p className="text-sm text-zinc-400 mb-2 light:text-zinc-600">
               {song.timeSignature.beatsPerMeasure} /{" "}
               {song.timeSignature.noteValue}
             </p>
-            <p className="text-sm text-zinc-400">
+            <p className="text-sm text-zinc-400 light:text-zinc-600">
               {song.genre}
               {song.genre && song.year ? " · " : ""}
               {song.year || ""}
@@ -245,15 +245,15 @@ export const SongList = () => {
   const renderSongRow = (song: Song) => (
     <li
       key={song.id}
-      className="flex items-center gap-3 rounded-md border border-zinc-800/80 bg-zinc-950/40 px-3 py-2"
+      className="flex items-center gap-3 rounded-md border border-zinc-800/80 bg-zinc-950/40 px-3 py-2 light:border-zinc-200 light:bg-white/90"
     >
       <Link
         to={ROUTES.song(song.id)}
-        className="flex-1 min-w-0 font-medium text-zinc-100 hover:text-indigo-300 truncate"
+        className="flex-1 min-w-0 font-medium text-zinc-100 hover:text-indigo-300 truncate light:text-zinc-900 light:hover:text-indigo-700"
       >
         {song.title}
       </Link>
-      <span className="hidden sm:inline text-xs text-zinc-500 shrink-0">
+      <span className="hidden sm:inline text-xs text-zinc-500 shrink-0 light:text-zinc-600">
         {song.genre}
         {song.genre && song.year ? " · " : ""}
         {song.year || ""}
@@ -377,7 +377,7 @@ export const SongList = () => {
       </div>
 
       {filteredSongs.length === 0 ? (
-        <p className="text-center text-zinc-500 py-8">
+        <p className="text-center text-zinc-500 py-8 light:text-zinc-600">
           No songs match your filters.
         </p>
       ) : view === "artists" ? (
@@ -385,18 +385,18 @@ export const SongList = () => {
           {letterIndex.length > 1 && !artistKey ? (
             <nav
               aria-label="Artist index"
-              className="flex flex-wrap items-center gap-x-1 gap-y-0.5 text-xs text-zinc-500"
+              className="flex flex-wrap items-center gap-x-1 gap-y-0.5 text-xs text-zinc-500 light:text-zinc-600"
             >
               {letterIndex.map((letter, i) => (
                 <span key={letter} className="inline-flex items-center">
                   {i > 0 ? (
-                    <span className="mx-0.5 text-zinc-700" aria-hidden>
+                    <span className="mx-0.5 text-zinc-700 light:text-zinc-400" aria-hidden>
                       ·
                     </span>
                   ) : null}
                   <a
                     href={`#artist-letter-${letter === "#" ? "other" : letter}`}
-                    className="px-1 py-0.5 rounded text-indigo-400/90 hover:text-indigo-200 hover:bg-zinc-900/60"
+                    className="px-1 py-0.5 rounded text-indigo-400/90 hover:text-indigo-200 hover:bg-zinc-900/60 light:text-indigo-600 light:hover:text-indigo-600 light:hover:bg-zinc-100"
                   >
                     {letter}
                   </a>
@@ -411,11 +411,11 @@ export const SongList = () => {
               id={`artist-letter-${group.letter === "#" ? "other" : group.letter}`}
               className="flex flex-col gap-2"
             >
-              <div className="flex items-baseline justify-between gap-2 border-b border-zinc-800 pb-1.5">
-                <h2 className="text-sm font-semibold text-zinc-200 tracking-wide">
+              <div className="flex items-baseline justify-between gap-2 border-b border-zinc-800 pb-1.5 light:border-zinc-200">
+                <h2 className="text-sm font-semibold text-zinc-200 tracking-wide light:text-zinc-900">
                   {group.displayName}
                 </h2>
-                <span className="text-xs text-zinc-500 tabular-nums">
+                <span className="text-xs text-zinc-500 tabular-nums light:text-zinc-600">
                   {group.songs.length}
                 </span>
               </div>

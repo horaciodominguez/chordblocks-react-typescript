@@ -69,19 +69,19 @@ export function SongSearchPicker({
       </div>
 
       {songs.length === 0 ? (
-        <p className="text-sm text-zinc-500">No songs in your library yet.</p>
+        <p className="text-sm text-zinc-500 light:text-zinc-600">No songs in your library yet.</p>
       ) : filtered.length === 0 ? (
-        <p className="text-sm text-zinc-500">No matches.</p>
+        <p className="text-sm text-zinc-500 light:text-zinc-600">No matches.</p>
       ) : (
         <ul className="flex flex-col gap-1 max-h-56 overflow-y-auto scrollbar-app pr-1">
           {filtered.map((song) => (
             <li
               key={song.id}
-              className="flex items-center justify-between gap-2 py-1.5 border-b border-zinc-800 last:border-0"
+              className="flex items-center justify-between gap-2 py-1.5 border-b border-zinc-800 last:border-0 light:border-zinc-200"
             >
               <div className="min-w-0">
-                <p className="text-sm text-zinc-100 truncate">{song.title}</p>
-                <p className="text-xs text-zinc-500 truncate">{song.artist}</p>
+                <p className="text-sm text-zinc-100 truncate light:text-zinc-900">{song.title}</p>
+                <p className="text-xs text-zinc-500 truncate light:text-zinc-600">{song.artist}</p>
               </div>
               <Button
                 type="button"

@@ -55,14 +55,14 @@ export function SongFormPendingSection({ dispatch, state }: Props) {
                 <div className="flex gap-2 justify-start items-center mb-4">
                   <SectionTag typeName={section.type} label={section.label} />
                   {(section.repeats ?? 1) > 1 && (
-                    <span className="text-xs font-semibold text-blue-400">
+                    <span className="text-xs font-semibold text-blue-400 light:text-blue-600">
                       ×{section.repeats}
                     </span>
                   )}
                   <button
                     type="button"
                     aria-label={`Edit ${section.type} section`}
-                    className="flex items-center justify-center min-h-9 min-w-9 cursor-pointer rounded-md text-indigo-300 hover:bg-zinc-800/50"
+                    className="flex items-center justify-center min-h-9 min-w-9 cursor-pointer rounded-md text-indigo-300 hover:bg-zinc-800/50 light:text-indigo-700 light:hover:bg-zinc-100"
                     onClick={() => {
                       setIsEditingSection(true)
                       setEditingHighlightId(section.id)
@@ -75,7 +75,7 @@ export function SongFormPendingSection({ dispatch, state }: Props) {
                   <button
                     type="button"
                     aria-label={`Duplicate ${section.type} section`}
-                    className="flex items-center justify-center min-h-9 min-w-9 cursor-pointer rounded-md text-indigo-300 hover:bg-zinc-800/50"
+                    className="flex items-center justify-center min-h-9 min-w-9 cursor-pointer rounded-md text-indigo-300 hover:bg-zinc-800/50 light:text-indigo-700 light:hover:bg-zinc-100"
                     onClick={() => {
                       dispatch({ type: "DUPLICATE_SECTION", v: section.id })
                       toast.success("Section duplicated")
@@ -99,7 +99,7 @@ export function SongFormPendingSection({ dispatch, state }: Props) {
                       <button
                         type="button"
                         aria-label={`Delete ${section.type} section`}
-                        className="flex items-center justify-center min-h-9 min-w-9 cursor-pointer rounded-md text-red-400 hover:bg-zinc-800/50"
+                        className="flex items-center justify-center min-h-9 min-w-9 cursor-pointer rounded-md text-red-400 hover:bg-zinc-800/50 light:text-red-600 light:hover:bg-zinc-100"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>

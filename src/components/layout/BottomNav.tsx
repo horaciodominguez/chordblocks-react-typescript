@@ -15,6 +15,7 @@ export function BottomNav() {
     <nav
       className="md:hidden fixed bottom-0 inset-x-0 z-30
         bg-zinc-950/95 backdrop-blur-md border-t border-zinc-800
+        light:bg-white/95 light:border-zinc-200
         pb-[env(safe-area-inset-bottom)]"
       aria-label="Main navigation"
     >
@@ -31,7 +32,7 @@ export function BottomNav() {
                 className={`flex flex-col items-center justify-center gap-0.5 py-2 min-h-14
                    text-[10px] uppercase tracking-wide
                    focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500
-                   ${active ? "text-indigo-300" : "text-zinc-500"}`}
+                   ${active ? "text-indigo-300 light:text-indigo-700" : "text-zinc-500 light:text-zinc-600"}`}
               >
                 <Icon size={22} />
                 <span>{item.label}</span>

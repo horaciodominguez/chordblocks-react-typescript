@@ -22,12 +22,13 @@ export function AppDialog({
     <Dialog.Root>
       <Dialog.Trigger asChild>{trigger}</Dialog.Trigger>
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40" />
+        <Dialog.Overlay className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 light:bg-zinc-900/40" />
         <Dialog.Content
           aria-describedby={description ? descriptionId : undefined}
           className={`
             fixed z-50 focus:outline-none
             bg-zinc-900 shadow-xl p-4 sm:p-6
+            light:bg-white light:border light:border-zinc-200
             w-[calc(100vw-1.5rem)] max-w-lg
             max-h-[85dvh] overflow-y-auto scrollbar-app
             left-1/2 -translate-x-1/2
@@ -37,14 +38,14 @@ export function AppDialog({
           `}
         >
           {title && (
-            <Dialog.Title className="text-lg font-bold mb-2 text-white">
+            <Dialog.Title className="text-lg font-bold mb-2 text-white light:text-zinc-900">
               {title}
             </Dialog.Title>
           )}
           {description && (
             <Dialog.Description
               id={descriptionId}
-              className="text-sm text-zinc-400 mb-4"
+              className="text-sm text-zinc-400 mb-4 light:text-zinc-600"
             >
               {description}
             </Dialog.Description>

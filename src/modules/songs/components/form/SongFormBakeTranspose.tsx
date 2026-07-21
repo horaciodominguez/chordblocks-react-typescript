@@ -39,9 +39,9 @@ export function SongFormBakeTranspose({ dispatch, song }: Props) {
   }
 
   return (
-    <div className="mb-4 rounded-md border border-zinc-700/60 bg-zinc-900/40 px-3 py-3">
+    <div className="mb-4 rounded-md border border-zinc-700/60 bg-zinc-900/40 px-3 py-3 light:border-zinc-200 light:bg-zinc-100">
       <Label>Bake transpose</Label>
-      <p className="text-xs text-zinc-500 mt-1 mb-3">
+      <p className="text-xs text-zinc-500 mt-1 mb-3 light:text-zinc-600">
         Each step rewrites Key and all chords in the draft as the new original.
         Save the song to persist. Not the same as the read-only or set
         transpose.
@@ -54,12 +54,12 @@ export function SongFormBakeTranspose({ dispatch, song }: Props) {
             aria-label="Bake transpose down"
             disabled={sessionOffset <= BAKE_TRANSPOSE_MIN}
             onClick={() => step(-1)}
-            className="flex items-center justify-center min-h-11 min-w-11 rounded-md border border-zinc-600 text-zinc-200 hover:bg-zinc-800/50 disabled:opacity-40 disabled:pointer-events-none"
+            className="flex items-center justify-center min-h-11 min-w-11 rounded-md border border-zinc-600 text-zinc-200 hover:bg-zinc-800/50 disabled:opacity-40 disabled:pointer-events-none light:border-zinc-300 light:text-zinc-900 light:hover:bg-zinc-100"
           >
             <Minus size={16} />
           </button>
           <span
-            className="min-w-10 text-center text-sm font-semibold text-zinc-200 tabular-nums"
+            className="min-w-10 text-center text-sm font-semibold text-zinc-200 tabular-nums light:text-zinc-900"
             aria-live="polite"
           >
             {formatOffset(sessionOffset)}
@@ -69,14 +69,14 @@ export function SongFormBakeTranspose({ dispatch, song }: Props) {
             aria-label="Bake transpose up"
             disabled={sessionOffset >= BAKE_TRANSPOSE_MAX}
             onClick={() => step(1)}
-            className="flex items-center justify-center min-h-11 min-w-11 rounded-md border border-zinc-600 text-zinc-200 hover:bg-zinc-800/50 disabled:opacity-40 disabled:pointer-events-none"
+            className="flex items-center justify-center min-h-11 min-w-11 rounded-md border border-zinc-600 text-zinc-200 hover:bg-zinc-800/50 disabled:opacity-40 disabled:pointer-events-none light:border-zinc-300 light:text-zinc-900 light:hover:bg-zinc-100"
           >
             <Plus size={16} />
           </button>
         </div>
 
         {badge ? (
-          <span className="text-xs font-medium text-amber-400/90 bg-amber-400/10 border border-amber-500/30 rounded px-2 py-1">
+          <span className="text-xs font-medium text-amber-400/90 bg-amber-400/10 border border-amber-500/30 rounded px-2 py-1 light:text-amber-700 light:bg-amber-100 light:border-amber-400/40">
             {badge}
           </span>
         ) : null}

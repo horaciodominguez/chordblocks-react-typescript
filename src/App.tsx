@@ -14,6 +14,7 @@ import { useSongs } from "./modules/songs/hooks/useSongs"
 import { useRepertoires } from "./modules/repertoires/hooks/useRepertoires"
 import LoaderSpinner from "./components/ui/LoaderSpinner"
 import { AppShell } from "./components/layout/AppShell"
+import { useTheme } from "./modules/ui/hooks/useTheme"
 import { lazy, Suspense } from "react"
 
 const UITest = import.meta.env.DEV
@@ -23,6 +24,7 @@ const UITest = import.meta.env.DEV
 export default function App() {
   const { initialLoading: songsLoading } = useSongs()
   const { initialLoading: setsLoading } = useRepertoires()
+  const { sonnerTheme } = useTheme()
   const initialLoading = songsLoading || setsLoading
 
   if (initialLoading) {
@@ -67,7 +69,7 @@ export default function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </AppShell>
-      <Toaster richColors position="top-center" theme="dark" />
+      <Toaster richColors position="top-center" theme={sonnerTheme} />
     </BrowserRouter>
   )
 }

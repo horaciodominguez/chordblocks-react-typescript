@@ -25,7 +25,7 @@ type Props = {
 
 export function SectionEditor({ state, dispatch, onStopEditing }: Props) {
   return (
-    <div className="border border-gray-700 bg-black/20 rounded-md p-3 sm:p-4 shadow-sm">
+    <div className="border border-gray-700 bg-black/20 rounded-md p-3 sm:p-4 shadow-sm light:border-zinc-200 light:bg-white/90">
       <div className="mb-4 flex flex-col sm:flex-row gap-4">
         <div className="w-full sm:w-1/2">
           <Select
@@ -99,7 +99,7 @@ export function SectionEditor({ state, dispatch, onStopEditing }: Props) {
               })
             }}
           />
-          <p className="text-xs text-zinc-500 mt-1">
+          <p className="text-xs text-zinc-500 mt-1 light:text-zinc-600">
             Keep-style name shown as [A]. Leave empty to show the section type.
           </p>
         </div>
@@ -189,7 +189,7 @@ export function SectionEditor({ state, dispatch, onStopEditing }: Props) {
               label={state.pendingSection.label}
             />
             {(state.pendingSection.repeats ?? 1) > 1 && (
-              <span className="text-xs font-semibold text-blue-400">
+              <span className="text-xs font-semibold text-blue-400 light:text-blue-600">
                 ×{state.pendingSection.repeats}
               </span>
             )}
