@@ -21,6 +21,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest run",
+    "generate:chords-sprite": "node scripts/generate-chords-sprite.mjs",
     "format": "prettier --write ."
   },
   "homepage": "https://horaciodominguez.github.io/chordblocks-react-typescript",

@@ -209,7 +209,7 @@ export function BlockPicker({
 
         <Label htmlFor="variants">Variants</Label>
         <div
-          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2"
+          className="grid max-h-[50vh] grid-cols-2 gap-2 overflow-y-auto sm:grid-cols-3 md:grid-cols-4"
           id="variants"
         >
           {VARIATIONS.map((v: ChordType) => (

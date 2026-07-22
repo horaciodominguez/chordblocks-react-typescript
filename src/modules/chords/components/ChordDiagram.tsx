@@ -4,6 +4,10 @@ export type Props = {
 }
 
 export default function ChordDiagram({ chordName, size }: Props) {
+  const diagramId = chordName.includes("/")
+    ? chordName.slice(0, chordName.indexOf("/"))
+    : chordName
+
   return (
     <>
       <picture>
@@ -13,7 +17,7 @@ export default function ChordDiagram({ chordName, size }: Props) {
           fill="none"
         >
           <use
-            href={`/assets/chords-sprite.svg#${chordName}`}
+            href={`/assets/chords-sprite.svg#${diagramId}`}
             className="text-zinc-100 light:text-zinc-700"
             fill="currentColor"
             width={size || 64}

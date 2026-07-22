@@ -1,2250 +1,326 @@
-<svg xmlns="http://www.w3.org/2000/svg" style="display: none;" xmlns:xlink="http://www.w3.org/1999/xlink">
-
-  <symbol id="main-grid-with-nut" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    <!-- vertical and horizontal lines -->
-    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-      <!-- chords -->
-      <line x1="40"  y1="50" x2="40"  y2="240"/>
-      <line x1="76"  y1="50" x2="76"  y2="240"/>
-      <line x1="112" y1="50" x2="112" y2="240"/>
-      <line x1="148" y1="50" x2="148" y2="240"/>
-      <line x1="184" y1="50" x2="184" y2="240"/>
-      <line x1="220" y1="50" x2="220" y2="240"/>
-
-      <!-- 4 horizontal lines -->
-      <line x1="40" y1="90"  x2="220" y2="90"/>
-      <line x1="40" y1="130" x2="220" y2="130"/>
-      <line x1="40" y1="170" x2="220" y2="170"/>
-      <line x1="40" y1="210" x2="220" y2="210"/>
-    </g>
-
-    <!-- nut -->
-    <line x1="36" y1="40" x2="224" y2="40" stroke="currentColor" stroke-width="10"/>
-
-  </symbol>
-
-  <symbol id="main-grid-no-nut" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    <!-- vertical and horizontal lines -->
-    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-      <!-- chords -->
-      <line x1="40"  y1="50" x2="40"  y2="240"/>
-      <line x1="76"  y1="50" x2="76"  y2="240"/>
-      <line x1="112" y1="50" x2="112" y2="240"/>
-      <line x1="148" y1="50" x2="148" y2="240"/>
-      <line x1="184" y1="50" x2="184" y2="240"/>
-      <line x1="220" y1="50" x2="220" y2="240"/>
-
-      <!-- 5 horizontal lines -->
-      <line x1="40" y1="50"  x2="220" y2="50"/>
-      <line x1="40" y1="90"  x2="220" y2="90"/>
-      <line x1="40" y1="130" x2="220" y2="130"/>
-      <line x1="40" y1="170" x2="220" y2="170"/>
-      <line x1="40" y1="210" x2="220" y2="210"/>
-    </g>
-  </symbol>
-
-  <symbol id="C" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-with-nut" />
-
-    <!-- points (circles) -->
-    <!-- position 3, cord 5 -->
-    <circle cx="76"  cy="150" r="11" fill="currentColor" />
-    <!-- position 2, cord 4 -->
-    <circle cx="112" cy="110" r="11" fill="currentColor" />
-    <!-- position 1, cord 2 -->
-    <circle cx="184" cy="70"  r="11" fill="currentColor" />
-
-    <!-- (X and O) -->
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <!-- position 0, cord 6 -->
-      <line x1="32" y1="5" x2="48" y2="25"/>
-      <line x1="48" y1="5" x2="32" y2="25"/>
-      <!-- position 0, cord 3 -->
-      <circle cx="148" cy="15" r="10"/>
-      <!-- position 0, cord 1 -->
-      <circle cx="220" cy="15" r="10"/>
-    </g>
-  </symbol>
-
-  <symbol id="Cm" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-no-nut" />
-
-    <!-- fret number -->
-    <text x="0" y="84" font-size="42" fill="currentColor">3</text>
-
-    <!-- barre fret 1 -->
-    <rect x="68" y="62" width="162" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <!-- extra fingers from 3rd fret -->
-    <!-- position 3, cord 4 -->
-    <circle cx="112" cy="150" r="11" fill="currentColor" />
-    <!-- position 3, cord 3 -->
-    <circle cx="148" cy="150" r="11" fill="currentColor" />
-    <!-- position 2, cord 2 -->
-    <circle cx="184" cy="110" r="11" fill="currentColor" />
-
-    <!-- (X) -->
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-        <!-- position 0, cord 6 -->
-        <line x1="32" y1="5" x2="48" y2="25"/>
-        <line x1="48" y1="5" x2="32" y2="25"/>
-    </g>
-
-  </symbol>
-
-  <symbol id="C7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-no-nut" />
-
-    <!-- fret number -->
-    <text x="0" y="84" font-size="42" fill="currentColor">3</text>
-
-    <!-- barre fret 1 -->
-    <rect x="68" y="62" width="162" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <!-- extra fingers from 3rd fret -->
-    <!-- position 3, cord 4 -->
-    <circle cx="112" cy="150" r="11" fill="currentColor" />
-    <!-- position 3, cord 2 -->
-    <circle cx="184" cy="150" r="11" fill="currentColor" />
-
-    <!-- (X) -->
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-        <!-- position 0, cord 6 -->
-        <line x1="32" y1="5" x2="48" y2="25"/>
-        <line x1="48" y1="5" x2="32" y2="25"/>
-    </g>
-
-  </symbol>
-
-
-  <!-- C minor 7 (Cm7) : X 1 3 1 3 4 3 -->
-  <symbol id="Cm7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-no-nut" />
-
-    <!-- fret number -->
-    <text x="0" y="84" font-size="42" fill="currentColor">3</text>
-
-    <!-- barre fret 1 -->
-    <rect x="68" y="62" width="162" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <!-- extra fingers from 3rd fret -->
-    <!-- position 3, cord 4 -->
-    <circle cx="112" cy="150" r="11" fill="currentColor" />
-    <!-- position 2, cord 2 -->
-    <circle cx="184" cy="110" r="11" fill="currentColor" />
-
-    <!-- (X) -->
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-        <!-- position 0, cord 6 -->
-        <line x1="32" y1="5" x2="48" y2="25"/>
-        <line x1="48" y1="5" x2="32" y2="25"/>
-    </g>
-
-  </symbol>
-
-  <!-- C major 7 (Cmaj7) : X 3 2 0 0 0 -->
-  <symbol id="Cmaj7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-
-    <use href="#main-grid-with-nut" />
-
-    <!-- extra fingers -->
-    <!-- position 3, cord 5 -->
-    <circle cx="76"  cy="150" r="11" fill="currentColor"/>
-    <!-- position 2, cord 4 -->
-    <circle cx="112" cy="110" r="11" fill="currentColor"/>
-
-    <!-- (X and O) -->
-    <g stroke="currentColor" stroke-width="3" fill="none">
-      <!-- position 0, cord 6 -->
-      <line x1="32" y1="5" x2="48" y2="25"/>
-      <line x1="48" y1="5" x2="32" y2="25"/>
-      <!-- position 0, cord 3 -->
-      <circle cx="148" cy="15" r="10"/>
-      <!-- position 0, cord 2 -->
-      <circle cx="184" cy="15" r="10"/>
-      <!-- position 0, cord 1 -->
-      <circle cx="220" cy="15" r="10"/>
-    </g>
-  </symbol>
-
-  <!-- C9 : X 3 2 0 3 3 -->
-  <symbol id="C9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-with-nut" />
-
-    <!-- extra fingers -->
-    <!-- position 3, cord 5 -->
-    <circle cx="76"  cy="150" r="11" fill="currentColor"/>
-    <!-- position 2, cord 4 -->
-    <circle cx="112" cy="110" r="11" fill="currentColor"/>
-    <!-- position 3, cord 2 -->
-    <circle cx="184" cy="150" r="11" fill="currentColor"/>
-    <!-- position 3, cord 1 -->
-    <circle cx="220" cy="150" r="11" fill="currentColor"/> 
-
-    <!-- (X) and O -->
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <!-- position 0, cord 6 -->
-      <line x1="32" y1="5" x2="48" y2="25"/>
-      <line x1="48" y1="5" x2="32" y2="25"/>
-      <!-- position 0, cord 3 -->
-      <circle cx="148" cy="15" r="10"/>
-    </g>
-  </symbol>
-
-  <!-- Csus2 : X 3 0 0 1 0 -->
-  <symbol id="Csus2" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-
-    <use href="#main-grid-with-nut" />
-
-    <!-- extra fingers -->
-    <!-- position 3, cord 5 -->
-    <circle cx="76"  cy="150" r="11" fill="currentColor"/>
-    <!-- position 1, cord 2 -->
-    <circle cx="184" cy="70"  r="11" fill="currentColor"/>
-
-    <!-- (X and O) -->
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <!-- position 0, cord 6 -->
-      <line x1="32" y1="5" x2="48" y2="25"/>
-      <line x1="48" y1="5" x2="32" y2="25"/>
-      <!-- position 0, cord 4 -->
-      <circle cx="112" cy="15" r="10"/>
-      <!-- position 0, cord 3 -->
-      <circle cx="148" cy="15" r="10"/>
-      <!-- position 0, cord 1 -->
-      <circle cx="220" cy="15" r="10"/>
-    </g>
-  </symbol>
-
-  <!-- Csus4 : X 3 3 0 1 0 -->
-  <symbol id="Csus4" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-  
-
-    <use href="#main-grid-with-nut" />
-
-    <!-- barre fret 1 from cord 2 to cord 1 -->
-    <rect x="174" y="62" width="56" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <!-- extra fingers -->
-    <!-- position 3, cord 5 -->
-    <circle cx="76"  cy="150" r="11" fill="currentColor"/>
-    <!-- position 3, cord 4 -->
-    <circle cx="112" cy="150" r="11" fill="currentColor"/>
-
-    <!-- 
-    <circle cx="184" cy="70"  r="11" fill="currentColor"/> 
-    <circle cx="210" cy="70"  r="11" fill="currentColor"/> -->
-
-    <!-- (X and O) -->
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <!-- position 0, cord 6 -->
-      <line x1="32" y1="5" x2="48" y2="25"/>
-      <line x1="48" y1="5" x2="32" y2="25"/>
-      <!-- position 0, cord 3 -->
-      <circle cx="148" cy="15" r="10"/>
-    </g>
-  </symbol>
-
-
-
-  <symbol id="C#" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-
-    <use href="#main-grid-no-nut" />
-
-    <!-- fret number -->
-    <text x="0" y="84" font-size="42" fill="currentColor">4</text>
-
-    <!-- barre fret 1 -->
-    <rect x="68" y="62" width="162" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <!-- extra fingers from 3rd fret -->
-    <!-- position 3, cord 4 -->
-    <circle cx="112" cy="150" r="11" fill="currentColor" />
-    <!-- position 3 cord 3 -->
-    <circle cx="148" cy="150" r="11" fill="currentColor" />
-    <!-- position 3, cord 2 -->
-    <circle cx="184" cy="150" r="11" fill="currentColor" />
-
-    <!-- (X) -->
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-        <!-- position 0, cord 6 -->
-        <line x1="32" y1="5" x2="48" y2="25"/>
-        <line x1="48" y1="5" x2="32" y2="25"/>
-    </g>
-
-
-  </symbol>
-
-  <symbol id="C#m" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-no-nut" />
-
-    <!-- fret number -->
-    <text x="0" y="84" font-size="42" fill="currentColor">4</text>
-
-    <!-- barre fret 1 -->
-    <rect x="68" y="62" width="162" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <!-- extra fingers from 3rd fret -->
-    <!-- position 3, cord 4 -->
-    <circle cx="112" cy="150" r="11" fill="currentColor" />
-    <!-- position 3, cord 3 -->
-    <circle cx="148" cy="150" r="11" fill="currentColor" />
-    <!-- position 2, cord 2 -->
-    <circle cx="184" cy="110" r="11" fill="currentColor" />
-
-    <!-- (X) -->
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-        <!-- position 0, cord 6 -->
-        <line x1="32" y1="5" x2="48" y2="25"/>
-        <line x1="48" y1="5" x2="32" y2="25"/>
-    </g>
-
-  </symbol>
-
-  <symbol id="C#7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-no-nut" />
-
-    <!-- fret number -->
-    <text x="0" y="84" font-size="42" fill="currentColor">4</text>
-
-    <!-- barre fret 1 -->
-    <rect x="68" y="62" width="162" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <!-- extra fingers from 3rd fret -->
-    <!-- position 3, cord 4 -->
-    <circle cx="112" cy="150" r="11" fill="currentColor" />
-    <!-- position 3, cord 2 -->
-    <circle cx="184" cy="150" r="11" fill="currentColor" />
-
-    <!-- (X) -->
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-        <!-- position 0, cord 6 -->
-        <line x1="32" y1="5" x2="48" y2="25"/>
-        <line x1="48" y1="5" x2="32" y2="25"/>
-    </g>
-
-  </symbol>
-
-  <symbol id="C#m7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-no-nut" />
-
-    <!-- fret number -->
-    <text x="0" y="84" font-size="42" fill="currentColor">4</text>
-
-    <!-- barre fret 1 -->
-    <rect x="68" y="62" width="162" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <!-- extra fingers from 3rd fret -->
-    <!-- position 3, cord 4 -->
-    <circle cx="112" cy="150" r="11" fill="currentColor" />
-    <!-- position 2, cord 2 -->
-    <circle cx="184" cy="110" r="11" fill="currentColor" />
-
-    <!-- (X) -->
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-        <!-- position 0, cord 6 -->
-        <line x1="32" y1="5" x2="48" y2="25"/>
-        <line x1="48" y1="5" x2="32" y2="25"/>
-    </g>
-
-  </symbol>
-
-  <symbol id="C#maj7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-no-nut" />
-
-    <!-- fret number -->
-    <text x="0" y="84" font-size="42" fill="currentColor">4</text>
-
-    <!-- barre fret 1 -->
-    <rect x="68" y="62" width="162" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <!-- extra fingers from 3rd fret -->
-    <!-- position 3, cord 4 -->
-    <circle cx="112" cy="150" r="11" fill="currentColor" />
-    <!-- position 3, cord 3 -->
-    <circle cx="148" cy="110" r="11" fill="currentColor" />
-    <!-- position 2, cord 2 -->
-    <circle cx="184" cy="150" r="11" fill="currentColor" />
-
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <line x1="32" y1="5" x2="48" y2="25"/>
-      <line x1="48" y1="5" x2="32" y2="25"/>
-    </g>
-  </symbol>
-
-  <symbol id="C#9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-
-    <use href="#main-grid-no-nut" />
-
-    <!-- fret number -->
-    <text x="0" y="84" font-size="42" fill="currentColor">4</text>
-
-    <!-- barre fret 1 -->
-    <rect x="68" y="62" width="162" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <!-- extra fingers from 3rd fret -->
-    <!-- position 7, cord 4 -->
-    <circle cx="112" cy="150"  r="11" fill="currentColor" />
-    <!-- position 7, cord 3 -->
-    <circle cx="148" cy="150"  r="11" fill="currentColor" />
-
-
-
-    <!-- (X) -->
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-        <!-- position 0, cord 6 -->
-        <line x1="32" y1="5" x2="48" y2="25"/>
-        <line x1="48" y1="5" x2="32" y2="25"/>
-    </g>
-    
-  </symbol>
-
-  <symbol id="C#sus2" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-no-nut" />
-
-    <!-- fret number -->
-    <text x="0" y="84" font-size="42" fill="currentColor">4</text>
-
-    <!-- barre fret 1 -->
-    <rect x="68" y="62" width="162" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <!-- extra fingers from 3rd fret -->
-    <!-- position 3, cord 4 -->
-    <circle cx="112" cy="150" r="11" fill="currentColor" />
-    <!-- position 3 cord 3 -->
-    <circle cx="148" cy="150" r="11" fill="currentColor" />
-
-    <!-- (X) -->
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-        <!-- position 0, cord 6 -->
-        <line x1="32" y1="5" x2="48" y2="25"/>
-        <line x1="48" y1="5" x2="32" y2="25"/>
-    </g>
-  </symbol>
-
-  <symbol id="C#sus4" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-no-nut" />
-
-    <!-- fret number -->
-    <text x="0" y="84" font-size="42" fill="currentColor">4</text>
-
-    <!-- barre fret 1 -->
-    <rect x="68" y="62" width="162" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <!-- extra fingers from 3rd fret -->
-    <!-- position 3, cord 4 -->
-    <circle cx="112" cy="150" r="11" fill="currentColor" />
-    <!-- position 3 cord 3 -->
-    <circle cx="148" cy="150" r="11" fill="currentColor" />
-    <!-- position 4, cord 2 -->
-    <circle cx="184" cy="190" r="11" fill="currentColor" />
-
-    <!-- (X) -->
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-        <!-- position 0, cord 6 -->
-        <line x1="32" y1="5" x2="48" y2="25"/>
-        <line x1="48" y1="5" x2="32" y2="25"/>
-    </g>
-  </symbol>
-
-  
-
-  <symbol id="Db">
-    <use href="#C#" />
-  </symbol>
-
-  <symbol id="Dbm">
-    <use href="#C#m" />
-  </symbol>
-
-  <symbol id="Db7">
-    <use href="#C#7" />
-  </symbol>
-
-  <symbol id="Dbm7">
-    <use href="#C#m7" />
-  </symbol>
-
-  <symbol id="Dbmaj7">
-    <use href="#Cmaj7" />
-  </symbol>
-
-  <symbol id="Db9">
-    <use href="#C#9" />
-  </symbol>
-
-  <symbol id="Dbsus2">
-    <use href="#C#sus2" />
-  </symbol>
-
-  <symbol id="Dbsus4">
-    <use href="#C#sus4" />
-  </symbol>
-
-
-  <symbol id="D" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-with-nut" />
-
-    <!-- points (circles) -->
-    <!-- position 2, cord 3 -->
-    <circle cx="148" cy="110" r="11" fill="currentColor" />
-    <!-- position 3, cord 2 -->
-    <circle cx="184" cy="150" r="11" fill="currentColor" />
-    <!-- position 2, cord 1 -->
-    <circle cx="220" cy="110" r="11" fill="currentColor" />
-
-    <!-- (X and O) -->
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <!-- position 0, cord 6 -->
-      <line x1="32" y1="5" x2="48" y2="25"/>
-      <line x1="48" y1="5" x2="32" y2="25"/>
-      <!-- position 0, cord 5 -->
-      <line x1="68" y1="5" x2="84" y2="25"/>
-      <line x1="84" y1="5" x2="68" y2="25"/>
-      <!-- position 0, cord 4 -->
-      <circle cx="112" cy="15" r="10"/>
-    </g>
-  </symbol>
-
-  
-
-  <symbol id="Dm" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-with-nut" />
-
-    <!-- points (circles) -->
-    <!-- position 2, cord 3 -->
-    <circle cx="148" cy="110" r="11" fill="currentColor" />
-    <!-- position 3, cord 2 -->
-    <circle cx="184" cy="150" r="11" fill="currentColor" />
-    <!-- position 1, cord 1 -->
-    <circle cx="220" cy="70"  r="11" fill="currentColor" />
-
-    <!-- (X and O) -->
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <!-- position 0, cord 6 -->
-      <line x1="32" y1="5" x2="48" y2="25"/>
-      <line x1="48" y1="5" x2="32" y2="25"/>
-      <!-- position 0, cord 5 -->
-      <line x1="68" y1="5" x2="84" y2="25"/>
-      <line x1="84" y1="5" x2="68" y2="25"/>
-      <!-- position 0, cord 4 -->
-      <circle cx="112" cy="15" r="10"/>
-    </g>
-  </symbol>
-
-  <symbol id="D7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-with-nut" />
-
-    <!-- points (circles) -->
-    <!-- position 2, cord 3 -->
-    <circle cx="148" cy="110" r="11" fill="currentColor" />
-    <!-- position 1, cord 2 -->
-    <circle cx="184" cy="70"  r="11" fill="currentColor" />
-    <!-- position 2, cord 1 -->
-    <circle cx="220" cy="110" r="11" fill="currentColor" />
-
-    <!-- (X) -->
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <!-- position 0, cord 6 -->
-      <line x1="32" y1="5" x2="48" y2="25"/>
-      <line x1="48" y1="5" x2="32" y2="25"/>
-      <!-- position 0, cord 5 -->
-      <line x1="68" y1="5" x2="84" y2="25"/>
-      <line x1="84" y1="5" x2="68" y2="25"/>
-      <!-- position 0, cord 4 -->
-      <circle cx="112" cy="15" r="10"/>
-    </g>
-  </symbol>
-
-
-  <symbol id="Dm7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-with-nut" />
-
-    <!-- points (circles) -->
-    <!-- position 2, cord 3 -->
-    <circle cx="148" cy="110" r="11" fill="currentColor" />
-    <!-- position 1, cord 2 -->
-    <circle cx="184" cy="70"  r="11" fill="currentColor" />
-    <circle cx="220" cy="70"  r="11" fill="currentColor" />
-
-    <!-- (X) -->
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <!-- position 0, cord 6 -->
-      <line x1="32" y1="5" x2="48" y2="25"/>
-      <line x1="48" y1="5" x2="32" y2="25"/>
-      <!-- position 0, cord 5 -->
-      <line x1="68" y1="5" x2="84" y2="25"/>
-      <line x1="84" y1="5" x2="68" y2="25"/>
-      <!-- position 0, cord 4 -->
-      <circle cx="112" cy="15" r="10"/>
-    </g>
-  </symbol>
-
-  <symbol id="Dmaj7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-with-nut" />
-
-    <!-- points (circles) -->
-    <!-- position 2, cord 3 -->
-    <circle cx="148" cy="110" r="11" fill="currentColor" />
-    <!-- position 2, cord 2 -->
-    <circle cx="184" cy="110"  r="11" fill="currentColor" />
-    <!-- position 2, cord 1 -->
-    <circle cx="220" cy="110"  r="11" fill="currentColor" />
-
-    <!-- (X) -->
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <!-- position 0, cord 6 -->
-      <line x1="32" y1="5" x2="48" y2="25"/>
-      <line x1="48" y1="5" x2="32" y2="25"/>
-      <!-- position 0, cord 5 -->
-      <line x1="68" y1="5" x2="84" y2="25"/>
-      <line x1="84" y1="5" x2="68" y2="25"/>
-      <!-- position 0, cord 4 -->
-      <circle cx="112" cy="15" r="10"/>
-    </g>
-  </symbol>
-
-  <symbol id="D9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-
-    <use href="#main-grid-no-nut" />
-
-    <!-- fret number -->
-    <text x="0" y="84" font-size="42" fill="currentColor">5</text>
-
-    <!-- barre fret 1 -->
-    <rect x="68" y="62" width="162" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <!-- extra fingers from 3rd fret -->
-    <!-- position 7, cord 4 -->
-    <circle cx="112" cy="150"  r="11" fill="currentColor" />
-    <!-- position 7, cord 3 -->
-    <circle cx="148" cy="150"  r="11" fill="currentColor" />
-
-
-
-    <!-- (X) -->
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-        <!-- position 0, cord 6 -->
-        <line x1="32" y1="5" x2="48" y2="25"/>
-        <line x1="48" y1="5" x2="32" y2="25"/>
-    </g>
-    
-  </symbol>
-
-  <symbol id="Dsus2" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-with-nut" />
-
-    <!-- points (circles) -->
-    <!-- position 2, cord 3 -->
-    <circle cx="148" cy="110" r="11" fill="currentColor" />
-    <!-- position 3, cord 2 -->
-    <circle cx="184" cy="150" r="11" fill="currentColor" />
-
-    <!-- (X and O) -->
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <!-- position 0, cord 6 -->
-      <line x1="32" y1="5" x2="48" y2="25"/>
-      <line x1="48" y1="5" x2="32" y2="25"/>
-      <!-- position 0, cord 5 -->
-      <line x1="68" y1="5" x2="84" y2="25"/>
-      <line x1="84" y1="5" x2="68" y2="25"/>
-      <!-- position 0, cord 4 -->
-      <circle cx="112" cy="15" r="10"/>
-      <!-- position 0, cord 1 -->
-      <circle cx="220" cy="15" r="10"/>
-    </g>
-
-  </symbol>
-
-  <symbol id="Dsus4" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-with-nut" />
-
-    <!-- points (circles) -->
-    <!-- position 2, cord 3 -->
-    <circle cx="148" cy="110" r="11" fill="currentColor" />
-    <!-- position 3, cord 2 -->
-    <circle cx="184" cy="150" r="11" fill="currentColor" />
-    <!-- position 3, cord 1 -->
-    <circle cx="220" cy="150" r="11" fill="currentColor" />
-
-    <!-- (X and O) -->
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <!-- position 0, cord 6 -->
-      <line x1="32" y1="5" x2="48" y2="25"/>
-      <line x1="48" y1="5" x2="32" y2="25"/>
-      <!-- position 0, cord 5 -->
-      <line x1="68" y1="5" x2="84" y2="25"/>
-      <line x1="84" y1="5" x2="68" y2="25"/>
-      <!-- position 0, cord 4 -->
-      <circle cx="112" cy="15" r="10"/>
-    </g>
-
-  </symbol>
-
-
-  
-  <symbol id="D#" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-
-    <use href="#main-grid-no-nut" />
-
-    <!-- fret number -->
-    <text x="0" y="84" font-size="42" fill="currentColor">6</text>
-
-    <!-- barre fret 1 -->
-    <rect x="68" y="62" width="162" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <!-- extra fingers from 3rd fret -->
-    <!-- position 3, cord 4 -->
-    <circle cx="112" cy="150" r="11" fill="currentColor" />
-    <!-- position 3 cord 3 -->
-    <circle cx="148" cy="150" r="11" fill="currentColor" />
-    <!-- position 3, cord 2 -->
-    <circle cx="184" cy="150" r="11" fill="currentColor" />
-
-    <!-- (X) -->
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-        <!-- position 0, cord 6 -->
-        <line x1="32" y1="5" x2="48" y2="25"/>
-        <line x1="48" y1="5" x2="32" y2="25"/>
-    </g>
-
-
-  </symbol>
-
-  <symbol id="D#m" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-no-nut" />
-
-    <!-- fret number -->
-    <text x="0" y="84" font-size="42" fill="currentColor">6</text>
-
-    <!-- barre fret 1 -->
-    <rect x="68" y="62" width="162" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <!-- extra fingers from 3rd fret -->
-    <!-- position 3, cord 4 -->
-    <circle cx="112" cy="150" r="11" fill="currentColor" />
-    <!-- position 3, cord 3 -->
-    <circle cx="148" cy="150" r="11" fill="currentColor" />
-    <!-- position 2, cord 2 -->
-    <circle cx="184" cy="110" r="11" fill="currentColor" />
-
-    <!-- (X) -->
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-        <!-- position 0, cord 6 -->
-        <line x1="32" y1="5" x2="48" y2="25"/>
-        <line x1="48" y1="5" x2="32" y2="25"/>
-    </g>
-
-  </symbol>
-
-  <symbol id="D#7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-no-nut" />
-
-    <!-- fret number -->
-    <text x="0" y="84" font-size="42" fill="currentColor">6</text>
-
-    <!-- barre fret 1 -->
-    <rect x="68" y="62" width="162" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <!-- extra fingers from 3rd fret -->
-    <!-- position 3, cord 4 -->
-    <circle cx="112" cy="150" r="11" fill="currentColor" />
-    <!-- position 3, cord 2 -->
-    <circle cx="184" cy="150" r="11" fill="currentColor" />
-
-    <!-- (X) -->
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-        <!-- position 0, cord 6 -->
-        <line x1="32" y1="5" x2="48" y2="25"/>
-        <line x1="48" y1="5" x2="32" y2="25"/>
-    </g>
-
-  </symbol>
-
-  <symbol id="D#m7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-no-nut" />
-
-    <!-- fret number -->
-    <text x="0" y="84" font-size="42" fill="currentColor">6</text>
-
-    <!-- barre fret 1 -->
-    <rect x="68" y="62" width="162" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <!-- extra fingers from 3rd fret -->
-    <!-- position 3, cord 4 -->
-    <circle cx="112" cy="150" r="11" fill="currentColor" />
-    <!-- position 2, cord 2 -->
-    <circle cx="184" cy="110" r="11" fill="currentColor" />
-
-    <!-- (X) -->
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-        <!-- position 0, cord 6 -->
-        <line x1="32" y1="5" x2="48" y2="25"/>
-        <line x1="48" y1="5" x2="32" y2="25"/>
-    </g>
-
-  </symbol>
-
-  <symbol id="D#maj7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-no-nut" />
-
-    <!-- fret number -->
-    <text x="0" y="84" font-size="42" fill="currentColor">6</text>
-
-    <!-- barre fret 1 -->
-    <rect x="68" y="62" width="162" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <!-- extra fingers from 3rd fret -->
-    <!-- position 3, cord 4 -->
-    <circle cx="112" cy="150" r="11" fill="currentColor" />
-    <!-- position 3, cord 3 -->
-    <circle cx="148" cy="110" r="11" fill="currentColor" />
-    <!-- position 2, cord 2 -->
-    <circle cx="184" cy="150" r="11" fill="currentColor" />
-
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <line x1="32" y1="5" x2="48" y2="25"/>
-      <line x1="48" y1="5" x2="32" y2="25"/>
-    </g>
-  </symbol>
-
-  <symbol id="D#9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-
-    <use href="#main-grid-no-nut" />
-
-    <!-- fret number -->
-    <text x="0" y="84" font-size="42" fill="currentColor">6</text>
-
-    <!-- barre fret 1 -->
-    <rect x="68" y="62" width="162" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <!-- extra fingers from 3rd fret -->
-    <!-- position 7, cord 4 -->
-    <circle cx="112" cy="150"  r="11" fill="currentColor" />
-    <!-- position 7, cord 3 -->
-    <circle cx="148" cy="150"  r="11" fill="currentColor" />
-
-
-
-    <!-- (X) -->
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-        <!-- position 0, cord 6 -->
-        <line x1="32" y1="5" x2="48" y2="25"/>
-        <line x1="48" y1="5" x2="32" y2="25"/>
-    </g>
-    
-  </symbol>
-
-  <symbol id="D#sus2" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-no-nut" />
-
-    <!-- fret number -->
-    <text x="0" y="84" font-size="42" fill="currentColor">6</text>
-
-    <!-- barre fret 1 -->
-    <rect x="68" y="62" width="162" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <!-- extra fingers from 3rd fret -->
-    <!-- position 3, cord 4 -->
-    <circle cx="112" cy="150" r="11" fill="currentColor" />
-    <!-- position 3 cord 3 -->
-    <circle cx="148" cy="150" r="11" fill="currentColor" />
-
-    <!-- (X) -->
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-        <!-- position 0, cord 6 -->
-        <line x1="32" y1="5" x2="48" y2="25"/>
-        <line x1="48" y1="5" x2="32" y2="25"/>
-    </g>
-  </symbol>
-
-  <symbol id="D#sus4" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-no-nut" />
-
-    <!-- fret number -->
-    <text x="0" y="84" font-size="42" fill="currentColor">6</text>
-
-    <!-- barre fret 1 -->
-    <rect x="68" y="62" width="162" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <!-- extra fingers from 3rd fret -->
-    <!-- position 3, cord 4 -->
-    <circle cx="112" cy="150" r="11" fill="currentColor" />
-    <!-- position 3 cord 3 -->
-    <circle cx="148" cy="150" r="11" fill="currentColor" />
-    <!-- position 4, cord 2 -->
-    <circle cx="184" cy="190" r="11" fill="currentColor" />
-
-    <!-- (X) -->
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-        <!-- position 0, cord 6 -->
-        <line x1="32" y1="5" x2="48" y2="25"/>
-        <line x1="48" y1="5" x2="32" y2="25"/>
-    </g>
-  </symbol>
-
-  
-
-  <symbol id="Eb">
-    <use href="#D#" />
-  </symbol>
-
-  <symbol id="Ebm">
-    <use href="#D#m" />
-  </symbol>
-
-  <symbol id="Eb7">
-    <use href="#D#7" />
-  </symbol>
-
-  <symbol id="Ebm7">
-    <use href="#D#m7" />
-  </symbol>
-
-  <symbol id="Ebmaj7">
-    <use href="#D#maj7" />
-  </symbol>
-
-  <symbol id="Eb9">
-    <use href="#D#9" />
-  </symbol>
-
-  <symbol id="Ebsus2">
-    <use href="#D#sus2" />
-  </symbol>
-
-  <symbol id="Ebsus4">
-    <use href="#D#sus4" />
-  </symbol>
-
-
-  <symbol id="E" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-with-nut" />
-
-    <!-- points (circles) -->
-    <!-- position 2, cord 5 -->
-    <circle cx="76"  cy="110" r="11" fill="currentColor" />
-    <!-- position 2, cord 4 -->
-    <circle cx="112" cy="110" r="11" fill="currentColor" />
-    <!-- position 1, cord 3 -->
-    <circle cx="148" cy="70"  r="11" fill="currentColor" />
-
-    <!-- (X and O) -->
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <!-- position 0, cord 6 -->
-      <circle cx="32"  cy="15" r="10"/>
-      <!-- position 0, cord 2 -->
-      <circle cx="184" cy="15" r="10"/>
-      <!-- position 0, cord 1 -->
-      <circle cx="220" cy="15" r="10"/>
-    </g>
-    
-  </symbol>
-
-  <symbol id="Em" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-with-nut" />
-
-    <!-- points (circles) -->
-    <!-- position 2, cord 5 -->
-    <circle cx="76"  cy="110" r="11" fill="currentColor" />
-    <!-- position 2, cord 4 -->
-    <circle cx="112" cy="110" r="11" fill="currentColor" />
-
-    <!-- (X and O) -->
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <!-- position 0, cord 6 -->
-      <circle cx="32"  cy="15" r="10"/>
-      <!-- position 0, cord 3 -->
-      <circle cx="148" cy="15" r="10"/>
-      <!-- position 0, cord 2 -->
-      <circle cx="184" cy="15" r="10"/>
-      <!-- position 0, cord 1 -->
-      <circle cx="220" cy="15" r="10"/>
-    </g>
-  </symbol>
-
-  <symbol id="E7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-with-nut" />
-
-    <!-- points (circles) -->
-    <!-- position 2, cord 5 -->
-    <circle cx="76"  cy="110" r="11" fill="currentColor" />
-    <!-- position 1, cord 3 -->
-    <circle cx="148" cy="70"  r="11" fill="currentColor" />
-
-    <!-- (X and O) -->
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <!-- position 0, cord 6 -->
-      <circle cx="32"  cy="15" r="10"/>
-      <!-- position 0, cord 4 -->
-      <circle cx="112" cy="15" r="10"/>
-      <!-- position 0, cord 2 -->
-      <circle cx="184" cy="15" r="10"/>
-      <!-- position 0, cord 1 -->
-      <circle cx="220" cy="15" r="10"/>
-    </g>
-  </symbol>
-  
-  <symbol id="Em7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-with-nut" />
-
-    <circle cx="76" cy="110" r="11" fill="currentColor" />
-    <circle cx="112" cy="110" r="11" fill="currentColor" />
-    <circle cx="184" cy="150" r="11" fill="currentColor" />
-
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <circle cx="32"  cy="15" r="10"/>
-      <circle cx="148" cy="15" r="10"/>
-      <circle cx="220" cy="15" r="10"/>
-    </g>
-  </symbol>
-
-  <symbol id="Emaj7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-with-nut" />
-
-    <circle cx="76" cy="110" r="11" fill="currentColor" />
-    <circle cx="112" cy="70" r="11" fill="currentColor" />
-    <circle cx="148" cy="70" r="11" fill="currentColor" />
-
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <circle cx="32"  cy="15" r="10"/>
-     
-      <circle cx="184" cy="15" r="10"/>
-      <circle cx="220" cy="15" r="10"/>
-    </g>
-  </symbol>
-
-  <symbol id="E9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-no-nut" />
-
-    <text x="0" y="152" font-size="42" fill="currentColor">7</text>
-
-    <!-- pos 3, chord 5-->
-    <circle cx="76" cy="146" r="11" fill="currentColor" />
-    <!-- pos 2, chord 4-->
-    <circle cx="112" cy="106" r="11" fill="currentColor" />
-    <!-- pos 3, chord 3-->
-    <circle cx="148" cy="146" r="11" fill="currentColor" />
-    <!-- pos 3, chord 2-->
-    <circle cx="184" cy="146" r="11" fill="currentColor" />
-    
-
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      
-      <circle cx="32"  cy="15" r="10"/>
-      <circle cx="220" cy="15" r="10"/>
-    </g>
-  </symbol>
-
-  <symbol id="Esus2" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-with-nut" />
-
-    <!-- pos 3, chord 5-->
-    <circle cx="76" cy="110" r="11" fill="currentColor" />
-    <!-- pos 2, chord 4-->
-    <circle cx="112" cy="110" r="11" fill="currentColor" />
-    <!-- pos 3, chord 1-->
-    <circle cx="220" cy="110" r="11" fill="currentColor" />
-    
-
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <circle cx="32"  cy="15" r="10"/>
-      <circle cx="148" cy="15" r="10"/>
-      <circle cx="184" cy="15" r="10"/>
-    </g>
-  </symbol>
-
-  <symbol id="Esus4" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-with-nut" />
-
-    <circle cx="76" cy="110" r="11" fill="currentColor" />
-    <circle cx="112" cy="110" r="11" fill="currentColor" />
-    <circle cx="148" cy="110" r="11" fill="currentColor" />
-
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <circle cx="32"  cy="15" r="10"/>
-      <circle cx="184" cy="15" r="10"/>
-      <circle cx="220" cy="15" r="10"/>
-    </g>
-  </symbol>
-
-
-
-
-  <symbol id="F" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-with-nut" />
-
-    <!-- barre -->
-    <rect x="32" y="62" width="196" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <!-- extra fingers -->
-    <!-- 3er traste, 5ª cord -->
-    <circle cx="76" cy="150" r="11" fill="currentColor" />
-    <!-- 3er traste, 4ª cord -->
-    <circle cx="112" cy="150" r="11" fill="currentColor" />
-    <!-- 2º traste, 3ª cord -->
-    <circle cx="148" cy="110" r="11" fill="currentColor" />
-  </symbol>
-
-  <symbol id="Fm" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-with-nut" />
-
-    <!-- barre -->
-    <rect x="32" y="62" width="196" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <!-- extra fingers -->
-    <!-- 3er traste, 5ª cord -->
-    <circle cx="76" cy="150" r="11" fill="currentColor" />
-    <!-- 3er traste, 4ª cord -->
-    <circle cx="112" cy="150" r="11" fill="currentColor" />
-    
-  </symbol>
-
-  <symbol id="F7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-with-nut" />
-
-    <!-- barre -->
-    <rect x="32" y="62" width="196" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <!-- extra fingers -->
-    <!-- position 3, cord 5 -->
-    <circle cx="76"  cy="150" r="11" fill="currentColor" />
-    <!-- position 2, cord 3 -->
-    <circle cx="148" cy="110" r="11" fill="currentColor" />
-  </symbol>
-
-
-  <symbol id="Fm7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-
-    <use href="#main-grid-with-nut" />
-
-    <!-- barre -->
-    <rect x="32" y="62" width="196" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <!-- extra fingers -->
-    <!-- position 3, cord 5 -->
-    <circle cx="76" cy="150" r="11" fill="currentColor" />
-
-  </symbol>
-
-  <symbol id="Fmaj7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-
-    <use href="#main-grid-with-nut" />
-
-    <!-- extra fingers -->
-    <!-- position 3, cord 5 -->
-    <circle cx="76" cy="150" r="11" fill="currentColor" />
-    <!-- position 3, cord 4 -->
-    <circle cx="112" cy="150" r="11" fill="currentColor" />
-    <circle cx="148" cy="110" r="11" fill="currentColor" />
-    <circle cx="184" cy="70" r="11" fill="currentColor" />
-
-    <!-- (X and O) -->
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <line x1="32" y1="5" x2="48" y2="25"/>
-      <line x1="48" y1="5" x2="32" y2="25"/>
-      <circle cx="220" cy="15" r="10"/>
-    </g>
-  </symbol>
-
-  <symbol id="F9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-
-    <use href="#main-grid-with-nut" />
-
-    <!-- barre -->
-    <rect x="32" y="62" width="196" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <!-- extra fingers -->
-    <circle cx="76" cy="150" r="11" fill="currentColor" />
-    <circle cx="148" cy="110" r="11" fill="currentColor" />
-    <!-- position 3, cord 1 -->
-    <circle cx="220" cy="150" r="11" fill="currentColor" />
-    
-  </symbol>
-
-  <symbol id="Fsus2" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-
-    <use href="#main-grid-with-nut" />
-
-    <!-- barre from cord 2 to cord 1 -->
-    <rect x="170" y="62" width="60" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <!-- extra fingers -->
-    <!-- position 3, cord 4 -->
-    <circle cx="112" cy="150" r="11" fill="currentColor" />
-
-    <!-- (X and O) -->
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <!-- pos 0 cord 3 -->
-      <circle cx="148" cy="15" r="10"/>
-      <!-- pos 0 cord 6 -->
-      <line x1="32" y1="5" x2="48" y2="25"/>
-      <line x1="48" y1="5" x2="32" y2="25"/>
-      <!-- pos 0 cord 5-->
-      <line x1="76" y1="5" x2="92" y2="25"/>
-      <line x1="92" y1="5" x2="76" y2="25"/>
-
-    </g>
-
-  </symbol>
-
-  <symbol id="Fsus4" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-with-nut" />
-
-    <!-- barre -->
-    <rect x="32" y="62" width="196" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <!-- extra fingers -->
-    <!-- 3er traste, 5ª cord -->
-    <circle cx="76" cy="150" r="11" fill="currentColor" />
-    <!-- 3er traste, 4ª cord -->
-    <circle cx="112" cy="150" r="11" fill="currentColor" />
-    <!-- 3º traste, 3ª cord -->
-    <circle cx="148" cy="150" r="11" fill="currentColor" />
-
-  </symbol>
-
-
-
-  <symbol id="F#" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-with-nut" />
-
-    <!-- barre position 2 -->
-    <rect x="32" y="102" width="196" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <!-- extra fingers -->
-    <!-- 4er traste, 5ª cord -->
-    <circle cx="76" cy="190" r="11" fill="currentColor" />
-    <!-- 3er traste, 4ª cord -->
-    <circle cx="112" cy="190" r="11" fill="currentColor" />
-    <!-- 2º traste, 3ª cord -->
-    <circle cx="148" cy="150" r="11" fill="currentColor" />
-  </symbol>
-
-  <symbol id="F#m" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-with-nut" />
-
-    <!-- barre -->
-    <rect x="32" y="102" width="196" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <!-- extra fingers -->
-    <!-- 3er traste, 5ª cord -->
-    <circle cx="76" cy="190" r="11" fill="currentColor" />
-    <!-- 3er traste, 4ª cord -->
-    <circle cx="112" cy="190" r="11" fill="currentColor" />
-    
-  </symbol>
-
-  <symbol id="F#7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-with-nut" />
-
-    <!-- barre -->
-    <rect x="32" y="102" width="196" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <!-- extra fingers -->
-    <!-- position 3, cord 5 -->
-    <circle cx="76"  cy="190" r="11" fill="currentColor" />
-    <!-- position 2, cord 3 -->
-    <circle cx="148" cy="150" r="11" fill="currentColor" />
-  </symbol>
-
-
-  <symbol id="F#m7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-
-    <use href="#main-grid-with-nut" />
-
-    <!-- barre -->
-    <rect x="32" y="102" width="196" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <!-- extra fingers -->
-    <!-- position 3, cord 5 -->
-    <circle cx="76" cy="190" r="11" fill="currentColor" />
-
-  </symbol>
-
-  <symbol id="F#maj7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-with-nut" />
-
-    <circle cx="40" cy="110" r="11" fill="currentColor" />
-    <!-- position 4, cord 4 -->
-    <circle cx="112" cy="150" r="11" fill="currentColor" />
-    <!-- position 4, cord 3 -->
-    <circle cx="148" cy="150" r="11" fill="currentColor" />
-    <!-- position 3, cord 2 -->
-    <circle cx="184" cy="110" r="11" fill="currentColor" />
-
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <!-- position 0, cord 5 -->
-      <line x1="68" y1="5" x2="84" y2="25"/>
-      <line x1="84" y1="5" x2="68" y2="25"/>
-      <!-- x on position 0 cord 1 -->
-      <line x1="202" y1="15" x2="218" y2="35"/>
-      <line x1="218" y1="15" x2="202" y2="35"/>
-    </g>
-  </symbol>
-
-  <symbol id="F#9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-
-    <use href="#main-grid-with-nut" />
-
-    <!-- barre -->
-    <rect x="32" y="102" width="196" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <!-- extra fingers -->
-    <circle cx="76" cy="190" r="11" fill="currentColor" />
-    <circle cx="148" cy="150" r="11" fill="currentColor" />
-    <!-- position 3, cord 1 -->
-    <circle cx="220" cy="190" r="11" fill="currentColor" />
-    
-  </symbol>
-
-  <symbol id="F#sus2" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-
-    <use href="#main-grid-with-nut" />
-
-    
-    <!-- fret number -->
-    <text x="0" y="84" font-size="42" fill="currentColor">4</text>
-
-    <!-- barre from cord 4 to cord 1 -->
-    <rect x="102" y="62" width="126" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <!-- extra fingers -->
-    <!-- position 3, cord 3 -->
-    <circle cx="148" cy="150" r="11" fill="currentColor" />
-    <!-- position 4, cord 2 -->
-    <circle cx="184" cy="190" r="11" fill="currentColor" />
-    
-
-    <!-- (X and O) -->
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <!-- pos 0 cord 6 -->
-      <line x1="32" y1="5" x2="48" y2="25"/>
-      <line x1="48" y1="5" x2="32" y2="25"/>
-      <!-- pos 0 cord 5-->
-      <line x1="76" y1="5" x2="92" y2="25"/>
-      <line x1="92" y1="5" x2="76" y2="25"/>
-
-    </g>
-
-  </symbol>
-
-  <symbol id="F#sus4" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-with-nut" />
-
-    <!-- barre -->
-    <rect x="32" y="102" width="196" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <!-- extra fingers -->
-    <!-- 3er traste, 5ª cord -->
-    <circle cx="76" cy="190" r="11" fill="currentColor" />
-    <!-- 3er traste, 4ª cord -->
-    <circle cx="112" cy="190" r="11" fill="currentColor" />
-    <!-- 3º traste, 3ª cord -->
-    <circle cx="148" cy="190" r="11" fill="currentColor" />
-
-  </symbol>
-
-
-
-  <symbol id="Gb">
-    <use href="#F#" />
-  </symbol>
-
-  <symbol id="Gbm">
-    <use href="#F#m" />
-  </symbol>
-
-  <symbol id="Gb7">
-    <use href="#F#7" />
-  </symbol>
-
-  <symbol id="Gbm7">
-    <use href="#F#m7" />
-  </symbol>
-
-  <symbol id="Gbmaj7">
-    <use href="#F#maj7" />
-  </symbol>
-
-  <symbol id="Gb9">
-    <use href="#F#9" />
-  </symbol>
-
-  <symbol id="Gbsus2">
-    <use href="#F#sus2" />
-  </symbol>
-
-  <symbol id="Gbsus4">
-    <use href="#F#sus4" />
-  </symbol>
-
-  
-
-  <symbol id="G" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-with-nut" />
-
-    <!-- points (circles) -->
-    <!-- position 3, cord 6 -->
-    <circle cx="40" cy="150" r="11" fill="currentColor" />
-    <!-- position 2, cord 5 -->
-    <circle cx="76" cy="110" r="11" fill="currentColor" />
-    <!-- position 3, cord 1 -->
-    <circle cx="220" cy="150" r="11" fill="currentColor" />
-
-    <!-- (X and O) -->
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <!-- position 0, cord 4 -->
-      <circle cx="112" cy="15" r="10"/>
-      <!-- position 0, cord 3 -->
-      <circle cx="148" cy="15" r="10"/>
-      <!-- position 0, cord 2 -->
-      <circle cx="184" cy="15" r="10"/>
-    </g>
-  </symbol>
-
-  <symbol id="Gm" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-no-nut" />
-
-    <!-- fret number -->
-    <text x="0" y="84" font-size="42" fill="currentColor">3</text>
-
-    <!-- barre fret position 1, from cord 1 to 6 -->
-    <rect x="32" y="62" width="196" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <!-- extra fingers from 3rd fret -->
-    <!-- position 3, cord 5 -->
-    <circle cx="76"  cy="150" r="11" fill="currentColor" />
-    <!-- position 3, cord 4 -->
-    <circle cx="112" cy="150" r="11" fill="currentColor" />
-
-  </symbol>
-
-  <symbol id="G7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-no-nut" />
-
-    <!-- fret number -->
-    <text x="0" y="84" font-size="42" fill="currentColor">3</text>
-
-    <!-- barre fret position 1, from cord 1 to 6 -->
-    <rect x="32" y="62" width="196" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <!-- extra fingers from 3rd fret -->
-    <!-- position 3, cord 5 -->
-    <circle cx="76"  cy="150" r="11" fill="currentColor" />
-    <!-- position 2, cord 3 -->
-    <circle cx="148" cy="110" r="11" fill="currentColor" />
-
-  </symbol>
-
-  <symbol id="Gm7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-no-nut" />
-
-    <text x="0" y="84" font-size="42" fill="currentColor">3</text>
-
-    <rect x="32" y="62" width="196" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <circle cx="76" cy="150" r="11" fill="currentColor" />
-    <!-- position 4, cord 2  -->
-    <circle cx="184" cy="190" r="11" fill="currentColor" />
-
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-    </g>
-  </symbol>
-
-  <symbol id="Gmaj7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-with-nut" />
-
-    <circle cx="40" cy="150" r="11" fill="currentColor" />
-    <!-- position 4, cord 4 -->
-    <circle cx="112" cy="190" r="11" fill="currentColor" />
-    <!-- position 4, cord 3 -->
-    <circle cx="148" cy="190" r="11" fill="currentColor" />
-    <!-- position 3, cord 2 -->
-    <circle cx="184" cy="150" r="11" fill="currentColor" />
-
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <!-- position 0, cord 5 -->
-      <line x1="68" y1="5" x2="84" y2="25"/>
-      <line x1="84" y1="5" x2="68" y2="25"/>
-      <!-- x on position 0 cord 1 -->
-      <line x1="202" y1="15" x2="218" y2="35"/>
-      <line x1="218" y1="15" x2="202" y2="35"/>
-    </g>
-  </symbol>
-
-  <symbol id="G9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-with-nut" />
-
-    <circle cx="40" cy="150" r="11" fill="currentColor" />
-    <circle cx="148" cy="110" r="11" fill="currentColor" />
-    <circle cx="220" cy="150" r="11" fill="currentColor" />
-
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-
-      <!-- position 0, cord 5 -->
-      <line x1="68" y1="5" x2="84" y2="25"/>
-      <line x1="84" y1="5" x2="68" y2="25"/>
-      <!-- position 0 cord 4 -->
-      <circle cx="112" cy="15" r="10"/>
-      <!-- position 0 cord 2 -->
-      <circle cx="184" cy="15" r="10"/>
-
-    </g>
-  </symbol>
-
-  <symbol id="Gsus2" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-with-nut" />
-
-    <circle cx="40" cy="150" r="11" fill="currentColor" />
-    <circle cx="220" cy="150" r="11" fill="currentColor" />
-    <circle cx="184" cy="150" r="11" fill="currentColor" />
-
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <circle cx="76" cy="15" r="10"/>
-      <circle cx="112" cy="15" r="10"/>
-      <circle cx="148" cy="15" r="10"/>
-    </g>
-  </symbol>
-
-  <symbol id="Gsus4" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-no-nut" />
-
-    <text x="0" y="84" font-size="42" fill="currentColor">3</text>
-
-    <!-- barre -->
-    <rect x="32" y="62" width="196" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <!-- extra fingers -->
-    <!-- position 3 cord 5 -->
-    <circle cx="76" cy="150" r="11" fill="currentColor" />
-    <!-- position 3 cord 4 -->
-    <circle cx="112" cy="150" r="11" fill="currentColor" />
-    <!-- position 3 cord 3 -->
-    <circle cx="148" cy="150" r="11" fill="currentColor" />
-
-  </symbol>
-
-  
-
-  <symbol id="G#" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-no-nut" />
-
-    <!-- fret number -->
-    <text x="0" y="84" font-size="42" fill="currentColor">4</text>
-
-    <!-- barre fret position 1, from cord 1 to 6 -->
-    <rect x="32" y="62" width="196" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <!-- extra fingers from 3rd fret -->
-    <!-- position 3, cord 5 -->
-    <circle cx="76"  cy="150" r="11" fill="currentColor" />
-    <!-- position 3, cord 4 -->
-    <circle cx="112" cy="150" r="11" fill="currentColor" />
-    <!-- position 2, cord 3 -->
-    <circle cx="148" cy="110" r="11" fill="currentColor" />
-
-  </symbol>
-
-
-  <symbol id="G#m" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-no-nut" />
-
-    <!-- fret number -->
-    <text x="0" y="84" font-size="42" fill="currentColor">4</text>
-
-    <!-- barre fret position 1, from cord 1 to 6 -->
-    <rect x="32" y="62" width="196" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <!-- extra fingers from 3rd fret -->
-    <!-- position 3, cord 5 -->
-    <circle cx="76"  cy="150" r="11" fill="currentColor" />
-    <!-- position 3, cord 4 -->
-    <circle cx="112" cy="150" r="11" fill="currentColor" />
-
-  </symbol>
-
-  <symbol id="G#7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-no-nut" />
-
-    <!-- fret number -->
-    <text x="0" y="84" font-size="42" fill="currentColor">4</text>
-
-    <!-- barre fret position 1, from cord 1 to 6 -->
-    <rect x="32" y="62" width="196" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <!-- extra fingers from 3rd fret -->
-    <!-- position 3, cord 5 -->
-    <circle cx="76"  cy="150" r="11" fill="currentColor" />
-    <!-- position 2, cord 3 -->
-    <circle cx="148" cy="110" r="11" fill="currentColor" />
-
-  </symbol>
-
-  <symbol id="G#m7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-no-nut" />
-
-    <text x="0" y="84" font-size="42" fill="currentColor">4</text>
-
-    <rect x="32" y="62" width="196" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <circle cx="76" cy="150" r="11" fill="currentColor" />
-    <!-- position 4, cord 2  -->
-    <circle cx="184" cy="190" r="11" fill="currentColor" />
-
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-    </g>
-  </symbol>
-
-  <symbol id="G#maj7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-no-nut" />
-
-    <!-- fret number -->
-    <text x="0" y="84" font-size="42" fill="currentColor">4</text>
-
-    <!-- position 1, cord 5 -->
-    <circle cx="40" cy="70" r="11" fill="currentColor" />
-    <!-- position 2, cord 4 -->
-    <circle cx="112" cy="120" r="11" fill="currentColor" />
-    <!-- position 2, cord 3 -->
-    <circle cx="148" cy="120" r="11" fill="currentColor" />
-    <!-- position 1, cord 2 -->
-    <circle cx="184" cy="70" r="11" fill="currentColor" />
-
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <!-- position 0, cord 5 -->
-      <line x1="68" y1="5" x2="84" y2="25"/>
-      <line x1="84" y1="5" x2="68" y2="25"/>
-      <!-- x on position 0 cord 1 -->
-      <line x1="202" y1="15" x2="218" y2="35"/>
-      <line x1="218" y1="15" x2="202" y2="35"/>
-    </g>
-  </symbol>
-
-  <symbol id="G#9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-  
-    <use href="#main-grid-no-nut" />
-
-    <!-- fret number -->
-    <text x="0" y="84" font-size="42" fill="currentColor">4</text>
-
-    <!-- barre fret position 1, from cord 1 to 6 -->
-    <rect x="32" y="62" width="196" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <!-- position 3, cord 5 -->
-    <circle cx="76"  cy="150" r="11" fill="currentColor" />
-    <!-- position 2, cord 3 -->
-    <circle cx="148" cy="110" r="11" fill="currentColor" />
-    <!-- position 3, cord 1 -->
-    <circle cx="220" cy="150" r="11" fill="currentColor" />
-
-  </symbol>
-
-  <symbol id="G#sus2" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-
-    <use href="#main-grid-no-nut" />
-
-    <!-- fret number -->
-    <text x="0" y="84" font-size="42" fill="currentColor">6</text>
-
-    <!-- barre from cord 4 to cord 1 -->
-    <rect x="102" y="62" width="126" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <!-- extra fingers -->
-    <!-- position 3, cord 3 -->
-    <circle cx="148" cy="150" r="11" fill="currentColor" />
-    <!-- position 4, cord 2 -->
-    <circle cx="184" cy="190" r="11" fill="currentColor" />
-
-    <!-- (X and O) -->
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <!-- pos 0 cord 6 -->
-      <line x1="32" y1="5" x2="48" y2="25"/>
-      <line x1="48" y1="5" x2="32" y2="25"/>
-      <!-- pos 0 cord 5-->
-      <line x1="76" y1="5" x2="92" y2="25"/>
-      <line x1="92" y1="5" x2="76" y2="25"/>
-    </g>
-
-  </symbol>
-
-  <symbol id="G#sus4" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-no-nut" />
-
-    <text x="0" y="84" font-size="42" fill="currentColor">4</text>
-
-    <!-- barre -->
-    <rect x="32" y="62" width="196" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <!-- extra fingers -->
-    <!-- position 3 cord 5 -->
-    <circle cx="76" cy="150" r="11" fill="currentColor" />
-    <!-- position 3 cord 4 -->
-    <circle cx="112" cy="150" r="11" fill="currentColor" />
-    <!-- position 3 cord 3 -->
-    <circle cx="148" cy="150" r="11" fill="currentColor" />
-
-  </symbol>
-
-
-
-  <symbol id="Ab">
-    <use href="#G#" />
-  </symbol>
-  <symbol id="Abm">
-    <use href="#G#m" />
-  </symbol>
-  <symbol id="Ab7">
-    <use href="#G#7" />
-  </symbol>
-  <symbol id="Abm7">
-    <use href="#G#m7" />
-  </symbol>
-  <symbol id="Abmaj7">
-    <use href="#G#maj7" />
-  </symbol>
-  <symbol id="Ab9">
-    <use href="#G#9" />
-  </symbol>
-  <symbol id="Absus2">
-    <use href="#G#sus2" />
-  </symbol>
-  <symbol id="Absus4">
-    <use href="#G#sus4" />
-  </symbol>
-
-
-
-  <symbol id="A" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-with-nut" />
-
-    <!-- points (circles) -->
-    <!-- position 2, cord 4 -->
-    <circle cx="112" cy="110" r="11" fill="currentColor" />
-    <!-- position 2, cord 3 -->
-    <circle cx="148" cy="110" r="11" fill="currentColor" />
-    <!-- position 2, cord 2 -->
-    <circle cx="184" cy="110" r="11" fill="currentColor" />
-
-    <!-- (X and O) -->
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <!-- position 0, cord 6 -->
-      <line x1="32" y1="5" x2="48" y2="25"/>
-      <line x1="48" y1="5" x2="32" y2="25"/>
-      <!-- position 0, cord 5 -->
-      <circle cx="66"  cy="25" r="10"/>
-      <!-- position 0, cord 1 -->
-      <circle cx="220" cy="15" r="10"/>
-    </g>
-  </symbol>
-
-  <symbol id="Am" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-with-nut" />
-
-    <!-- points (circles) -->
-    <!-- position 2, cord 4 -->
-    <circle cx="112" cy="110" r="11" fill="currentColor" />
-    <!-- position 2, cord 3 -->
-    <circle cx="148" cy="110" r="11" fill="currentColor" />
-    <!-- position 1, cord 2 -->
-    <circle cx="184" cy="70"  r="11" fill="currentColor" />
-
-    <!-- (X and O) -->
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <!-- position 0, cord 6 -->
-      <line x1="32" y1="5" x2="48" y2="25"/>
-      <line x1="48" y1="5" x2="32" y2="25"/>
-      <!-- position 0, cord 5 -->
-      <circle cx="66"  cy="25" r="10"/>
-      <!-- position 0, cord 1 -->
-      <circle cx="220" cy="15" r="10"/>
-    </g>
-  </symbol>
-
-  <symbol id="A7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-with-nut" />
-
-    <!-- points (circles) -->
-    <!-- position 2, cord 4 -->
-    <circle cx="112" cy="110" r="11" fill="currentColor" />
-    <!-- position 2, cord 2 -->
-    <circle cx="184" cy="110" r="11" fill="currentColor" />
-    
-
-    <!-- (X and O) -->
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <!-- position 0, cord 6 -->
-      <line x1="32" y1="5" x2="48" y2="25"/>
-      <line x1="48" y1="5" x2="32" y2="25"/>
-      <!-- position 0, cord 5 -->
-      <circle cx="66"  cy="25" r="10"/>
-      <!-- position 0, cord 3 -->
-      <circle cx="148" cy="15" r="10"/>
-      <!-- position 0, cord 1 -->
-      <circle cx="220" cy="15" r="10"/>
-    </g>
-  </symbol>
-
-  <symbol id="Am7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-with-nut" />
-
-    <circle cx="112" cy="110" r="11" fill="currentColor" />
-    <circle cx="148" cy="110" r="11" fill="currentColor" />
-    <circle cx="184" cy="70" r="11" fill="currentColor" />
-
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <line x1="32" y1="5" x2="48" y2="25"/>
-      <line x1="48" y1="5" x2="32" y2="25"/>
-      <circle cx="76" cy="15" r="10"/>
-      <circle cx="220" cy="15" r="10"/>
-    </g>
-  </symbol>
-
-  <symbol id="Amaj7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-with-nut" />
-
-    <circle cx="112" cy="110" r="11" fill="currentColor" />
-    <circle cx="148" cy="70" r="11" fill="currentColor" />
-    <circle cx="184" cy="110" r="11" fill="currentColor" />
-
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <line x1="32" y1="5" x2="48" y2="25"/>
-      <line x1="48" y1="5" x2="32" y2="25"/>
-      <circle cx="76" cy="15" r="10"/>
-      <circle cx="220" cy="15" r="10"/>
-    </g>
-  </symbol>
-
-  <symbol id="A9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-no-nut" />
-
-    <text x="0" y="84" font-size="42" fill="currentColor">5</text>
-
-    <rect x="68" y="62" width="162" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <circle cx="112" cy="110" r="11" fill="currentColor" />
-    <circle cx="184" cy="150" r="11" fill="currentColor" />
-    <circle cx="220" cy="150" r="11" fill="currentColor" />
-
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <line x1="32" y1="5" x2="48" y2="25"/>
-      <line x1="48" y1="5" x2="32" y2="25"/>
-      <circle cx="148" cy="15" r="10"/>
-    </g>
-  </symbol>
-
-  <symbol id="Asus2" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-with-nut" />
-
-    <circle cx="112" cy="110" r="11" fill="currentColor" />
-    <circle cx="148" cy="110" r="11" fill="currentColor" />
-
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <line x1="32" y1="5" x2="48" y2="25"/>
-      <line x1="48" y1="5" x2="32" y2="25"/>
-      <circle cx="76" cy="15" r="10"/>
-      <circle cx="184" cy="15" r="10"/>
-      <circle cx="220" cy="15" r="10"/>
-    </g>
-  </symbol>
-
-  <symbol id="Asus4" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-with-nut" />
-
-    <circle cx="112" cy="110" r="11" fill="currentColor" />
-    <circle cx="148" cy="110" r="11" fill="currentColor" />
-    <circle cx="184" cy="150" r="11" fill="currentColor" />
-
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <line x1="32" y1="5" x2="48" y2="25"/>
-      <line x1="48" y1="5" x2="32" y2="25"/>
-      <circle cx="76" cy="15" r="10"/>
-      <circle cx="220" cy="15" r="10"/>
-    </g>
-  </symbol>
-
-
-  <symbol id="A#" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-with-nut" />
-
-    <!-- barre pos 1 -->
-    <rect x="32" y="62" width="196" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <!-- extra fingers -->
-    <!-- 4º traste, 4ª cord -->
-    <circle cx="112" cy="150" r="11" fill="currentColor" />
-    <!-- 4º traste, 3ª cord -->
-    <circle cx="148" cy="150" r="11" fill="currentColor" />
-    <!-- 4º traste, 2ª cord -->
-    <circle cx="184" cy="150" r="11" fill="currentColor" />
-
-    <!-- (X) -->
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <!-- position 0, cord 6 -->
-      <line x1="32" y1="5" x2="48" y2="25"/>
-      <line x1="48" y1="5" x2="32" y2="25"/>
-    </g>
-
-  </symbol>
-
-  <symbol id="A#m" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-with-nut" />
-
-    <!-- barre pos 1 -->
-    <rect x="32" y="62" width="196" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <!-- extra fingers from 3rd fret -->
-    <!-- position 4, cord 4 -->
-    <circle cx="112" cy="150" r="11" fill="currentColor" />
-    <!-- position 4, cord 3 -->
-    <circle cx="148" cy="150" r="11" fill="currentColor" />
-    <!-- position 3, cord 2 -->
-    <circle cx="184" cy="110" r="11" fill="currentColor" />
-  </symbol>
-
-  <symbol id="A#7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-with-nut" />
-
-    <!-- barre pos 1 -->
-    <rect x="32" y="62" width="196" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <!-- extra fingers -->
-    <!-- position 4, cord 4 -->
-    <circle cx="112" cy="150" r="11" fill="currentColor" />
-    <!-- position 4, cord 2 -->
-    <circle cx="184" cy="150" r="11" fill="currentColor" />
-  </symbol>
-
-  <symbol id="A#m7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-with-nut" />
-
-    <rect x="32" y="62" width="196" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <circle cx="112" cy="150" r="11" fill="currentColor" />
-    <circle cx="184" cy="110" r="11" fill="currentColor" />
-
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <line x1="32" y1="5" x2="48" y2="25"/>
-      <line x1="48" y1="5" x2="32" y2="25"/>
-    </g>
-  </symbol>
-
-  <symbol id="A#maj7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-with-nut" />
-
-    <rect x="32" y="62" width="196" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <circle cx="112" cy="150" r="11" fill="currentColor" />
-    <circle cx="148" cy="110" r="11" fill="currentColor" />
-    <circle cx="184" cy="150" r="11" fill="currentColor" />
-
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <line x1="32" y1="5" x2="48" y2="25"/>
-      <line x1="48" y1="5" x2="32" y2="25"/>
-    </g>
-  </symbol>
-
-  <symbol id="A#9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-  
-    <use href="#main-grid-no-nut" />
-
-    <!-- fret number -->
-    <text x="0" y="84" font-size="42" fill="currentColor">6</text>
-
-    <!-- barre fret position 1, from cord 1 to 6 -->
-    <rect x="32" y="62" width="196" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <!-- position 3, cord 5 -->
-    <circle cx="76"  cy="150" r="11" fill="currentColor" />
-    <!-- position 2, cord 3 -->
-    <circle cx="148" cy="110" r="11" fill="currentColor" />
-    <!-- position 3, cord 1 -->
-    <circle cx="220" cy="150" r="11" fill="currentColor" />
-
-  </symbol>
-
-  <symbol id="A#sus2" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-
-    <use href="#main-grid-no-nut" />
-
-    <!-- fret number -->
-    <text x="0" y="84" font-size="42" fill="currentColor">8</text>
-
-    <!-- barre from cord 4 to cord 1 -->
-    <rect x="102" y="62" width="126" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <!-- extra fingers -->
-    <!-- position 3, cord 3 -->
-    <circle cx="148" cy="150" r="11" fill="currentColor" />
-    <!-- position 4, cord 2 -->
-    <circle cx="184" cy="190" r="11" fill="currentColor" />
-
-    <!-- (X and O) -->
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <!-- pos 0 cord 6 -->
-      <line x1="32" y1="5" x2="48" y2="25"/>
-      <line x1="48" y1="5" x2="32" y2="25"/>
-      <!-- pos 0 cord 5-->
-      <line x1="76" y1="5" x2="92" y2="25"/>
-      <line x1="92" y1="5" x2="76" y2="25"/>
-    </g>
-  </symbol>
-
-
-  <symbol id="A#sus4" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-no-nut" />
-
-    <text x="0" y="84" font-size="42" fill="currentColor">6</text>
-
-    <!-- barre -->
-    <rect x="32" y="62" width="196" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <!-- extra fingers -->
-    <!-- position 3 cord 5 -->
-    <circle cx="76" cy="150" r="11" fill="currentColor" />
-    <!-- position 3 cord 4 -->
-    <circle cx="112" cy="150" r="11" fill="currentColor" />
-    <!-- position 3 cord 3 -->
-    <circle cx="148" cy="150" r="11" fill="currentColor" />
-
-  </symbol>
-
-  <symbol id="Bb">
-    <use href="#A#" />
-  </symbol>
-  <symbol id="Bbm">
-    <use href="#A#m" />
-  </symbol>
-  <symbol id="Bb7">
-    <use href="#A#7" />
-  </symbol>
-  <symbol id="Bbm7">
-    <use href="#A#m7" />
-  </symbol>
-  <symbol id="Bbmaj7">
-    <use href="#A#maj7" />
-  </symbol>
-  <symbol id="Bb9">
-    <use href="#A#9" />
-  </symbol>
-  <symbol id="Bbsus2">
-    <use href="#A#sus2" />
-  </symbol>
-  <symbol id="Bbsus4">
-    <use href="#A#sus4" />
-  </symbol>
-
-
-  <symbol id="B" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-with-nut" />
-
-    <!-- barre pos 2 -->
-    <rect x="58" y="102" width="152" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <!-- extra fingers -->
-    <!-- 4º traste, 4ª cord -->
-    <circle cx="112" cy="190" r="11" fill="currentColor" />
-    <!-- 4º traste, 3ª cord -->
-    <circle cx="148" cy="190" r="11" fill="currentColor" />
-    <!-- 4º traste, 2ª cord -->
-    <circle cx="184" cy="190" r="11" fill="currentColor" />
-
-    <!-- (X) -->
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <!-- position 0, cord 6 -->
-      <line x1="32" y1="5" x2="48" y2="25"/>
-      <line x1="48" y1="5" x2="32" y2="25"/>
-    </g>
-
-  </symbol>
-
-  <symbol id="Bm" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-with-nut" />
-
-    <!-- barre pos 2 -->
-    <rect x="58" y="102" width="152" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <!-- extra fingers from 3rd fret -->
-    <!-- position 4, cord 4 -->
-    <circle cx="112" cy="190" r="11" fill="currentColor" />
-    <!-- position 4, cord 3 -->
-    <circle cx="148" cy="190" r="11" fill="currentColor" />
-    <!-- position 3, cord 2 -->
-    <circle cx="184" cy="150" r="11" fill="currentColor" />
-  </symbol>
-
-  <symbol id="B7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-with-nut" />
-
-    <!-- barre pos 2 -->
-    <rect x="58" y="102" width="152" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <!-- extra fingers -->
-    <!-- position 4, cord 4 -->
-    <circle cx="112" cy="190" r="11" fill="currentColor" />
-    <!-- position 4, cord 2 -->
-    <circle cx="184" cy="190" r="11" fill="currentColor" />
-  </symbol>
-
-  <symbol id="Bm7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-with-nut" />
-
-    <rect x="58" y="102" width="152" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <circle cx="112" cy="190" r="11" fill="currentColor" />
-    <circle cx="148" cy="190" r="11" fill="currentColor" />
-    <circle cx="184" cy="150" r="11" fill="currentColor" />
-
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <line x1="32" y1="5" x2="48" y2="25"/>
-      <line x1="48" y1="5" x2="32" y2="25"/>
-    </g>
-  </symbol>
-
-  <symbol id="Bmaj7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-with-nut" />
-
-    <rect x="58" y="102" width="152" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <circle cx="112" cy="190" r="11" fill="currentColor" />
-    <circle cx="148" cy="150" r="11" fill="currentColor" />
-    <circle cx="184" cy="190" r="11" fill="currentColor" />
-
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <line x1="32" y1="5" x2="48" y2="25"/>
-      <line x1="48" y1="5" x2="32" y2="25"/>
-    </g>
-  </symbol>
-
-  <symbol id="B9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-
-    <use href="#main-grid-with-nut" />
-
-    <!-- extra fingers -->
-    <!-- position 2, cord 5 -->
-    <circle cx="76" cy="110" r="11" fill="currentColor" />
-    <!-- position 1, cord 4 -->
-    <circle cx="112" cy="70" r="11" fill="currentColor" />
-    <!-- position 2, cord 3 -->
-    <circle cx="148" cy="110" r="11" fill="currentColor" />
-    <!-- position 2, cord 2 -->
-    <circle cx="184" cy="110" r="11" fill="currentColor" />
-
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <!-- position 0, cord 6 -->
-      <line x1="32" y1="5" x2="48" y2="25"/>
-      <line x1="48" y1="5" x2="32" y2="25"/>
-      <!-- position 0, cord 1 -->
-      <line x1="196" y1="15" x2="212" y2="35"/>
-      <line x1="212" y1="15" x2="196" y2="35"/>
-    </g>
-  </symbol>
-
-  <symbol id="Bsus2" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-with-nut" />
-
-    <rect x="58" y="102" width="152" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <circle cx="112" cy="190" r="11" fill="currentColor" />
-    <circle cx="148" cy="190" r="11" fill="currentColor" />
-
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <line x1="32" y1="5" x2="48" y2="25"/>
-      <line x1="48" y1="5" x2="32" y2="25"/>
-    </g>
-  </symbol>
-
-  <symbol id="Bsus4" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">
-    
-    <use href="#main-grid-with-nut" />
-
-    <rect x="58" y="102" width="152" height="12" rx="6" ry="6" fill="currentColor"/>
-
-    <circle cx="112" cy="190" r="11" fill="currentColor" />
-    <circle cx="148" cy="190" r="11" fill="currentColor" />
-    <circle cx="184" cy="224" r="11" fill="currentColor" />
-    
-
-    <g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
-      <line x1="32" y1="5" x2="48" y2="25"/>
-      <line x1="48" y1="5" x2="32" y2="25"/>
-    </g>
-  </symbol>
-
-
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" xmlns:xlink="http://www.w3.org/1999/xlink">
+<symbol id="main-grid-with-nut" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="40" y1="50" x2="40" y2="240"/><line x1="76" y1="50" x2="76" y2="240"/><line x1="112" y1="50" x2="112" y2="240"/><line x1="148" y1="50" x2="148" y2="240"/><line x1="184" y1="50" x2="184" y2="240"/><line x1="220" y1="50" x2="220" y2="240"/><line x1="40" y1="90" x2="220" y2="90"/><line x1="40" y1="130" x2="220" y2="130"/><line x1="40" y1="170" x2="220" y2="170"/><line x1="40" y1="210" x2="220" y2="210"/></g><line x1="36" y1="40" x2="224" y2="40" stroke="currentColor" stroke-width="10"/></symbol><symbol id="main-grid-no-nut" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="40" y1="50" x2="40" y2="240"/><line x1="76" y1="50" x2="76" y2="240"/><line x1="112" y1="50" x2="112" y2="240"/><line x1="148" y1="50" x2="148" y2="240"/><line x1="184" y1="50" x2="184" y2="240"/><line x1="220" y1="50" x2="220" y2="240"/><line x1="40" y1="50" x2="220" y2="50"/><line x1="40" y1="90" x2="220" y2="90"/><line x1="40" y1="130" x2="220" y2="130"/><line x1="40" y1="170" x2="220" y2="170"/><line x1="40" y1="210" x2="220" y2="210"/></g></symbol>
+<symbol id="A" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="112" cy="110" r="11" fill="currentColor"/><circle cx="148" cy="110" r="11" fill="currentColor"/><circle cx="184" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><circle cx="76" cy="15" r="10"/><circle cx="220" cy="15" r="10"/></g></symbol>
+<symbol id="A#" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><rect x="64" y="64" width="168" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="A#5" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><rect x="100" y="144" width="60" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="76" cy="70" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><line x1="176" y1="5" x2="192" y2="25"/><line x1="192" y1="5" x2="176" y2="25"/><line x1="212" y1="5" x2="228" y2="25"/><line x1="228" y1="5" x2="212" y2="25"/></g></symbol>
+<symbol id="A#6" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><rect x="100" y="144" width="132" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="76" cy="70" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="A#7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><rect x="64" y="64" width="168" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="A#7sus4" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><rect x="64" y="64" width="168" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="190" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="A#9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><rect x="64" y="64" width="168" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="150" r="11" fill="currentColor"/><circle cx="220" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="A#add9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><rect x="100" y="144" width="132" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="76" cy="70" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="A#aug" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="76" cy="70" r="11" fill="currentColor"/><circle cx="112" cy="190" r="11" fill="currentColor"/><circle cx="148" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="150" r="11" fill="currentColor"/><circle cx="220" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="A#dim" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="76" cy="70" r="11" fill="currentColor"/><circle cx="112" cy="110" r="11" fill="currentColor"/><circle cx="148" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><line x1="212" y1="5" x2="228" y2="25"/><line x1="228" y1="5" x2="212" y2="25"/></g></symbol>
+<symbol id="A#dim7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="76" cy="70" r="11" fill="currentColor"/><circle cx="112" cy="110" r="11" fill="currentColor"/><circle cx="148" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="110" r="11" fill="currentColor"/><circle cx="220" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="A#m" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><rect x="64" y="64" width="168" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="A#m6" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="76" cy="70" r="11" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="110" r="11" fill="currentColor"/><circle cx="220" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="A#m7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><rect x="64" y="64" width="168" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="A#m7b5" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="76" cy="70" r="11" fill="currentColor"/><circle cx="112" cy="110" r="11" fill="currentColor"/><circle cx="148" cy="70" r="11" fill="currentColor"/><circle cx="184" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><line x1="212" y1="5" x2="228" y2="25"/><line x1="228" y1="5" x2="212" y2="25"/></g></symbol>
+<symbol id="A#m9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><rect x="64" y="64" width="168" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="110" r="11" fill="currentColor"/><circle cx="220" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="A#maj7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><rect x="64" y="64" width="168" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="110" r="11" fill="currentColor"/><circle cx="184" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="A#maj9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><rect x="64" y="64" width="168" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="110" r="11" fill="currentColor"/><circle cx="184" cy="150" r="11" fill="currentColor"/><circle cx="220" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="A#sus2" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><rect x="64" y="64" width="168" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="A#sus4" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><rect x="64" y="64" width="168" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="190" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="A5" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="112" cy="110" r="11" fill="currentColor"/><circle cx="148" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><circle cx="76" cy="15" r="10"/><line x1="176" y1="5" x2="192" y2="25"/><line x1="192" y1="5" x2="176" y2="25"/><line x1="212" y1="5" x2="228" y2="25"/><line x1="228" y1="5" x2="212" y2="25"/></g></symbol>
+<symbol id="A6" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="112" cy="110" r="11" fill="currentColor"/><circle cx="148" cy="110" r="11" fill="currentColor"/><circle cx="184" cy="110" r="11" fill="currentColor"/><circle cx="220" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><circle cx="76" cy="15" r="10"/></g></symbol>
+<symbol id="A7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="112" cy="110" r="11" fill="currentColor"/><circle cx="184" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><circle cx="76" cy="15" r="10"/><circle cx="148" cy="15" r="10"/><circle cx="220" cy="15" r="10"/></g></symbol>
+<symbol id="A7sus4" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="112" cy="110" r="11" fill="currentColor"/><circle cx="184" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><circle cx="76" cy="15" r="10"/><circle cx="148" cy="15" r="10"/><circle cx="220" cy="15" r="10"/></g></symbol>
+<symbol id="A9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="112" cy="110" r="11" fill="currentColor"/><circle cx="148" cy="190" r="11" fill="currentColor"/><circle cx="184" cy="110" r="11" fill="currentColor"/><circle cx="220" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><circle cx="76" cy="15" r="10"/></g></symbol>
+<symbol id="Aadd9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="112" cy="110" r="11" fill="currentColor"/><circle cx="148" cy="190" r="11" fill="currentColor"/><circle cx="184" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><circle cx="76" cy="15" r="10"/><circle cx="220" cy="15" r="10"/></g></symbol>
+<symbol id="Aaug" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="110" r="11" fill="currentColor"/><circle cx="184" cy="110" r="11" fill="currentColor"/><circle cx="220" cy="70" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><circle cx="76" cy="15" r="10"/></g></symbol>
+<symbol id="Adim" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="112" cy="70" r="11" fill="currentColor"/><circle cx="148" cy="110" r="11" fill="currentColor"/><circle cx="184" cy="70" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><circle cx="76" cy="15" r="10"/><line x1="212" y1="5" x2="228" y2="25"/><line x1="228" y1="5" x2="212" y2="25"/></g></symbol>
+<symbol id="Adim7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="112" cy="70" r="11" fill="currentColor"/><circle cx="148" cy="110" r="11" fill="currentColor"/><circle cx="184" cy="70" r="11" fill="currentColor"/><circle cx="220" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><circle cx="76" cy="15" r="10"/></g></symbol>
+<symbol id="Am" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="112" cy="110" r="11" fill="currentColor"/><circle cx="148" cy="110" r="11" fill="currentColor"/><circle cx="184" cy="70" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><circle cx="76" cy="15" r="10"/><circle cx="220" cy="15" r="10"/></g></symbol>
+<symbol id="Am6" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="112" cy="110" r="11" fill="currentColor"/><circle cx="148" cy="110" r="11" fill="currentColor"/><circle cx="184" cy="70" r="11" fill="currentColor"/><circle cx="220" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><circle cx="76" cy="15" r="10"/></g></symbol>
+<symbol id="Am7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="112" cy="110" r="11" fill="currentColor"/><circle cx="184" cy="70" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><circle cx="76" cy="15" r="10"/><circle cx="148" cy="15" r="10"/><circle cx="220" cy="15" r="10"/></g></symbol>
+<symbol id="Am7b5" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="112" cy="70" r="11" fill="currentColor"/><circle cx="184" cy="70" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><circle cx="76" cy="15" r="10"/><circle cx="148" cy="15" r="10"/><line x1="212" y1="5" x2="228" y2="25"/><line x1="228" y1="5" x2="212" y2="25"/></g></symbol>
+<symbol id="Am9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="112" cy="110" r="11" fill="currentColor"/><circle cx="148" cy="190" r="11" fill="currentColor"/><circle cx="184" cy="70" r="11" fill="currentColor"/><circle cx="220" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><circle cx="76" cy="15" r="10"/></g></symbol>
+<symbol id="Amaj7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="112" cy="110" r="11" fill="currentColor"/><circle cx="148" cy="70" r="11" fill="currentColor"/><circle cx="184" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><circle cx="76" cy="15" r="10"/><circle cx="220" cy="15" r="10"/></g></symbol>
+<symbol id="Amaj9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="112" cy="110" r="11" fill="currentColor"/><circle cx="148" cy="70" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><circle cx="76" cy="15" r="10"/><circle cx="184" cy="15" r="10"/><circle cx="220" cy="15" r="10"/></g></symbol>
+<symbol id="Asus2" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="112" cy="110" r="11" fill="currentColor"/><circle cx="148" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><circle cx="76" cy="15" r="10"/><circle cx="184" cy="15" r="10"/><circle cx="220" cy="15" r="10"/></g></symbol>
+<symbol id="Asus4" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="112" cy="110" r="11" fill="currentColor"/><circle cx="148" cy="110" r="11" fill="currentColor"/><circle cx="184" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><circle cx="76" cy="15" r="10"/><circle cx="220" cy="15" r="10"/></g></symbol>
+<symbol id="B" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">2</text><rect x="64" y="64" width="168" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="B5" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">2</text><rect x="100" y="144" width="60" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="76" cy="70" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><line x1="176" y1="5" x2="192" y2="25"/><line x1="192" y1="5" x2="176" y2="25"/><line x1="212" y1="5" x2="228" y2="25"/><line x1="228" y1="5" x2="212" y2="25"/></g></symbol>
+<symbol id="B6" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">2</text><rect x="100" y="144" width="132" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="76" cy="70" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="B7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="76" cy="110" r="11" fill="currentColor"/><circle cx="112" cy="70" r="11" fill="currentColor"/><circle cx="148" cy="110" r="11" fill="currentColor"/><circle cx="220" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><circle cx="184" cy="15" r="10"/></g></symbol>
+<symbol id="B7sus4" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">2</text><rect x="64" y="64" width="168" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="190" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="B9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">2</text><rect x="64" y="64" width="168" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="150" r="11" fill="currentColor"/><circle cx="220" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="Badd9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">2</text><rect x="100" y="144" width="132" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="76" cy="70" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="Baug" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">2</text><circle cx="76" cy="70" r="11" fill="currentColor"/><circle cx="112" cy="190" r="11" fill="currentColor"/><circle cx="148" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="150" r="11" fill="currentColor"/><circle cx="220" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="Bdim" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">2</text><circle cx="76" cy="70" r="11" fill="currentColor"/><circle cx="112" cy="110" r="11" fill="currentColor"/><circle cx="148" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><line x1="212" y1="5" x2="228" y2="25"/><line x1="228" y1="5" x2="212" y2="25"/></g></symbol>
+<symbol id="Bdim7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="76" cy="110" r="11" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="70" r="11" fill="currentColor"/><circle cx="184" cy="150" r="11" fill="currentColor"/><circle cx="220" cy="70" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="Bm" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">2</text><rect x="64" y="64" width="168" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="Bm6" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">2</text><circle cx="76" cy="70" r="11" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="110" r="11" fill="currentColor"/><circle cx="220" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="Bm7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">2</text><rect x="64" y="64" width="168" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="Bm7b5" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">2</text><circle cx="76" cy="70" r="11" fill="currentColor"/><circle cx="112" cy="110" r="11" fill="currentColor"/><circle cx="148" cy="70" r="11" fill="currentColor"/><circle cx="184" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><line x1="212" y1="5" x2="228" y2="25"/><line x1="228" y1="5" x2="212" y2="25"/></g></symbol>
+<symbol id="Bm9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">2</text><rect x="64" y="64" width="168" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="110" r="11" fill="currentColor"/><circle cx="220" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="Bmaj7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">2</text><rect x="64" y="64" width="168" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="110" r="11" fill="currentColor"/><circle cx="184" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="Bmaj9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">2</text><rect x="64" y="64" width="168" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="110" r="11" fill="currentColor"/><circle cx="184" cy="150" r="11" fill="currentColor"/><circle cx="220" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="Bsus2" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">2</text><rect x="64" y="64" width="168" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="Bsus4" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">2</text><rect x="64" y="64" width="168" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="190" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="C" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="76" cy="150" r="11" fill="currentColor"/><circle cx="112" cy="110" r="11" fill="currentColor"/><circle cx="184" cy="70" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><circle cx="148" cy="15" r="10"/><circle cx="220" cy="15" r="10"/></g></symbol>
+<symbol id="C#" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">4</text><rect x="64" y="64" width="168" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="C#5" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">4</text><rect x="100" y="144" width="60" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="76" cy="70" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><line x1="176" y1="5" x2="192" y2="25"/><line x1="192" y1="5" x2="176" y2="25"/><line x1="212" y1="5" x2="228" y2="25"/><line x1="228" y1="5" x2="212" y2="25"/></g></symbol>
+<symbol id="C#6" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">4</text><rect x="100" y="144" width="132" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="76" cy="70" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="C#7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">4</text><rect x="64" y="64" width="168" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="C#7sus4" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">4</text><rect x="64" y="64" width="168" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="190" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="C#9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">4</text><rect x="64" y="64" width="168" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="150" r="11" fill="currentColor"/><circle cx="220" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="C#add9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">4</text><rect x="100" y="144" width="132" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="76" cy="70" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="C#aug" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">4</text><circle cx="76" cy="70" r="11" fill="currentColor"/><circle cx="112" cy="190" r="11" fill="currentColor"/><circle cx="148" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="150" r="11" fill="currentColor"/><circle cx="220" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="C#dim" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">4</text><circle cx="76" cy="70" r="11" fill="currentColor"/><circle cx="112" cy="110" r="11" fill="currentColor"/><circle cx="148" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><line x1="212" y1="5" x2="228" y2="25"/><line x1="228" y1="5" x2="212" y2="25"/></g></symbol>
+<symbol id="C#dim7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">4</text><circle cx="76" cy="70" r="11" fill="currentColor"/><circle cx="112" cy="110" r="11" fill="currentColor"/><circle cx="148" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="110" r="11" fill="currentColor"/><circle cx="220" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="C#m" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">4</text><rect x="64" y="64" width="168" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="C#m6" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">4</text><circle cx="76" cy="70" r="11" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="110" r="11" fill="currentColor"/><circle cx="220" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="C#m7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">4</text><rect x="64" y="64" width="168" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="C#m7b5" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">4</text><circle cx="76" cy="70" r="11" fill="currentColor"/><circle cx="112" cy="110" r="11" fill="currentColor"/><circle cx="148" cy="70" r="11" fill="currentColor"/><circle cx="184" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><line x1="212" y1="5" x2="228" y2="25"/><line x1="228" y1="5" x2="212" y2="25"/></g></symbol>
+<symbol id="C#m9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">4</text><rect x="64" y="64" width="168" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="110" r="11" fill="currentColor"/><circle cx="220" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="C#maj7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">4</text><rect x="64" y="64" width="168" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="110" r="11" fill="currentColor"/><circle cx="184" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="C#maj9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">4</text><rect x="64" y="64" width="168" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="110" r="11" fill="currentColor"/><circle cx="184" cy="150" r="11" fill="currentColor"/><circle cx="220" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="C#sus2" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">4</text><rect x="64" y="64" width="168" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="C#sus4" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">4</text><rect x="64" y="64" width="168" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="190" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="C5" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">3</text><rect x="100" y="144" width="60" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="76" cy="70" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><line x1="176" y1="5" x2="192" y2="25"/><line x1="192" y1="5" x2="176" y2="25"/><line x1="212" y1="5" x2="228" y2="25"/><line x1="228" y1="5" x2="212" y2="25"/></g></symbol>
+<symbol id="C6" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="76" cy="150" r="11" fill="currentColor"/><circle cx="112" cy="110" r="11" fill="currentColor"/><circle cx="148" cy="110" r="11" fill="currentColor"/><circle cx="184" cy="70" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><circle cx="220" cy="15" r="10"/></g></symbol>
+<symbol id="C7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="76" cy="150" r="11" fill="currentColor"/><circle cx="112" cy="110" r="11" fill="currentColor"/><circle cx="148" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="70" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><circle cx="220" cy="15" r="10"/></g></symbol>
+<symbol id="C7sus4" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><rect x="172" y="64" width="60" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="76" cy="150" r="11" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="C9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="76" cy="150" r="11" fill="currentColor"/><circle cx="112" cy="110" r="11" fill="currentColor"/><circle cx="148" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="150" r="11" fill="currentColor"/><circle cx="220" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="Cadd9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="76" cy="150" r="11" fill="currentColor"/><circle cx="112" cy="110" r="11" fill="currentColor"/><circle cx="184" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><circle cx="148" cy="15" r="10"/><circle cx="220" cy="15" r="10"/></g></symbol>
+<symbol id="Caug" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="76" cy="150" r="11" fill="currentColor"/><circle cx="112" cy="110" r="11" fill="currentColor"/><circle cx="148" cy="70" r="11" fill="currentColor"/><circle cx="184" cy="70" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><circle cx="220" cy="15" r="10"/></g></symbol>
+<symbol id="Cdim" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">3</text><circle cx="76" cy="70" r="11" fill="currentColor"/><circle cx="112" cy="110" r="11" fill="currentColor"/><circle cx="148" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><line x1="212" y1="5" x2="228" y2="25"/><line x1="228" y1="5" x2="212" y2="25"/></g></symbol>
+<symbol id="Cdim7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">2</text><circle cx="76" cy="110" r="11" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="70" r="11" fill="currentColor"/><circle cx="184" cy="150" r="11" fill="currentColor"/><circle cx="220" cy="70" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="Cm" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">3</text><rect x="64" y="64" width="168" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="Cm6" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">3</text><circle cx="76" cy="70" r="11" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="110" r="11" fill="currentColor"/><circle cx="220" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="Cm7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">3</text><rect x="64" y="64" width="168" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="Cm7b5" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">3</text><circle cx="76" cy="70" r="11" fill="currentColor"/><circle cx="112" cy="110" r="11" fill="currentColor"/><circle cx="148" cy="70" r="11" fill="currentColor"/><circle cx="184" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><line x1="212" y1="5" x2="228" y2="25"/><line x1="228" y1="5" x2="212" y2="25"/></g></symbol>
+<symbol id="Cm9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">3</text><rect x="64" y="64" width="168" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="110" r="11" fill="currentColor"/><circle cx="220" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="Cmaj7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="76" cy="150" r="11" fill="currentColor"/><circle cx="112" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><circle cx="148" cy="15" r="10"/><circle cx="184" cy="15" r="10"/><circle cx="220" cy="15" r="10"/></g></symbol>
+<symbol id="Cmaj9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="76" cy="150" r="11" fill="currentColor"/><circle cx="112" cy="110" r="11" fill="currentColor"/><circle cx="148" cy="190" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><circle cx="184" cy="15" r="10"/><circle cx="220" cy="15" r="10"/></g></symbol>
+<symbol id="Csus2" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="76" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="70" r="11" fill="currentColor"/><circle cx="220" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><circle cx="112" cy="15" r="10"/><circle cx="148" cy="15" r="10"/></g></symbol>
+<symbol id="Csus4" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><rect x="172" y="64" width="60" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="76" cy="150" r="11" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><circle cx="148" cy="15" r="10"/></g></symbol>
+<symbol id="D" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="148" cy="110" r="11" fill="currentColor"/><circle cx="184" cy="150" r="11" fill="currentColor"/><circle cx="220" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><line x1="68" y1="5" x2="84" y2="25"/><line x1="84" y1="5" x2="68" y2="25"/><circle cx="112" cy="15" r="10"/></g></symbol>
+<symbol id="D#" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">6</text><rect x="64" y="64" width="168" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="D#5" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">6</text><rect x="100" y="144" width="60" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="76" cy="70" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><line x1="176" y1="5" x2="192" y2="25"/><line x1="192" y1="5" x2="176" y2="25"/><line x1="212" y1="5" x2="228" y2="25"/><line x1="228" y1="5" x2="212" y2="25"/></g></symbol>
+<symbol id="D#6" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">6</text><rect x="100" y="144" width="132" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="76" cy="70" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="D#7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">6</text><rect x="64" y="64" width="168" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="D#7sus4" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">6</text><rect x="64" y="64" width="168" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="190" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="D#9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">6</text><rect x="64" y="64" width="168" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="150" r="11" fill="currentColor"/><circle cx="220" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="D#add9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">6</text><rect x="100" y="144" width="132" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="76" cy="70" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="D#aug" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">6</text><circle cx="76" cy="70" r="11" fill="currentColor"/><circle cx="112" cy="190" r="11" fill="currentColor"/><circle cx="148" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="150" r="11" fill="currentColor"/><circle cx="220" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="D#dim" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">6</text><circle cx="76" cy="70" r="11" fill="currentColor"/><circle cx="112" cy="110" r="11" fill="currentColor"/><circle cx="148" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><line x1="212" y1="5" x2="228" y2="25"/><line x1="228" y1="5" x2="212" y2="25"/></g></symbol>
+<symbol id="D#dim7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">6</text><circle cx="76" cy="70" r="11" fill="currentColor"/><circle cx="112" cy="110" r="11" fill="currentColor"/><circle cx="148" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="110" r="11" fill="currentColor"/><circle cx="220" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="D#m" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">6</text><rect x="64" y="64" width="168" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="D#m6" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">6</text><circle cx="76" cy="70" r="11" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="110" r="11" fill="currentColor"/><circle cx="220" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="D#m7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">6</text><rect x="64" y="64" width="168" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="D#m7b5" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">6</text><circle cx="76" cy="70" r="11" fill="currentColor"/><circle cx="112" cy="110" r="11" fill="currentColor"/><circle cx="148" cy="70" r="11" fill="currentColor"/><circle cx="184" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><line x1="212" y1="5" x2="228" y2="25"/><line x1="228" y1="5" x2="212" y2="25"/></g></symbol>
+<symbol id="D#m9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">6</text><rect x="64" y="64" width="168" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="110" r="11" fill="currentColor"/><circle cx="220" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="D#maj7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">6</text><rect x="64" y="64" width="168" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="110" r="11" fill="currentColor"/><circle cx="184" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="D#maj9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">6</text><rect x="64" y="64" width="168" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="110" r="11" fill="currentColor"/><circle cx="184" cy="150" r="11" fill="currentColor"/><circle cx="220" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="D#sus2" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">6</text><rect x="64" y="64" width="168" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="D#sus4" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">6</text><rect x="64" y="64" width="168" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="190" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/></g></symbol>
+<symbol id="D5" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="148" cy="110" r="11" fill="currentColor"/><circle cx="184" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><line x1="68" y1="5" x2="84" y2="25"/><line x1="84" y1="5" x2="68" y2="25"/><circle cx="112" cy="15" r="10"/><line x1="212" y1="5" x2="228" y2="25"/><line x1="228" y1="5" x2="212" y2="25"/></g></symbol>
+<symbol id="D6" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="148" cy="110" r="11" fill="currentColor"/><circle cx="220" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><line x1="68" y1="5" x2="84" y2="25"/><line x1="84" y1="5" x2="68" y2="25"/><circle cx="112" cy="15" r="10"/><circle cx="184" cy="15" r="10"/></g></symbol>
+<symbol id="D7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="148" cy="110" r="11" fill="currentColor"/><circle cx="184" cy="70" r="11" fill="currentColor"/><circle cx="220" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><line x1="68" y1="5" x2="84" y2="25"/><line x1="84" y1="5" x2="68" y2="25"/><circle cx="112" cy="15" r="10"/></g></symbol>
+<symbol id="D7sus4" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="148" cy="110" r="11" fill="currentColor"/><circle cx="184" cy="70" r="11" fill="currentColor"/><circle cx="220" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><line x1="68" y1="5" x2="84" y2="25"/><line x1="84" y1="5" x2="68" y2="25"/><circle cx="112" cy="15" r="10"/></g></symbol>
+<symbol id="D9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="148" cy="110" r="11" fill="currentColor"/><circle cx="184" cy="70" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><line x1="68" y1="5" x2="84" y2="25"/><line x1="84" y1="5" x2="68" y2="25"/><circle cx="112" cy="15" r="10"/><circle cx="220" cy="15" r="10"/></g></symbol>
+<symbol id="Dadd9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="148" cy="110" r="11" fill="currentColor"/><circle cx="184" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><line x1="68" y1="5" x2="84" y2="25"/><line x1="84" y1="5" x2="68" y2="25"/><circle cx="112" cy="15" r="10"/><circle cx="220" cy="15" r="10"/></g></symbol>
+<symbol id="Daug" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="148" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="150" r="11" fill="currentColor"/><circle cx="220" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><line x1="68" y1="5" x2="84" y2="25"/><line x1="84" y1="5" x2="68" y2="25"/><circle cx="112" cy="15" r="10"/></g></symbol>
+<symbol id="Ddim" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="148" cy="70" r="11" fill="currentColor"/><circle cx="184" cy="150" r="11" fill="currentColor"/><circle cx="220" cy="70" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><line x1="68" y1="5" x2="84" y2="25"/><line x1="84" y1="5" x2="68" y2="25"/><circle cx="112" cy="15" r="10"/></g></symbol>
+<symbol id="Ddim7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="148" cy="70" r="11" fill="currentColor"/><circle cx="220" cy="70" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><line x1="68" y1="5" x2="84" y2="25"/><line x1="84" y1="5" x2="68" y2="25"/><circle cx="112" cy="15" r="10"/><circle cx="184" cy="15" r="10"/></g></symbol>
+<symbol id="Dm" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="148" cy="110" r="11" fill="currentColor"/><circle cx="184" cy="150" r="11" fill="currentColor"/><circle cx="220" cy="70" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><line x1="68" y1="5" x2="84" y2="25"/><line x1="84" y1="5" x2="68" y2="25"/><circle cx="112" cy="15" r="10"/></g></symbol>
+<symbol id="Dm6" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="148" cy="110" r="11" fill="currentColor"/><circle cx="220" cy="70" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><line x1="68" y1="5" x2="84" y2="25"/><line x1="84" y1="5" x2="68" y2="25"/><circle cx="112" cy="15" r="10"/><circle cx="184" cy="15" r="10"/></g></symbol>
+<symbol id="Dm7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="148" cy="110" r="11" fill="currentColor"/><circle cx="184" cy="70" r="11" fill="currentColor"/><circle cx="220" cy="70" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><line x1="68" y1="5" x2="84" y2="25"/><line x1="84" y1="5" x2="68" y2="25"/><circle cx="112" cy="15" r="10"/></g></symbol>
+<symbol id="Dm7b5" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="148" cy="70" r="11" fill="currentColor"/><circle cx="184" cy="70" r="11" fill="currentColor"/><circle cx="220" cy="70" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><line x1="68" y1="5" x2="84" y2="25"/><line x1="84" y1="5" x2="68" y2="25"/><circle cx="112" cy="15" r="10"/></g></symbol>
+<symbol id="Dm9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="148" cy="110" r="11" fill="currentColor"/><circle cx="184" cy="70" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><line x1="68" y1="5" x2="84" y2="25"/><line x1="84" y1="5" x2="68" y2="25"/><circle cx="112" cy="15" r="10"/><circle cx="220" cy="15" r="10"/></g></symbol>
+<symbol id="Dmaj7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="148" cy="110" r="11" fill="currentColor"/><circle cx="184" cy="110" r="11" fill="currentColor"/><circle cx="220" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><line x1="68" y1="5" x2="84" y2="25"/><line x1="84" y1="5" x2="68" y2="25"/><circle cx="112" cy="15" r="10"/></g></symbol>
+<symbol id="Dmaj9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="148" cy="110" r="11" fill="currentColor"/><circle cx="184" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><line x1="68" y1="5" x2="84" y2="25"/><line x1="84" y1="5" x2="68" y2="25"/><circle cx="112" cy="15" r="10"/><circle cx="220" cy="15" r="10"/></g></symbol>
+<symbol id="Dsus2" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="148" cy="110" r="11" fill="currentColor"/><circle cx="184" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><line x1="68" y1="5" x2="84" y2="25"/><line x1="84" y1="5" x2="68" y2="25"/><circle cx="112" cy="15" r="10"/><circle cx="220" cy="15" r="10"/></g></symbol>
+<symbol id="Dsus4" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="148" cy="110" r="11" fill="currentColor"/><circle cx="184" cy="150" r="11" fill="currentColor"/><circle cx="220" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><line x1="68" y1="5" x2="84" y2="25"/><line x1="84" y1="5" x2="68" y2="25"/><circle cx="112" cy="15" r="10"/></g></symbol>
+<symbol id="E" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="76" cy="110" r="11" fill="currentColor"/><circle cx="112" cy="110" r="11" fill="currentColor"/><circle cx="148" cy="70" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><circle cx="40" cy="15" r="10"/><circle cx="184" cy="15" r="10"/><circle cx="220" cy="15" r="10"/></g></symbol>
+<symbol id="E5" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="76" cy="110" r="11" fill="currentColor"/><circle cx="112" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><circle cx="40" cy="15" r="10"/><line x1="140" y1="5" x2="156" y2="25"/><line x1="156" y1="5" x2="140" y2="25"/><line x1="176" y1="5" x2="192" y2="25"/><line x1="192" y1="5" x2="176" y2="25"/><line x1="212" y1="5" x2="228" y2="25"/><line x1="228" y1="5" x2="212" y2="25"/></g></symbol>
+<symbol id="E6" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="76" cy="110" r="11" fill="currentColor"/><circle cx="112" cy="110" r="11" fill="currentColor"/><circle cx="148" cy="70" r="11" fill="currentColor"/><circle cx="184" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><circle cx="40" cy="15" r="10"/><circle cx="220" cy="15" r="10"/></g></symbol>
+<symbol id="E7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="76" cy="110" r="11" fill="currentColor"/><circle cx="148" cy="70" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><circle cx="40" cy="15" r="10"/><circle cx="112" cy="15" r="10"/><circle cx="184" cy="15" r="10"/><circle cx="220" cy="15" r="10"/></g></symbol>
+<symbol id="E7sus4" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="76" cy="110" r="11" fill="currentColor"/><circle cx="148" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><circle cx="40" cy="15" r="10"/><circle cx="112" cy="15" r="10"/><circle cx="184" cy="15" r="10"/><circle cx="220" cy="15" r="10"/></g></symbol>
+<symbol id="E9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="76" cy="110" r="11" fill="currentColor"/><circle cx="148" cy="70" r="11" fill="currentColor"/><circle cx="220" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><circle cx="40" cy="15" r="10"/><circle cx="112" cy="15" r="10"/><circle cx="184" cy="15" r="10"/></g></symbol>
+<symbol id="Eadd9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="76" cy="110" r="11" fill="currentColor"/><circle cx="112" cy="110" r="11" fill="currentColor"/><circle cx="148" cy="70" r="11" fill="currentColor"/><circle cx="220" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><circle cx="40" cy="15" r="10"/><circle cx="184" cy="15" r="10"/></g></symbol>
+<symbol id="Eaug" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="76" cy="150" r="11" fill="currentColor"/><circle cx="112" cy="110" r="11" fill="currentColor"/><circle cx="148" cy="70" r="11" fill="currentColor"/><circle cx="184" cy="70" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><circle cx="40" cy="15" r="10"/><circle cx="220" cy="15" r="10"/></g></symbol>
+<symbol id="Edim" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">2</text><circle cx="112" cy="70" r="11" fill="currentColor"/><circle cx="148" cy="110" r="11" fill="currentColor"/><circle cx="184" cy="190" r="11" fill="currentColor"/><circle cx="220" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><line x1="68" y1="5" x2="84" y2="25"/><line x1="84" y1="5" x2="68" y2="25"/></g></symbol>
+<symbol id="Edim7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">2</text><circle cx="112" cy="70" r="11" fill="currentColor"/><circle cx="148" cy="110" r="11" fill="currentColor"/><circle cx="184" cy="70" r="11" fill="currentColor"/><circle cx="220" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><line x1="68" y1="5" x2="84" y2="25"/><line x1="84" y1="5" x2="68" y2="25"/></g></symbol>
+<symbol id="Em" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="76" cy="110" r="11" fill="currentColor"/><circle cx="112" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><circle cx="40" cy="15" r="10"/><circle cx="148" cy="15" r="10"/><circle cx="184" cy="15" r="10"/><circle cx="220" cy="15" r="10"/></g></symbol>
+<symbol id="Em6" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="76" cy="110" r="11" fill="currentColor"/><circle cx="112" cy="110" r="11" fill="currentColor"/><circle cx="184" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><circle cx="40" cy="15" r="10"/><circle cx="148" cy="15" r="10"/><circle cx="220" cy="15" r="10"/></g></symbol>
+<symbol id="Em7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="76" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><circle cx="40" cy="15" r="10"/><circle cx="112" cy="15" r="10"/><circle cx="148" cy="15" r="10"/><circle cx="184" cy="15" r="10"/><circle cx="220" cy="15" r="10"/></g></symbol>
+<symbol id="Em7b5" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">2</text><circle cx="112" cy="70" r="11" fill="currentColor"/><circle cx="148" cy="110" r="11" fill="currentColor"/><circle cx="184" cy="110" r="11" fill="currentColor"/><circle cx="220" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="32" y1="5" x2="48" y2="25"/><line x1="48" y1="5" x2="32" y2="25"/><line x1="68" y1="5" x2="84" y2="25"/><line x1="84" y1="5" x2="68" y2="25"/></g></symbol>
+<symbol id="Em9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="76" cy="110" r="11" fill="currentColor"/><circle cx="220" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><circle cx="40" cy="15" r="10"/><circle cx="112" cy="15" r="10"/><circle cx="148" cy="15" r="10"/><circle cx="184" cy="15" r="10"/></g></symbol>
+<symbol id="Emaj7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="76" cy="110" r="11" fill="currentColor"/><circle cx="112" cy="70" r="11" fill="currentColor"/><circle cx="148" cy="70" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><circle cx="40" cy="15" r="10"/><circle cx="184" cy="15" r="10"/><circle cx="220" cy="15" r="10"/></g></symbol>
+<symbol id="Emaj9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="76" cy="110" r="11" fill="currentColor"/><circle cx="112" cy="70" r="11" fill="currentColor"/><circle cx="148" cy="70" r="11" fill="currentColor"/><circle cx="220" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><circle cx="40" cy="15" r="10"/><circle cx="184" cy="15" r="10"/></g></symbol>
+<symbol id="Esus2" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="76" cy="110" r="11" fill="currentColor"/><circle cx="112" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><circle cx="40" cy="15" r="10"/><line x1="140" y1="5" x2="156" y2="25"/><line x1="156" y1="5" x2="140" y2="25"/><circle cx="184" cy="15" r="10"/><circle cx="220" cy="15" r="10"/></g></symbol>
+<symbol id="Esus4" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="76" cy="110" r="11" fill="currentColor"/><circle cx="112" cy="110" r="11" fill="currentColor"/><circle cx="148" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><circle cx="40" cy="15" r="10"/><circle cx="184" cy="15" r="10"/><circle cx="220" cy="15" r="10"/></g></symbol>
+<symbol id="F" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><rect x="28" y="64" width="204" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="76" cy="150" r="11" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="110" r="11" fill="currentColor"/></symbol>
+<symbol id="F#" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">2</text><rect x="28" y="64" width="204" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="76" cy="150" r="11" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="110" r="11" fill="currentColor"/></symbol>
+<symbol id="F#5" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">2</text><rect x="64" y="144" width="60" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="40" cy="70" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="140" y1="5" x2="156" y2="25"/><line x1="156" y1="5" x2="140" y2="25"/><line x1="176" y1="5" x2="192" y2="25"/><line x1="192" y1="5" x2="176" y2="25"/><line x1="212" y1="5" x2="228" y2="25"/><line x1="228" y1="5" x2="212" y2="25"/></g></symbol>
+<symbol id="F#6" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">2</text><rect x="28" y="64" width="204" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="110" r="11" fill="currentColor"/><circle cx="184" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="68" y1="5" x2="84" y2="25"/><line x1="84" y1="5" x2="68" y2="25"/></g></symbol>
+<symbol id="F#7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">2</text><rect x="28" y="64" width="204" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="76" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="110" r="11" fill="currentColor"/></symbol>
+<symbol id="F#7sus4" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">2</text><rect x="28" y="64" width="204" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="76" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="150" r="11" fill="currentColor"/></symbol>
+<symbol id="F#9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">2</text><rect x="28" y="64" width="168" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="76" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="110" r="11" fill="currentColor"/><circle cx="220" cy="150" r="11" fill="currentColor"/></symbol>
+<symbol id="F#add9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">2</text><rect x="28" y="64" width="168" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="76" cy="150" r="11" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="110" r="11" fill="currentColor"/><circle cx="220" cy="150" r="11" fill="currentColor"/></symbol>
+<symbol id="F#aug" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">2</text><rect x="28" y="64" width="204" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="110" r="11" fill="currentColor"/><circle cx="184" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="68" y1="5" x2="84" y2="25"/><line x1="84" y1="5" x2="68" y2="25"/></g></symbol>
+<symbol id="F#dim" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">2</text><circle cx="40" cy="70" r="11" fill="currentColor"/><circle cx="76" cy="110" r="11" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="70" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="176" y1="5" x2="192" y2="25"/><line x1="192" y1="5" x2="176" y2="25"/><line x1="212" y1="5" x2="228" y2="25"/><line x1="228" y1="5" x2="212" y2="25"/></g></symbol>
+<symbol id="F#dim7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">2</text><rect x="28" y="64" width="204" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="76" cy="110" r="11" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="150" r="11" fill="currentColor"/></symbol>
+<symbol id="F#m" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">2</text><rect x="28" y="64" width="204" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="76" cy="150" r="11" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/></symbol>
+<symbol id="F#m6" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">2</text><rect x="28" y="64" width="204" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="68" y1="5" x2="84" y2="25"/><line x1="84" y1="5" x2="68" y2="25"/></g></symbol>
+<symbol id="F#m7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">2</text><rect x="28" y="64" width="204" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="76" cy="150" r="11" fill="currentColor"/></symbol>
+<symbol id="F#m7b5" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">2</text><circle cx="40" cy="70" r="11" fill="currentColor"/><circle cx="112" cy="70" r="11" fill="currentColor"/><circle cx="148" cy="70" r="11" fill="currentColor"/><circle cx="184" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="68" y1="5" x2="84" y2="25"/><line x1="84" y1="5" x2="68" y2="25"/><line x1="212" y1="5" x2="228" y2="25"/><line x1="228" y1="5" x2="212" y2="25"/></g></symbol>
+<symbol id="F#m9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">2</text><rect x="28" y="64" width="168" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="76" cy="150" r="11" fill="currentColor"/><circle cx="220" cy="150" r="11" fill="currentColor"/></symbol>
+<symbol id="F#maj7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">2</text><rect x="28" y="64" width="204" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="76" cy="150" r="11" fill="currentColor"/><circle cx="112" cy="110" r="11" fill="currentColor"/><circle cx="148" cy="110" r="11" fill="currentColor"/></symbol>
+<symbol id="F#maj9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">2</text><rect x="28" y="64" width="204" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="112" cy="110" r="11" fill="currentColor"/><circle cx="148" cy="110" r="11" fill="currentColor"/><circle cx="220" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="68" y1="5" x2="84" y2="25"/><line x1="84" y1="5" x2="68" y2="25"/></g></symbol>
+<symbol id="F#sus2" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">2</text><rect x="28" y="64" width="204" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="76" cy="150" r="11" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="140" y1="5" x2="156" y2="25"/><line x1="156" y1="5" x2="140" y2="25"/></g></symbol>
+<symbol id="F#sus4" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">2</text><rect x="28" y="64" width="204" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="76" cy="150" r="11" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="150" r="11" fill="currentColor"/></symbol>
+<symbol id="F5" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><rect x="64" y="144" width="60" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="40" cy="70" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="140" y1="5" x2="156" y2="25"/><line x1="156" y1="5" x2="140" y2="25"/><line x1="176" y1="5" x2="192" y2="25"/><line x1="192" y1="5" x2="176" y2="25"/><line x1="212" y1="5" x2="228" y2="25"/><line x1="228" y1="5" x2="212" y2="25"/></g></symbol>
+<symbol id="F6" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><rect x="28" y="64" width="204" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="110" r="11" fill="currentColor"/><circle cx="184" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="68" y1="5" x2="84" y2="25"/><line x1="84" y1="5" x2="68" y2="25"/></g></symbol>
+<symbol id="F7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><rect x="28" y="64" width="204" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="76" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="110" r="11" fill="currentColor"/></symbol>
+<symbol id="F7sus4" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><rect x="28" y="64" width="204" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="76" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="150" r="11" fill="currentColor"/></symbol>
+<symbol id="F9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><rect x="28" y="64" width="168" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="76" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="110" r="11" fill="currentColor"/><circle cx="220" cy="150" r="11" fill="currentColor"/></symbol>
+<symbol id="Fadd9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><rect x="28" y="64" width="168" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="76" cy="150" r="11" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="110" r="11" fill="currentColor"/><circle cx="220" cy="150" r="11" fill="currentColor"/></symbol>
+<symbol id="Faug" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><rect x="28" y="64" width="204" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="110" r="11" fill="currentColor"/><circle cx="184" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="68" y1="5" x2="84" y2="25"/><line x1="84" y1="5" x2="68" y2="25"/></g></symbol>
+<symbol id="Fdim" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="40" cy="70" r="11" fill="currentColor"/><circle cx="76" cy="110" r="11" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="70" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="176" y1="5" x2="192" y2="25"/><line x1="192" y1="5" x2="176" y2="25"/><line x1="212" y1="5" x2="228" y2="25"/><line x1="228" y1="5" x2="212" y2="25"/></g></symbol>
+<symbol id="Fdim7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><rect x="28" y="64" width="204" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="76" cy="110" r="11" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="150" r="11" fill="currentColor"/></symbol>
+<symbol id="Fm" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><rect x="28" y="64" width="204" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="76" cy="150" r="11" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/></symbol>
+<symbol id="Fm6" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><rect x="28" y="64" width="204" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="68" y1="5" x2="84" y2="25"/><line x1="84" y1="5" x2="68" y2="25"/></g></symbol>
+<symbol id="Fm7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><rect x="28" y="64" width="204" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="76" cy="150" r="11" fill="currentColor"/></symbol>
+<symbol id="Fm7b5" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="40" cy="70" r="11" fill="currentColor"/><circle cx="112" cy="70" r="11" fill="currentColor"/><circle cx="148" cy="70" r="11" fill="currentColor"/><circle cx="184" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="68" y1="5" x2="84" y2="25"/><line x1="84" y1="5" x2="68" y2="25"/><line x1="212" y1="5" x2="228" y2="25"/><line x1="228" y1="5" x2="212" y2="25"/></g></symbol>
+<symbol id="Fm9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><rect x="28" y="64" width="168" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="76" cy="150" r="11" fill="currentColor"/><circle cx="220" cy="150" r="11" fill="currentColor"/></symbol>
+<symbol id="Fmaj7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><rect x="28" y="64" width="168" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="76" cy="150" r="11" fill="currentColor"/><circle cx="112" cy="110" r="11" fill="currentColor"/><circle cx="148" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><circle cx="220" cy="15" r="10"/></g></symbol>
+<symbol id="Fmaj9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><rect x="28" y="64" width="204" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="112" cy="110" r="11" fill="currentColor"/><circle cx="148" cy="110" r="11" fill="currentColor"/><circle cx="220" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="68" y1="5" x2="84" y2="25"/><line x1="84" y1="5" x2="68" y2="25"/></g></symbol>
+<symbol id="Fsus2" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><rect x="28" y="64" width="204" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="76" cy="150" r="11" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="140" y1="5" x2="156" y2="25"/><line x1="156" y1="5" x2="140" y2="25"/></g></symbol>
+<symbol id="Fsus4" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><rect x="28" y="64" width="204" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="76" cy="150" r="11" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="150" r="11" fill="currentColor"/></symbol>
+<symbol id="G" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="40" cy="150" r="11" fill="currentColor"/><circle cx="76" cy="110" r="11" fill="currentColor"/><circle cx="220" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><circle cx="112" cy="15" r="10"/><circle cx="148" cy="15" r="10"/><circle cx="184" cy="15" r="10"/></g></symbol>
+<symbol id="G#" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">4</text><rect x="28" y="64" width="204" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="76" cy="150" r="11" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="110" r="11" fill="currentColor"/></symbol>
+<symbol id="G#5" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">4</text><rect x="64" y="144" width="60" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="40" cy="70" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="140" y1="5" x2="156" y2="25"/><line x1="156" y1="5" x2="140" y2="25"/><line x1="176" y1="5" x2="192" y2="25"/><line x1="192" y1="5" x2="176" y2="25"/><line x1="212" y1="5" x2="228" y2="25"/><line x1="228" y1="5" x2="212" y2="25"/></g></symbol>
+<symbol id="G#6" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">4</text><rect x="28" y="64" width="204" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="110" r="11" fill="currentColor"/><circle cx="184" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="68" y1="5" x2="84" y2="25"/><line x1="84" y1="5" x2="68" y2="25"/></g></symbol>
+<symbol id="G#7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">4</text><rect x="28" y="64" width="204" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="76" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="110" r="11" fill="currentColor"/></symbol>
+<symbol id="G#7sus4" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">4</text><rect x="28" y="64" width="204" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="76" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="150" r="11" fill="currentColor"/></symbol>
+<symbol id="G#9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">4</text><rect x="28" y="64" width="168" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="76" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="110" r="11" fill="currentColor"/><circle cx="220" cy="150" r="11" fill="currentColor"/></symbol>
+<symbol id="G#add9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">4</text><rect x="28" y="64" width="168" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="76" cy="150" r="11" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="110" r="11" fill="currentColor"/><circle cx="220" cy="150" r="11" fill="currentColor"/></symbol>
+<symbol id="G#aug" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">4</text><rect x="28" y="64" width="204" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="110" r="11" fill="currentColor"/><circle cx="184" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="68" y1="5" x2="84" y2="25"/><line x1="84" y1="5" x2="68" y2="25"/></g></symbol>
+<symbol id="G#dim" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">4</text><circle cx="40" cy="70" r="11" fill="currentColor"/><circle cx="76" cy="110" r="11" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="70" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="176" y1="5" x2="192" y2="25"/><line x1="192" y1="5" x2="176" y2="25"/><line x1="212" y1="5" x2="228" y2="25"/><line x1="228" y1="5" x2="212" y2="25"/></g></symbol>
+<symbol id="G#dim7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">4</text><rect x="28" y="64" width="204" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="76" cy="110" r="11" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="150" r="11" fill="currentColor"/></symbol>
+<symbol id="G#m" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">4</text><rect x="28" y="64" width="204" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="76" cy="150" r="11" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/></symbol>
+<symbol id="G#m6" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">4</text><rect x="28" y="64" width="204" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="68" y1="5" x2="84" y2="25"/><line x1="84" y1="5" x2="68" y2="25"/></g></symbol>
+<symbol id="G#m7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">4</text><rect x="28" y="64" width="204" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="76" cy="150" r="11" fill="currentColor"/></symbol>
+<symbol id="G#m7b5" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">4</text><circle cx="40" cy="70" r="11" fill="currentColor"/><circle cx="112" cy="70" r="11" fill="currentColor"/><circle cx="148" cy="70" r="11" fill="currentColor"/><circle cx="184" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="68" y1="5" x2="84" y2="25"/><line x1="84" y1="5" x2="68" y2="25"/><line x1="212" y1="5" x2="228" y2="25"/><line x1="228" y1="5" x2="212" y2="25"/></g></symbol>
+<symbol id="G#m9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">4</text><rect x="28" y="64" width="168" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="76" cy="150" r="11" fill="currentColor"/><circle cx="220" cy="150" r="11" fill="currentColor"/></symbol>
+<symbol id="G#maj7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">4</text><rect x="28" y="64" width="204" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="76" cy="150" r="11" fill="currentColor"/><circle cx="112" cy="110" r="11" fill="currentColor"/><circle cx="148" cy="110" r="11" fill="currentColor"/></symbol>
+<symbol id="G#maj9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">4</text><rect x="28" y="64" width="204" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="112" cy="110" r="11" fill="currentColor"/><circle cx="148" cy="110" r="11" fill="currentColor"/><circle cx="220" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="68" y1="5" x2="84" y2="25"/><line x1="84" y1="5" x2="68" y2="25"/></g></symbol>
+<symbol id="G#sus2" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">4</text><rect x="28" y="64" width="204" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="76" cy="150" r="11" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="140" y1="5" x2="156" y2="25"/><line x1="156" y1="5" x2="140" y2="25"/></g></symbol>
+<symbol id="G#sus4" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">4</text><rect x="28" y="64" width="204" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="76" cy="150" r="11" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="150" r="11" fill="currentColor"/></symbol>
+<symbol id="G5" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">3</text><rect x="64" y="144" width="60" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="40" cy="70" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="140" y1="5" x2="156" y2="25"/><line x1="156" y1="5" x2="140" y2="25"/><line x1="176" y1="5" x2="192" y2="25"/><line x1="192" y1="5" x2="176" y2="25"/><line x1="212" y1="5" x2="228" y2="25"/><line x1="228" y1="5" x2="212" y2="25"/></g></symbol>
+<symbol id="G6" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="40" cy="150" r="11" fill="currentColor"/><circle cx="76" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><circle cx="112" cy="15" r="10"/><circle cx="148" cy="15" r="10"/><circle cx="184" cy="15" r="10"/><circle cx="220" cy="15" r="10"/></g></symbol>
+<symbol id="G7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="40" cy="150" r="11" fill="currentColor"/><circle cx="76" cy="110" r="11" fill="currentColor"/><circle cx="220" cy="70" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><circle cx="112" cy="15" r="10"/><circle cx="148" cy="15" r="10"/><circle cx="184" cy="15" r="10"/></g></symbol>
+<symbol id="G7sus4" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="40" cy="150" r="11" fill="currentColor"/><circle cx="76" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="70" r="11" fill="currentColor"/><circle cx="220" cy="70" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><circle cx="112" cy="15" r="10"/><circle cx="148" cy="15" r="10"/></g></symbol>
+<symbol id="G9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="40" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="110" r="11" fill="currentColor"/><circle cx="220" cy="70" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="68" y1="5" x2="84" y2="25"/><line x1="84" y1="5" x2="68" y2="25"/><circle cx="112" cy="15" r="10"/><circle cx="184" cy="15" r="10"/></g></symbol>
+<symbol id="Gadd9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="40" cy="150" r="11" fill="currentColor"/><circle cx="76" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><circle cx="112" cy="15" r="10"/><circle cx="148" cy="15" r="10"/><circle cx="184" cy="15" r="10"/><circle cx="220" cy="15" r="10"/></g></symbol>
+<symbol id="Gaug" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="40" cy="150" r="11" fill="currentColor"/><circle cx="76" cy="110" r="11" fill="currentColor"/><circle cx="112" cy="70" r="11" fill="currentColor"/><circle cx="220" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><circle cx="148" cy="15" r="10"/><circle cx="184" cy="15" r="10"/></g></symbol>
+<symbol id="Gdim" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">3</text><circle cx="40" cy="70" r="11" fill="currentColor"/><circle cx="76" cy="110" r="11" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="70" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="176" y1="5" x2="192" y2="25"/><line x1="192" y1="5" x2="176" y2="25"/><line x1="212" y1="5" x2="228" y2="25"/><line x1="228" y1="5" x2="212" y2="25"/></g></symbol>
+<symbol id="Gdim7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">3</text><rect x="28" y="64" width="204" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="76" cy="110" r="11" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="150" r="11" fill="currentColor"/></symbol>
+<symbol id="Gm" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">3</text><rect x="28" y="64" width="204" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="76" cy="150" r="11" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/></symbol>
+<symbol id="Gm6" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">3</text><rect x="28" y="64" width="204" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="112" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="68" y1="5" x2="84" y2="25"/><line x1="84" y1="5" x2="68" y2="25"/></g></symbol>
+<symbol id="Gm7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">3</text><rect x="28" y="64" width="204" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="76" cy="150" r="11" fill="currentColor"/></symbol>
+<symbol id="Gm7b5" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">3</text><circle cx="40" cy="70" r="11" fill="currentColor"/><circle cx="112" cy="70" r="11" fill="currentColor"/><circle cx="148" cy="70" r="11" fill="currentColor"/><circle cx="184" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="68" y1="5" x2="84" y2="25"/><line x1="84" y1="5" x2="68" y2="25"/><line x1="212" y1="5" x2="228" y2="25"/><line x1="228" y1="5" x2="212" y2="25"/></g></symbol>
+<symbol id="Gm9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-no-nut"/><text x="0" y="84" font-size="42" fill="currentColor">3</text><rect x="28" y="64" width="168" height="12" rx="6" ry="6" fill="currentColor"/><circle cx="76" cy="150" r="11" fill="currentColor"/><circle cx="220" cy="150" r="11" fill="currentColor"/></symbol>
+<symbol id="Gmaj7" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="40" cy="150" r="11" fill="currentColor"/><circle cx="76" cy="110" r="11" fill="currentColor"/><circle cx="220" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><circle cx="112" cy="15" r="10"/><circle cx="148" cy="15" r="10"/><circle cx="184" cy="15" r="10"/></g></symbol>
+<symbol id="Gmaj9" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="40" cy="150" r="11" fill="currentColor"/><circle cx="148" cy="110" r="11" fill="currentColor"/><circle cx="220" cy="110" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="68" y1="5" x2="84" y2="25"/><line x1="84" y1="5" x2="68" y2="25"/><circle cx="112" cy="15" r="10"/><circle cx="184" cy="15" r="10"/></g></symbol>
+<symbol id="Gsus2" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="40" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="150" r="11" fill="currentColor"/><circle cx="220" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="68" y1="5" x2="84" y2="25"/><line x1="84" y1="5" x2="68" y2="25"/><circle cx="112" cy="15" r="10"/><circle cx="148" cy="15" r="10"/></g></symbol>
+<symbol id="Gsus4" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet"><use href="#main-grid-with-nut"/><circle cx="40" cy="150" r="11" fill="currentColor"/><circle cx="184" cy="70" r="11" fill="currentColor"/><circle cx="220" cy="150" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="68" y1="5" x2="84" y2="25"/><line x1="84" y1="5" x2="68" y2="25"/><circle cx="112" cy="15" r="10"/><circle cx="148" cy="15" r="10"/></g></symbol>
+<symbol id="Db"><use href="#C#"/></symbol>
+<symbol id="Dbm"><use href="#C#m"/></symbol>
+<symbol id="Db5"><use href="#C#5"/></symbol>
+<symbol id="Db6"><use href="#C#6"/></symbol>
+<symbol id="Dbm6"><use href="#C#m6"/></symbol>
+<symbol id="Db7"><use href="#C#7"/></symbol>
+<symbol id="Dbm7"><use href="#C#m7"/></symbol>
+<symbol id="Dbmaj7"><use href="#C#maj7"/></symbol>
+<symbol id="Dbdim"><use href="#C#dim"/></symbol>
+<symbol id="Dbdim7"><use href="#C#dim7"/></symbol>
+<symbol id="Dbaug"><use href="#C#aug"/></symbol>
+<symbol id="Dbm7b5"><use href="#C#m7b5"/></symbol>
+<symbol id="Db9"><use href="#C#9"/></symbol>
+<symbol id="Dbm9"><use href="#C#m9"/></symbol>
+<symbol id="Dbmaj9"><use href="#C#maj9"/></symbol>
+<symbol id="Dbadd9"><use href="#C#add9"/></symbol>
+<symbol id="Dbsus2"><use href="#C#sus2"/></symbol>
+<symbol id="Dbsus4"><use href="#C#sus4"/></symbol>
+<symbol id="Db7sus4"><use href="#C#7sus4"/></symbol>
+<symbol id="Eb"><use href="#D#"/></symbol>
+<symbol id="Ebm"><use href="#D#m"/></symbol>
+<symbol id="Eb5"><use href="#D#5"/></symbol>
+<symbol id="Eb6"><use href="#D#6"/></symbol>
+<symbol id="Ebm6"><use href="#D#m6"/></symbol>
+<symbol id="Eb7"><use href="#D#7"/></symbol>
+<symbol id="Ebm7"><use href="#D#m7"/></symbol>
+<symbol id="Ebmaj7"><use href="#D#maj7"/></symbol>
+<symbol id="Ebdim"><use href="#D#dim"/></symbol>
+<symbol id="Ebdim7"><use href="#D#dim7"/></symbol>
+<symbol id="Ebaug"><use href="#D#aug"/></symbol>
+<symbol id="Ebm7b5"><use href="#D#m7b5"/></symbol>
+<symbol id="Eb9"><use href="#D#9"/></symbol>
+<symbol id="Ebm9"><use href="#D#m9"/></symbol>
+<symbol id="Ebmaj9"><use href="#D#maj9"/></symbol>
+<symbol id="Ebadd9"><use href="#D#add9"/></symbol>
+<symbol id="Ebsus2"><use href="#D#sus2"/></symbol>
+<symbol id="Ebsus4"><use href="#D#sus4"/></symbol>
+<symbol id="Eb7sus4"><use href="#D#7sus4"/></symbol>
+<symbol id="Gb"><use href="#F#"/></symbol>
+<symbol id="Gbm"><use href="#F#m"/></symbol>
+<symbol id="Gb5"><use href="#F#5"/></symbol>
+<symbol id="Gb6"><use href="#F#6"/></symbol>
+<symbol id="Gbm6"><use href="#F#m6"/></symbol>
+<symbol id="Gb7"><use href="#F#7"/></symbol>
+<symbol id="Gbm7"><use href="#F#m7"/></symbol>
+<symbol id="Gbmaj7"><use href="#F#maj7"/></symbol>
+<symbol id="Gbdim"><use href="#F#dim"/></symbol>
+<symbol id="Gbdim7"><use href="#F#dim7"/></symbol>
+<symbol id="Gbaug"><use href="#F#aug"/></symbol>
+<symbol id="Gbm7b5"><use href="#F#m7b5"/></symbol>
+<symbol id="Gb9"><use href="#F#9"/></symbol>
+<symbol id="Gbm9"><use href="#F#m9"/></symbol>
+<symbol id="Gbmaj9"><use href="#F#maj9"/></symbol>
+<symbol id="Gbadd9"><use href="#F#add9"/></symbol>
+<symbol id="Gbsus2"><use href="#F#sus2"/></symbol>
+<symbol id="Gbsus4"><use href="#F#sus4"/></symbol>
+<symbol id="Gb7sus4"><use href="#F#7sus4"/></symbol>
+<symbol id="Ab"><use href="#G#"/></symbol>
+<symbol id="Abm"><use href="#G#m"/></symbol>
+<symbol id="Ab5"><use href="#G#5"/></symbol>
+<symbol id="Ab6"><use href="#G#6"/></symbol>
+<symbol id="Abm6"><use href="#G#m6"/></symbol>
+<symbol id="Ab7"><use href="#G#7"/></symbol>
+<symbol id="Abm7"><use href="#G#m7"/></symbol>
+<symbol id="Abmaj7"><use href="#G#maj7"/></symbol>
+<symbol id="Abdim"><use href="#G#dim"/></symbol>
+<symbol id="Abdim7"><use href="#G#dim7"/></symbol>
+<symbol id="Abaug"><use href="#G#aug"/></symbol>
+<symbol id="Abm7b5"><use href="#G#m7b5"/></symbol>
+<symbol id="Ab9"><use href="#G#9"/></symbol>
+<symbol id="Abm9"><use href="#G#m9"/></symbol>
+<symbol id="Abmaj9"><use href="#G#maj9"/></symbol>
+<symbol id="Abadd9"><use href="#G#add9"/></symbol>
+<symbol id="Absus2"><use href="#G#sus2"/></symbol>
+<symbol id="Absus4"><use href="#G#sus4"/></symbol>
+<symbol id="Ab7sus4"><use href="#G#7sus4"/></symbol>
+<symbol id="Bb"><use href="#A#"/></symbol>
+<symbol id="Bbm"><use href="#A#m"/></symbol>
+<symbol id="Bb5"><use href="#A#5"/></symbol>
+<symbol id="Bb6"><use href="#A#6"/></symbol>
+<symbol id="Bbm6"><use href="#A#m6"/></symbol>
+<symbol id="Bb7"><use href="#A#7"/></symbol>
+<symbol id="Bbm7"><use href="#A#m7"/></symbol>
+<symbol id="Bbmaj7"><use href="#A#maj7"/></symbol>
+<symbol id="Bbdim"><use href="#A#dim"/></symbol>
+<symbol id="Bbdim7"><use href="#A#dim7"/></symbol>
+<symbol id="Bbaug"><use href="#A#aug"/></symbol>
+<symbol id="Bbm7b5"><use href="#A#m7b5"/></symbol>
+<symbol id="Bb9"><use href="#A#9"/></symbol>
+<symbol id="Bbm9"><use href="#A#m9"/></symbol>
+<symbol id="Bbmaj9"><use href="#A#maj9"/></symbol>
+<symbol id="Bbadd9"><use href="#A#add9"/></symbol>
+<symbol id="Bbsus2"><use href="#A#sus2"/></symbol>
+<symbol id="Bbsus4"><use href="#A#sus4"/></symbol>
+<symbol id="Bb7sus4"><use href="#A#7sus4"/></symbol>
 </svg>
