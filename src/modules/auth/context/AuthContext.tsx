@@ -14,7 +14,12 @@ import {
   resolveSyncConflicts,
   type SongSyncConflict,
   type SongSyncConflictResolution,
+  type SyncAllResult,
 } from "@/services/sync/syncManager"
+import {
+  isSyncAbortError,
+  isSyncTimeoutError,
+} from "@/services/sync/abort"
 import { ensureLocalSongs } from "@/modules/songs/utils/seedLocalSongs"
 import { idbStorage } from "@/services/storage/providers/storage.idb"
 import { toast } from "sonner"
@@ -32,22 +37,6 @@ const AuthContext = createContext<AuthContextValue | null>(null)
 const SYNC_TIMEOUT_MS = 15_000
 const RESYNC_DEBOUNCE_MS = 2_000
 
-function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
-  return new Promise((resolve, reject) => {
-    const t = setTimeout(() => reject(new Error("sync timeout")), ms)
-    promise.then(
-      (v) => {
-        clearTimeout(t)
-        resolve(v)
-      },
-      (e) => {
-        clearTimeout(t)
-        reject(e)
-      },
-    )
-  })
-}
-
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
   const prevUserRef = useRef<User | null>(null)
@@ -57,16 +46,65 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [conflicts, setConflicts] = useState<SongSyncConflict[]>([])
   const [resolvingConflicts, setResolvingConflicts] = useState(false)
   const syncingRef = useRef(false)
+  const syncAbortRef = useRef<AbortController | null>(null)
+  /** Resolves when the current exclusive sync fully finishes (incl. after abort). */
+  const syncLockTailRef = useRef(Promise.resolve())
   const userRef = useRef<User | null>(null)
 
   const bumpSyncEpoch = () => setSyncEpoch((n) => n + 1)
 
-  const syncInBackground = async (showToastOnFail = false) => {
-    if (syncingRef.current) return
+  /**
+   * Runs at most one sync at a time. Timeout aborts the in-flight work via
+   * AbortSignal; the mutex is only released after that work settles.
+   * Background callers skip when busy; preempt aborts the current run first.
+   */
+  const withSyncLock = async (
+    work: (signal: AbortSignal) => Promise<SyncAllResult>,
+    opts: { preempt?: boolean } = {},
+  ): Promise<SyncAllResult | undefined> => {
+    if (!opts.preempt && syncingRef.current) {
+      return undefined
+    }
+
+    if (opts.preempt && syncAbortRef.current) {
+      syncAbortRef.current.abort("preempted")
+    }
+
+    const prev = syncLockTailRef.current
+    let releaseLock!: () => void
+    syncLockTailRef.current = new Promise<void>((resolve) => {
+      releaseLock = resolve
+    })
+
+    await prev
+
+    const ac = new AbortController()
+    syncAbortRef.current = ac
     syncingRef.current = true
     setSyncing(true)
+
+    const timer = setTimeout(() => {
+      ac.abort("timeout")
+    }, SYNC_TIMEOUT_MS)
+
     try {
-      const result = await withTimeout(syncAll(), SYNC_TIMEOUT_MS)
+      return await work(ac.signal)
+    } finally {
+      clearTimeout(timer)
+      if (syncAbortRef.current === ac) {
+        syncAbortRef.current = null
+      }
+      syncingRef.current = false
+      setSyncing(false)
+      releaseLock()
+    }
+  }
+
+  const syncInBackground = async (showToastOnFail = false) => {
+    try {
+      const result = await withSyncLock((signal) => syncAll({ signal }))
+      if (!result) return
+
       if (result.conflicts.length > 0) {
         setConflicts(result.conflicts)
       } else {
@@ -74,13 +112,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
       bumpSyncEpoch()
     } catch (err) {
+      if (isSyncAbortError(err)) {
+        if (showToastOnFail && isSyncTimeoutError(err)) {
+          toast.error("Sync failed or timed out. Showing local data.")
+        }
+        console.error("syncAll aborted:", err)
+        return
+      }
       console.error("syncAll error:", err)
       if (showToastOnFail) {
         toast.error("Sync failed or timed out. Showing local data.")
       }
-    } finally {
-      syncingRef.current = false
-      setSyncing(false)
     }
   }
 
@@ -89,13 +131,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   ) => {
     setResolvingConflicts(true)
     try {
-      const result = await withTimeout(
-        resolveSyncConflicts(resolutions),
-        SYNC_TIMEOUT_MS,
+      const result = await withSyncLock(
+        (signal) => resolveSyncConflicts(resolutions, signal),
+        { preempt: true },
       )
+      if (!result) return
       setConflicts(result.conflicts)
       bumpSyncEpoch()
     } catch (err) {
+      if (isSyncAbortError(err)) {
+        console.error("resolveSyncConflicts aborted:", err)
+        if (isSyncTimeoutError(err)) {
+          toast.error("Could not apply sync choices. Try again.")
+        }
+        return
+      }
       console.error("resolveSyncConflicts error:", err)
       toast.error("Could not apply sync choices. Try again.")
     } finally {
@@ -173,6 +223,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         userRef.current = newUser
 
         if (event === "SIGNED_OUT" || (!newUser && !wasLoggedOut)) {
+          syncAbortRef.current?.abort("signed_out")
           setConflicts([])
           bumpSyncEpoch()
           return
@@ -183,7 +234,27 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             if (newUser) {
               await idbStorage.prepareForUser(newUser.id)
             }
-            await syncInBackground(true)
+            // Preempt any stale background sync after account change
+            try {
+              const result = await withSyncLock(
+                (signal) => syncAll({ signal }),
+                { preempt: true },
+              )
+              if (!result) return
+              if (result.conflicts.length > 0) {
+                setConflicts(result.conflicts)
+              } else {
+                setConflicts([])
+              }
+              bumpSyncEpoch()
+            } catch (err) {
+              console.error("syncAll error:", err)
+              if (isSyncTimeoutError(err)) {
+                toast.error("Sync failed or timed out. Showing local data.")
+              } else if (!isSyncAbortError(err)) {
+                toast.error("Sync failed or timed out. Showing local data.")
+              }
+            }
           })()
         }
       },
@@ -211,6 +282,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     return () => {
       mounted = false
+      syncAbortRef.current?.abort("unmount")
       listener?.subscription?.unsubscribe()
       document.removeEventListener("visibilitychange", onVisibility)
       window.removeEventListener("online", onOnline)

@@ -23,6 +23,7 @@ import {
   type SongSyncConflictResolution,
 } from "@/services/sync/contentIdentity"
 import { remapSongIdInRepertoire } from "@/services/sync/remapSongIds"
+import { throwIfAborted } from "@/services/sync/abort"
 
 async function getCurrentUserId(): Promise<string | null> {
   try {
@@ -194,7 +195,9 @@ function dedupeConflicts(conflicts: SongSyncConflict[]): SongSyncConflict[] {
   return out
 }
 
-async function syncRepertoires(userId: string) {
+async function syncRepertoires(userId: string, signal?: AbortSignal) {
+  throwIfAborted(signal)
+
   let remote: Repertoire[]
   try {
     remote = await supabaseStorage.getRepertoires(userId)
@@ -202,6 +205,8 @@ async function syncRepertoires(userId: string) {
     console.error("getRepertoires failed (table missing?)", err)
     return
   }
+
+  throwIfAborted(signal)
 
   const remoteById = new Map(remote.map((r) => [r.id, r]))
   const pendingsBefore =
@@ -211,6 +216,7 @@ async function syncRepertoires(userId: string) {
   )
 
   for (const p of pendingsBefore) {
+    throwIfAborted(signal)
     try {
       if (isPendingRepertoireDelete(p)) {
         await supabaseStorage.deleteRepertoire(userId, p.id)
@@ -229,23 +235,28 @@ async function syncRepertoires(userId: string) {
 
       await idbStorage.removePendingRepertoire(pendingRep.id)
     } catch (err) {
+      throwIfAborted(signal)
       console.error("pending repertoire sync failed", err)
     }
   }
 
+  throwIfAborted(signal)
   remote = await supabaseStorage.getRepertoires(userId)
   const local = await idbStorage.getRepertoires()
   const plan = planMembershipSync(local, remote, pendingSaveIds)
 
   for (const id of plan.orphanLocalIds) {
+    throwIfAborted(signal)
     await idbStorage.deleteRepertoire(id)
   }
 
   for (const rep of plan.toUpsertRemote) {
+    throwIfAborted(signal)
     await supabaseStorage.saveRepertoire(userId, rep)
   }
 
   for (const rep of plan.toWriteIdb) {
+    throwIfAborted(signal)
     await idbStorage.saveRepertoire(rep)
   }
 }
@@ -256,6 +267,8 @@ export type SyncAllResult = {
 
 export type SyncAllOptions = {
   resolutions?: SongSyncConflictResolution[]
+  /** When aborted, sync stops at the next cooperative checkpoint (no overlapping writes). */
+  signal?: AbortSignal
 }
 
 /**
@@ -265,11 +278,16 @@ export type SyncAllOptions = {
 export const syncAll = async (
   options: SyncAllOptions = {},
 ): Promise<SyncAllResult> => {
+  const { signal } = options
+  throwIfAborted(signal)
+
   const userId = await getCurrentUserId()
   if (!userId) return { conflicts: [] }
 
+  throwIfAborted(signal)
   await idbStorage.prepareForUser(userId)
 
+  throwIfAborted(signal)
   let remote = await supabaseStorage.getSongs(userId)
   const resolutionById = new Map(
     (options.resolutions ?? []).map((r) => [r.conflictId, r.action]),
@@ -283,11 +301,13 @@ export const syncAll = async (
   const classification = classifyPendingByContent(pendingSaves, remote)
 
   for (const { local, remote: match } of classification.autoMerges) {
+    throwIfAborted(signal)
     await applyMergePlan(userId, planContentMerge(local, match))
   }
 
   const unresolved: SongSyncConflict[] = []
   for (const conflict of classification.userConflicts) {
+    throwIfAborted(signal)
     const action = resolutionById.get(conflict.id)
     if (action === "keepNewest") {
       await applyMergePlan(
@@ -307,6 +327,7 @@ export const syncAll = async (
       .map((c) => c.songA.id),
   )
 
+  throwIfAborted(signal)
   remote = await supabaseStorage.getSongs(userId)
   const remoteById = new Map(remote.map((r) => [r.id, r]))
 
@@ -319,6 +340,7 @@ export const syncAll = async (
   )
 
   for (const p of pendingsBefore) {
+    throwIfAborted(signal)
     try {
       if (isPendingDelete(p)) {
         await supabaseStorage.deleteSong(userId, p.id)
@@ -339,53 +361,66 @@ export const syncAll = async (
 
       await idbStorage.removePending(pendingSong.id)
     } catch (err) {
+      throwIfAborted(signal)
       console.error("pending sync failed", err)
     }
   }
 
+  throwIfAborted(signal)
   remote = await supabaseStorage.getSongs(userId)
 
   let local = await idbStorage.getSongs()
   if (local.length === 0 && remote.length === 0) {
+    throwIfAborted(signal)
     local = await seedIfRemoteAlsoEmpty(remote)
     const seedPendings = (await idbStorage.getPending()) as PendingDrafts[]
     for (const p of seedPendings) {
+      throwIfAborted(signal)
       if (isPendingDelete(p)) continue
       try {
         await supabaseStorage.saveSong(userId, p as Song)
         await idbStorage.removePending(p.id)
         pendingSaveIds.add(p.id)
       } catch (err) {
+        throwIfAborted(signal)
         console.error("seed pending upload failed", err)
       }
     }
+    throwIfAborted(signal)
     remote = await supabaseStorage.getSongs(userId)
     local = await idbStorage.getSongs()
   }
 
+  throwIfAborted(signal)
   const plan = planMembershipSync(local, remote, pendingSaveIds, holdIds)
 
   for (const id of plan.orphanLocalIds) {
+    throwIfAborted(signal)
     await idbStorage.deleteSong(id)
   }
 
   for (const song of plan.toUpsertRemote) {
+    throwIfAborted(signal)
     await supabaseStorage.saveSong(userId, song)
   }
 
   for (const song of plan.toWriteIdb) {
+    throwIfAborted(signal)
     await idbStorage.saveSong(song)
   }
 
   // Post-membership content dedupe
+  throwIfAborted(signal)
   local = await idbStorage.getSongs()
   const dedupe = planDuplicateGroups(local)
 
   for (const merge of dedupe.autoMerges) {
+    throwIfAborted(signal)
     await applyMergePlan(userId, merge)
   }
 
   for (const conflict of dedupe.userConflicts) {
+    throwIfAborted(signal)
     const action = resolutionById.get(conflict.id)
     if (action === "keepNewest") {
       await applyMergePlan(
@@ -399,7 +434,7 @@ export const syncAll = async (
     }
   }
 
-  await syncRepertoires(userId)
+  await syncRepertoires(userId, signal)
 
   return { conflicts: dedupeConflicts(unresolved) }
 }
@@ -407,8 +442,9 @@ export const syncAll = async (
 /** Apply UI resolutions and re-run sync. */
 export const resolveSyncConflicts = async (
   resolutions: SongSyncConflictResolution[],
+  signal?: AbortSignal,
 ): Promise<SyncAllResult> => {
-  return syncAll({ resolutions })
+  return syncAll({ resolutions, signal })
 }
 
 export const __testables = {
