@@ -1,24 +1,63 @@
-import { openDB } from "idb"
+import { openDB, type IDBPDatabase } from "idb"
 import type { Song } from "@/modules/songs/types/song.types"
-import type { PendingDrafts } from "@/services/storage/types/storage.types"
+import {
+  isPendingDelete,
+  type PendingDelete,
+  type PendingDrafts,
+} from "@/services/storage/types/storage.types"
 import type { Repertoire } from "@/modules/repertoires/types/repertoire.types"
-import type { PendingRepertoireDrafts } from "@/modules/repertoires/types/pending.types"
+import {
+  isPendingRepertoireDelete,
+  type PendingRepertoireDelete,
+  type PendingRepertoireDrafts,
+} from "@/modules/repertoires/types/pending.types"
 
 const DB_NAME = "ChordBlocks"
 const STORE = "songs"
+/** Pending song upserts only (never deletes). */
 const PENDING = "pending"
+/** Pending song deletes — separate store so save/delete cannot overwrite each other. */
+const PENDING_DELETES = "pendingDeletes"
 const REPERTOIRES = "repertoires"
+/** Pending repertoire upserts only. */
 const PENDING_REPERTOIRES = "pendingRepertoires"
+/** Pending repertoire deletes. */
+const PENDING_REPERTOIRE_DELETES = "pendingRepertoireDeletes"
 const LAST_USER_KEY = "chordblocks:lastUserId"
-const DB_VERSION = 3
+/** v4: split pending save vs pending delete into separate stores. */
+const DB_VERSION = 4
+
+type ChordBlocksDB = IDBPDatabase
 
 function log(...args: unknown[]) {
   if (import.meta.env.DEV) console.log(...args)
 }
 
+let migrateOnce: Promise<void> | null = null
+
+async function migrateSplitPendingQueues(db: ChordBlocksDB): Promise<void> {
+  const mixedSongs = (await db.getAll(PENDING)) as PendingDrafts[]
+  for (const item of mixedSongs) {
+    if (isPendingDelete(item)) {
+      await db.put(PENDING_DELETES, item)
+      await db.delete(PENDING, item.id)
+    }
+  }
+
+  const mixedReps = (await db.getAll(
+    PENDING_REPERTOIRES,
+  )) as PendingRepertoireDrafts[]
+  for (const item of mixedReps) {
+    if (isPendingRepertoireDelete(item)) {
+      await db.put(PENDING_REPERTOIRE_DELETES, item)
+      await db.delete(PENDING_REPERTOIRES, item.id)
+    }
+  }
+}
+
 async function getDb() {
-  return openDB(DB_NAME, DB_VERSION, {
-    upgrade(db) {
+  const db = await openDB(DB_NAME, DB_VERSION, {
+    upgrade(db, oldVersion) {
       if (!db.objectStoreNames.contains(STORE)) {
         db.createObjectStore(STORE, { keyPath: "id" })
       }
@@ -31,8 +70,28 @@ async function getDb() {
       if (!db.objectStoreNames.contains(PENDING_REPERTOIRES)) {
         db.createObjectStore(PENDING_REPERTOIRES, { keyPath: "id" })
       }
+      if (oldVersion < 4) {
+        if (!db.objectStoreNames.contains(PENDING_DELETES)) {
+          db.createObjectStore(PENDING_DELETES, { keyPath: "id" })
+        }
+        if (!db.objectStoreNames.contains(PENDING_REPERTOIRE_DELETES)) {
+          db.createObjectStore(PENDING_REPERTOIRE_DELETES, {
+            keyPath: "id",
+          })
+        }
+      }
     },
   })
+
+  if (!migrateOnce) {
+    migrateOnce = migrateSplitPendingQueues(db).catch((err) => {
+      migrateOnce = null
+      console.error("pending queue migration failed:", err)
+      throw err
+    })
+  }
+  await migrateOnce
+  return db
 }
 
 export const idbStorage = {
@@ -59,21 +118,34 @@ export const idbStorage = {
     await db.clear(STORE)
   },
 
+  /**
+   * Queue a song upsert. Cancels any pending delete for the same id
+   * (offline recreate / edit after delete intent).
+   */
   async addPending(song: Song) {
     log("💾 idbStorage.addPending", song.id)
     const db = await getDb()
+    await db.delete(PENDING_DELETES, song.id)
     await db.put(PENDING, song)
   },
 
+  /**
+   * Combined pending queue: deletes first, then saves.
+   * Callers use isPendingDelete to branch.
+   */
   async getPending(): Promise<PendingDrafts[]> {
     const db = await getDb()
-    return (await db.getAll(PENDING)) as PendingDrafts[]
+    const deletes = (await db.getAll(PENDING_DELETES)) as PendingDelete[]
+    const saves = (await db.getAll(PENDING)) as Song[]
+    const cleanSaves = saves.filter((s) => !isPendingDelete(s as PendingDrafts))
+    return [...deletes, ...cleanSaves]
   },
 
   async clearPending() {
     log("💾 idbStorage.clearPending")
     const db = await getDb()
     await db.clear(PENDING)
+    await db.clear(PENDING_DELETES)
   },
 
   async deleteSong(id: string) {
@@ -82,20 +154,26 @@ export const idbStorage = {
     await db.delete(STORE, id)
   },
 
+  /**
+   * Queue a song delete. Cancels any pending save for the same id
+   * (offline delete after edit — delete is the latest intent).
+   */
   async addPendingDelete(id: string) {
     log("💾 idbStorage.addPendingDelete", id)
     const db = await getDb()
-    const entry = {
+    await db.delete(PENDING, id)
+    const entry: PendingDelete = {
       id,
-      _action: "delete" as const,
+      _action: "delete",
       deletedAt: new Date().toISOString(),
     }
-    await db.put(PENDING, entry)
+    await db.put(PENDING_DELETES, entry)
   },
 
   async removePending(id: string) {
     const db = await getDb()
     await db.delete(PENDING, id)
+    await db.delete(PENDING_DELETES, id)
   },
 
   // --- Repertoires ---
@@ -130,31 +208,43 @@ export const idbStorage = {
 
   async addPendingRepertoire(rep: Repertoire) {
     const db = await getDb()
+    await db.delete(PENDING_REPERTOIRE_DELETES, rep.id)
     await db.put(PENDING_REPERTOIRES, rep)
   },
 
   async getPendingRepertoires(): Promise<PendingRepertoireDrafts[]> {
     const db = await getDb()
-    return (await db.getAll(PENDING_REPERTOIRES)) as PendingRepertoireDrafts[]
+    const deletes = (await db.getAll(
+      PENDING_REPERTOIRE_DELETES,
+    )) as PendingRepertoireDelete[]
+    const saves = (await db.getAll(PENDING_REPERTOIRES)) as Repertoire[]
+    const cleanSaves = saves.filter(
+      (r) => !isPendingRepertoireDelete(r as PendingRepertoireDrafts),
+    )
+    return [...deletes, ...cleanSaves]
   },
 
   async clearPendingRepertoires() {
     const db = await getDb()
     await db.clear(PENDING_REPERTOIRES)
+    await db.clear(PENDING_REPERTOIRE_DELETES)
   },
 
   async addPendingRepertoireDelete(id: string) {
     const db = await getDb()
-    await db.put(PENDING_REPERTOIRES, {
+    await db.delete(PENDING_REPERTOIRES, id)
+    const entry: PendingRepertoireDelete = {
       id,
-      _action: "delete" as const,
+      _action: "delete",
       deletedAt: new Date().toISOString(),
-    })
+    }
+    await db.put(PENDING_REPERTOIRE_DELETES, entry)
   },
 
   async removePendingRepertoire(id: string) {
     const db = await getDb()
     await db.delete(PENDING_REPERTOIRES, id)
+    await db.delete(PENDING_REPERTOIRE_DELETES, id)
   },
 
   getLastUserId(): string | null {
