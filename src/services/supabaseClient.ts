@@ -1,4 +1,4 @@
-import { createClient } from "@supabase/supabase-js"
+import { createClient, type SupabaseClient } from "@supabase/supabase-js"
 
 /**
  * Supabase Client Setup
@@ -11,11 +11,15 @@ import { createClient } from "@supabase/supabase-js"
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
 
-let supabase: ReturnType<typeof createClient> | any
+/** Loose client shape: real SDK or offline demo mock. */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type AppSupabase = SupabaseClient | Record<string, any>
+
+let supabase: AppSupabase
 
 function createDemoAuth() {
   return {
-    onAuthStateChange: (_callback: any) => ({
+    onAuthStateChange: (_callback: unknown) => ({
       data: {
         subscription: {
           unsubscribe: () => {},
@@ -43,18 +47,31 @@ function createDemoAuth() {
 function createDemoQuery() {
   const result = { data: [] as unknown[], error: null as null }
   const singleResult = { data: null, error: null }
-  const api: any = {
-    select: () => api,
-    insert: async () => result,
-    update: async () => result,
-    upsert: async () => result,
-    delete: () => api,
-    eq: () => api,
-    single: async () => singleResult,
-    then: (resolve: (v: typeof result) => unknown) =>
-      Promise.resolve(result).then(resolve),
-  }
+  const api: Record<string, unknown> = {}
+  api.select = () => api
+  api.insert = async () => result
+  api.update = async () => result
+  api.upsert = async () => result
+  api.delete = () => api
+  api.eq = () => api
+  api.single = async () => singleResult
+  api.then = (resolve: (v: typeof result) => unknown) =>
+    Promise.resolve(result).then(resolve)
   return api
+}
+
+function createDemoClient(): AppSupabase {
+  return {
+    auth: createDemoAuth(),
+    from: () => createDemoQuery(),
+    storage: {
+      from: () => ({
+        upload: async () => ({ data: null, error: null }),
+        remove: async () => ({ data: null, error: null }),
+        getPublicUrl: () => ({ data: { publicUrl: "" } }),
+      }),
+    },
+  }
 }
 
 if (supabaseUrl && supabaseAnonKey) {
@@ -72,17 +89,7 @@ if (supabaseUrl && supabaseAnonKey) {
     supabase = createClient(supabaseUrl, supabaseAnonKey)
   } catch (err) {
     console.error("Failed to create Supabase client, falling back to DEMO:", err)
-    supabase = {
-      auth: createDemoAuth(),
-      from: () => createDemoQuery(),
-      storage: {
-        from: () => ({
-          upload: async () => ({ data: null, error: null }),
-          remove: async () => ({ data: null, error: null }),
-          getPublicUrl: () => ({ data: { publicUrl: "" } }),
-        }),
-      },
-    }
+    supabase = createDemoClient()
   }
 } else {
   console.warn(
@@ -93,17 +100,7 @@ if (supabaseUrl && supabaseAnonKey) {
     "Create a .env.local file based on .env.example to enable the real connection.",
   )
 
-  supabase = {
-    auth: createDemoAuth(),
-    from: () => createDemoQuery(),
-    storage: {
-      from: () => ({
-        upload: async () => ({ data: null, error: null }),
-        remove: async () => ({ data: null, error: null }),
-        getPublicUrl: () => ({ data: { publicUrl: "" } }),
-      }),
-    },
-  }
+  supabase = createDemoClient()
 }
 
 export { supabase }
