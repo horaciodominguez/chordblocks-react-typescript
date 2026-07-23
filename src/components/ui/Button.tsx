@@ -23,11 +23,15 @@ export default function Button({
   focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500
   disabled:opacity-50 disabled:pointer-events-none`
   const variants = {
-    primary: "bg-zinc-200/5 text-white hover:bg-zinc-200/10 light:bg-white light:text-zinc-900 light:hover:bg-zinc-50 light:border-zinc-200",
-    secondary: "bg-zinc-700 text-white hover:bg-zinc-600 light:bg-zinc-200 light:text-zinc-900 light:hover:bg-zinc-300",
+    primary:
+      "bg-zinc-200/5 text-white hover:bg-zinc-200/10 light:bg-white light:text-zinc-900 light:hover:bg-zinc-50 light:border-zinc-200",
+    secondary:
+      "bg-zinc-700 text-white hover:bg-zinc-600 light:bg-zinc-200 light:text-zinc-900 light:hover:bg-zinc-300",
     save: "bg-indigo-800 text-white hover:bg-indigo-700 light:bg-indigo-600 light:hover:bg-indigo-500",
-    cancel: "bg-zinc-800 hover:bg-zinc-700 light:bg-zinc-100 light:text-zinc-900 light:hover:bg-zinc-200",
-    delete: "bg-red-700/80 backdrop-blur-sm hover:bg-red-700/90 text-white light:bg-red-600 light:hover:bg-red-700",
+    cancel:
+      "bg-zinc-800 hover:bg-zinc-700 light:bg-zinc-100 light:text-zinc-900 light:hover:bg-zinc-200",
+    delete:
+      "bg-red-700/80 backdrop-blur-sm hover:bg-red-700/90 text-white light:bg-red-600 light:hover:bg-red-700",
   }
 
   return (

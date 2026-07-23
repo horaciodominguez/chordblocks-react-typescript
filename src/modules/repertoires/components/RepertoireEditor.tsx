@@ -15,7 +15,14 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
-import { ChevronDown, ChevronUp, GripVertical, Minus, Plus, Trash } from "lucide-react"
+import {
+  ChevronDown,
+  ChevronUp,
+  GripVertical,
+  Minus,
+  Plus,
+  Trash,
+} from "lucide-react"
 import { toast } from "sonner"
 import Button from "@/components/ui/Button"
 import Input from "@/components/ui/Input"
@@ -109,9 +116,13 @@ function SortableItemRow({
           <GripVertical size={18} />
         </button>
         <div className="min-w-0 flex-1">
-          <p className="text-sm text-zinc-100 truncate light:text-zinc-900">{title}</p>
+          <p className="text-sm text-zinc-100 truncate light:text-zinc-900">
+            {title}
+          </p>
           {artist ? (
-            <p className="text-xs text-zinc-500 truncate light:text-zinc-600">{artist}</p>
+            <p className="text-xs text-zinc-500 truncate light:text-zinc-600">
+              {artist}
+            </p>
           ) : null}
         </div>
         <button
@@ -125,16 +136,16 @@ function SortableItemRow({
       </div>
 
       <div className="flex flex-wrap items-center gap-2 pl-12">
-        <span className="text-xs text-zinc-500 light:text-zinc-600">Transpose</span>
+        <span className="text-xs text-zinc-500 light:text-zinc-600">
+          Transpose
+        </span>
         <div className="flex items-center gap-1">
           <button
             type="button"
             aria-label={`Transpose ${title} down`}
             disabled={transposeSemitones <= ITEM_TRANSPOSE_MIN}
             onClick={() =>
-              onTranspose(
-                Math.max(ITEM_TRANSPOSE_MIN, transposeSemitones - 1),
-              )
+              onTranspose(Math.max(ITEM_TRANSPOSE_MIN, transposeSemitones - 1))
             }
             className="flex items-center justify-center min-h-10 min-w-10 rounded-md border border-zinc-600 text-zinc-200 hover:bg-zinc-800/50 disabled:opacity-40 disabled:pointer-events-none light:border-zinc-300 light:text-zinc-900 light:hover:bg-zinc-100"
           >
@@ -151,9 +162,7 @@ function SortableItemRow({
             aria-label={`Transpose ${title} up`}
             disabled={transposeSemitones >= ITEM_TRANSPOSE_MAX}
             onClick={() =>
-              onTranspose(
-                Math.min(ITEM_TRANSPOSE_MAX, transposeSemitones + 1),
-              )
+              onTranspose(Math.min(ITEM_TRANSPOSE_MAX, transposeSemitones + 1))
             }
             className="flex items-center justify-center min-h-10 min-w-10 rounded-md border border-zinc-600 text-zinc-200 hover:bg-zinc-800/50 disabled:opacity-40 disabled:pointer-events-none light:border-zinc-300 light:text-zinc-900 light:hover:bg-zinc-100"
           >
@@ -197,7 +206,9 @@ function GroupDropZone({
     <ul
       ref={setNodeRef}
       className={`flex flex-col gap-2 min-h-12 rounded-md p-1 transition-colors ${
-        isOver ? "bg-indigo-950/40 ring-1 ring-indigo-500/40 light:bg-indigo-100 light:ring-indigo-500/40" : ""
+        isOver
+          ? "bg-indigo-950/40 ring-1 ring-indigo-500/40 light:bg-indigo-100 light:ring-indigo-500/40"
+          : ""
       }`}
     >
       {children}
@@ -319,7 +330,9 @@ export function RepertoireEditor({
       />
 
       <div className="flex items-center justify-between gap-2">
-        <h2 className="text-sm font-medium text-zinc-300 light:text-zinc-800">Groups</h2>
+        <h2 className="text-sm font-medium text-zinc-300 light:text-zinc-800">
+          Groups
+        </h2>
         <Button
           type="button"
           variant="secondary"

@@ -65,7 +65,11 @@ describe("repertoire membership sync planner", () => {
 
   it("treats local-only without pending as orphan", () => {
     const local = [
-      rep({ id: "orphan", title: "Orphan", updatedAt: "2026-01-01T00:00:00.000Z" }),
+      rep({
+        id: "orphan",
+        title: "Orphan",
+        updatedAt: "2026-01-01T00:00:00.000Z",
+      }),
     ]
     const plan = planMembershipSync(local, [], new Set())
     expect(plan.orphanLocalIds).toEqual(["orphan"])
@@ -73,7 +77,11 @@ describe("repertoire membership sync planner", () => {
 
   it("upserts local-only when pending save", () => {
     const local = [
-      rep({ id: "p1", title: "Pending", updatedAt: "2026-01-01T00:00:00.000Z" }),
+      rep({
+        id: "p1",
+        title: "Pending",
+        updatedAt: "2026-01-01T00:00:00.000Z",
+      }),
     ]
     const plan = planMembershipSync(local, [], new Set(["p1"]))
     expect(plan.toUpsertRemote).toHaveLength(1)

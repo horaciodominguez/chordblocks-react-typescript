@@ -81,10 +81,10 @@ describe("DUPLICATE_SECTION", () => {
     expect(duplicate.id).not.toBe(source.id)
     expect(duplicate.bars[0].id).not.toBe(source.bars[0].id)
     expect(duplicate.bars[0].blocks.map((block) => block.id)).not.toEqual(
-      source.bars[0].blocks.map((block) => block.id)
+      source.bars[0].blocks.map((block) => block.id),
     )
     expect(duplicate.bars[0].blocks[0].chord).not.toBe(
-      source.bars[0].blocks[0].chord
+      source.bars[0].blocks[0].chord,
     )
     expect(next.duplicatedSectionId).toBe(duplicate.id)
     expect(next.song.updatedAt).not.toBe(state.song.updatedAt)
@@ -95,14 +95,15 @@ describe("DUPLICATE_SECTION", () => {
     const state = baseState([section])
 
     expect(reducer(state, { type: "DUPLICATE_SECTION", v: "unknown" })).toBe(
-      state
+      state,
     )
   })
 
   it("clears the transient duplicated-section indicator", () => {
     const state = { ...baseState([section]), duplicatedSectionId: "duplicate" }
 
-    expect(reducer(state, { type: "CLEAR_DUPLICATED_SECTION" }))
-      .not.toHaveProperty("duplicatedSectionId")
+    expect(
+      reducer(state, { type: "CLEAR_DUPLICATED_SECTION" }),
+    ).not.toHaveProperty("duplicatedSectionId")
   })
 })

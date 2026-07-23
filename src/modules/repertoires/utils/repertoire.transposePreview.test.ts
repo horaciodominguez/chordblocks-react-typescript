@@ -71,9 +71,7 @@ describe("setItemTranspose", () => {
         {
           id: "g1",
           title: "",
-          items: [
-            { id: "i1", songId: "s1", transposeSemitones: 0 },
-          ],
+          items: [{ id: "i1", songId: "s1", transposeSemitones: 0 }],
         },
       ],
       createdAt: "2026-01-01T00:00:00.000Z",
@@ -84,9 +82,9 @@ describe("setItemTranspose", () => {
     expect(next.groups[0].items[0].transposeSemitones).toBe(1)
     expect(rep.groups[0].items[0].transposeSemitones).toBe(0)
 
-    expect(setItemTranspose(rep, "i1", 99).groups[0].items[0].transposeSemitones).toBe(
-      12,
-    )
+    expect(
+      setItemTranspose(rep, "i1", 99).groups[0].items[0].transposeSemitones,
+    ).toBe(12)
   })
 })
 

@@ -236,8 +236,7 @@ export function planKeepLocalMerge(
   const winner: Song = {
     ...local,
     id: remote.id,
-    seedOriginId:
-      local.seedOriginId ?? remote.seedOriginId ?? undefined,
+    seedOriginId: local.seedOriginId ?? remote.seedOriginId ?? undefined,
     createdAt: remote.createdAt || local.createdAt,
     updatedAt: local.updatedAt,
   }

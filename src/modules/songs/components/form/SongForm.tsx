@@ -18,11 +18,7 @@ type Props = {
   onCancel?: () => void
 }
 
-export const SongForm = ({
-  handleAddSong,
-  initialSong,
-  onCancel,
-}: Props) => {
+export const SongForm = ({ handleAddSong, initialSong, onCancel }: Props) => {
   const { state, dispatch } = useSongForm(initialSong)
   const { song } = state
   const { mutating } = useSongs()

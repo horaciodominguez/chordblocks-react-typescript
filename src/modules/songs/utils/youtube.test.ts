@@ -29,18 +29,18 @@ describe("parseYouTubeVideoId", () => {
     expect(
       parseYouTubeVideoId("https://www.youtube.com/embed/1k8craCGpgs"),
     ).toBe("1k8craCGpgs")
-    expect(
-      parseYouTubeVideoId("https://youtube.com/shorts/1k8craCGpgs"),
-    ).toBe("1k8craCGpgs")
+    expect(parseYouTubeVideoId("https://youtube.com/shorts/1k8craCGpgs")).toBe(
+      "1k8craCGpgs",
+    )
   })
 
   it("parses music and mobile hosts", () => {
     expect(
       parseYouTubeVideoId("https://music.youtube.com/watch?v=gPAM0niKNto"),
     ).toBe("gPAM0niKNto")
-    expect(
-      parseYouTubeVideoId("m.youtube.com/watch?v=gPAM0niKNto"),
-    ).toBe("gPAM0niKNto")
+    expect(parseYouTubeVideoId("m.youtube.com/watch?v=gPAM0niKNto")).toBe(
+      "gPAM0niKNto",
+    )
   })
 
   it("rejects non-YouTube or malformed URLs", () => {

@@ -20,7 +20,10 @@ export default function Nav() {
                   active ? "bg-indigo-600/20 light:bg-indigo-100" : ""
                 }`}
               >
-                <NavLinkIcon className="text-indigo-200 mr-1 light:text-indigo-700" size={16} />
+                <NavLinkIcon
+                  className="text-indigo-200 mr-1 light:text-indigo-700"
+                  size={16}
+                />
                 <span className="text-indigo-400 text-[10px] uppercase light:text-indigo-600">
                   {link.label}
                 </span>

@@ -11,7 +11,9 @@ import {
   sortSongs,
 } from "./songCatalog"
 
-function song(partial: Partial<Song> & Pick<Song, "id" | "title" | "artist">): Song {
+function song(
+  partial: Partial<Song> & Pick<Song, "id" | "title" | "artist">,
+): Song {
   return {
     genre: "Rock",
     year: 2000,
@@ -35,8 +37,20 @@ describe("songCatalog", () => {
 
   it("filters by search, year, genre and artist key", () => {
     const songs = [
-      song({ id: "1", title: "Valerie", artist: "Amy Winehouse", year: 2007, genre: "Soul" }),
-      song({ id: "2", title: "Human Nature", artist: "Michael Jackson", year: 1982, genre: "Pop" }),
+      song({
+        id: "1",
+        title: "Valerie",
+        artist: "Amy Winehouse",
+        year: 2007,
+        genre: "Soul",
+      }),
+      song({
+        id: "2",
+        title: "Human Nature",
+        artist: "Michael Jackson",
+        year: 1982,
+        genre: "Pop",
+      }),
     ]
     expect(filterSongs(songs, { search: "valerie" })).toHaveLength(1)
     expect(filterSongs(songs, { search: "amy" })).toHaveLength(1)

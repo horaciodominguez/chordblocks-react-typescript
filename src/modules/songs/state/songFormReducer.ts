@@ -95,7 +95,7 @@ export const initialSong: SongType = {
 
 export const reducer = (
   state: SongFormState,
-  action: Action
+  action: Action,
 ): SongFormState => {
   switch (action.type) {
     case "SET_TITLE":
@@ -114,9 +114,7 @@ export const reducer = (
       const { mainKey: _, ...rest } = state.song
       return {
         ...state,
-        song: action.v
-          ? { ...state.song, mainKey: action.v }
-          : { ...rest },
+        song: action.v ? { ...state.song, mainKey: action.v } : { ...rest },
       }
     }
 
@@ -124,9 +122,10 @@ export const reducer = (
       const { youtubeUrl: _, ...rest } = state.song
       return {
         ...state,
-        song: action.v !== undefined && action.v !== ""
-          ? { ...state.song, youtubeUrl: action.v }
-          : { ...rest },
+        song:
+          action.v !== undefined && action.v !== ""
+            ? { ...state.song, youtubeUrl: action.v }
+            : { ...rest },
       }
     }
 
@@ -167,7 +166,7 @@ export const reducer = (
         pendingBeats: state.song.timeSignature.beatsPerMeasure.toString(),
         availableBeats: beatsCap(
           state.song.timeSignature.beatsPerMeasure,
-          state.song.timeSignature.beatsPerMeasure
+          state.song.timeSignature.beatsPerMeasure,
         ),
         pendingSection: newSection,
       }
@@ -474,7 +473,7 @@ export const reducer = (
 
     case "DUPLICATE_SECTION": {
       const sectionToDuplicate = state.song.songSections.find(
-        (section) => section.id === action.v
+        (section) => section.id === action.v,
       )
 
       if (!sectionToDuplicate) return state
@@ -610,7 +609,7 @@ export const reducer = (
 
     case "EDIT_SECTION": {
       const sectionToEdit = state.song.songSections.find(
-        (s) => s.id === action.v
+        (s) => s.id === action.v,
       )
       const bpm = state.song.timeSignature.beatsPerMeasure
       const bars = sectionToEdit?.bars ?? []
@@ -664,7 +663,7 @@ export const reducer = (
         song: {
           ...state.song,
           songSections: state.song.songSections.map((s) =>
-            s.id === state.editingSectionId ? updated : s
+            s.id === state.editingSectionId ? updated : s,
           ),
           updatedAt: new Date().toISOString(),
         },
@@ -683,7 +682,9 @@ export const reducer = (
         ...state,
         song: {
           ...state.song,
-          songSections: state.song.songSections.filter((s) => s.id !== action.v),
+          songSections: state.song.songSections.filter(
+            (s) => s.id !== action.v,
+          ),
           updatedAt: new Date().toISOString(),
         },
         ...(deletingCurrent
@@ -735,10 +736,7 @@ export const reducer = (
 
       let pendingBlock = state.pendingBlock
       if (pendingBlock?.type === "chord" && pendingBlock.chord?.name) {
-        const newName = transposeChordName(
-          pendingBlock.chord.name,
-          semitones,
-        )
+        const newName = transposeChordName(pendingBlock.chord.name, semitones)
         const parsed = parseChordName(newName)
         pendingBlock = {
           ...pendingBlock,

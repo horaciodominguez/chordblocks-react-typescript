@@ -15,7 +15,7 @@ export default function Chord({ chord, asText = false }: Props) {
   const name = typeof chord === "string" ? chord : chord.name
   const resolved =
     typeof chord === "string"
-      ? getChordByName(name) ?? parseChordName(name)
+      ? (getChordByName(name) ?? parseChordName(name))
       : chord
   if (!resolved) return null
 

@@ -34,12 +34,13 @@ export function SyncOrphanDialog({
             Local-only items found
           </Dialog.Title>
           <Dialog.Description className="text-sm text-zinc-400 mb-4 light:text-zinc-600">
-            These songs or sets exist on this device but not in the cloud. Nothing
-            will be deleted until you choose.{" "}
+            These songs or sets exist on this device but not in the cloud.
+            Nothing will be deleted until you choose.{" "}
             <strong className="text-zinc-200 font-medium light:text-zinc-800">
               Delete
             </strong>{" "}
-            removes them from this device (and removes those songs from any sets).{" "}
+            removes them from this device (and removes those songs from any
+            sets).{" "}
             <strong className="text-zinc-200 font-medium light:text-zinc-800">
               Keep &amp; upload
             </strong>{" "}

@@ -99,14 +99,10 @@ describe("findSongConflicts / prepareSongImports", () => {
 
   it("maps skip to local id and duplicate to new id", () => {
     const local = [stubSong({ id: "local-a", title: "Valerie" })]
-    const { prepared, songIdMap } = prepareSongImports(
-      [songA, songB],
-      local,
-      [
-        { packageSongId: "a", action: "skip" },
-        { packageSongId: "b", action: "duplicate" },
-      ],
-    )
+    const { prepared, songIdMap } = prepareSongImports([songA, songB], local, [
+      { packageSongId: "a", action: "skip" },
+      { packageSongId: "b", action: "duplicate" },
+    ])
     expect(songIdMap.get("a")).toBe("local-a")
     expect(songIdMap.get("b")).not.toBe("b")
     expect(prepared.find((p) => p.packageSongId === "a")?.mode).toBe("skip")

@@ -8,7 +8,10 @@ import {
   planKeepLocalMerge,
   planResolutionMerge,
 } from "@/services/sync/contentIdentity"
-import { remapSongIdInRepertoire, removeSongIdsFromRepertoire } from "@/services/sync/remapSongIds"
+import {
+  remapSongIdInRepertoire,
+  removeSongIdsFromRepertoire,
+} from "@/services/sync/remapSongIds"
 import {
   normalizeArtist,
   normalizeSongTitle,
@@ -18,7 +21,9 @@ import { cloneSongWithNewIds } from "@/modules/songs/utils/seedLocalSongs"
 import type { Song } from "@/modules/songs/types/song.types"
 import type { Repertoire } from "@/modules/repertoires/types/repertoire.types"
 
-function song(partial: Partial<Song> & { id: string; updatedAt: string }): Song {
+function song(
+  partial: Partial<Song> & { id: string; updatedAt: string },
+): Song {
   return {
     title: "t",
     artist: "a",

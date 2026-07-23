@@ -186,7 +186,9 @@ export function DataTransferPanel() {
   return (
     <div className="flex flex-col gap-6">
       <section className="flex flex-col gap-3">
-        <h2 className="text-sm font-medium text-zinc-200 light:text-zinc-900">Import</h2>
+        <h2 className="text-sm font-medium text-zinc-200 light:text-zinc-900">
+          Import
+        </h2>
         <p className="text-sm text-zinc-500 light:text-zinc-600">
           Load a ChordBlocks JSON package (songs and optional sets). Title
           conflicts ask before overwriting.
@@ -217,12 +219,16 @@ export function DataTransferPanel() {
       </section>
 
       <section className="flex flex-col gap-3">
-        <h2 className="text-sm font-medium text-zinc-200 light:text-zinc-900">Export songs</h2>
+        <h2 className="text-sm font-medium text-zinc-200 light:text-zinc-900">
+          Export songs
+        </h2>
         <p className="text-sm text-zinc-500 light:text-zinc-600">
           Choose songs to export, or export the whole library.
         </p>
         {songs.length === 0 ? (
-          <p className="text-sm text-zinc-500 light:text-zinc-600">No songs in the library yet.</p>
+          <p className="text-sm text-zinc-500 light:text-zinc-600">
+            No songs in the library yet.
+          </p>
         ) : (
           <>
             <label className="inline-flex items-center gap-2 text-sm text-zinc-400 min-h-11 cursor-pointer light:text-zinc-600">
@@ -281,7 +287,9 @@ export function DataTransferPanel() {
       </section>
 
       <section className="flex flex-col gap-3">
-        <h2 className="text-sm font-medium text-zinc-200 light:text-zinc-900">Export set</h2>
+        <h2 className="text-sm font-medium text-zinc-200 light:text-zinc-900">
+          Export set
+        </h2>
         <p className="text-sm text-zinc-500 light:text-zinc-600">
           Includes the set and each referenced song once (no duplicates).
         </p>

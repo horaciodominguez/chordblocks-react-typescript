@@ -1,10 +1,6 @@
 import type { Song } from "@/modules/songs/types/song.types"
 
-export type SongSort =
-  | "title-asc"
-  | "artist-asc"
-  | "updated-desc"
-  | "year-desc"
+export type SongSort = "title-asc" | "artist-asc" | "updated-desc" | "year-desc"
 
 export type ArtistGroup = {
   key: string
@@ -55,7 +51,10 @@ export function compareSongs(a: Song, b: Song, sort: SongSort): number {
       return normalizeText(a.title).localeCompare(normalizeText(b.title))
     }
     case "year-desc":
-      return b.year - a.year || normalizeText(a.title).localeCompare(normalizeText(b.title))
+      return (
+        b.year - a.year ||
+        normalizeText(a.title).localeCompare(normalizeText(b.title))
+      )
     case "updated-desc":
     default:
       return (

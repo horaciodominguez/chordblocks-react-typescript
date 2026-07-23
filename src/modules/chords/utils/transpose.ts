@@ -62,7 +62,9 @@ function wrapSemitones(semitones: number): number {
   return ((semitones % 12) + 12) % 12
 }
 
-function splitRootSuffix(name: string): { root: string; suffix: string } | null {
+function splitRootSuffix(
+  name: string,
+): { root: string; suffix: string } | null {
   const m = name.match(/^([A-G][#b]?)(.*)$/)
   if (!m) return null
   return { root: m[1], suffix: m[2] ?? "" }
@@ -125,7 +127,10 @@ function transposeBar(bar: Bar, semitones: number): Bar {
   }
 }
 
-function transposeSection(section: SongSection, semitones: number): SongSection {
+function transposeSection(
+  section: SongSection,
+  semitones: number,
+): SongSection {
   return {
     ...section,
     bars: section.bars.map((bar) => transposeBar(bar, semitones)),

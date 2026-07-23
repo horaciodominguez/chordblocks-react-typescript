@@ -129,7 +129,10 @@ export function BlockPicker({
               onChange={(e) => setAccidental(e.target.value as "" | "#" | "b")}
               className={`w-full px-3 py-2 ${controlSurfaceClass}`}
             >
-              <option value="" className="bg-zinc-800 text-white light:bg-white light:text-zinc-900">
+              <option
+                value=""
+                className="bg-zinc-800 text-white light:bg-white light:text-zinc-900"
+              >
                 Natural
               </option>
               <option

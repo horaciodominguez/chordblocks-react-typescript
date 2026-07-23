@@ -156,9 +156,7 @@ export function setGroupTitle(
 ): Repertoire {
   return {
     ...rep,
-    groups: rep.groups.map((g) =>
-      g.id === groupId ? { ...g, title } : g,
-    ),
+    groups: rep.groups.map((g) => (g.id === groupId ? { ...g, title } : g)),
   }
 }
 

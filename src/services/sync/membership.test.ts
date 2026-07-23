@@ -1,12 +1,11 @@
 import { describe, it, expect } from "vitest"
-import {
-  isNewer,
-  planMembershipSync,
-} from "@/services/sync/membership"
+import { isNewer, planMembershipSync } from "@/services/sync/membership"
 import { cloneSongWithNewIds } from "@/modules/songs/utils/seedLocalSongs"
 import type { Song } from "@/modules/songs/types/song.types"
 
-function song(partial: Partial<Song> & { id: string; updatedAt: string }): Song {
+function song(
+  partial: Partial<Song> & { id: string; updatedAt: string },
+): Song {
   return {
     title: "t",
     artist: "a",
@@ -74,9 +73,7 @@ describe("planMembershipSync", () => {
 
   it("keeps local-only when in pendingSaveIds", () => {
     const remote: Song[] = []
-    const local = [
-      song({ id: "new1", updatedAt: "2026-01-01T00:00:00.000Z" }),
-    ]
+    const local = [song({ id: "new1", updatedAt: "2026-01-01T00:00:00.000Z" })]
     const plan = planMembershipSync(local, remote, new Set(["new1"]))
     expect(plan.orphanLocalIds).toHaveLength(0)
     expect(plan.toUpsertRemote[0].id).toBe("new1")
@@ -84,9 +81,7 @@ describe("planMembershipSync", () => {
 
   it("does not resurrect deleted remote song from stale local", () => {
     // remote no longer has id "gone"; local still has it, no pending
-    const remote = [
-      song({ id: "keep", updatedAt: "2026-02-01T00:00:00.000Z" }),
-    ]
+    const remote = [song({ id: "keep", updatedAt: "2026-02-01T00:00:00.000Z" })]
     const local = [
       song({ id: "keep", updatedAt: "2026-01-01T00:00:00.000Z" }),
       song({ id: "gone", updatedAt: "2026-03-01T00:00:00.000Z" }),
@@ -99,9 +94,7 @@ describe("planMembershipSync", () => {
 
   it("keeps holdIds local without upsert or orphan", () => {
     const remote: Song[] = []
-    const local = [
-      song({ id: "held", updatedAt: "2026-01-01T00:00:00.000Z" }),
-    ]
+    const local = [song({ id: "held", updatedAt: "2026-01-01T00:00:00.000Z" })]
     const plan = planMembershipSync(
       local,
       remote,

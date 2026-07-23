@@ -13,6 +13,9 @@ export function songIdentityKey(title: string, artist: string): string {
   return `${normalizeSongTitle(title)}\0${normalizeArtist(artist)}`
 }
 
-export function songContentKey(song: { title: string; artist: string }): string {
+export function songContentKey(song: {
+  title: string
+  artist: string
+}): string {
   return songIdentityKey(song.title, song.artist)
 }

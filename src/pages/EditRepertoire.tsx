@@ -51,9 +51,7 @@ export default function EditRepertoire() {
         initial={repertoire}
         mutating={mutating}
         onSave={handleSave}
-        onCancel={() =>
-          navigate(ROUTES.set(repertoire.id), { replace: true })
-        }
+        onCancel={() => navigate(ROUTES.set(repertoire.id), { replace: true })}
       />
     </>
   )

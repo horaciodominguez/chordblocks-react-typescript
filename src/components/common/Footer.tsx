@@ -49,7 +49,10 @@ export function Footer() {
         {import.meta.env.DEV && (
           <>
             {" · "}
-            <a href="/uitest" className="text-zinc-500 hover:text-zinc-300 light:text-zinc-500 light:hover:text-zinc-800">
+            <a
+              href="/uitest"
+              className="text-zinc-500 hover:text-zinc-300 light:text-zinc-500 light:hover:text-zinc-800"
+            >
               UI Test
             </a>
           </>

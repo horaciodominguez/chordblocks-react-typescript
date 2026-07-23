@@ -392,7 +392,10 @@ export const SongList = () => {
               {letterIndex.map((letter, i) => (
                 <span key={letter} className="inline-flex items-center">
                   {i > 0 ? (
-                    <span className="mx-0.5 text-zinc-700 light:text-zinc-400" aria-hidden>
+                    <span
+                      className="mx-0.5 text-zinc-700 light:text-zinc-400"
+                      aria-hidden
+                    >
                       ·
                     </span>
                   ) : null}

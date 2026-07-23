@@ -42,9 +42,7 @@ export function SongFormPendingSection({ dispatch, state }: Props) {
             sections={state.song.songSections}
             disabled={sectionReorderDisabled}
             highlightedSectionId={highlightedSectionId}
-            onReorder={(order) =>
-              dispatch({ type: "REORDER_SECTIONS", order })
-            }
+            onReorder={(order) => dispatch({ type: "REORDER_SECTIONS", order })}
             onHighlightEnd={() => {
               setEditingHighlightId(undefined)
               dispatch({ type: "CLEAR_DUPLICATED_SECTION" })

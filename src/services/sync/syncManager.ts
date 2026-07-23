@@ -24,7 +24,10 @@ import {
   type SongSyncConflict,
   type SongSyncConflictResolution,
 } from "@/services/sync/contentIdentity"
-import { remapSongIdInRepertoire, removeSongIdsFromRepertoire } from "@/services/sync/remapSongIds"
+import {
+  remapSongIdInRepertoire,
+  removeSongIdsFromRepertoire,
+} from "@/services/sync/remapSongIds"
 import { throwIfAborted } from "@/services/sync/abort"
 import { v4 as uuidv4 } from "uuid"
 
@@ -303,7 +306,9 @@ async function syncRepertoires(
   const pendingsBefore =
     (await idbStorage.getPendingRepertoires()) as PendingRepertoireDrafts[]
   const pendingSaveIds = new Set(
-    pendingsBefore.filter((p) => !isPendingRepertoireDelete(p)).map((p) => p.id),
+    pendingsBefore
+      .filter((p) => !isPendingRepertoireDelete(p))
+      .map((p) => p.id),
   )
 
   for (const p of pendingsBefore) {
@@ -409,10 +414,7 @@ export const syncAll = async (
   const unresolved: SongSyncConflict[] = []
   const seenConflictIds = new Set<string>()
 
-  for (const conflict of [
-    ...classification.userConflicts,
-    ...lwwConflicts,
-  ]) {
+  for (const conflict of [...classification.userConflicts, ...lwwConflicts]) {
     throwIfAborted(signal)
     if (seenConflictIds.has(conflict.id)) continue
     seenConflictIds.add(conflict.id)
@@ -572,14 +574,12 @@ export const resolveSyncConflicts = async (
  * - delete: cascade set refs, remove local orphans
  * - keep: queue pending uploads so they rejoin the cloud
  */
-export const resolveSyncOrphans = async (
-  options: {
-    songIds: string[]
-    repertoireIds: string[]
-    action: OrphanResolutionAction
-    signal?: AbortSignal
-  },
-): Promise<SyncAllResult> => {
+export const resolveSyncOrphans = async (options: {
+  songIds: string[]
+  repertoireIds: string[]
+  action: OrphanResolutionAction
+  signal?: AbortSignal
+}): Promise<SyncAllResult> => {
   const { songIds, repertoireIds, action, signal } = options
   throwIfAborted(signal)
 

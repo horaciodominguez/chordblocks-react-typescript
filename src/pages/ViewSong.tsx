@@ -3,10 +3,7 @@ import { Link, useParams, useSearchParams } from "react-router-dom"
 import { useSong } from "@/modules/songs/hooks/useSong"
 import { useRepertoires } from "@/modules/repertoires/hooks/useRepertoires"
 import PageState from "@/components/ui/PageState"
-import {
-  PageHeader,
-  PageHeaderLink,
-} from "@/components/layout/PageHeader"
+import { PageHeader, PageHeaderLink } from "@/components/layout/PageHeader"
 import { SetSongNav } from "@/modules/repertoires/components/SetSongNav"
 import {
   getSetNavContext,
@@ -49,11 +46,13 @@ export default function ViewSong() {
   useWakeLock(playMode && !!setNav)
 
   const itemNotes = setNav?.current.item.notes?.trim() || ""
-  const backTo = setNav
-    ? ROUTES.set(setNav.repertoireId)
-    : ROUTES.songs
+  const backTo = setNav ? ROUTES.set(setNav.repertoireId) : ROUTES.songs
   const exitPlayTo = setNav
-    ? setSongPath(setNav.current.item.songId, setNav.repertoireId, setNav.current.item.id)
+    ? setSongPath(
+        setNav.current.item.songId,
+        setNav.repertoireId,
+        setNav.current.item.id,
+      )
     : backTo
 
   if (loading) {
@@ -163,13 +162,7 @@ export default function ViewSong() {
       ) : null}
 
       <div
-        className={
-          setNav
-            ? playMode
-              ? "pb-20"
-              : "pb-24 md:pb-20"
-            : undefined
-        }
+        className={setNav ? (playMode ? "pb-20" : "pb-24 md:pb-20") : undefined}
       >
         <Song
           song={song}

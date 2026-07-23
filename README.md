@@ -8,13 +8,13 @@
 ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 
 **ChordBlocks** is a web application built with **React + TypeScript** to create and organize chord progressions.  
-It works **offline-first** with automatic synchronization via **Supabase**.  
+It works **offline-first** with automatic synchronization via **Supabase**.
 
 ---
 
 ## 🚀 Demo
 
-👉 [View the project on GitHub](https://github.com/horaciodominguez/chordblocks-react-typescript)  
+👉 [View the project on GitHub](https://github.com/horaciodominguez/chordblocks-react-typescript)
 
 ---
 
@@ -34,14 +34,14 @@ It works **offline-first** with automatic synchronization via **Supabase**.
 
 ## Information architecture
 
-| Route | Purpose |
-|-------|---------|
-| `/` | Home — pinned sets |
-| `/songs` | Song library (list / by artist) |
-| `/song/:id` | Song view (± set context query params) |
-| `/repertoires` | Sets list (pinned first + search) |
-| `/repertoires/:id` | Set detail / play |
-| `/settings` | Data import/export + account |
+| Route              | Purpose                                |
+| ------------------ | -------------------------------------- |
+| `/`                | Home — pinned sets                     |
+| `/songs`           | Song library (list / by artist)        |
+| `/song/:id`        | Song view (± set context query params) |
+| `/repertoires`     | Sets list (pinned first + search)      |
+| `/repertoires/:id` | Set detail / play                      |
+| `/settings`        | Data import/export + account           |
 
 UI copy uses **Set**; code/types use `Repertoire`.
 
@@ -49,11 +49,11 @@ UI copy uses **Set**; code/types use `Repertoire`.
 
 ## 🛠️ Tech Stack
 
-- **Frontend:** React 19 + TypeScript + Vite  
-- **UI:** TailwindCSS 4, Radix UI, Lucide Icons  
-- **State/Form:** Reducers + Zod Validation  
-- **Persistence:** IndexedDB (`idb`), Supabase  
-- **UX:** sonner (toasts), loaders, confirm dialogs  
+- **Frontend:** React 19 + TypeScript + Vite
+- **UI:** TailwindCSS 4, Radix UI, Lucide Icons
+- **State/Form:** Reducers + Zod Validation
+- **Persistence:** IndexedDB (`idb`), Supabase
+- **UX:** sonner (toasts), loaders, confirm dialogs
 
 ---
 
@@ -109,3 +109,4 @@ src/
 
 Linkedin: [text](https://linkedin.com/in/horaciodominguez)
 Portfolio: [text](https://horaciodominguez.com/)
+```

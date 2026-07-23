@@ -1,4 +1,10 @@
-import { Home, ListMusic, Library, Settings, type LucideIcon } from "lucide-react"
+import {
+  Home,
+  ListMusic,
+  Library,
+  Settings,
+  type LucideIcon,
+} from "lucide-react"
 
 export type NavItemId = "home" | "songs" | "sets" | "settings"
 

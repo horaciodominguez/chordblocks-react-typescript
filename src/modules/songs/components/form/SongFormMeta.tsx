@@ -220,7 +220,10 @@ export function SongFormMeta({ dispatch, state, song }: Props) {
               />
             ) : (
               <div className="w-24 h-24 bg-zinc-800 rounded flex items-center justify-center light:bg-zinc-100">
-                <Music size={24} className="text-zinc-500 light:text-zinc-600" />
+                <Music
+                  size={24}
+                  className="text-zinc-500 light:text-zinc-600"
+                />
               </div>
             )}
           </div>

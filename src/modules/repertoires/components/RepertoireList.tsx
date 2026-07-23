@@ -185,7 +185,9 @@ export function RepertoireList() {
         <>
           {pinned.length > 0 ? (
             <section className="flex flex-col gap-3">
-              <h2 className="text-sm font-medium text-zinc-300 px-1 light:text-zinc-800">Pinned</h2>
+              <h2 className="text-sm font-medium text-zinc-300 px-1 light:text-zinc-800">
+                Pinned
+              </h2>
               <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 {pinned.map((rep) => (
                   <li key={rep.id} className="min-w-0">

@@ -25,14 +25,20 @@ export function parseYouTubeVideoId(url: string): string | null {
     return VIDEO_ID_RE.test(id) ? id : null
   }
 
-  if (host === "youtube.com" || host === "m.youtube.com" || host === "music.youtube.com") {
+  if (
+    host === "youtube.com" ||
+    host === "m.youtube.com" ||
+    host === "music.youtube.com"
+  ) {
     const v = parsed.searchParams.get("v")
     if (v && VIDEO_ID_RE.test(v)) return v
 
     const segments = parsed.pathname.split("/").filter(Boolean)
     if (
       segments.length === 2 &&
-      (segments[0] === "embed" || segments[0] === "shorts" || segments[0] === "live")
+      (segments[0] === "embed" ||
+        segments[0] === "shorts" ||
+        segments[0] === "live")
     ) {
       return VIDEO_ID_RE.test(segments[1]) ? segments[1] : null
     }

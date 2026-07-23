@@ -3,7 +3,10 @@ import type {
   Action,
   SongFormState,
 } from "@/modules/songs/state/songFormReducer"
-import { BLOCK_BEAT_VALUES, SECTION_OPTIONS } from "@/modules/songs/constants/song"
+import {
+  BLOCK_BEAT_VALUES,
+  SECTION_OPTIONS,
+} from "@/modules/songs/constants/song"
 import type {
   SectionType,
   SongSection,
@@ -134,7 +137,7 @@ export function SectionEditor({ state, dispatch, onStopEditing }: Props) {
                 name="addBeats"
                 label="Beats"
                 options={BLOCK_BEAT_VALUES.filter(
-                  (v) => v <= state.availableBeats
+                  (v) => v <= state.availableBeats,
                 )}
                 onChange={(e) => {
                   if (e.target.value) {

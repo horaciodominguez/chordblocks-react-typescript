@@ -14,7 +14,9 @@ export function compareRepertoiresByDate(a: Repertoire, b: Repertoire): number {
   } else if (!aDate && bDate) {
     return 1
   }
-  return b.updatedAt.localeCompare(a.updatedAt) || a.title.localeCompare(b.title)
+  return (
+    b.updatedAt.localeCompare(a.updatedAt) || a.title.localeCompare(b.title)
+  )
 }
 
 export function sortRepertoiresByDate(reps: Repertoire[]): Repertoire[] {

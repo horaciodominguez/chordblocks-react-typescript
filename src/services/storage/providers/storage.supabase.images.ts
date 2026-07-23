@@ -17,10 +17,12 @@ export async function uploadSongImage(
   const ext = extensionFromMime(blob.type || "image/png")
   const path = `${userId}/${songId}.${ext}`
 
-  const { error } = await supabase.storage.from("song-images").upload(path, blob, {
-    upsert: true,
-    contentType: blob.type || "image/png",
-  })
+  const { error } = await supabase.storage
+    .from("song-images")
+    .upload(path, blob, {
+      upsert: true,
+      contentType: blob.type || "image/png",
+    })
 
   if (error) throw error
 

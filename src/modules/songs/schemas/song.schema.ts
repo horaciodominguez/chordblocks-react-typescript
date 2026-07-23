@@ -71,7 +71,7 @@ export const SectionSchema = z.object({
   type: z.enum(SECTION_OPTIONS),
   label: z.preprocess(
     (v) => (v === "" || v === null || v === undefined ? undefined : v),
-    z.string().min(1).optional()
+    z.string().min(1).optional(),
   ),
   bars: z.array(BarSchema).min(1, "Section must have at least one bar"),
   repeats: z.number().int().min(1, "Min repeats is 1"),
@@ -95,14 +95,14 @@ export const SongSchema = z.object({
   timeSignature: TimeSignatureSchema,
   mainKey: z.preprocess(
     (v) => (v === "" || v === null || v === undefined ? undefined : v),
-    z.string().min(1).optional()
+    z.string().min(1).optional(),
   ),
   youtubeUrl: z.preprocess(
     (v) => (v === "" || v === null || v === undefined ? undefined : v),
     z
       .string()
       .refine(isValidYouTubeUrl, "Enter a valid YouTube link")
-      .optional()
+      .optional(),
   ),
   imageBase64: z.string().nullable(),
   imageUrl: z.string().nullable(),

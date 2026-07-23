@@ -47,7 +47,11 @@ export function SetSongNav({ nav, playMode = false }: Props) {
             <span className="hidden sm:inline">Prev</span>
           </Link>
         ) : (
-          <span role="button" className={navBtnDisabledClass} aria-disabled="true">
+          <span
+            role="button"
+            className={navBtnDisabledClass}
+            aria-disabled="true"
+          >
             <ChevronLeft size={18} />
             <span className="hidden sm:inline">Prev</span>
           </span>
@@ -72,7 +76,11 @@ export function SetSongNav({ nav, playMode = false }: Props) {
             <ChevronRight size={18} />
           </Link>
         ) : (
-          <span role="button" className={navBtnDisabledClass} aria-disabled="true">
+          <span
+            role="button"
+            className={navBtnDisabledClass}
+            aria-disabled="true"
+          >
             <span className="hidden sm:inline">Next</span>
             <ChevronRight size={18} />
           </span>

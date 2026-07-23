@@ -142,9 +142,7 @@ export function SongsProvider({ children }: { children: ReactNode }) {
     ],
   )
 
-  return (
-    <SongsContext.Provider value={value}>{children}</SongsContext.Provider>
-  )
+  return <SongsContext.Provider value={value}>{children}</SongsContext.Provider>
 }
 
 export function useSongs(): SongsContextValue {

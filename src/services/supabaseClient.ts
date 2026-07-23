@@ -88,7 +88,10 @@ if (supabaseUrl && supabaseAnonKey) {
   try {
     supabase = createClient(supabaseUrl, supabaseAnonKey)
   } catch (err) {
-    console.error("Failed to create Supabase client, falling back to DEMO:", err)
+    console.error(
+      "Failed to create Supabase client, falling back to DEMO:",
+      err,
+    )
     supabase = createDemoClient()
   }
 } else {

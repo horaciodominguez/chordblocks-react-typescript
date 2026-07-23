@@ -17,9 +17,7 @@ import { AppShell } from "./components/layout/AppShell"
 import { useTheme } from "./modules/ui/hooks/useTheme"
 import { lazy, Suspense } from "react"
 
-const UITest = import.meta.env.DEV
-  ? lazy(() => import("@/pages/UITest"))
-  : null
+const UITest = import.meta.env.DEV ? lazy(() => import("@/pages/UITest")) : null
 
 export default function App() {
   const { initialLoading: songsLoading } = useSongs()

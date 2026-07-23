@@ -52,8 +52,7 @@ export function SongSyncConflictDialog({
   if (conflicts.length === 0) return null
 
   const hasSameIdLww = conflicts.some(
-    (c) =>
-      c.source === "pending_vs_remote" && c.songA.id === c.songB.id,
+    (c) => c.source === "pending_vs_remote" && c.songA.id === c.songB.id,
   )
 
   return (
@@ -107,7 +106,12 @@ export function SongSyncConflictDialog({
                       [
                         ["keepLocal", "Keep this device"],
                         ["keepNewest", "Keep newest"],
-                        ["keepBoth", sameId ? "Keep both (fork offline edit)" : "Keep both"],
+                        [
+                          "keepBoth",
+                          sameId
+                            ? "Keep both (fork offline edit)"
+                            : "Keep both",
+                        ],
                       ] as const
                     ).map(([value, label]) => (
                       <label

@@ -17,10 +17,7 @@ import {
   type SongSyncConflictResolution,
   type SyncAllResult,
 } from "@/services/sync/syncManager"
-import {
-  isSyncAbortError,
-  isSyncTimeoutError,
-} from "@/services/sync/abort"
+import { isSyncAbortError, isSyncTimeoutError } from "@/services/sync/abort"
 import { ensureLocalSongs } from "@/modules/songs/utils/seedLocalSongs"
 import { idbStorage } from "@/services/storage/providers/storage.idb"
 import { toast } from "sonner"

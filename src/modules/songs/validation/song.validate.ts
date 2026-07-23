@@ -4,7 +4,7 @@ import type { Song } from "../types/song.types"
 export type ValidationErrorMap = Record<string, string>
 
 export function validateSong(
-  input: Song
+  input: Song,
 ): { ok: true; data: Song } | { ok: false; errors: ValidationErrorMap } {
   const res = SongSchema.safeParse(input)
   if (res.success) {

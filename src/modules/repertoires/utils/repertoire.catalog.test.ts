@@ -73,9 +73,7 @@ describe("repertoire.catalog", () => {
           {
             id: "g1",
             title: "",
-            items: [
-              { id: "i1", songId: "s1", transposeSemitones: 0 },
-            ],
+            items: [{ id: "i1", songId: "s1", transposeSemitones: 0 }],
           },
         ],
       }),
@@ -86,9 +84,7 @@ describe("repertoire.catalog", () => {
           {
             id: "g2",
             title: "",
-            items: [
-              { id: "i2", songId: "s2", transposeSemitones: 0 },
-            ],
+            items: [{ id: "i2", songId: "s2", transposeSemitones: 0 }],
           },
         ],
       }),

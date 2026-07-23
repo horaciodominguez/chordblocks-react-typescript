@@ -91,18 +91,21 @@ export function RepertoiresProvider({ children }: { children: ReactNode }) {
     void refreshRepertoires()
   }, [syncEpoch, ready, refreshRepertoires])
 
-  const addRepertoire = useCallback(async (title?: string) => {
-    setMutating(true)
-    try {
-      const created = createEmptyRepertoire(title)
-      const parsed = RepertoireSchema.parse(created)
-      await saveRepertoireWithSync(parsed)
-      await refreshRepertoires()
-      return parsed
-    } finally {
-      setMutating(false)
-    }
-  }, [refreshRepertoires])
+  const addRepertoire = useCallback(
+    async (title?: string) => {
+      setMutating(true)
+      try {
+        const created = createEmptyRepertoire(title)
+        const parsed = RepertoireSchema.parse(created)
+        await saveRepertoireWithSync(parsed)
+        await refreshRepertoires()
+        return parsed
+      } finally {
+        setMutating(false)
+      }
+    },
+    [refreshRepertoires],
+  )
 
   const updateRepertoire = useCallback(
     async (rep: Repertoire) => {

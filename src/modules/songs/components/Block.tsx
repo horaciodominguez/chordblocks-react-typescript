@@ -52,7 +52,9 @@ function BlockContent({
     )
   }
   if (block.type === "riff") {
-    return <RiffMarker label={block.label} refTime={block.refTime} onSeek={onSeek} />
+    return (
+      <RiffMarker label={block.label} refTime={block.refTime} onSeek={onSeek} />
+    )
   }
   if (block.type === "solo") {
     return <SoloMarker refTime={block.refTime} onSeek={onSeek} />
@@ -131,24 +133,26 @@ export const Block = forwardRef<HTMLDivElement, Props>(
             absolute bottom-0 left-1/2 -translate-x-1/2
             opacity-100 md:opacity-0 md:group-hover:opacity-100 transition"
           >
-            {onUpdateDuration && durationOptions && durationOptions.length > 0 && (
-              <select
-                value={block.duration}
-                onChange={(e) =>
-                  onUpdateDuration(parseInt(e.target.value, 10))
-                }
-                aria-label="Block beats"
-                title="Beats"
-                className="text-xs bg-zinc-800 border border-zinc-600 text-zinc-200 rounded px-1 py-1 min-h-9 cursor-pointer light:bg-white light:border-zinc-300 light:text-zinc-900"
-                onPointerDown={(e) => e.stopPropagation()}
-              >
-                {durationOptions.map((v) => (
-                  <option key={v} value={v}>
-                    {v}b
-                  </option>
-                ))}
-              </select>
-            )}
+            {onUpdateDuration &&
+              durationOptions &&
+              durationOptions.length > 0 && (
+                <select
+                  value={block.duration}
+                  onChange={(e) =>
+                    onUpdateDuration(parseInt(e.target.value, 10))
+                  }
+                  aria-label="Block beats"
+                  title="Beats"
+                  className="text-xs bg-zinc-800 border border-zinc-600 text-zinc-200 rounded px-1 py-1 min-h-9 cursor-pointer light:bg-white light:border-zinc-300 light:text-zinc-900"
+                  onPointerDown={(e) => e.stopPropagation()}
+                >
+                  {durationOptions.map((v) => (
+                    <option key={v} value={v}>
+                      {v}b
+                    </option>
+                  ))}
+                </select>
+              )}
 
             {onUpdateRefTime && isTimedBlockType && (
               <BlockRefTimeDialog

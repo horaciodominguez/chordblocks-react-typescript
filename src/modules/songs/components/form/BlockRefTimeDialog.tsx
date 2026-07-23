@@ -84,8 +84,8 @@ function RefTimeForm({
     <div className="flex flex-col gap-3">
       {!hasYoutubeUrl ? (
         <p className="text-xs text-amber-300/90 bg-amber-400/5 border border-amber-500/20 rounded-md px-3 py-2 light:text-amber-700">
-          This song has no YouTube link yet. Add one in the song details so
-          this time can be played.
+          This song has no YouTube link yet. Add one in the song details so this
+          time can be played.
         </p>
       ) : null}
 

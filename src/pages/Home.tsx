@@ -41,7 +41,9 @@ export default function Home() {
       ) : (
         <div className="flex flex-col gap-4">
           <div className="flex items-center justify-between gap-2">
-            <h2 className="text-sm font-medium text-zinc-300 light:text-zinc-800">Pinned sets</h2>
+            <h2 className="text-sm font-medium text-zinc-300 light:text-zinc-800">
+              Pinned sets
+            </h2>
             <Link
               to={ROUTES.sets}
               className="text-sm text-indigo-400 hover:text-indigo-300 light:text-indigo-600 light:hover:text-indigo-700 min-h-11 inline-flex items-center"

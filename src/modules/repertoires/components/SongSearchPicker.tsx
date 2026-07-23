@@ -37,10 +37,7 @@ export function SongSearchPicker({
 
   const groupOptions = groups.map((g) => g.id)
   const groupLabels = Object.fromEntries(
-    groups.map((g, index) => [
-      g.id,
-      g.title.trim() || `Group ${index + 1}`,
-    ]),
+    groups.map((g, index) => [g.id, g.title.trim() || `Group ${index + 1}`]),
   )
 
   return (
@@ -70,7 +67,9 @@ export function SongSearchPicker({
       </div>
 
       {songs.length === 0 ? (
-        <p className="text-sm text-zinc-500 light:text-zinc-600">No songs in your library yet.</p>
+        <p className="text-sm text-zinc-500 light:text-zinc-600">
+          No songs in your library yet.
+        </p>
       ) : filtered.length === 0 ? (
         <p className="text-sm text-zinc-500 light:text-zinc-600">No matches.</p>
       ) : (
@@ -81,8 +80,12 @@ export function SongSearchPicker({
               className="flex items-center justify-between gap-2 py-1.5 border-b border-zinc-800 last:border-0 light:border-zinc-200"
             >
               <div className="min-w-0">
-                <p className="text-sm text-zinc-100 truncate light:text-zinc-900">{song.title}</p>
-                <p className="text-xs text-zinc-500 truncate light:text-zinc-600">{song.artist}</p>
+                <p className="text-sm text-zinc-100 truncate light:text-zinc-900">
+                  {song.title}
+                </p>
+                <p className="text-xs text-zinc-500 truncate light:text-zinc-600">
+                  {song.artist}
+                </p>
               </div>
               <Button
                 type="button"

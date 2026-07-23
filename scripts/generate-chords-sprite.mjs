@@ -58,11 +58,15 @@ function barreRect(barre, baseFret) {
 function renderSymbol(id, shape) {
   const { frets, baseFret, barre } = shape
   const grid = baseFret === 1 ? "main-grid-with-nut" : "main-grid-no-nut"
-  const parts = [`<symbol id="${id}" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">`]
+  const parts = [
+    `<symbol id="${id}" viewBox="0 0 260 260" preserveAspectRatio="xMinYMin meet">`,
+  ]
   parts.push(`<use href="#${grid}"/>`)
 
   if (baseFret > 1) {
-    parts.push(`<text x="0" y="84" font-size="42" fill="currentColor">${baseFret}</text>`)
+    parts.push(
+      `<text x="0" y="84" font-size="42" fill="currentColor">${baseFret}</text>`,
+    )
   }
 
   if (barre) {
@@ -101,7 +105,9 @@ function renderSymbol(id, shape) {
     else if (f === 0) xo.push(openMark(x))
   }
   if (xo.length) {
-    parts.push(`<g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">${xo.join("")}</g>`)
+    parts.push(
+      `<g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">${xo.join("")}</g>`,
+    )
   }
 
   parts.push(`</symbol>`)
@@ -139,7 +145,9 @@ function main() {
 
   for (const [flat, sharp] of Object.entries(FLAT_ALIASES)) {
     for (const suffix of SUFFIXES) {
-      body.push(`<symbol id="${flat}${suffix}"><use href="#${sharp}${suffix}"/></symbol>`)
+      body.push(
+        `<symbol id="${flat}${suffix}"><use href="#${sharp}${suffix}"/></symbol>`,
+      )
     }
   }
 

@@ -77,7 +77,10 @@ export const Select = ({
           tabIndex={tabIndex}
         >
           {defaultValue != undefined && defaultValue != "" ? (
-            <option value="" className="bg-zinc-800 text-white light:bg-white light:text-zinc-900">
+            <option
+              value=""
+              className="bg-zinc-800 text-white light:bg-white light:text-zinc-900"
+            >
               {defaultValue}
             </option>
           ) : null}

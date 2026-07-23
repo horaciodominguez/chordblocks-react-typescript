@@ -32,7 +32,7 @@ export function parseChordName(name?: string | null): Chord | null {
   return {
     name,
     root: m ? m[1] : name,
-    suffix: m ? m[2]?.trim() ?? "" : "",
+    suffix: m ? (m[2]?.trim() ?? "") : "",
     type: "custom",
   } as Chord
 }

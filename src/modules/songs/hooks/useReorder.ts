@@ -3,7 +3,7 @@ import type { DragEndEvent } from "@dnd-kit/core"
 
 export function useReorder<T extends { id: string }>(
   items: T[],
-  onReorder: (newItems: T[]) => void
+  onReorder: (newItems: T[]) => void,
 ) {
   return (event: DragEndEvent) => {
     const { active, over } = event

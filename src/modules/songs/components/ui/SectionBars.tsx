@@ -43,9 +43,7 @@ export default function SectionBars({
           : "grid-cols-2 sm:grid-cols-3 md:grid-cols-4"
 
   return (
-    <div
-      className={`grid ${colClass} gap-y-4 mb-4 guide:gap-y-2 guide:mb-2`}
-    >
+    <div className={`grid ${colClass} gap-y-4 mb-4 guide:gap-y-2 guide:mb-2`}>
       {children}
     </div>
   )

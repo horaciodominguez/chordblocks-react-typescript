@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Quicksand:wght@300..700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Quicksand:wght@300..700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap");
 
 @import "tailwindcss";
 
@@ -18,7 +18,8 @@
   --spacing-touch: 2.75rem;
   --radius-panel: 0.375rem;
   --animate-section-highlight: song-section-highlight 550ms ease-in-out 3;
-  --animate-section-highlight-light: song-section-highlight-light 550ms ease-in-out 3;
+  --animate-section-highlight-light: song-section-highlight-light 550ms
+    ease-in-out 3;
 }
 
 @keyframes song-section-highlight {

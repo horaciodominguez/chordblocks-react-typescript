@@ -9,11 +9,7 @@ type Props = {
   actions?: React.ReactNode
 }
 
-export function PageHeader({
-  title,
-  backTo = "/",
-  actions,
-}: Props) {
+export function PageHeader({ title, backTo = "/", actions }: Props) {
   const navigate = useNavigate()
 
   return (
@@ -27,7 +23,9 @@ export function PageHeader({
         <ArrowLeft size={20} />
       </button>
 
-      <h2 className={`${pageTitleClass} m-0 flex-1 truncate text-left text-lg sm:text-2xl`}>
+      <h2
+        className={`${pageTitleClass} m-0 flex-1 truncate text-left text-lg sm:text-2xl`}
+      >
         {title}
       </h2>
 

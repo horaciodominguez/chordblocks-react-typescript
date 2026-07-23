@@ -192,8 +192,8 @@ export default function ViewRepertoire() {
         ) : (
           <div className="flex flex-wrap items-center justify-between gap-2">
             <p className="text-sm text-zinc-400 light:text-zinc-600">
-              {flatItems.length}{" "}
-              {flatItems.length === 1 ? "song" : "songs"} in this set
+              {flatItems.length} {flatItems.length === 1 ? "song" : "songs"} in
+              this set
               {dateLabel ? ` · ${dateLabel}` : ""}
             </p>
             <div className="flex flex-wrap gap-2">

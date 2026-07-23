@@ -40,7 +40,10 @@ export function isSyncAbortError(err: unknown): boolean {
   return false
 }
 
-export function isSyncTimeoutError(err: unknown, signal?: AbortSignal): boolean {
+export function isSyncTimeoutError(
+  err: unknown,
+  signal?: AbortSignal,
+): boolean {
   if (signal?.aborted && signal.reason === "timeout") return true
   if (!(err instanceof Error)) return false
   return err.message === "sync timeout" || err.message === "timeout"
