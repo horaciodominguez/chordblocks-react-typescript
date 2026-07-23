@@ -149,11 +149,13 @@ export const SongList = () => {
       title="Delete song?"
       description={(() => {
         const refs = findRepertoiresReferencingSong(repertoires, song.id)
-        const base = `Are you sure you want to delete "${song.title}"? This action cannot be undone.`
-        if (!refs.length) return base
-        return `${base} It is used in: ${refs.map((r) => r.title).join(", ")}.`
+        const base = `Delete "${song.title}"? This cannot be undone.`
+        if (!refs.length) {
+          return `${base} The song will be removed from this device and, if you are signed in, from the cloud.`
+        }
+        return `${base} It will also be removed from these sets: ${refs.map((r) => r.title).join(", ")}.`
       })()}
-      confirmLabel="Delete"
+      confirmLabel="Delete song"
       cancelLabel="Cancel"
       onConfirm={async () => {
         try {

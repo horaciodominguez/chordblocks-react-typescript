@@ -12,6 +12,7 @@ import type { User, Session, AuthChangeEvent } from "@supabase/supabase-js"
 import {
   syncAll,
   resolveSyncConflicts,
+  resolveSyncOrphans,
   type SongSyncConflict,
   type SongSyncConflictResolution,
   type SyncAllResult,
@@ -24,6 +25,9 @@ import { ensureLocalSongs } from "@/modules/songs/utils/seedLocalSongs"
 import { idbStorage } from "@/services/storage/providers/storage.idb"
 import { toast } from "sonner"
 import { SongSyncConflictDialog } from "@/modules/auth/components/SongSyncConflictDialog"
+import { SyncOrphanDialog } from "@/modules/auth/components/SyncOrphanDialog"
+import type { Song } from "@/modules/songs/types/song.types"
+import type { Repertoire } from "@/modules/repertoires/types/repertoire.types"
 
 type AuthContextValue = {
   user: User | null
@@ -44,7 +48,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [syncEpoch, setSyncEpoch] = useState(0)
   const [syncing, setSyncing] = useState(false)
   const [conflicts, setConflicts] = useState<SongSyncConflict[]>([])
+  const [orphanSongs, setOrphanSongs] = useState<Song[]>([])
+  const [orphanRepertoires, setOrphanRepertoires] = useState<Repertoire[]>([])
   const [resolvingConflicts, setResolvingConflicts] = useState(false)
+  const [resolvingOrphans, setResolvingOrphans] = useState(false)
   const syncingRef = useRef(false)
   const syncAbortRef = useRef<AbortController | null>(null)
   /** Resolves when the current exclusive sync fully finishes (incl. after abort). */
@@ -52,6 +59,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const userRef = useRef<User | null>(null)
 
   const bumpSyncEpoch = () => setSyncEpoch((n) => n + 1)
+
+  const applySyncResult = (result: SyncAllResult) => {
+    setConflicts(result.conflicts)
+    setOrphanSongs(result.orphanSongs)
+    setOrphanRepertoires(result.orphanRepertoires)
+    bumpSyncEpoch()
+  }
 
   /**
    * Runs at most one sync at a time. Timeout aborts the in-flight work via
@@ -104,13 +118,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     try {
       const result = await withSyncLock((signal) => syncAll({ signal }))
       if (!result) return
-
-      if (result.conflicts.length > 0) {
-        setConflicts(result.conflicts)
-      } else {
-        setConflicts([])
-      }
-      bumpSyncEpoch()
+      applySyncResult(result)
     } catch (err) {
       if (isSyncAbortError(err)) {
         if (showToastOnFail && isSyncTimeoutError(err)) {
@@ -136,8 +144,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         { preempt: true },
       )
       if (!result) return
-      setConflicts(result.conflicts)
-      bumpSyncEpoch()
+      applySyncResult(result)
     } catch (err) {
       if (isSyncAbortError(err)) {
         console.error("resolveSyncConflicts aborted:", err)
@@ -150,6 +157,34 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       toast.error("Could not apply sync choices. Try again.")
     } finally {
       setResolvingConflicts(false)
+    }
+  }
+
+  const handleResolveOrphans = async (action: "delete" | "keep") => {
+    setResolvingOrphans(true)
+    try {
+      const result = await withSyncLock(
+        (signal) =>
+          resolveSyncOrphans({
+            songIds: orphanSongs.map((s) => s.id),
+            repertoireIds: orphanRepertoires.map((r) => r.id),
+            action,
+            signal,
+          }),
+        { preempt: true },
+      )
+      if (!result) return
+      applySyncResult(result)
+      toast.success(
+        action === "delete"
+          ? "Local-only items removed from this device."
+          : "Local-only items queued for upload.",
+      )
+    } catch (err) {
+      console.error("resolveSyncOrphans error:", err)
+      toast.error("Could not apply orphan choice. Try again.")
+    } finally {
+      setResolvingOrphans(false)
     }
   }
 
@@ -225,6 +260,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         if (event === "SIGNED_OUT" || (!newUser && !wasLoggedOut)) {
           syncAbortRef.current?.abort("signed_out")
           setConflicts([])
+          setOrphanSongs([])
+          setOrphanRepertoires([])
           void (async () => {
             try {
               // Keep path: local charts stay. Clear path: IDB already wiped;
@@ -250,12 +287,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
                 { preempt: true },
               )
               if (!result) return
-              if (result.conflicts.length > 0) {
-                setConflicts(result.conflicts)
-              } else {
-                setConflicts([])
-              }
-              bumpSyncEpoch()
+              applySyncResult(result)
             } catch (err) {
               console.error("syncAll error:", err)
               if (isSyncTimeoutError(err)) {
@@ -313,6 +345,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         open={conflicts.length > 0}
         applying={resolvingConflicts}
         onApply={handleApplyResolutions}
+      />
+      <SyncOrphanDialog
+        songs={orphanSongs}
+        repertoires={orphanRepertoires}
+        open={
+          conflicts.length === 0 &&
+          (orphanSongs.length > 0 || orphanRepertoires.length > 0)
+        }
+        applying={resolvingOrphans}
+        onResolve={(action) => void handleResolveOrphans(action)}
       />
     </AuthContext.Provider>
   )

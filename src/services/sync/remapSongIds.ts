@@ -23,3 +23,26 @@ export function remapSongIdInRepertoire(
     updatedAt: new Date().toISOString(),
   }
 }
+
+/** Drop set items that reference any of the given song ids. */
+export function removeSongIdsFromRepertoire(
+  rep: Repertoire,
+  songIds: ReadonlySet<string>,
+): Repertoire {
+  if (songIds.size === 0) return rep
+  let changed = false
+  const groups = rep.groups.map((g) => {
+    const items = g.items.filter((item) => {
+      if (!songIds.has(item.songId)) return true
+      changed = true
+      return false
+    })
+    return items.length === g.items.length ? g : { ...g, items }
+  })
+  if (!changed) return rep
+  return {
+    ...rep,
+    groups,
+    updatedAt: new Date().toISOString(),
+  }
+}

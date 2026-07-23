@@ -8,7 +8,7 @@ import {
   planKeepLocalMerge,
   planResolutionMerge,
 } from "@/services/sync/contentIdentity"
-import { remapSongIdInRepertoire } from "@/services/sync/remapSongIds"
+import { remapSongIdInRepertoire, removeSongIdsFromRepertoire } from "@/services/sync/remapSongIds"
 import {
   normalizeArtist,
   normalizeSongTitle,
@@ -66,7 +66,7 @@ describe("isSeedRelated", () => {
     ).toBe(true)
   })
 
-  it("true when title+artist matches a mockup template", () => {
+  it("false when title+artist matches a mockup but seedOriginId is missing", () => {
     expect(
       isSeedRelated(
         song({
@@ -76,7 +76,20 @@ describe("isSeedRelated", () => {
           updatedAt: "2026-01-01T00:00:00.000Z",
         }),
       ),
-    ).toBe(true)
+    ).toBe(false)
+  })
+
+  it("false for Have You Ever Seen the Rain without seedOriginId", () => {
+    expect(
+      isSeedRelated(
+        song({
+          id: "x",
+          title: "Have You Ever Seen the Rain",
+          artist: "Creedence Clearwater Revival",
+          updatedAt: "2026-01-01T00:00:00.000Z",
+        }),
+      ),
+    ).toBe(false)
   })
 
   it("false for arbitrary user song", () => {
@@ -175,6 +188,24 @@ describe("classifyPendingByContent", () => {
     expect(result.userConflicts).toHaveLength(1)
     expect(result.userConflicts[0].source).toBe("pending_vs_remote")
     expect(result.autoMerges).toHaveLength(0)
+  })
+
+  it("flags user conflict when title matches catalog but no seedOriginId", () => {
+    const local = song({
+      id: "local-cover",
+      title: "Have You Ever Seen the Rain",
+      artist: "Creedence Clearwater Revival",
+      updatedAt: "2026-02-01T00:00:00.000Z",
+    })
+    const remote = song({
+      id: "remote-cover",
+      title: "Have You Ever Seen the Rain",
+      artist: "Creedence Clearwater Revival",
+      updatedAt: "2026-01-01T00:00:00.000Z",
+    })
+    const result = classifyPendingByContent([local], [remote])
+    expect(result.autoMerges).toHaveLength(0)
+    expect(result.userConflicts).toHaveLength(1)
   })
 
   it("leaves unmatched pending as new uploads", () => {
@@ -364,6 +395,31 @@ describe("remapSongIdInRepertoire", () => {
     const next = remapSongIdInRepertoire(rep, "old", "new")
     expect(next.groups[0].items[0].songId).toBe("new")
     expect(next.groups[0].items[1].songId).toBe("keep")
+    expect(next.updatedAt).not.toBe(rep.updatedAt)
+  })
+})
+
+describe("removeSongIdsFromRepertoire", () => {
+  it("drops items matching song ids", () => {
+    const rep: Repertoire = {
+      id: "r1",
+      title: "Set",
+      groups: [
+        {
+          id: "g1",
+          title: "",
+          items: [
+            { id: "i1", songId: "gone", transposeSemitones: 0 },
+            { id: "i2", songId: "keep", transposeSemitones: 1 },
+          ],
+        },
+      ],
+      createdAt: "2026-01-01T00:00:00.000Z",
+      updatedAt: "2026-01-01T00:00:00.000Z",
+    }
+    const next = removeSongIdsFromRepertoire(rep, new Set(["gone"]))
+    expect(next.groups[0].items).toHaveLength(1)
+    expect(next.groups[0].items[0].songId).toBe("keep")
     expect(next.updatedAt).not.toBe(rep.updatedAt)
   })
 })

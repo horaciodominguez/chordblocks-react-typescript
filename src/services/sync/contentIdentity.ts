@@ -1,13 +1,10 @@
-import { songsData } from "@/modules/songs/data/songs"
 import type { Song } from "@/modules/songs/types/song.types"
 import { songContentKey } from "@/modules/io/utils/normalizeTitle"
 import { isNewer } from "@/services/sync/membership"
 
-const SEED_IDENTITY_KEYS = new Set(songsData.map((s) => songContentKey(s)))
-
+/** Only explicit catalog clones — never infer seed from title+artist alone. */
 export function isSeedRelated(song: Song): boolean {
-  if (song.seedOriginId) return true
-  return SEED_IDENTITY_KEYS.has(songContentKey(song))
+  return Boolean(song.seedOriginId)
 }
 
 export type ConflictAction = "keepNewest" | "keepBoth" | "keepLocal"

@@ -24,7 +24,7 @@ import {
   type SongSyncConflict,
   type SongSyncConflictResolution,
 } from "@/services/sync/contentIdentity"
-import { remapSongIdInRepertoire } from "@/services/sync/remapSongIds"
+import { remapSongIdInRepertoire, removeSongIdsFromRepertoire } from "@/services/sync/remapSongIds"
 import { throwIfAborted } from "@/services/sync/abort"
 import { v4 as uuidv4 } from "uuid"
 
@@ -79,6 +79,7 @@ export const saveSongWithSync = async (song: Song) => {
 }
 
 export const deleteSongWithSync = async (songId: string) => {
+  await cascadeRemoveSongIdsFromRepertoires([songId])
   await idbStorage.deleteSong(songId)
 
   const userId = await getCurrentUserId()
@@ -155,6 +156,36 @@ async function remapSongIdsEverywhere(fromId: string, toId: string) {
     if (next === p) continue
     await idbStorage.addPendingRepertoire(next)
   }
+}
+
+/** Strip song refs from all sets (saved + pending) so deletes do not leave Missing song. */
+export async function cascadeRemoveSongIdsFromRepertoires(
+  songIds: string[],
+): Promise<number> {
+  if (songIds.length === 0) return 0
+  const idSet = new Set(songIds)
+  let touched = 0
+
+  const reps = await idbStorage.getRepertoires()
+  for (const rep of reps) {
+    const next = removeSongIdsFromRepertoire(rep, idSet)
+    if (next === rep) continue
+    await idbStorage.saveRepertoire(next)
+    await idbStorage.addPendingRepertoire(next)
+    touched += 1
+  }
+
+  const pendingReps =
+    (await idbStorage.getPendingRepertoires()) as PendingRepertoireDrafts[]
+  for (const p of pendingReps) {
+    if (isPendingRepertoireDelete(p)) continue
+    const next = removeSongIdsFromRepertoire(p as Repertoire, idSet)
+    if (next === p) continue
+    await idbStorage.addPendingRepertoire(next)
+    touched += 1
+  }
+
+  return touched
 }
 
 async function applyMergePlan(
@@ -252,7 +283,10 @@ function dedupeConflicts(conflicts: SongSyncConflict[]): SongSyncConflict[] {
   return out
 }
 
-async function syncRepertoires(userId: string, signal?: AbortSignal) {
+async function syncRepertoires(
+  userId: string,
+  signal?: AbortSignal,
+): Promise<Repertoire[]> {
   throwIfAborted(signal)
 
   let remote: Repertoire[]
@@ -260,7 +294,7 @@ async function syncRepertoires(userId: string, signal?: AbortSignal) {
     remote = await supabaseStorage.getRepertoires(userId)
   } catch (err) {
     console.error("getRepertoires failed (table missing?)", err)
-    return
+    return []
   }
 
   throwIfAborted(signal)
@@ -302,10 +336,11 @@ async function syncRepertoires(userId: string, signal?: AbortSignal) {
   const local = await idbStorage.getRepertoires()
   const plan = planMembershipSync(local, remote, pendingSaveIds)
 
-  for (const id of plan.orphanLocalIds) {
-    throwIfAborted(signal)
-    await idbStorage.deleteRepertoire(id)
-  }
+  // Do NOT delete orphan sets here — UI must confirm first.
+  const localById = new Map(local.map((r) => [r.id, r]))
+  const orphanRepertoires = plan.orphanLocalIds
+    .map((id) => localById.get(id))
+    .filter((r): r is Repertoire => Boolean(r))
 
   for (const rep of plan.toUpsertRemote) {
     throwIfAborted(signal)
@@ -316,10 +351,16 @@ async function syncRepertoires(userId: string, signal?: AbortSignal) {
     throwIfAborted(signal)
     await idbStorage.saveRepertoire(rep)
   }
+
+  return orphanRepertoires
 }
 
 export type SyncAllResult = {
   conflicts: SongSyncConflict[]
+  /** Local-only songs not on cloud — awaiting user confirm before purge */
+  orphanSongs: Song[]
+  /** Local-only sets not on cloud — awaiting user confirm before purge */
+  orphanRepertoires: Repertoire[]
 }
 
 export type SyncAllOptions = {
@@ -327,6 +368,8 @@ export type SyncAllOptions = {
   /** When aborted, sync stops at the next cooperative checkpoint (no overlapping writes). */
   signal?: AbortSignal
 }
+
+export type OrphanResolutionAction = "delete" | "keep"
 
 /**
  * Sync local ↔ remote with content-identity reconciliation, then LWW membership.
@@ -339,7 +382,7 @@ export const syncAll = async (
   throwIfAborted(signal)
 
   const userId = await getCurrentUserId()
-  if (!userId) return { conflicts: [] }
+  if (!userId) return { conflicts: [], orphanSongs: [], orphanRepertoires: [] }
 
   throwIfAborted(signal)
   await idbStorage.prepareForUser(userId)
@@ -468,10 +511,11 @@ export const syncAll = async (
   throwIfAborted(signal)
   const plan = planMembershipSync(local, remote, pendingSaveIds, holdIds)
 
-  for (const id of plan.orphanLocalIds) {
-    throwIfAborted(signal)
-    await idbStorage.deleteSong(id)
-  }
+  // Do NOT delete orphan songs here — UI must confirm first (S0.6).
+  const localById = new Map(local.map((s) => [s.id, s]))
+  const orphanSongs = plan.orphanLocalIds
+    .map((id) => localById.get(id))
+    .filter((s): s is Song => Boolean(s))
 
   for (const song of plan.toUpsertRemote) {
     throwIfAborted(signal)
@@ -506,9 +550,13 @@ export const syncAll = async (
     }
   }
 
-  await syncRepertoires(userId, signal)
+  const orphanRepertoires = await syncRepertoires(userId, signal)
 
-  return { conflicts: dedupeConflicts(unresolved) }
+  return {
+    conflicts: dedupeConflicts(unresolved),
+    orphanSongs,
+    orphanRepertoires,
+  }
 }
 
 /** Apply UI resolutions and re-run sync. */
@@ -517,6 +565,50 @@ export const resolveSyncConflicts = async (
   signal?: AbortSignal,
 ): Promise<SyncAllResult> => {
   return syncAll({ resolutions, signal })
+}
+
+/**
+ * After user confirms orphan purge/keep:
+ * - delete: cascade set refs, remove local orphans
+ * - keep: queue pending uploads so they rejoin the cloud
+ */
+export const resolveSyncOrphans = async (
+  options: {
+    songIds: string[]
+    repertoireIds: string[]
+    action: OrphanResolutionAction
+    signal?: AbortSignal
+  },
+): Promise<SyncAllResult> => {
+  const { songIds, repertoireIds, action, signal } = options
+  throwIfAborted(signal)
+
+  if (action === "delete") {
+    await cascadeRemoveSongIdsFromRepertoires(songIds)
+    for (const id of songIds) {
+      throwIfAborted(signal)
+      await idbStorage.deleteSong(id)
+      await idbStorage.removePending(id)
+    }
+    for (const id of repertoireIds) {
+      throwIfAborted(signal)
+      await idbStorage.deleteRepertoire(id)
+      await idbStorage.removePendingRepertoire(id)
+    }
+  } else {
+    for (const id of songIds) {
+      throwIfAborted(signal)
+      const song = await idbStorage.getSong(id)
+      if (song) await idbStorage.addPending(song)
+    }
+    for (const id of repertoireIds) {
+      throwIfAborted(signal)
+      const rep = (await idbStorage.getRepertoires()).find((r) => r.id === id)
+      if (rep) await idbStorage.addPendingRepertoire(rep)
+    }
+  }
+
+  return syncAll({ signal })
 }
 
 export const __testables = {
