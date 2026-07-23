@@ -174,9 +174,20 @@ export const idbStorage = {
     }
   },
 
+  /** Wipe all local songs/sets/pending and forget last user (explicit logout clear). */
+  async clearAllLocalData(): Promise<void> {
+    log("💾 idbStorage.clearAllLocalData")
+    await idbStorage.clearSongs()
+    await idbStorage.clearPending()
+    await idbStorage.clearRepertoires()
+    await idbStorage.clearPendingRepertoires()
+    idbStorage.setLastUserId(null)
+  },
+
   /**
    * If switching to a different authenticated user, wipe local songs/pending
    * so User A's data cannot leak into User B's cloud sync.
+   * Logout without clear does not wipe (offline-first guest continues with local data).
    * Returns true if stores were cleared.
    */
   async prepareForUser(userId: string | null): Promise<boolean> {
@@ -187,10 +198,7 @@ export const idbStorage = {
     }
 
     if (previous && previous !== userId) {
-      await idbStorage.clearSongs()
-      await idbStorage.clearPending()
-      await idbStorage.clearRepertoires()
-      await idbStorage.clearPendingRepertoires()
+      await idbStorage.clearAllLocalData()
       idbStorage.setLastUserId(userId)
       return true
     }

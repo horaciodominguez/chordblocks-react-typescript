@@ -25,6 +25,7 @@ export interface LocalStorageApi {
   addPendingDelete(id: string): Promise<void>
   removePending(id: string): Promise<void>
   prepareForUser(userId: string | null): Promise<boolean>
+  clearAllLocalData(): Promise<void>
   getLastUserId(): string | null
   setLastUserId(userId: string | null): void
 }

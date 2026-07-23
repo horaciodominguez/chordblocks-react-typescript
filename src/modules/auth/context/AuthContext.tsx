@@ -225,7 +225,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         if (event === "SIGNED_OUT" || (!newUser && !wasLoggedOut)) {
           syncAbortRef.current?.abort("signed_out")
           setConflicts([])
-          bumpSyncEpoch()
+          void (async () => {
+            try {
+              // Keep path: local charts stay. Clear path: IDB already wiped;
+              // seed demos for anonymous use when empty.
+              await ensureLocalSongs({ hasSession: false })
+            } catch (err) {
+              console.error("post-logout local seed error:", err)
+            }
+            bumpSyncEpoch()
+          })()
           return
         }
 
