@@ -10,7 +10,7 @@ export function isSeedRelated(song: Song): boolean {
   return SEED_IDENTITY_KEYS.has(songContentKey(song))
 }
 
-export type ConflictAction = "keepNewest" | "keepBoth"
+export type ConflictAction = "keepNewest" | "keepBoth" | "keepLocal"
 
 export type SongSyncConflict = {
   id: string
@@ -203,6 +203,57 @@ export function planDuplicateGroups(songs: Song[]): DuplicateGroupPlan {
 }
 
 /**
+ * Pending saves that share an id with remote but are not newer (remote wins LWW).
+ * Must not silently drop the pending — surface as user conflicts.
+ */
+export function classifyPendingLwwConflicts(
+  pendingSaves: Song[],
+  remote: Song[],
+): SongSyncConflict[] {
+  const remoteById = new Map(remote.map((r) => [r.id, r]))
+  const conflicts: SongSyncConflict[] = []
+
+  for (const local of pendingSaves) {
+    const match = remoteById.get(local.id)
+    if (!match) continue
+    if (isNewer(local, match)) continue
+
+    conflicts.push({
+      id: conflictId(local, match),
+      songA: local,
+      songB: match,
+      source: "pending_vs_remote",
+    })
+  }
+
+  return conflicts
+}
+
+/**
+ * Force local content onto the cloud-stable id (explicit “keep this device”).
+ */
+export function planKeepLocalMerge(
+  local: Song,
+  remote: Song,
+): ContentMergePlan {
+  const winner: Song = {
+    ...local,
+    id: remote.id,
+    seedOriginId:
+      local.seedOriginId ?? remote.seedOriginId ?? undefined,
+    createdAt: remote.createdAt || local.createdAt,
+    updatedAt: local.updatedAt,
+  }
+
+  return {
+    keeperId: remote.id,
+    discardId: local.id,
+    winner,
+    upsertRemote: true,
+  }
+}
+
+/**
  * Build merge plan from a resolved conflict (keepNewest).
  * songA is treated as the discardable side when ids differ; keeper prefers songB
  * if it looks like the cloud copy (duplicate_group / pending uses B as remote).
@@ -212,5 +263,8 @@ export function planResolutionMerge(
   action: ConflictAction,
 ): ContentMergePlan | null {
   if (action === "keepBoth") return null
+  if (action === "keepLocal") {
+    return planKeepLocalMerge(conflict.songA, conflict.songB)
+  }
   return planContentMerge(conflict.songA, conflict.songB)
 }

@@ -1,9 +1,11 @@
 import { describe, it, expect } from "vitest"
 import {
   classifyPendingByContent,
+  classifyPendingLwwConflicts,
   isSeedRelated,
   planContentMerge,
   planDuplicateGroups,
+  planKeepLocalMerge,
   planResolutionMerge,
 } from "@/services/sync/contentIdentity"
 import { remapSongIdInRepertoire } from "@/services/sync/remapSongIds"
@@ -231,6 +233,81 @@ describe("planDuplicateGroups", () => {
   })
 })
 
+describe("classifyPendingLwwConflicts", () => {
+  it("flags same-id pending when remote is newer", () => {
+    const local = song({
+      id: "same",
+      title: "Wonderwall",
+      artist: "Oasis",
+      updatedAt: "2026-01-01T00:00:00.000Z",
+    })
+    const remote = song({
+      id: "same",
+      title: "Wonderwall",
+      artist: "Oasis",
+      updatedAt: "2026-03-01T00:00:00.000Z",
+    })
+    const conflicts = classifyPendingLwwConflicts([local], [remote])
+    expect(conflicts).toHaveLength(1)
+    expect(conflicts[0].source).toBe("pending_vs_remote")
+    expect(conflicts[0].songA.updatedAt).toBe("2026-01-01T00:00:00.000Z")
+    expect(conflicts[0].songB.updatedAt).toBe("2026-03-01T00:00:00.000Z")
+  })
+
+  it("does not flag when pending is newer", () => {
+    const local = song({
+      id: "same",
+      title: "Wonderwall",
+      artist: "Oasis",
+      updatedAt: "2026-03-01T00:00:00.000Z",
+    })
+    const remote = song({
+      id: "same",
+      title: "Wonderwall",
+      artist: "Oasis",
+      updatedAt: "2026-01-01T00:00:00.000Z",
+    })
+    expect(classifyPendingLwwConflicts([local], [remote])).toHaveLength(0)
+  })
+
+  it("flags on equal updatedAt (would previously drop pending silently)", () => {
+    const local = song({
+      id: "same",
+      title: "A",
+      artist: "B",
+      updatedAt: "2026-01-01T00:00:00.000Z",
+    })
+    const remote = song({
+      id: "same",
+      title: "A cloud",
+      artist: "B",
+      updatedAt: "2026-01-01T00:00:00.000Z",
+    })
+    expect(classifyPendingLwwConflicts([local], [remote])).toHaveLength(1)
+  })
+})
+
+describe("planKeepLocalMerge", () => {
+  it("forces local content onto remote id with upsert", () => {
+    const local = song({
+      id: "same",
+      title: "Local edit",
+      artist: "Me",
+      updatedAt: "2026-01-01T00:00:00.000Z",
+    })
+    const remote = song({
+      id: "same",
+      title: "Cloud",
+      artist: "Me",
+      updatedAt: "2026-03-01T00:00:00.000Z",
+    })
+    const plan = planKeepLocalMerge(local, remote)
+    expect(plan.keeperId).toBe("same")
+    expect(plan.winner.title).toBe("Local edit")
+    expect(plan.upsertRemote).toBe(true)
+  })
+})
+
 describe("planResolutionMerge", () => {
   it("returns null for keepBoth", () => {
     const conflict = {
@@ -242,6 +319,26 @@ describe("planResolutionMerge", () => {
     expect(planResolutionMerge(conflict, "keepBoth")).toBeNull()
     const merge = planResolutionMerge(conflict, "keepNewest")
     expect(merge?.keeperId).toBe("b")
+    expect(merge?.upsertRemote).toBe(true)
+  })
+
+  it("keepLocal uses planKeepLocalMerge", () => {
+    const conflict = {
+      id: "c",
+      songA: song({
+        id: "same",
+        title: "Device",
+        updatedAt: "2026-01-01T00:00:00.000Z",
+      }),
+      songB: song({
+        id: "same",
+        title: "Cloud",
+        updatedAt: "2026-03-01T00:00:00.000Z",
+      }),
+      source: "pending_vs_remote" as const,
+    }
+    const merge = planResolutionMerge(conflict, "keepLocal")
+    expect(merge?.winner.title).toBe("Device")
     expect(merge?.upsertRemote).toBe(true)
   })
 })

@@ -16,14 +16,17 @@ import { isNewer, planMembershipSync } from "@/services/sync/membership"
 import { touchRepertoire } from "@/modules/repertoires/utils/repertoire.factory"
 import {
   classifyPendingByContent,
+  classifyPendingLwwConflicts,
   planContentMerge,
   planDuplicateGroups,
+  planKeepLocalMerge,
   type ContentMergePlan,
   type SongSyncConflict,
   type SongSyncConflictResolution,
 } from "@/services/sync/contentIdentity"
 import { remapSongIdInRepertoire } from "@/services/sync/remapSongIds"
 import { throwIfAborted } from "@/services/sync/abort"
+import { v4 as uuidv4 } from "uuid"
 
 async function getCurrentUserId(): Promise<string | null> {
   try {
@@ -184,6 +187,60 @@ async function applyMergePlan(
   }
 }
 
+/**
+ * Keep remote on the shared id and fork the offline pending edit as a new song.
+ */
+async function keepBothSameId(
+  userId: string,
+  local: Song,
+  remote: Song,
+): Promise<void> {
+  const clone: Song = {
+    ...local,
+    id: uuidv4(),
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  }
+
+  await idbStorage.saveSong(remote)
+  await idbStorage.removePending(local.id)
+  await idbStorage.saveSong(clone)
+  await idbStorage.addPending(clone)
+
+  try {
+    await supabaseStorage.saveSong(userId, clone)
+    await idbStorage.removePending(clone.id)
+  } catch (err) {
+    console.error("keepBothSameId upload failed", err)
+  }
+}
+
+async function applyConflictAction(
+  userId: string,
+  conflict: SongSyncConflict,
+  action: SongSyncConflictResolution["action"],
+): Promise<void> {
+  if (action === "keepNewest") {
+    await applyMergePlan(
+      userId,
+      planContentMerge(conflict.songA, conflict.songB),
+    )
+    return
+  }
+  if (action === "keepLocal") {
+    await applyMergePlan(
+      userId,
+      planKeepLocalMerge(conflict.songA, conflict.songB),
+    )
+    return
+  }
+  // keepBoth
+  if (conflict.songA.id === conflict.songB.id) {
+    await keepBothSameId(userId, conflict.songA, conflict.songB)
+  }
+  // Different ids: leave pending so flush uploads songA as its own chart
+}
+
 function dedupeConflicts(conflicts: SongSyncConflict[]): SongSyncConflict[] {
   const seen = new Set<string>()
   const out: SongSyncConflict[] = []
@@ -231,9 +288,9 @@ async function syncRepertoires(userId: string, signal?: AbortSignal) {
       if (!remoteRep || isNewer(pendingRep, remoteRep)) {
         await supabaseStorage.saveRepertoire(userId, pendingRep)
         remoteById.set(pendingRep.id, pendingRep)
+        await idbStorage.removePendingRepertoire(pendingRep.id)
       }
-
-      await idbStorage.removePendingRepertoire(pendingRep.id)
+      // Remote newer/equal: keep pending until local is newer (no silent discard).
     } catch (err) {
       throwIfAborted(signal)
       console.error("pending repertoire sync failed", err)
@@ -299,6 +356,7 @@ export const syncAll = async (
   ) as Song[]
 
   const classification = classifyPendingByContent(pendingSaves, remote)
+  const lwwConflicts = classifyPendingLwwConflicts(pendingSaves, remote)
 
   for (const { local, remote: match } of classification.autoMerges) {
     throwIfAborted(signal)
@@ -306,16 +364,19 @@ export const syncAll = async (
   }
 
   const unresolved: SongSyncConflict[] = []
-  for (const conflict of classification.userConflicts) {
+  const seenConflictIds = new Set<string>()
+
+  for (const conflict of [
+    ...classification.userConflicts,
+    ...lwwConflicts,
+  ]) {
     throwIfAborted(signal)
+    if (seenConflictIds.has(conflict.id)) continue
+    seenConflictIds.add(conflict.id)
+
     const action = resolutionById.get(conflict.id)
-    if (action === "keepNewest") {
-      await applyMergePlan(
-        userId,
-        planContentMerge(conflict.songA, conflict.songB),
-      )
-    } else if (action === "keepBoth") {
-      // leave pending — flush uploads as a distinct song
+    if (action) {
+      await applyConflictAction(userId, conflict, action)
     } else {
       unresolved.push(conflict)
     }
@@ -357,9 +418,22 @@ export const syncAll = async (
       if (!remoteSong || isNewer(pendingSong, remoteSong)) {
         await supabaseStorage.saveSong(userId, pendingSong)
         remoteById.set(pendingSong.id, pendingSong)
+        await idbStorage.removePending(pendingSong.id)
+      } else {
+        // Safety net: remote wins LWW — never drop pending without a resolution.
+        const conflict: SongSyncConflict = {
+          id: [pendingSong.id, remoteSong.id].sort().join("::"),
+          songA: pendingSong,
+          songB: remoteSong,
+          source: "pending_vs_remote",
+        }
+        if (!seenConflictIds.has(conflict.id)) {
+          seenConflictIds.add(conflict.id)
+          unresolved.push(conflict)
+          holdIds.add(pendingSong.id)
+          pendingSaveIds.delete(pendingSong.id)
+        }
       }
-
-      await idbStorage.removePending(pendingSong.id)
     } catch (err) {
       throwIfAborted(signal)
       console.error("pending sync failed", err)
@@ -421,14 +495,12 @@ export const syncAll = async (
 
   for (const conflict of dedupe.userConflicts) {
     throwIfAborted(signal)
+    if (seenConflictIds.has(conflict.id)) continue
+    seenConflictIds.add(conflict.id)
+
     const action = resolutionById.get(conflict.id)
-    if (action === "keepNewest") {
-      await applyMergePlan(
-        userId,
-        planContentMerge(conflict.songA, conflict.songB),
-      )
-    } else if (action === "keepBoth") {
-      // keep both ids as-is
+    if (action) {
+      await applyConflictAction(userId, conflict, action)
     } else {
       unresolved.push(conflict)
     }
