@@ -76,9 +76,16 @@ export default function Settings() {
             </>
           ) : (
             <>
-              <p className="text-sm text-zinc-400 light:text-zinc-600">
-                Sign in to sync songs and sets across devices.
-              </p>
+              <div>
+                <h2 className="text-sm font-medium text-zinc-200 mb-1 light:text-zinc-900">
+                  Account sync
+                </h2>
+                <p className="text-sm text-zinc-500 light:text-zinc-600">
+                  Sign in with a magic link to sync songs and sets across
+                  devices. Charts on this device stay available offline either
+                  way.
+                </p>
+              </div>
               <LoginForm />
             </>
           )}
