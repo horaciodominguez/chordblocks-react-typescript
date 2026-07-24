@@ -8,8 +8,9 @@ import { SetSongNav } from "@/modules/repertoires/components/SetSongNav"
 import {
   getSetNavContext,
   isPlayModeParam,
-  setSongPath,
   songEditPath,
+  songPlayPath,
+  songViewPath,
 } from "@/modules/repertoires/utils/repertoire.navigation"
 import { useWakeLock } from "@/modules/repertoires/hooks/useWakeLock"
 import { Edit, ListMusic, Play, X } from "lucide-react"
@@ -47,11 +48,16 @@ export default function ViewSong() {
 
   const itemNotes = setNav?.current.item.notes?.trim() || ""
   const backTo = setNav ? ROUTES.set(setNav.repertoireId) : ROUTES.songs
-  const exitPlayTo = setNav
-    ? setSongPath(
-        setNav.current.item.songId,
-        setNav.repertoireId,
-        setNav.current.item.id,
+  // Exit Play → same song in normal view (keep Set context when present).
+  const exitPlayTo = song
+    ? songViewPath(
+        song.id,
+        setNav
+          ? {
+              repertoireId: setNav.repertoireId,
+              itemId: setNav.current.item.id,
+            }
+          : null,
       )
     : backTo
 
@@ -75,11 +81,15 @@ export default function ViewSong() {
     )
   }
 
-  const playHref =
-    setNav &&
-    setSongPath(song.id, setNav.repertoireId, setNav.current.item.id, {
-      mode: "play",
-    })
+  const playHref = songPlayPath(
+    song.id,
+    setNav
+      ? {
+          repertoireId: setNav.repertoireId,
+          itemId: setNav.current.item.id,
+        }
+      : null,
+  )
 
   const editHref = songEditPath(song.id, {
     repertoireId: setNav?.repertoireId,
@@ -108,12 +118,10 @@ export default function ViewSong() {
             </PageHeaderLink>
           ) : (
             <>
-              {setNav && playHref ? (
-                <PageHeaderLink to={playHref}>
-                  <Play size={16} />
-                  <span className="hidden sm:inline">Play</span>
-                </PageHeaderLink>
-              ) : null}
+              <PageHeaderLink to={playHref} aria-label="Enter play mode">
+                <Play size={16} />
+                <span className="hidden sm:inline">Play</span>
+              </PageHeaderLink>
               {setNav ? (
                 <PageHeaderLink
                   to={ROUTES.set(setNav.repertoireId)}

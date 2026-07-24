@@ -61,6 +61,19 @@ export function songViewPath(
   })
 }
 
+/** Enter Play (atril) for a song — with or without Set context. */
+export function songPlayPath(
+  songId: string,
+  context?: Partial<SetSongContext> | null,
+): string {
+  const repertoireId = context?.repertoireId
+  const itemId = context?.itemId
+  if (repertoireId && itemId) {
+    return setSongPath(songId, repertoireId, itemId, { mode: "play" })
+  }
+  return `/song/${songId}?mode=play`
+}
+
 /** Edit song URL, optionally preserving set context. */
 export function songEditPath(
   songId: string,

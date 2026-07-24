@@ -5,6 +5,7 @@ import {
   getSetNavContext,
   setSongPath,
   songEditPath,
+  songPlayPath,
   songViewPath,
 } from "./repertoire.navigation"
 
@@ -75,6 +76,17 @@ describe("repertoire.navigation", () => {
         itemId: "i2",
         mode: "play",
       }),
+    ).toBe("/song/s2?repertoireId=rep-1&itemId=i2&mode=play")
+  })
+
+  it("builds song play paths with and without set context", () => {
+    expect(songPlayPath("s2")).toBe("/song/s2?mode=play")
+    expect(songPlayPath("s2", null)).toBe("/song/s2?mode=play")
+    expect(songPlayPath("s2", { repertoireId: "rep-1" })).toBe(
+      "/song/s2?mode=play",
+    )
+    expect(
+      songPlayPath("s2", { repertoireId: "rep-1", itemId: "i2" }),
     ).toBe("/song/s2?repertoireId=rep-1&itemId=i2&mode=play")
   })
 
