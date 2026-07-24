@@ -11,6 +11,10 @@ import {
   type PendingRepertoireDelete,
   type PendingRepertoireDrafts,
 } from "@/modules/repertoires/types/pending.types"
+import {
+  parseStoredSong,
+  parseStoredSongs,
+} from "@/modules/songs/validation/parseStoredSong"
 
 const DB_NAME = "ChordBlocks"
 const STORE = "songs"
@@ -98,7 +102,7 @@ export const idbStorage = {
   async getSongs(): Promise<Song[]> {
     log("💾 idbStorage.getSongs")
     const db = await getDb()
-    return (await db.getAll(STORE)) as Song[]
+    return parseStoredSongs(await db.getAll(STORE), "idb.songs")
   },
 
   async saveSong(song: Song) {
@@ -109,7 +113,9 @@ export const idbStorage = {
 
   async getSong(id: string): Promise<Song | undefined> {
     const db = await getDb()
-    return (await db.get(STORE, id)) as Song | undefined
+    const raw = await db.get(STORE, id)
+    if (raw === undefined) return undefined
+    return parseStoredSong(raw, "idb.song") ?? undefined
   },
 
   async clearSongs() {
@@ -136,9 +142,12 @@ export const idbStorage = {
   async getPending(): Promise<PendingDrafts[]> {
     const db = await getDb()
     const deletes = (await db.getAll(PENDING_DELETES)) as PendingDelete[]
-    const saves = (await db.getAll(PENDING)) as Song[]
-    const cleanSaves = saves.filter((s) => !isPendingDelete(s as PendingDrafts))
-    return [...deletes, ...cleanSaves]
+    const rawSaves = await db.getAll(PENDING)
+    const saves = parseStoredSongs(
+      rawSaves.filter((s) => !isPendingDelete(s as PendingDrafts)),
+      "idb.pending",
+    )
+    return [...deletes, ...saves]
   },
 
   async clearPending() {

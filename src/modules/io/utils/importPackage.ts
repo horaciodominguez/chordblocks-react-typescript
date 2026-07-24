@@ -7,7 +7,7 @@ import type {
   SongImportResolution,
 } from "@/modules/io/types/export.types"
 import { ChordBlocksExportSchema } from "@/modules/io/schemas/export.schema"
-import { normalizeSongTitle } from "@/modules/io/utils/normalizeTitle"
+import { songContentKey } from "@/modules/io/utils/normalizeTitle"
 import { cloneSongWithNewIds } from "@/modules/songs/utils/seedLocalSongs"
 
 export type SongConflict = {
@@ -27,19 +27,20 @@ export function parseExportPackage(raw: unknown): ChordBlocksExport {
   return ChordBlocksExportSchema.parse(raw)
 }
 
+/** Conflict when normalized title+artist matches (same key as sync). */
 export function findSongConflicts(
   packageSongs: Song[],
   localSongs: Song[],
 ): SongConflict[] {
-  const byTitle = new Map<string, Song>()
+  const byIdentity = new Map<string, Song>()
   for (const song of localSongs) {
-    const key = normalizeSongTitle(song.title)
-    if (!byTitle.has(key)) byTitle.set(key, song)
+    const key = songContentKey(song)
+    if (!byIdentity.has(key)) byIdentity.set(key, song)
   }
 
   const conflicts: SongConflict[] = []
   for (const packageSong of packageSongs) {
-    const local = byTitle.get(normalizeSongTitle(packageSong.title))
+    const local = byIdentity.get(songContentKey(packageSong))
     if (local) {
       conflicts.push({ packageSong, localSong: local })
     }
@@ -59,9 +60,12 @@ export function defaultResolutions(
   }))
 }
 
-function findLocalByTitle(localSongs: Song[], title: string): Song | undefined {
-  const key = normalizeSongTitle(title)
-  return localSongs.find((s) => normalizeSongTitle(s.title) === key)
+function findLocalByIdentity(
+  localSongs: Song[],
+  packageSong: Song,
+): Song | undefined {
+  const key = songContentKey(packageSong)
+  return localSongs.find((s) => songContentKey(s) === key)
 }
 
 /**
@@ -81,7 +85,7 @@ export function prepareSongImports(
   for (const packageSong of packageSongs) {
     const action: SongConflictAction =
       actionById.get(packageSong.id) ?? "duplicate"
-    const local = findLocalByTitle(localSongs, packageSong.title)
+    const local = findLocalByIdentity(localSongs, packageSong)
 
     if (action === "skip") {
       if (!local) {

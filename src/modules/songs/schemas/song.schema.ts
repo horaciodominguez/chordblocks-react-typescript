@@ -104,8 +104,14 @@ export const SongSchema = z.object({
       .refine(isValidYouTubeUrl, "Enter a valid YouTube link")
       .optional(),
   ),
-  imageBase64: z.string().nullable(),
-  imageUrl: z.string().nullable(),
+  imageBase64: z.preprocess(
+    (v) => (v === undefined ? null : v),
+    z.string().nullable(),
+  ),
+  imageUrl: z.preprocess(
+    (v) => (v === undefined ? null : v),
+    z.string().nullable(),
+  ),
   seedOriginId: z.string().optional(),
   songSections: z.array(SectionSchema).min(1, "Add at least one section"),
   createdAt: z.string(),

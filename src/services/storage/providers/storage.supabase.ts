@@ -2,6 +2,10 @@ import { supabase } from "@/services/supabaseClient"
 import type { Song } from "@/modules/songs/types/song.types"
 import type { Repertoire } from "@/modules/repertoires/types/repertoire.types"
 import { uploadSongImage, deleteSongImage } from "./storage.supabase.images"
+import {
+  parseStoredSong,
+  parseStoredSongs,
+} from "@/modules/songs/validation/parseStoredSong"
 
 function log(...args: unknown[]) {
   if (import.meta.env.DEV) console.log(...args)
@@ -16,7 +20,10 @@ export const supabaseStorage = {
       .eq("user_id", userId)
 
     if (error) throw error
-    return (data || []).map((row: { data: Song }) => row.data)
+    return parseStoredSongs(
+      (data || []).map((row: { data: unknown }) => row.data),
+      "supabase.songs",
+    )
   },
 
   saveSong: async (userId: string, song: Song): Promise<void> => {
@@ -66,7 +73,8 @@ export const supabaseStorage = {
       .single()
 
     if (error) throw error
-    return (data?.data as Song) ?? null
+    if (data?.data == null) return null
+    return parseStoredSong(data.data, "supabase.song")
   },
 
   deleteSong: async (userId: string, id: string) => {

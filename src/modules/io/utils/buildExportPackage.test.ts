@@ -90,11 +90,20 @@ describe("buildExportPackage", () => {
 })
 
 describe("findSongConflicts / prepareSongImports", () => {
-  it("detects same title", () => {
-    const local = [stubSong({ id: "local-a", title: "Valerie" })]
-    const conflicts = findSongConflicts([songA], local)
+  it("detects same title+artist", () => {
+    const local = [stubSong({ id: "local-a", title: "Valerie", artist: "Amy" })]
+    const pkg = stubSong({ id: "a", title: "Valerie", artist: "Amy" })
+    const conflicts = findSongConflicts([pkg], local)
     expect(conflicts).toHaveLength(1)
     expect(conflicts[0].localSong.id).toBe("local-a")
+  })
+
+  it("does not conflict when title matches but artist differs", () => {
+    const local = [
+      stubSong({ id: "local-a", title: "Valerie", artist: "Amy Winehouse" }),
+    ]
+    const pkg = stubSong({ id: "a", title: "Valerie", artist: "Cover Band" })
+    expect(findSongConflicts([pkg], local)).toHaveLength(0)
   })
 
   it("maps skip to local id and duplicate to new id", () => {

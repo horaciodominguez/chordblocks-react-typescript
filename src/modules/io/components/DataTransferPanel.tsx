@@ -190,8 +190,8 @@ export function DataTransferPanel() {
           Import
         </h2>
         <p className="text-sm text-zinc-500 light:text-zinc-600">
-          Load a ChordBlocks JSON package (songs and optional sets). Title
-          conflicts ask before overwriting.
+          Load a ChordBlocks JSON package (songs and optional sets). Same
+          title+artist conflicts ask before overwriting.
         </p>
         <input
           ref={fileRef}
@@ -336,7 +336,7 @@ export function DataTransferPanel() {
                     ? `, ${pendingPkg.repertoires.length} set(s)`
                     : "") +
                   (conflicts.length
-                    ? `. ${conflicts.length} title conflict(s) — choose an action.`
+                    ? `. ${conflicts.length} title+artist conflict(s) — choose an action.`
                     : ".")
                 : ""}
             </Dialog.Description>
@@ -389,7 +389,7 @@ export function DataTransferPanel() {
               </ul>
             ) : (
               <p className="text-sm text-zinc-400 mb-4 light:text-zinc-600">
-                No title conflicts. Songs will be added as new copies.
+                No title+artist conflicts. Songs will be added as new copies.
               </p>
             )}
 
