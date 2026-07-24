@@ -5,6 +5,47 @@
 @custom-variant light (&:where([data-theme=light], [data-theme=light] *));
 @custom-variant guide (&:where([data-density=guide], [data-density=guide] *));
 
+/* Play / atril typography scale (S2.3) — applied via data-font-scale on Song */
+[data-font-scale] {
+  --atril-chord-root: 0.75rem;
+  --atril-chord-suffix: 0.625rem;
+  --atril-section: 0.625rem;
+  --atril-marker: 0.625rem;
+  --atril-block-min-h: 1.75rem;
+}
+
+[data-font-scale="s"] {
+  --atril-chord-root: 0.6875rem;
+  --atril-chord-suffix: 0.5625rem;
+  --atril-section: 0.5625rem;
+  --atril-marker: 0.5625rem;
+  --atril-block-min-h: 1.5rem;
+}
+
+[data-font-scale="m"] {
+  --atril-chord-root: 0.9375rem;
+  --atril-chord-suffix: 0.75rem;
+  --atril-section: 0.75rem;
+  --atril-marker: 0.8125rem;
+  --atril-block-min-h: 2.125rem;
+}
+
+[data-font-scale="l"] {
+  --atril-chord-root: 1.375rem;
+  --atril-chord-suffix: 1rem;
+  --atril-section: 0.9375rem;
+  --atril-marker: 1.125rem;
+  --atril-block-min-h: 2.75rem;
+}
+
+[data-font-scale="xl"] {
+  --atril-chord-root: 1.875rem;
+  --atril-chord-suffix: 1.25rem;
+  --atril-section: 1.125rem;
+  --atril-marker: 1.375rem;
+  --atril-block-min-h: 3.5rem;
+}
+
 /* Keep Tailwind from scanning sibling apps outside this Vite root */
 @source not "../../createimport";
 @source not "../createimport";

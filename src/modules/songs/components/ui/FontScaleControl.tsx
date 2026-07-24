@@ -1,0 +1,49 @@
+import {
+  ATRIL_FONT_SCALE_LABELS,
+  ATRIL_FONT_SCALES,
+  type AtrilFontScale,
+} from "@/modules/songs/types/fontScale.types"
+
+type Props = {
+  value: AtrilFontScale
+  onChange: (scale: AtrilFontScale) => void
+}
+
+/**
+ * Compact atril text-size control — pill track like Settings SegmentedTabs,
+ * without per-cell borders (avoids the “double line” on the selected chip).
+ */
+export function FontScaleControl({ value, onChange }: Props) {
+  return (
+    <div className="inline-flex items-center gap-2">
+      <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-zinc-500 light:text-zinc-500">
+        Size
+      </span>
+      <div
+        className="inline-flex gap-0.5 p-1 rounded-lg bg-zinc-900/90 border border-zinc-800/90 shadow-sm shadow-black/20 light:bg-zinc-100 light:border-zinc-200 light:shadow-none"
+        role="group"
+        aria-label="Chart text size"
+      >
+        {ATRIL_FONT_SCALES.map((scale) => {
+          const selected = value === scale
+          return (
+            <button
+              key={scale}
+              type="button"
+              aria-pressed={selected}
+              aria-label={`Text size ${ATRIL_FONT_SCALE_LABELS[scale]}`}
+              onClick={() => onChange(scale)}
+              className={`min-h-9 min-w-9 sm:min-w-10 rounded-md text-xs font-bold tabular-nums tracking-wide transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 ${
+                selected
+                  ? "bg-indigo-600/35 text-indigo-100 shadow-sm shadow-indigo-950/40 light:bg-indigo-100 light:text-indigo-800 light:shadow-none"
+                  : "text-zinc-500 hover:text-zinc-200 hover:bg-zinc-800/60 light:text-zinc-500 light:hover:text-zinc-900 light:hover:bg-white"
+              }`}
+            >
+              {ATRIL_FONT_SCALE_LABELS[scale]}
+            </button>
+          )
+        })}
+      </div>
+    </div>
+  )
+}

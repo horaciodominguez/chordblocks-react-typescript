@@ -1,6 +1,8 @@
 import type { Song as SongType } from "@/modules/songs/types/song.types"
 import type { SongDensity } from "@/modules/songs/types/density.types"
+import type { AtrilFontScale } from "@/modules/songs/types/fontScale.types"
 import { SectionTag } from "@/modules/songs/components/ui/SectionTag"
+import { FontScaleControl } from "@/modules/songs/components/ui/FontScaleControl"
 import { panelFlatClass } from "@/components/ui/Panel"
 import { Section } from "./Section"
 import { useEffect, useMemo, useState } from "react"
@@ -11,6 +13,10 @@ import {
   readDensityPreference,
   writeDensityPreference,
 } from "@/modules/songs/utils/densityPreference"
+import {
+  readAtrilFontScale,
+  writeAtrilFontScale,
+} from "@/modules/songs/utils/fontScalePreference"
 import { useSongPlayer } from "@/modules/player/hooks/useSongPlayer"
 import { Minus, Plus, Youtube } from "lucide-react"
 
@@ -50,6 +56,9 @@ export const Song = ({
   const [density, setDensity] = useState<SongDensity>(() =>
     performanceMode ? "guide" : readDensityPreference(),
   )
+  const [fontScale, setFontScale] = useState<AtrilFontScale>(() =>
+    readAtrilFontScale(),
+  )
 
   useEffect(() => {
     setSemitones(baseSemitones)
@@ -59,6 +68,7 @@ export const Song = ({
     if (performanceMode) {
       setDensity("guide")
       setShowDiagram(false)
+      setFontScale(readAtrilFontScale())
     }
   }, [performanceMode])
 
@@ -67,6 +77,11 @@ export const Song = ({
     setDensity(next)
     writeDensityPreference(next)
     if (next === "guide") setShowDiagram(false)
+  }
+
+  const setFontScaleAndPersist = (next: AtrilFontScale) => {
+    setFontScale(next)
+    writeAtrilFontScale(next)
   }
 
   const displaySong = useMemo(() => {
@@ -89,6 +104,7 @@ export const Song = ({
       key={song.id ? song.id : null}
       className={`${panelFlatClass} ${performanceMode ? "border-0 bg-transparent p-0 shadow-none" : ""}`}
       data-density={effectiveDensity}
+      {...(performanceMode ? { "data-font-scale": fontScale } : {})}
     >
       {!performanceMode ? (
         <div className="flex flex-col gap-3 mb-4 pb-3 border-b border-zinc-700/50 light:border-zinc-200">
@@ -239,13 +255,19 @@ export const Song = ({
             ) : null}
           </div>
         </div>
-      ) : badge ? (
-        <div className="mb-2">
-          <span className="text-xs font-medium text-amber-400/90 bg-amber-400/10 border border-amber-500/30 rounded px-2 py-1">
-            {badge}
-          </span>
+      ) : (
+        <div className="flex flex-wrap items-center gap-3 mb-4 pb-3 border-b border-zinc-800/80 light:border-zinc-200">
+          <FontScaleControl
+            value={fontScale}
+            onChange={setFontScaleAndPersist}
+          />
+          {badge ? (
+            <span className="text-xs font-medium text-amber-400/90 bg-amber-400/10 border border-amber-500/30 rounded-md px-2.5 py-1.5">
+              {badge}
+            </span>
+          ) : null}
         </div>
-      ) : null}
+      )}
 
       <ul className={performanceMode ? "mt-1" : undefined}>
         {displaySong.songSections.map((section) => (

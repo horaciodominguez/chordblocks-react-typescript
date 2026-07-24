@@ -104,7 +104,9 @@ export const Block = forwardRef<HTMLDivElement, Props>(
       <div
         ref={ref}
         className={`relative group box-border flex min-w-0 flex-col items-center justify-center text-xs font-bold text-white light:text-zinc-900 ${
-          isGuide ? "min-h-7 px-0.5" : "min-h-10 px-1"
+          isGuide
+            ? "min-h-[var(--atril-block-min-h,1.75rem)] px-0.5"
+            : "min-h-10 px-1"
         } ${hasControls ? "min-h-16 py-2 pb-8" : isGuide ? "py-0.5" : "py-2"}`}
         style={{
           ...chordFlexStyle(block.duration),

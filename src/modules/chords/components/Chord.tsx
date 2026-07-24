@@ -25,11 +25,11 @@ export default function Chord({ chord, asText = false }: Props) {
 
   return (
     <span className="flex flex-row items-end justify-center">
-      <span className="text-center text-sm font-bold font-display text-zinc-200 light:text-zinc-800 guide:text-xs">
+      <span className="text-center text-sm font-bold font-display text-zinc-200 light:text-zinc-800 guide:text-[length:var(--atril-chord-root,0.75rem)]">
         {root}
       </span>
       {suffix && (
-        <span className="mb-0.5 text-center text-xs font-thin italic font-display text-zinc-200 light:text-zinc-800 guide:mb-0 guide:text-[10px] guide:leading-none">
+        <span className="mb-0.5 text-center text-xs font-thin italic font-display text-zinc-200 light:text-zinc-800 guide:mb-0 guide:text-[length:var(--atril-chord-suffix,0.625rem)] guide:leading-none">
           {suffix}
         </span>
       )}
