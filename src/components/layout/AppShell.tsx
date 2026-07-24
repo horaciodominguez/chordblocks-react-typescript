@@ -4,6 +4,7 @@ import { BottomNav } from "@/components/layout/BottomNav"
 import { useLocation } from "react-router-dom"
 import { isPlayModeParam } from "@/modules/repertoires/utils/repertoire.navigation"
 import { isEditPath } from "@/config/navigation"
+import { PLAY_SHELL_WIDTH_CLASS } from "@/config/layout"
 
 type Props = {
   children: React.ReactNode
@@ -20,7 +21,7 @@ function hasSetSongNav(pathname: string, search: string): boolean {
  * Shell modes:
  * - default: Header + content + Footer + BottomNav (mobile)
  * - edit: Header + content (no Footer / BottomNav)
- * - play: content only (minimal atril chrome)
+ * - play: content only (minimal atril chrome, wider on tablet)
  */
 export function AppShell({ children }: Props) {
   const location = useLocation()
@@ -34,13 +35,14 @@ export function AppShell({ children }: Props) {
     return (
       <main
         id="main-content"
-        className="
+        className={`
           font-sans
-          max-w-3xl mx-auto px-3 py-2
+          ${PLAY_SHELL_WIDTH_CLASS}
+          px-3 md:px-5 lg:px-6 py-2
           flex flex-col
           min-h-screen
           pb-[calc(4rem+env(safe-area-inset-bottom))]
-        "
+        `}
       >
         <div className="flex-grow">{children}</div>
       </main>

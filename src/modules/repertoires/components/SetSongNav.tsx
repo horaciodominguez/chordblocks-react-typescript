@@ -2,6 +2,7 @@ import { Link } from "react-router-dom"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import type { SetNavContext } from "@/modules/repertoires/utils/repertoire.navigation"
 import { setSongPath } from "@/modules/repertoires/utils/repertoire.navigation"
+import { PLAY_SHELL_WIDTH_CLASS } from "@/config/layout"
 
 type Props = {
   nav: SetNavContext
@@ -18,6 +19,7 @@ export function SetSongNav({ nav, playMode = false }: Props) {
   const { prev, next, current, total, repertoireId } = nav
   const position = current.index + 1
   const pathOpts = playMode ? ({ mode: "play" } as const) : undefined
+  const widthClass = playMode ? PLAY_SHELL_WIDTH_CLASS : "max-w-3xl mx-auto"
 
   return (
     <nav
@@ -32,7 +34,9 @@ export function SetSongNav({ nav, playMode = false }: Props) {
             : "bottom-[calc(3.5rem+env(safe-area-inset-bottom))] md:bottom-0 pb-[max(0.5rem,env(safe-area-inset-bottom))] md:pb-3"
         }`}
     >
-      <div className="max-w-3xl mx-auto px-4 py-2 flex items-center gap-2">
+      <div
+        className={`${widthClass} px-4 py-2 flex items-center gap-2`}
+      >
         {prev ? (
           <Link
             to={setSongPath(

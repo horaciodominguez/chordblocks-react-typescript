@@ -13,9 +13,11 @@ import {
   songViewPath,
 } from "@/modules/repertoires/utils/repertoire.navigation"
 import { useWakeLock } from "@/modules/repertoires/hooks/useWakeLock"
+import { useFullscreen } from "@/modules/repertoires/hooks/useFullscreen"
 import { WakeLockIndicator } from "@/modules/repertoires/components/WakeLockIndicator"
+import { FullscreenToggle } from "@/modules/repertoires/components/FullscreenToggle"
 import { Edit, ListMusic, Play, X } from "lucide-react"
-import { useMemo } from "react"
+import { useEffect, useMemo } from "react"
 import { ROUTES } from "@/config/navigation"
 import { normalizeArtistKey } from "@/modules/songs/utils/songCatalog"
 import { parseYouTubeVideoId } from "@/modules/songs/utils/youtube"
@@ -46,6 +48,12 @@ export default function ViewSong() {
   const invalidSetContext = requestedSetContext && !setNav
 
   const wakeLock = useWakeLock(playMode)
+  const fullscreen = useFullscreen()
+
+  useEffect(() => {
+    if (playMode) return
+    if (fullscreen.active) void fullscreen.exit()
+  }, [playMode, fullscreen.active, fullscreen.exit])
 
   const itemNotes = setNav?.current.item.notes?.trim() || ""
   const backTo = setNav ? ROUTES.set(setNav.repertoireId) : ROUTES.songs
@@ -115,6 +123,11 @@ export default function ViewSong() {
           playMode ? (
             <>
               <WakeLockIndicator status={wakeLock} />
+              <FullscreenToggle
+                active={fullscreen.active}
+                supported={fullscreen.supported}
+                onToggle={() => void fullscreen.toggle()}
+              />
               <PageHeaderLink to={exitPlayTo} aria-label="Exit play mode">
                 <X size={16} />
                 <span className="hidden sm:inline">Exit</span>
