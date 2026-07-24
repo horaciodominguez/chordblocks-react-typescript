@@ -16,11 +16,11 @@ type Props = {
 export function FontScaleControl({ value, onChange }: Props) {
   return (
     <div className="inline-flex items-center gap-2">
-      <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-zinc-500 light:text-zinc-500">
+      <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-zinc-500 light:text-zinc-500 stage:text-zinc-400">
         Size
       </span>
       <div
-        className="inline-flex gap-0.5 p-1 rounded-lg bg-zinc-900/90 border border-zinc-800/90 shadow-sm shadow-black/20 light:bg-zinc-100 light:border-zinc-200 light:shadow-none"
+        className="inline-flex gap-0.5 p-1 rounded-lg bg-zinc-900/90 border border-zinc-800/90 shadow-sm shadow-black/20 light:bg-zinc-100 light:border-zinc-200 light:shadow-none stage:bg-black stage:border-zinc-600 stage:shadow-none"
         role="group"
         aria-label="Chart text size"
       >
@@ -33,10 +33,10 @@ export function FontScaleControl({ value, onChange }: Props) {
               aria-pressed={selected}
               aria-label={`Text size ${ATRIL_FONT_SCALE_LABELS[scale]}`}
               onClick={() => onChange(scale)}
-              className={`min-h-9 min-w-9 sm:min-w-10 rounded-md text-xs font-bold tabular-nums tracking-wide transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 ${
+              className={`min-h-9 min-w-9 sm:min-w-10 rounded-md text-xs font-bold tabular-nums tracking-wide transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white ${
                 selected
-                  ? "bg-indigo-600/35 text-indigo-100 shadow-sm shadow-indigo-950/40 light:bg-indigo-100 light:text-indigo-800 light:shadow-none"
-                  : "text-zinc-500 hover:text-zinc-200 hover:bg-zinc-800/60 light:text-zinc-500 light:hover:text-zinc-900 light:hover:bg-white"
+                  ? "bg-indigo-600/35 text-indigo-100 shadow-sm shadow-indigo-950/40 light:bg-indigo-100 light:text-indigo-800 light:shadow-none stage:bg-white stage:text-black stage:shadow-none"
+                  : "text-zinc-500 hover:text-zinc-200 hover:bg-zinc-800/60 light:text-zinc-500 light:hover:text-zinc-900 light:hover:bg-white stage:text-zinc-400 stage:hover:text-white stage:hover:bg-zinc-900"
               }`}
             >
               {ATRIL_FONT_SCALE_LABELS[scale]}

@@ -165,7 +165,7 @@ export default function ViewSong() {
         <p
           className={`mb-3 text-sm whitespace-pre-wrap ${
             playMode
-              ? "text-amber-200/90 -mt-1"
+              ? "text-amber-200/90 -mt-1 stage:text-white"
               : "text-amber-200/80 bg-amber-400/5 border border-amber-500/20 rounded-md px-3 py-2"
           }`}
         >

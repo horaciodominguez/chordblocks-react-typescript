@@ -18,13 +18,13 @@ export function PageHeader({ title, backTo = "/", actions }: Props) {
         type="button"
         onClick={() => navigate(backTo)}
         aria-label="Go back"
-        className="flex items-center justify-center min-h-11 min-w-11 rounded-md border border-zinc-700 text-indigo-300 hover:text-gray-200 hover:bg-zinc-800/50 shrink-0 light:border-zinc-200 light:text-indigo-700 light:hover:text-zinc-900 light:hover:bg-zinc-100"
+        className="flex items-center justify-center min-h-11 min-w-11 rounded-md border border-zinc-700 text-indigo-300 hover:text-gray-200 hover:bg-zinc-800/50 shrink-0 light:border-zinc-200 light:text-indigo-700 light:hover:text-zinc-900 light:hover:bg-zinc-100 stage:border-white stage:text-white stage:hover:bg-white/10"
       >
         <ArrowLeft size={20} />
       </button>
 
       <h2
-        className={`${pageTitleClass} m-0 flex-1 truncate text-left text-lg sm:text-2xl`}
+        className={`${pageTitleClass} m-0 flex-1 truncate text-left text-lg sm:text-2xl stage:text-white`}
       >
         {title}
       </h2>
@@ -53,7 +53,7 @@ export function PageHeaderLink({
     <Link
       to={to}
       aria-label={ariaLabel}
-      className={`flex items-center justify-center gap-1.5 min-h-11 px-3 rounded-md border border-zinc-700 text-sm text-indigo-300 hover:text-gray-200 hover:bg-zinc-800/50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 light:border-zinc-200 light:text-indigo-700 light:hover:text-zinc-900 light:hover:bg-zinc-100 ${className}`}
+      className={`flex items-center justify-center gap-1.5 min-h-11 px-3 rounded-md border border-zinc-700 text-sm text-indigo-300 hover:text-gray-200 hover:bg-zinc-800/50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 light:border-zinc-200 light:text-indigo-700 light:hover:text-zinc-900 light:hover:bg-zinc-100 stage:border-white stage:text-white stage:hover:bg-white/10 stage:focus-visible:outline-white ${className}`}
     >
       {children}
     </Link>

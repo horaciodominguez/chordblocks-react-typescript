@@ -17,6 +17,12 @@ import {
   readAtrilFontScale,
   writeAtrilFontScale,
 } from "@/modules/songs/utils/fontScalePreference"
+import {
+  applyStageModeToDocument,
+  readStageMode,
+  writeStageMode,
+} from "@/modules/songs/utils/stageModePreference"
+import { StageModeToggle } from "@/modules/songs/components/ui/StageModeToggle"
 import { useSongPlayer } from "@/modules/player/hooks/useSongPlayer"
 import { Minus, Plus, Youtube } from "lucide-react"
 
@@ -59,6 +65,7 @@ export const Song = ({
   const [fontScale, setFontScale] = useState<AtrilFontScale>(() =>
     readAtrilFontScale(),
   )
+  const [stageMode, setStageMode] = useState(() => readStageMode())
 
   useEffect(() => {
     setSemitones(baseSemitones)
@@ -69,8 +76,17 @@ export const Song = ({
       setDensity("guide")
       setShowDiagram(false)
       setFontScale(readAtrilFontScale())
+      setStageMode(readStageMode())
     }
   }, [performanceMode])
+
+  useEffect(() => {
+    const enabled = performanceMode && stageMode
+    applyStageModeToDocument(enabled)
+    return () => {
+      if (enabled) applyStageModeToDocument(false)
+    }
+  }, [performanceMode, stageMode])
 
   const setDensityAndPersist = (next: SongDensity) => {
     if (performanceMode) return
@@ -82,6 +98,11 @@ export const Song = ({
   const setFontScaleAndPersist = (next: AtrilFontScale) => {
     setFontScale(next)
     writeAtrilFontScale(next)
+  }
+
+  const setStageModeAndPersist = (next: boolean) => {
+    setStageMode(next)
+    writeStageMode(next)
   }
 
   const displaySong = useMemo(() => {
@@ -102,7 +123,11 @@ export const Song = ({
   return (
     <div
       key={song.id ? song.id : null}
-      className={`${panelFlatClass} ${performanceMode ? "border-0 bg-transparent p-0 shadow-none" : ""}`}
+      className={
+        performanceMode
+          ? "w-full"
+          : panelFlatClass
+      }
       data-density={effectiveDensity}
       {...(performanceMode ? { "data-font-scale": fontScale } : {})}
     >
@@ -256,13 +281,17 @@ export const Song = ({
           </div>
         </div>
       ) : (
-        <div className="flex flex-wrap items-center gap-3 mb-4 pb-3 border-b border-zinc-800/80 light:border-zinc-200">
+        <div className="flex flex-wrap items-center gap-3 mb-4 pb-3 border-b border-zinc-800/80 light:border-zinc-200 stage:border-zinc-700">
           <FontScaleControl
             value={fontScale}
             onChange={setFontScaleAndPersist}
           />
+          <StageModeToggle
+            enabled={stageMode}
+            onChange={setStageModeAndPersist}
+          />
           {badge ? (
-            <span className="text-xs font-medium text-amber-400/90 bg-amber-400/10 border border-amber-500/30 rounded-md px-2.5 py-1.5">
+            <span className="text-xs font-medium text-amber-400/90 bg-amber-400/10 border border-amber-500/30 rounded-md px-2.5 py-1.5 stage:text-white stage:bg-transparent stage:border-white">
               {badge}
             </span>
           ) : null}
@@ -280,7 +309,7 @@ export const Song = ({
             <div className="flex items-center gap-2">
               <SectionTag typeName={section.type} label={section.label} />
               {section.repeats && section.repeats > 1 && (
-                <span className="text-xs font-semibold text-blue-400 select-none">
+                <span className="text-xs font-semibold text-blue-400 select-none stage:text-white">
                   ×{section.repeats}
                 </span>
               )}

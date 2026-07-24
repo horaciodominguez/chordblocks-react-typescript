@@ -14,7 +14,7 @@ export function RiffMarker({ label, refTime, onSeek }: Props) {
   const text = label?.trim() || "Riff"
 
   const labelEl = (
-    <span className="inline-flex items-center justify-center text-xs font-semibold tracking-wide text-amber-300/90 sm:text-sm guide:text-[length:var(--atril-marker,0.625rem)] guide:tracking-wide">
+    <span className="inline-flex items-center justify-center text-xs font-semibold tracking-wide text-amber-300/90 sm:text-sm guide:text-[length:var(--atril-marker,0.625rem)] guide:tracking-wide stage:text-white">
       {text}
     </span>
   )

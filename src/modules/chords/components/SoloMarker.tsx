@@ -11,7 +11,7 @@ type Props = {
 /** Compact text marker for a solo placeholder block. */
 export function SoloMarker({ refTime, onSeek }: Props) {
   const labelEl = (
-    <span className="inline-flex items-center justify-center text-xs font-semibold uppercase tracking-wide text-violet-300/90 sm:text-sm guide:text-[length:var(--atril-marker,0.625rem)] guide:tracking-wide">
+    <span className="inline-flex items-center justify-center text-xs font-semibold uppercase tracking-wide text-violet-300/90 sm:text-sm guide:text-[length:var(--atril-marker,0.625rem)] guide:tracking-wide stage:text-white">
       Solo
     </span>
   )

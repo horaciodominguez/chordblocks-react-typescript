@@ -12,7 +12,7 @@ export function WakeLockIndicator({ status }: Props) {
       <span
         role="status"
         title="This browser cannot keep the screen awake"
-        className="inline-flex items-center gap-1.5 min-h-11 px-2 text-xs text-zinc-500 light:text-zinc-500"
+        className="inline-flex items-center gap-1.5 min-h-11 px-2 text-xs text-zinc-500 light:text-zinc-500 stage:text-zinc-400"
       >
         <Moon size={16} aria-hidden />
         <span className="hidden sm:inline">No keep-awake</span>
@@ -25,7 +25,7 @@ export function WakeLockIndicator({ status }: Props) {
       <span
         role="status"
         title="Screen will stay awake while in Play"
-        className="inline-flex items-center gap-1.5 min-h-11 px-2 text-xs text-amber-300 light:text-amber-700"
+        className="inline-flex items-center gap-1.5 min-h-11 px-2 text-xs text-amber-300 light:text-amber-700 stage:text-white"
       >
         <Sun size={16} aria-hidden />
         <span className="hidden sm:inline">Awake</span>
@@ -37,7 +37,7 @@ export function WakeLockIndicator({ status }: Props) {
     <span
       role="status"
       title="Could not keep the screen awake (permission or power settings)"
-      className="inline-flex items-center gap-1.5 min-h-11 px-2 text-xs text-zinc-500 light:text-zinc-500"
+      className="inline-flex items-center gap-1.5 min-h-11 px-2 text-xs text-zinc-500 light:text-zinc-500 stage:text-zinc-400"
     >
       <Sun size={16} className="opacity-40" aria-hidden />
       <span className="hidden sm:inline">Awake off</span>
