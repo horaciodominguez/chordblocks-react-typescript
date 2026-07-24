@@ -13,6 +13,7 @@ import {
   songViewPath,
 } from "@/modules/repertoires/utils/repertoire.navigation"
 import { useWakeLock } from "@/modules/repertoires/hooks/useWakeLock"
+import { WakeLockIndicator } from "@/modules/repertoires/components/WakeLockIndicator"
 import { Edit, ListMusic, Play, X } from "lucide-react"
 import { useMemo } from "react"
 import { ROUTES } from "@/config/navigation"
@@ -44,7 +45,7 @@ export default function ViewSong() {
 
   const invalidSetContext = requestedSetContext && !setNav
 
-  useWakeLock(playMode && !!setNav)
+  const wakeLock = useWakeLock(playMode)
 
   const itemNotes = setNav?.current.item.notes?.trim() || ""
   const backTo = setNav ? ROUTES.set(setNav.repertoireId) : ROUTES.songs
@@ -112,10 +113,13 @@ export default function ViewSong() {
         backTo={playMode ? exitPlayTo : backTo}
         actions={
           playMode ? (
-            <PageHeaderLink to={exitPlayTo} aria-label="Exit play mode">
-              <X size={16} />
-              <span className="hidden sm:inline">Exit</span>
-            </PageHeaderLink>
+            <>
+              <WakeLockIndicator status={wakeLock} />
+              <PageHeaderLink to={exitPlayTo} aria-label="Exit play mode">
+                <X size={16} />
+                <span className="hidden sm:inline">Exit</span>
+              </PageHeaderLink>
+            </>
           ) : (
             <>
               <PageHeaderLink to={playHref} aria-label="Enter play mode">
