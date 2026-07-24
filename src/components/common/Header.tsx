@@ -1,6 +1,7 @@
 import Nav from "./Nav"
 import { useAuth } from "@/modules/auth/hooks/useAuth"
 import { LogoutButton } from "@/modules/auth/components/LogoutButton"
+import { SyncStatusIndicator } from "@/modules/auth/components/SyncStatusIndicator"
 import { User } from "lucide-react"
 import { Link } from "react-router-dom"
 import { ROUTES } from "@/config/navigation"
@@ -25,7 +26,8 @@ export function Header() {
 
       <Nav />
 
-      <div>
+      <div className="flex flex-col items-end gap-0.5">
+        <SyncStatusIndicator variant="chip" />
         {user ? (
           <div className="hidden md:block">
             <LogoutButton />

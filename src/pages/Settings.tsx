@@ -7,6 +7,7 @@ import { DataTransferPanel } from "@/modules/io/components/DataTransferPanel"
 import { useAuth } from "@/modules/auth/hooks/useAuth"
 import { LoginForm } from "@/modules/auth/components/LoginForm"
 import { LogoutButton } from "@/modules/auth/components/LogoutButton"
+import { SyncStatusIndicator } from "@/modules/auth/components/SyncStatusIndicator"
 import { ThemePicker } from "@/modules/ui/components/ThemePicker"
 
 const TABS = [
@@ -61,6 +62,12 @@ export default function Settings() {
           aria-labelledby="settings-tab-account"
           className={`${panelFlatClass} flex flex-col gap-4`}
         >
+          <div>
+            <h2 className="text-sm font-medium text-zinc-200 mb-2 light:text-zinc-900">
+              Sync status
+            </h2>
+            <SyncStatusIndicator variant="panel" />
+          </div>
           {user ? (
             <>
               <div className="flex items-center gap-3">
