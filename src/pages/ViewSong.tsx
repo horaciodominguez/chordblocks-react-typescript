@@ -22,6 +22,7 @@ import { WakeLockIndicator } from "@/modules/repertoires/components/WakeLockIndi
 import { FullscreenToggle } from "@/modules/repertoires/components/FullscreenToggle"
 import { GigLockToggle } from "@/modules/repertoires/components/GigLockToggle"
 import { useGigLock } from "@/modules/repertoires/context/GigLockContext"
+import { PrintChartButton } from "@/components/ui/PrintChartButton"
 import { FontScaleControl } from "@/modules/songs/components/ui/FontScaleControl"
 import { StageModeToggle } from "@/modules/songs/components/ui/StageModeToggle"
 import {
@@ -188,6 +189,7 @@ export default function ViewSong() {
 
   const headerActions = playMode ? (
     <>
+      <PrintChartButton compact />
       <GigLockToggle compact />
       <WakeLockIndicator status={wakeLock} compact />
       <FullscreenToggle
@@ -202,6 +204,7 @@ export default function ViewSong() {
     </>
   ) : (
     <>
+      <PrintChartButton />
       <PageHeaderLink to={playHref} aria-label="Enter play mode">
         <Play size={16} />
         <span className="hidden sm:inline">Play</span>
@@ -228,66 +231,78 @@ export default function ViewSong() {
 
   return (
     <SongPlayerProvider videoId={videoId}>
-      {playMode ? (
-        <PlayChrome
-          ref={playChromeRef}
-          header={
+      <div className="no-print">
+        {playMode ? (
+          <PlayChrome
+            ref={playChromeRef}
+            header={
+              <PageHeader
+                compact
+                title={song.title}
+                backTo={exitPlayTo}
+                actions={headerActions}
+              />
+            }
+            atrilControls={
+              <>
+                <FontScaleControl
+                  compact
+                  value={fontScale}
+                  onChange={setFontScaleAndPersist}
+                />
+                <StageModeToggle
+                  compact
+                  enabled={stageMode}
+                  onChange={setStageModeAndPersist}
+                />
+              </>
+            }
+            notes={itemNotes}
+          />
+        ) : (
+          <>
             <PageHeader
-              compact
               title={song.title}
-              backTo={exitPlayTo}
+              backTo={backTo}
               actions={headerActions}
             />
-          }
-          atrilControls={
-            <>
-              <FontScaleControl
-                compact
-                value={fontScale}
-                onChange={setFontScaleAndPersist}
-              />
-              <StageModeToggle
-                compact
-                enabled={stageMode}
-                onChange={setStageModeAndPersist}
-              />
-            </>
-          }
-          notes={itemNotes}
-        />
-      ) : (
-        <>
-          <PageHeader
-            title={song.title}
-            backTo={backTo}
-            actions={headerActions}
-          />
-          {itemNotes ? <SetItemNotes notes={itemNotes} /> : null}
-        </>
-      )}
+            {itemNotes ? <SetItemNotes notes={itemNotes} /> : null}
+          </>
+        )}
 
-      {invalidSetContext ? (
-        <div className="mb-3 rounded-md border border-amber-500/30 bg-amber-400/5 px-3 py-2 text-sm text-amber-200/90">
-          Set context is invalid or incomplete. Showing the song from your
-          library.{" "}
-          <Link to={ROUTES.sets} className="underline hover:text-amber-100">
-            Back to sets
-          </Link>
-        </div>
-      ) : null}
+        {invalidSetContext ? (
+          <div className="mb-3 rounded-md border border-amber-500/30 bg-amber-400/5 px-3 py-2 text-sm text-amber-200/90">
+            Set context is invalid or incomplete. Showing the song from your
+            library.{" "}
+            <Link to={ROUTES.sets} className="underline hover:text-amber-100">
+              Back to sets
+            </Link>
+          </div>
+        ) : null}
 
-      {!playMode && setNav ? (
-        <p className="text-xs text-zinc-500 mb-2 -mt-2 light:text-zinc-600">
-          {setNav.repertoireTitle} · {setNav.current.index + 1} of{" "}
-          {setNav.total}
-        </p>
-      ) : null}
+        {!playMode && setNav ? (
+          <p className="text-xs text-zinc-500 mb-2 -mt-2 light:text-zinc-600">
+            {setNav.repertoireTitle} · {setNav.current.index + 1} of{" "}
+            {setNav.total}
+          </p>
+        ) : null}
+      </div>
 
       <div
+        data-print-root=""
         ref={playMode ? surfaceRef : undefined}
         {...(playMode ? gestureProps : {})}
         className={setNav ? (playMode ? "pb-20" : "pb-24 md:pb-20") : undefined}
       >
+        <header className="hidden print:block mb-3">
+          <h1>{song.title}</h1>
+          <p className="print-meta">
+            {song.artist}
+            {song.mainKey ? ` · Key ${song.mainKey}` : ""}
+            {` · ${song.timeSignature.beatsPerMeasure}/${song.timeSignature.noteValue}`}
+            {itemNotes ? ` · Cue: ${itemNotes}` : ""}
+          </p>
+        </header>
         <Song
           song={song}
           baseSemitones={setNav?.current.item.transposeSemitones ?? 0}
@@ -305,7 +320,9 @@ export default function ViewSong() {
               : undefined
           }
         />
-        <PlayerDockSpacer />
+        <div className="no-print">
+          <PlayerDockSpacer />
+        </div>
       </div>
       {setNav ? <SetSongNav nav={setNav} playMode={playMode} /> : null}
       <YouTubeDock bottomClass={dockBottomClass} />

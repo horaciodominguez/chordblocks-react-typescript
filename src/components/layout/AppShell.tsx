@@ -58,7 +58,7 @@ export function AppShell({ children }: Props) {
     <>
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:rounded-md focus:bg-indigo-800 focus:px-3 focus:py-2 focus:text-sm focus:text-white light:focus:bg-indigo-600"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:rounded-md focus:bg-indigo-800 focus:px-3 focus:py-2 focus:text-sm focus:text-white light:focus:bg-indigo-600 no-print"
       >
         Skip to content
       </a>
@@ -72,11 +72,19 @@ export function AppShell({ children }: Props) {
           ${mainPaddingBottom}
         `}
       >
-        <Header />
+        <div className="no-print">
+          <Header />
+        </div>
         <div className="flex-grow">{children}</div>
         {/* Footer would sit under fixed SetSongNav — skip it in set song context */}
-        {!editMode && !setSongNav && <Footer />}
-        <BottomNav />
+        {!editMode && !setSongNav ? (
+          <div className="no-print">
+            <Footer />
+          </div>
+        ) : null}
+        <div className="no-print">
+          <BottomNav />
+        </div>
       </main>
     </>
   )

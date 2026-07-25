@@ -160,7 +160,7 @@ export const Song = ({
       {...(performanceMode ? { "data-font-scale": fontScale } : {})}
     >
       {!performanceMode ? (
-        <div className="flex flex-col gap-3 mb-4 pb-3 border-b border-zinc-700/50 light:border-zinc-200">
+        <div className="no-print flex flex-col gap-3 mb-4 pb-3 border-b border-zinc-700/50 light:border-zinc-200">
           <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 text-sm text-zinc-400 light:text-zinc-600">
             <span>
               Artist:{" "}
@@ -310,12 +310,12 @@ export const Song = ({
         </div>
       ) : externalToolbar ? (
         badge ? (
-          <p className="mb-1.5 text-[10px] font-medium tabular-nums text-amber-400/90 stage:text-zinc-300">
+          <p className="no-print mb-1.5 text-[10px] font-medium tabular-nums text-amber-400/90 stage:text-zinc-300">
             {badge}
           </p>
         ) : null
       ) : (
-        <div className="flex flex-wrap items-center gap-3 mb-4 pb-3 border-b border-zinc-800/80 light:border-zinc-200 stage:border-zinc-700">
+        <div className="no-print flex flex-wrap items-center gap-3 mb-4 pb-3 border-b border-zinc-800/80 light:border-zinc-200 stage:border-zinc-700">
           <FontScaleControl
             value={fontScale}
             onChange={setFontScaleAndPersist}
@@ -332,6 +332,10 @@ export const Song = ({
         </div>
       )}
 
+      {/* Print-only transpose badge when chart is transposed */}
+      {badge ? (
+        <p className="hidden print:block print-meta mb-2">{badge}</p>
+      ) : null}
       <ul className={performanceMode ? "mt-0" : undefined}>
         {displaySong.songSections.map((section) => (
           <li

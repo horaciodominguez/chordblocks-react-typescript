@@ -65,7 +65,7 @@ function DockPanel({
     <div
       role="region"
       aria-label="YouTube reference player"
-      className={`fixed inset-x-0 z-30 border-t border-zinc-800 bg-zinc-950/95 backdrop-blur-md light:border-zinc-200 light:bg-white/95 ${bottomClass}`}
+      className={`no-print fixed inset-x-0 z-30 border-t border-zinc-800 bg-zinc-950/95 backdrop-blur-md light:border-zinc-200 light:bg-white/95 ${bottomClass}`}
     >
       <div className="max-w-3xl mx-auto px-4 pt-2 pb-3 flex flex-col gap-2">
         <div className="flex items-center justify-between gap-2">

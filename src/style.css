@@ -188,3 +188,107 @@ html[data-stage="on"] #main-content [data-density="guide"] p.inline-block {
     animation: none !important;
   }
 }
+
+/*
+ * Print / PDF Guide (S2.9) — black on white, chrome off, compact chart.
+ * Use class `no-print` on UI chrome; wrap chart in `[data-print-root]`.
+ */
+@media print {
+  @page {
+    margin: 12mm;
+    size: auto;
+  }
+
+  html,
+  body {
+    background: #fff !important;
+    background-image: none !important;
+    color: #111 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  html[data-stage="on"],
+  html[data-stage="on"] body,
+  html[data-stage="on"] #main-content {
+    background: #fff !important;
+    background-image: none !important;
+    color: #111 !important;
+    min-height: 0 !important;
+  }
+
+  html[data-stage="on"] #main-content h2,
+  html[data-stage="on"] #main-content .font-display,
+  html[data-stage="on"] #main-content [data-density="guide"] p.inline-block {
+    color: #111 !important;
+    -webkit-text-fill-color: #111 !important;
+    border-color: #333 !important;
+    background: transparent !important;
+  }
+
+  .no-print,
+  [data-sonner-toaster],
+  [data-sonner-toast] {
+    display: none !important;
+  }
+
+  #main-content {
+    max-width: none !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    min-height: 0 !important;
+    background: #fff !important;
+    color: #111 !important;
+  }
+
+  [data-print-root] {
+    color: #111 !important;
+  }
+
+  [data-print-root] h1 {
+    font-size: 18pt;
+    font-weight: 700;
+    margin: 0 0 4pt;
+    color: #000 !important;
+  }
+
+  [data-print-root] .print-meta {
+    font-size: 9pt;
+    color: #444 !important;
+    margin: 0 0 10pt;
+  }
+
+  /* Prefer Guide-like density on paper even if screen was Bars */
+  [data-print-root] [data-density] {
+    --atril-chord-root: 11pt;
+    --atril-chord-suffix: 8pt;
+    --atril-section: 8pt;
+    --atril-marker: 8pt;
+    --atril-block-min-h: 1.1rem;
+  }
+
+  [data-print-root] .font-display,
+  [data-print-root] span,
+  [data-print-root] p {
+    color: #111 !important;
+    -webkit-text-fill-color: #111 !important;
+  }
+
+  /* Hide chord diagrams in print — Guide PDF target is 1–2 pages */
+  [data-print-root] svg[aria-hidden],
+  [data-print-root] img {
+    display: none !important;
+  }
+
+  /* Tighter section spacing */
+  [data-print-root] ul > li {
+    margin-bottom: 6pt !important;
+    break-inside: avoid;
+  }
+
+  [data-print-root] .grid {
+    gap: 4pt 8pt !important;
+  }
+}
+
