@@ -4,7 +4,9 @@ import { useSong } from "@/modules/songs/hooks/useSong"
 import { useRepertoires } from "@/modules/repertoires/hooks/useRepertoires"
 import PageState from "@/components/ui/PageState"
 import { PageHeader, PageHeaderLink } from "@/components/layout/PageHeader"
+import { PlayChrome } from "@/components/layout/PlayChrome"
 import { SetSongNav } from "@/modules/repertoires/components/SetSongNav"
+import { SetItemNotes } from "@/modules/repertoires/components/SetItemNotes"
 import {
   getSetNavContext,
   isPlayModeParam,
@@ -16,8 +18,19 @@ import { useWakeLock } from "@/modules/repertoires/hooks/useWakeLock"
 import { useFullscreen } from "@/modules/repertoires/hooks/useFullscreen"
 import { WakeLockIndicator } from "@/modules/repertoires/components/WakeLockIndicator"
 import { FullscreenToggle } from "@/modules/repertoires/components/FullscreenToggle"
+import { FontScaleControl } from "@/modules/songs/components/ui/FontScaleControl"
+import { StageModeToggle } from "@/modules/songs/components/ui/StageModeToggle"
+import {
+  readAtrilFontScale,
+  writeAtrilFontScale,
+} from "@/modules/songs/utils/fontScalePreference"
+import {
+  readStageMode,
+  writeStageMode,
+} from "@/modules/songs/utils/stageModePreference"
+import type { AtrilFontScale } from "@/modules/songs/types/fontScale.types"
 import { Edit, ListMusic, Play, X } from "lucide-react"
-import { useEffect, useMemo } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { ROUTES } from "@/config/navigation"
 import { normalizeArtistKey } from "@/modules/songs/utils/songCatalog"
 import { parseYouTubeVideoId } from "@/modules/songs/utils/youtube"
@@ -50,10 +63,31 @@ export default function ViewSong() {
   const wakeLock = useWakeLock(playMode)
   const fullscreen = useFullscreen()
 
+  const [fontScale, setFontScale] = useState<AtrilFontScale>(() =>
+    readAtrilFontScale(),
+  )
+  const [stageMode, setStageMode] = useState(() => readStageMode())
+
+  useEffect(() => {
+    if (!playMode) return
+    setFontScale(readAtrilFontScale())
+    setStageMode(readStageMode())
+  }, [playMode])
+
   useEffect(() => {
     if (playMode) return
     if (fullscreen.active) void fullscreen.exit()
   }, [playMode, fullscreen.active, fullscreen.exit])
+
+  const setFontScaleAndPersist = (next: AtrilFontScale) => {
+    setFontScale(next)
+    writeAtrilFontScale(next)
+  }
+
+  const setStageModeAndPersist = (next: boolean) => {
+    setStageMode(next)
+    writeStageMode(next)
+  }
 
   const itemNotes = setNav?.current.item.notes?.trim() || ""
   const backTo = setNav ? ROUTES.set(setNav.repertoireId) : ROUTES.songs
@@ -114,48 +148,79 @@ export default function ViewSong() {
     ? "bottom-[calc(7.75rem+env(safe-area-inset-bottom))] md:bottom-[4.5rem]"
     : undefined
 
+  const headerActions = playMode ? (
+    <>
+      <WakeLockIndicator status={wakeLock} compact />
+      <FullscreenToggle
+        compact
+        active={fullscreen.active}
+        supported={fullscreen.supported}
+        onToggle={() => void fullscreen.toggle()}
+      />
+      <PageHeaderLink to={exitPlayTo} aria-label="Exit play mode" compact>
+        <X size={14} />
+      </PageHeaderLink>
+    </>
+  ) : (
+    <>
+      <PageHeaderLink to={playHref} aria-label="Enter play mode">
+        <Play size={16} />
+        <span className="hidden sm:inline">Play</span>
+      </PageHeaderLink>
+      {setNav ? (
+        <PageHeaderLink
+          to={ROUTES.set(setNav.repertoireId)}
+          className="hidden sm:inline-flex"
+        >
+          <ListMusic size={16} />
+          <span>Set</span>
+        </PageHeaderLink>
+      ) : null}
+      <PageHeaderLink to={editHref}>
+        <Edit size={16} />
+        <span className="hidden sm:inline">Edit</span>
+      </PageHeaderLink>
+    </>
+  )
+
   return (
     <SongPlayerProvider videoId={videoId}>
-      <PageHeader
-        title={song.title}
-        backTo={playMode ? exitPlayTo : backTo}
-        actions={
-          playMode ? (
+      {playMode ? (
+        <PlayChrome
+          header={
+            <PageHeader
+              compact
+              title={song.title}
+              backTo={exitPlayTo}
+              actions={headerActions}
+            />
+          }
+          atrilControls={
             <>
-              <WakeLockIndicator status={wakeLock} />
-              <FullscreenToggle
-                active={fullscreen.active}
-                supported={fullscreen.supported}
-                onToggle={() => void fullscreen.toggle()}
+              <FontScaleControl
+                compact
+                value={fontScale}
+                onChange={setFontScaleAndPersist}
               />
-              <PageHeaderLink to={exitPlayTo} aria-label="Exit play mode">
-                <X size={16} />
-                <span className="hidden sm:inline">Exit</span>
-              </PageHeaderLink>
+              <StageModeToggle
+                compact
+                enabled={stageMode}
+                onChange={setStageModeAndPersist}
+              />
             </>
-          ) : (
-            <>
-              <PageHeaderLink to={playHref} aria-label="Enter play mode">
-                <Play size={16} />
-                <span className="hidden sm:inline">Play</span>
-              </PageHeaderLink>
-              {setNav ? (
-                <PageHeaderLink
-                  to={ROUTES.set(setNav.repertoireId)}
-                  className="hidden sm:inline-flex"
-                >
-                  <ListMusic size={16} />
-                  <span>Set</span>
-                </PageHeaderLink>
-              ) : null}
-              <PageHeaderLink to={editHref}>
-                <Edit size={16} />
-                <span className="hidden sm:inline">Edit</span>
-              </PageHeaderLink>
-            </>
-          )
-        }
-      />
+          }
+          notes={itemNotes}
+        />
+      ) : (
+        <>
+          <PageHeader
+            title={song.title}
+            backTo={backTo}
+            actions={headerActions}
+          />
+          {itemNotes ? <SetItemNotes notes={itemNotes} /> : null}
+        </>
+      )}
 
       {invalidSetContext ? (
         <div className="mb-3 rounded-md border border-amber-500/30 bg-amber-400/5 px-3 py-2 text-sm text-amber-200/90">
@@ -174,18 +239,6 @@ export default function ViewSong() {
         </p>
       ) : null}
 
-      {itemNotes ? (
-        <p
-          className={`mb-3 text-sm whitespace-pre-wrap ${
-            playMode
-              ? "text-amber-200/90 -mt-1 stage:text-white"
-              : "text-amber-200/80 bg-amber-400/5 border border-amber-500/20 rounded-md px-3 py-2"
-          }`}
-        >
-          {itemNotes}
-        </p>
-      ) : null}
-
       <div
         className={setNav ? (playMode ? "pb-20" : "pb-24 md:pb-20") : undefined}
       >
@@ -194,6 +247,17 @@ export default function ViewSong() {
           baseSemitones={setNav?.current.item.transposeSemitones ?? 0}
           performanceMode={playMode}
           artistHref={`${ROUTES.songs}?view=artists&artist=${encodeURIComponent(normalizeArtistKey(song.artist))}`}
+          atril={
+            playMode
+              ? {
+                  fontScale,
+                  onFontScaleChange: setFontScaleAndPersist,
+                  stageMode,
+                  onStageModeChange: setStageModeAndPersist,
+                  externalToolbar: true,
+                }
+              : undefined
+          }
         />
         <PlayerDockSpacer />
       </div>

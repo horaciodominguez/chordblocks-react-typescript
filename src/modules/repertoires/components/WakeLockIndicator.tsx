@@ -3,19 +3,28 @@ import type { WakeLockStatus } from "@/modules/repertoires/hooks/useWakeLock"
 
 type Props = {
   status: WakeLockStatus
+  /** Icon-only dense control for sticky Play chrome. */
+  compact?: boolean
 }
 
 /** Visible keep-awake affordance for Play mode (S2.2). */
-export function WakeLockIndicator({ status }: Props) {
+export function WakeLockIndicator({ status, compact = false }: Props) {
+  const size = compact ? 14 : 16
+  const box = compact
+    ? "inline-flex items-center justify-center min-h-8 min-w-8"
+    : "inline-flex items-center gap-1.5 min-h-11 px-2 text-xs"
+
   if (!status.supported) {
     return (
       <span
         role="status"
         title="This browser cannot keep the screen awake"
-        className="inline-flex items-center gap-1.5 min-h-11 px-2 text-xs text-zinc-500 light:text-zinc-500 stage:text-zinc-400"
+        className={`${box} text-zinc-500 light:text-zinc-500 stage:text-zinc-400`}
       >
-        <Moon size={16} aria-hidden />
-        <span className="hidden sm:inline">No keep-awake</span>
+        <Moon size={size} aria-hidden />
+        {!compact ? (
+          <span className="hidden sm:inline">No keep-awake</span>
+        ) : null}
       </span>
     )
   }
@@ -25,10 +34,10 @@ export function WakeLockIndicator({ status }: Props) {
       <span
         role="status"
         title="Screen will stay awake while in Play"
-        className="inline-flex items-center gap-1.5 min-h-11 px-2 text-xs text-amber-300 light:text-amber-700 stage:text-white"
+        className={`${box} text-amber-300 light:text-amber-700 stage:text-white`}
       >
-        <Sun size={16} aria-hidden />
-        <span className="hidden sm:inline">Awake</span>
+        <Sun size={size} aria-hidden />
+        {!compact ? <span className="hidden sm:inline">Awake</span> : null}
       </span>
     )
   }
@@ -37,10 +46,10 @@ export function WakeLockIndicator({ status }: Props) {
     <span
       role="status"
       title="Could not keep the screen awake (permission or power settings)"
-      className="inline-flex items-center gap-1.5 min-h-11 px-2 text-xs text-zinc-500 light:text-zinc-500 stage:text-zinc-400"
+      className={`${box} text-zinc-500 light:text-zinc-500 stage:text-zinc-400`}
     >
-      <Sun size={16} className="opacity-40" aria-hidden />
-      <span className="hidden sm:inline">Awake off</span>
+      <Sun size={size} className="opacity-40" aria-hidden />
+      {!compact ? <span className="hidden sm:inline">Awake off</span> : null}
     </span>
   )
 }

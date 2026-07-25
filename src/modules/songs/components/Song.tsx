@@ -30,6 +30,16 @@ export interface TemporarySong extends Omit<SongType, "id"> {
   id?: string
 }
 
+/** Controlled atril prefs when sticky Play chrome owns Size/Stage (S2.6). */
+export type AtrilChromeProps = {
+  fontScale: AtrilFontScale
+  onFontScaleChange: (scale: AtrilFontScale) => void
+  stageMode: boolean
+  onStageModeChange: (enabled: boolean) => void
+  /** Parent renders Size/Stage in sticky chrome — Song only applies prefs. */
+  externalToolbar?: boolean
+}
+
 export interface Props {
   song: TemporarySong | SongType
   /**
@@ -41,6 +51,8 @@ export interface Props {
   performanceMode?: boolean
   /** Optional link for the artist name (catalog by artist). */
   artistHref?: string
+  /** When set in Play, atril prefs are controlled by the parent sticky chrome. */
+  atril?: AtrilChromeProps
 }
 
 const TRANSPOSE_MIN = -12
@@ -55,6 +67,7 @@ export const Song = ({
   baseSemitones = 0,
   performanceMode = false,
   artistHref,
+  atril,
 }: Props) => {
   const [showDiagram, setShowDiagram] = useState(false)
   const player = useSongPlayer()
@@ -62,10 +75,15 @@ export const Song = ({
   const [density, setDensity] = useState<SongDensity>(() =>
     performanceMode ? "guide" : readDensityPreference(),
   )
-  const [fontScale, setFontScale] = useState<AtrilFontScale>(() =>
+  const [localFontScale, setLocalFontScale] = useState<AtrilFontScale>(() =>
     readAtrilFontScale(),
   )
-  const [stageMode, setStageMode] = useState(() => readStageMode())
+  const [localStageMode, setLocalStageMode] = useState(() => readStageMode())
+
+  const controlled = Boolean(atril)
+  const fontScale = atril?.fontScale ?? localFontScale
+  const stageMode = atril?.stageMode ?? localStageMode
+  const externalToolbar = Boolean(atril?.externalToolbar)
 
   useEffect(() => {
     setSemitones(baseSemitones)
@@ -75,10 +93,12 @@ export const Song = ({
     if (performanceMode) {
       setDensity("guide")
       setShowDiagram(false)
-      setFontScale(readAtrilFontScale())
-      setStageMode(readStageMode())
+      if (!controlled) {
+        setLocalFontScale(readAtrilFontScale())
+        setLocalStageMode(readStageMode())
+      }
     }
-  }, [performanceMode])
+  }, [performanceMode, controlled])
 
   useEffect(() => {
     const enabled = performanceMode && stageMode
@@ -96,12 +116,20 @@ export const Song = ({
   }
 
   const setFontScaleAndPersist = (next: AtrilFontScale) => {
-    setFontScale(next)
+    if (atril) {
+      atril.onFontScaleChange(next)
+      return
+    }
+    setLocalFontScale(next)
     writeAtrilFontScale(next)
   }
 
   const setStageModeAndPersist = (next: boolean) => {
-    setStageMode(next)
+    if (atril) {
+      atril.onStageModeChange(next)
+      return
+    }
+    setLocalStageMode(next)
     writeStageMode(next)
   }
 
@@ -280,6 +308,12 @@ export const Song = ({
             ) : null}
           </div>
         </div>
+      ) : externalToolbar ? (
+        badge ? (
+          <p className="mb-1.5 text-[10px] font-medium tabular-nums text-amber-400/90 stage:text-zinc-300">
+            {badge}
+          </p>
+        ) : null
       ) : (
         <div className="flex flex-wrap items-center gap-3 mb-4 pb-3 border-b border-zinc-800/80 light:border-zinc-200 stage:border-zinc-700">
           <FontScaleControl
@@ -298,12 +332,12 @@ export const Song = ({
         </div>
       )}
 
-      <ul className={performanceMode ? "mt-1" : undefined}>
+      <ul className={performanceMode ? "mt-0" : undefined}>
         {displaySong.songSections.map((section) => (
           <li
             key={section.id}
             className={`flex flex-col justify-start gap-3 guide:gap-1 ${
-              performanceMode ? "mb-4" : "mb-6 guide:mb-2"
+              performanceMode ? "mb-3" : "mb-6 guide:mb-2"
             }`}
           >
             <div className="flex items-center gap-2">
