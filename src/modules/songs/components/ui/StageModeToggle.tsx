@@ -24,7 +24,7 @@ export function StageModeToggle({
       onClick={() => onChange(!enabled)}
       className={`inline-flex items-center gap-1 rounded-md font-bold uppercase tracking-[0.12em] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 ${
         compact
-          ? "min-h-7 px-2 text-[9px]"
+          ? "min-h-8 px-2.5 text-[10px]"
           : "min-h-9 px-3 gap-1.5 text-[10px]"
       } ${
         enabled

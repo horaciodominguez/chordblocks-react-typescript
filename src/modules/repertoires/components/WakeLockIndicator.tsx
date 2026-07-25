@@ -9,9 +9,9 @@ type Props = {
 
 /** Visible keep-awake affordance for Play mode (S2.2). */
 export function WakeLockIndicator({ status, compact = false }: Props) {
-  const size = compact ? 14 : 16
+  const size = compact ? 15 : 16
   const box = compact
-    ? "inline-flex items-center justify-center min-h-8 min-w-8"
+    ? "inline-flex items-center justify-center min-h-9 min-w-9"
     : "inline-flex items-center gap-1.5 min-h-11 px-2 text-xs"
 
   if (!status.supported) {

@@ -4,7 +4,7 @@ export function BarSeparator() {
     <div
       role="presentation"
       aria-hidden
-      className="my-0.5 w-px shrink-0 self-stretch bg-[rgb(103_35_131/20%)] light:bg-[rgb(0_0_0/5%)]"
+      className="my-1 w-px shrink-0 self-stretch bg-violet-700/35 light:bg-zinc-300/80 stage:bg-white/45"
     />
   )
 }

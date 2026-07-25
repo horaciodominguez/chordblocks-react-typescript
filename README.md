@@ -83,6 +83,30 @@ npm run build
 
 Optional scripts: `npm run lint`, `npm run format`, `npm run format:check`.
 
+### Auth redirects (magic link) + phone on LAN
+
+The app sets `emailRedirectTo` to **`window.location.origin`**. Nothing in the app hardcodes port 3000.
+
+If the email still opens `http://localhost:3000`, **Supabase** is overriding the redirect (Site URL fallback and/or email template using `{{ .SiteURL }}`).
+
+**Fix in Supabase dashboard** (Authentication → URL Configuration):
+
+1. **Site URL** → `http://localhost:5173` (change away from `:3000`)
+2. **Redirect URLs** — add (your Vite Network line showed `192.168.1.2`):
+
+```
+http://192.168.1.2:5173/**
+http://192.168.*.*:5173/**
+http://localhost:5173/**
+http://127.0.0.1:5173/**
+```
+
+3. **Email templates** (Magic Link / Confirm) — the confirm URL must use `{{ .RedirectTo }}`, not `{{ .SiteURL }}`.
+
+Until that is fixed: on the phone **do not tap the link** — enter the **6-digit code** in Settings → login.
+
+`npm run dev` exposes a **Network** URL (`server.host: true`) for same-Wi‑Fi phone testing.
+
 ---
 
 ## Project structure

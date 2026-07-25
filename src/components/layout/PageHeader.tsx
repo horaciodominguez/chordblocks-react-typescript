@@ -23,7 +23,7 @@ export function PageHeader({
     <div
       className={
         compact
-          ? "flex items-center gap-2 mb-0 min-h-8"
+          ? "flex items-center gap-2 mb-0 min-h-9"
           : "flex items-center gap-3 mb-4 min-h-11"
       }
     >
@@ -33,7 +33,7 @@ export function PageHeader({
         aria-label="Go back"
         className={
           compact
-            ? "flex items-center justify-center min-h-8 min-w-8 rounded-md border border-zinc-700 text-indigo-300 hover:text-gray-200 hover:bg-zinc-800/50 shrink-0 light:border-zinc-200 light:text-indigo-700 light:hover:text-zinc-900 light:hover:bg-zinc-100 stage:border-white stage:text-white stage:hover:bg-white/10"
+            ? "flex items-center justify-center min-h-9 min-w-9 rounded-md border border-zinc-700 text-indigo-300 hover:text-gray-200 hover:bg-zinc-800/50 shrink-0 light:border-zinc-200 light:text-indigo-700 light:hover:text-zinc-900 light:hover:bg-zinc-100 stage:border-white stage:text-white stage:hover:bg-white/10"
             : "flex items-center justify-center min-h-11 min-w-11 rounded-md border border-zinc-700 text-indigo-300 hover:text-gray-200 hover:bg-zinc-800/50 shrink-0 light:border-zinc-200 light:text-indigo-700 light:hover:text-zinc-900 light:hover:bg-zinc-100 stage:border-white stage:text-white stage:hover:bg-white/10"
         }
       >
@@ -43,7 +43,7 @@ export function PageHeader({
       <h2
         className={
           compact
-            ? `${pageTitleClass} m-0 flex-1 truncate text-left text-sm sm:text-base font-semibold leading-tight stage:text-white`
+            ? `${pageTitleClass} m-0 flex-1 truncate text-left text-base sm:text-lg font-semibold leading-tight stage:text-white`
             : `${pageTitleClass} m-0 flex-1 truncate text-left text-lg sm:text-2xl stage:text-white`
         }
       >
@@ -81,7 +81,7 @@ export function PageHeaderLink({
   compact = false,
 }: PageHeaderLinkProps) {
   const sizeClass = compact
-    ? "min-h-8 min-w-8 px-1.5 gap-1 text-xs"
+    ? "min-h-9 min-w-9 px-2 gap-1 text-xs"
     : "min-h-11 px-3 gap-1.5 text-sm"
 
   return (

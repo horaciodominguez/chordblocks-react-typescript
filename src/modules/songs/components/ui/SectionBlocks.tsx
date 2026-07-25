@@ -5,7 +5,7 @@ interface Props {
 }
 
 const measureSeparatorClass =
-  "after:pointer-events-none after:absolute after:top-1 after:right-0 after:bottom-1 after:w-0.5 after:bg-blue-400 after:content-[''] light:after:bg-blue-500"
+  "after:pointer-events-none after:absolute after:top-1 after:right-0 after:bottom-1 after:w-0.5 after:bg-blue-400 after:content-[''] light:after:bg-blue-500 stage:after:bg-white/70"
 
 export default function SectionBlocks({
   children,
@@ -13,7 +13,7 @@ export default function SectionBlocks({
 }: Props) {
   return (
     <div
-      className={`relative flex min-w-0 w-full items-stretch py-2 guide:py-1 ${
+      className={`relative flex w-full items-stretch py-2 min-w-0 guide:min-w-min guide:py-1.5 guide:pr-2 ${
         showMeasureSeparator ? measureSeparatorClass : ""
       }`}
     >

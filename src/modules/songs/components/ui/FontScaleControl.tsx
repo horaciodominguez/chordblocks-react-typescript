@@ -7,12 +7,12 @@ import {
 type Props = {
   value: AtrilFontScale
   onChange: (scale: AtrilFontScale) => void
-  /** Dense hit targets for sticky Play chrome. */
+  /** Slightly denser for sticky Play chrome. */
   compact?: boolean
 }
 
 /**
- * Compact atril text-size control — pill track like Settings SegmentedTabs,
+ * Atril text-size control — pill track like Settings SegmentedTabs,
  * without per-cell borders (avoids the “double line” on the selected chip).
  */
 export function FontScaleControl({
@@ -21,12 +21,10 @@ export function FontScaleControl({
   compact = false,
 }: Props) {
   return (
-    <div className={`inline-flex items-center ${compact ? "gap-1" : "gap-2"}`}>
-      {!compact ? (
-        <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-zinc-500 light:text-zinc-500 stage:text-zinc-400">
-          Size
-        </span>
-      ) : null}
+    <div className="inline-flex items-center gap-2">
+      <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-zinc-500 light:text-zinc-500 stage:text-zinc-400">
+        Size
+      </span>
       <div
         className={
           compact
@@ -46,9 +44,7 @@ export function FontScaleControl({
               aria-label={`Text size ${ATRIL_FONT_SCALE_LABELS[scale]}`}
               onClick={() => onChange(scale)}
               className={`${
-                compact
-                  ? "min-h-7 min-w-7 text-[10px]"
-                  : "min-h-9 min-w-9 sm:min-w-10 text-xs"
+                compact ? "min-h-8 min-w-8 text-[11px]" : "min-h-9 min-w-9 sm:min-w-10 text-xs"
               } rounded-md font-bold tabular-nums tracking-wide transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white ${
                 selected
                   ? "bg-indigo-600/35 text-indigo-100 shadow-sm shadow-indigo-950/40 light:bg-indigo-100 light:text-indigo-800 light:shadow-none stage:bg-white stage:text-black stage:shadow-none"

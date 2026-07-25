@@ -1,25 +1,25 @@
 import { Toaster } from "sonner"
 import { BrowserRouter, Route, Routes } from "react-router-dom"
-import { lazy } from "react"
 import { useSongs } from "./modules/songs/hooks/useSongs"
 import { useRepertoires } from "./modules/repertoires/hooks/useRepertoires"
 import LoaderSpinner from "./components/ui/LoaderSpinner"
 import { AppShell } from "./components/layout/AppShell"
 import { RouteSuspense } from "./components/layout/RouteSuspense"
 import { useTheme } from "./modules/ui/hooks/useTheme"
+import { lazyWithRetry } from "./utils/lazyWithRetry"
 
-const Home = lazy(() => import("@/pages/Home"))
-const Songs = lazy(() => import("@/pages/Songs"))
-const ViewSong = lazy(() => import("@/pages/ViewSong"))
-const EditSong = lazy(() => import("@/pages/EditSong"))
-const NewSong = lazy(() => import("@/pages/NewSong"))
-const Repertoires = lazy(() => import("@/pages/Repertoires"))
-const ViewRepertoire = lazy(() => import("@/pages/ViewRepertoire"))
-const EditRepertoire = lazy(() => import("@/pages/EditRepertoire"))
-const Settings = lazy(() => import("@/pages/Settings"))
-const NotFound = lazy(() => import("@/pages/NotFound"))
+const Home = lazyWithRetry(() => import("@/pages/Home"))
+const Songs = lazyWithRetry(() => import("@/pages/Songs"))
+const ViewSong = lazyWithRetry(() => import("@/pages/ViewSong"))
+const EditSong = lazyWithRetry(() => import("@/pages/EditSong"))
+const NewSong = lazyWithRetry(() => import("@/pages/NewSong"))
+const Repertoires = lazyWithRetry(() => import("@/pages/Repertoires"))
+const ViewRepertoire = lazyWithRetry(() => import("@/pages/ViewRepertoire"))
+const EditRepertoire = lazyWithRetry(() => import("@/pages/EditRepertoire"))
+const Settings = lazyWithRetry(() => import("@/pages/Settings"))
+const NotFound = lazyWithRetry(() => import("@/pages/NotFound"))
 const UITest = import.meta.env.DEV
-  ? lazy(() => import("@/pages/UITest"))
+  ? lazyWithRetry(() => import("@/pages/UITest"))
   : null
 
 export default function App() {

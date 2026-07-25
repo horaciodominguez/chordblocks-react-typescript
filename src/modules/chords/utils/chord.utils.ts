@@ -3,10 +3,23 @@ import type { Chord } from "@/modules/chords/types/chord.types"
 import type { CSSProperties } from "react"
 
 /** Flex share of a bar by beat duration (e.g. 3 + 1 in 4/4 → 3:1). */
-export const chordFlexStyle = (duration: number): CSSProperties => ({
-  flex: `${Math.max(1, duration)} 1 0%`,
-  minWidth: 0,
-})
+export const chordFlexStyle = (
+  duration: number,
+  options?: { guide?: boolean },
+): CSSProperties => {
+  const beats = Math.max(1, duration)
+  if (options?.guide) {
+    // Atril: keep proportional share but never crush glyphs under bar lines.
+    return {
+      flex: `${beats} 1 auto`,
+      minWidth: `max(${beats * 1.35}rem, max-content)`,
+    }
+  }
+  return {
+    flex: `${beats} 1 0%`,
+    minWidth: 0,
+  }
+}
 
 /** Fixed width for drag overlay (portal has no bar parent). */
 export const chordOverlayWidth = (duration: number): string =>

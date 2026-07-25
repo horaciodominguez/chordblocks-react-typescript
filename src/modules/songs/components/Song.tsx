@@ -336,8 +336,16 @@ export const Song = ({
         {displaySong.songSections.map((section) => (
           <li
             key={section.id}
+            {...(performanceMode
+              ? {
+                  "data-play-section": "",
+                  id: `play-section-${section.id}`,
+                }
+              : {})}
             className={`flex flex-col justify-start gap-3 guide:gap-1 ${
-              performanceMode ? "mb-3" : "mb-6 guide:mb-2"
+              performanceMode
+                ? "mb-3 scroll-mt-[7.5rem]"
+                : "mb-6 guide:mb-2"
             }`}
           >
             <div className="flex items-center gap-2">

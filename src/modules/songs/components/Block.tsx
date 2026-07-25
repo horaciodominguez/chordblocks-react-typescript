@@ -103,20 +103,20 @@ export const Block = forwardRef<HTMLDivElement, Props>(
     return (
       <div
         ref={ref}
-        className={`relative group box-border flex min-w-0 flex-col items-center justify-center text-xs font-bold text-white light:text-zinc-900 ${
+        className={`relative group box-border flex flex-col items-center justify-center text-xs font-bold text-white light:text-zinc-900 ${
           isGuide
-            ? "min-h-[var(--atril-block-min-h,1.75rem)] px-0.5"
-            : "min-h-10 px-1"
-        } ${hasControls ? "min-h-16 py-2 pb-8" : isGuide ? "py-0.5" : "py-2"}`}
+            ? "min-h-[var(--atril-block-min-h,1.75rem)] min-w-0 px-1.5"
+            : "min-h-10 min-w-0 px-1"
+        } ${hasControls ? "min-h-16 py-2 pb-8" : isGuide ? "py-1" : "py-2"}`}
         style={{
-          ...chordFlexStyle(block.duration),
+          ...chordFlexStyle(block.duration, { guide: isGuide }),
           visibility: isDragging ? "hidden" : "visible",
           ...(dragStyle ?? {}),
         }}
       >
         <div
-          className={`flex flex-col items-center min-w-0 w-full overflow-hidden ${
-            isGuide ? "gap-1" : "gap-4"
+          className={`flex flex-col items-center w-full ${
+            isGuide ? "gap-1 overflow-visible" : "gap-4 min-w-0 overflow-hidden"
           }`}
         >
           <BlockContent

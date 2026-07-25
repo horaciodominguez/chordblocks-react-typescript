@@ -24,7 +24,7 @@ export default function Chord({ chord, asText = false }: Props) {
   if (asText) return <>{root + suffix}</>
 
   return (
-    <span className="flex flex-row items-end justify-center">
+    <span className="flex flex-row items-end justify-center whitespace-nowrap">
       <span className="text-center text-sm font-bold font-display text-zinc-200 light:text-zinc-800 guide:text-[length:var(--atril-chord-root,0.75rem)] stage:text-white">
         {root}
       </span>

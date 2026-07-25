@@ -1,5 +1,5 @@
 import { Song } from "@/modules/songs/components/Song"
-import { Link, useParams, useSearchParams } from "react-router-dom"
+import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom"
 import { useSong } from "@/modules/songs/hooks/useSong"
 import { useRepertoires } from "@/modules/repertoires/hooks/useRepertoires"
 import PageState from "@/components/ui/PageState"
@@ -10,12 +10,14 @@ import { SetItemNotes } from "@/modules/repertoires/components/SetItemNotes"
 import {
   getSetNavContext,
   isPlayModeParam,
+  setSongPath,
   songEditPath,
   songPlayPath,
   songViewPath,
 } from "@/modules/repertoires/utils/repertoire.navigation"
 import { useWakeLock } from "@/modules/repertoires/hooks/useWakeLock"
 import { useFullscreen } from "@/modules/repertoires/hooks/useFullscreen"
+import { usePlayGestures } from "@/modules/repertoires/hooks/usePlayGestures"
 import { WakeLockIndicator } from "@/modules/repertoires/components/WakeLockIndicator"
 import { FullscreenToggle } from "@/modules/repertoires/components/FullscreenToggle"
 import { FontScaleControl } from "@/modules/songs/components/ui/FontScaleControl"
@@ -30,7 +32,7 @@ import {
 } from "@/modules/songs/utils/stageModePreference"
 import type { AtrilFontScale } from "@/modules/songs/types/fontScale.types"
 import { Edit, ListMusic, Play, X } from "lucide-react"
-import { useEffect, useMemo, useState } from "react"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { ROUTES } from "@/config/navigation"
 import { normalizeArtistKey } from "@/modules/songs/utils/songCatalog"
 import { parseYouTubeVideoId } from "@/modules/songs/utils/youtube"
@@ -42,6 +44,7 @@ import {
 
 export default function ViewSong() {
   const { id } = useParams<{ id: string }>()
+  const navigate = useNavigate()
   const [searchParams] = useSearchParams()
   const { song, loading } = useSong(id)
   const { getRepertoire, repertoires } = useRepertoires()
@@ -62,6 +65,38 @@ export default function ViewSong() {
 
   const wakeLock = useWakeLock(playMode)
   const fullscreen = useFullscreen()
+  const playChromeRef = useRef<HTMLDivElement | null>(null)
+
+  const goNextInSet = useCallback(() => {
+    if (!setNav?.next) return
+    navigate(
+      setSongPath(
+        setNav.next.item.songId,
+        setNav.repertoireId,
+        setNav.next.item.id,
+        { mode: "play" },
+      ),
+    )
+  }, [navigate, setNav])
+
+  const goPrevInSet = useCallback(() => {
+    if (!setNav?.prev) return
+    navigate(
+      setSongPath(
+        setNav.prev.item.songId,
+        setNav.repertoireId,
+        setNav.prev.item.id,
+        { mode: "play" },
+      ),
+    )
+  }, [navigate, setNav])
+
+  const { surfaceRef, gestureProps } = usePlayGestures({
+    enabled: playMode,
+    onSwipeNext: setNav ? goNextInSet : undefined,
+    onSwipePrev: setNav ? goPrevInSet : undefined,
+    chromeInsetRef: playChromeRef,
+  })
 
   const [fontScale, setFontScale] = useState<AtrilFontScale>(() =>
     readAtrilFontScale(),
@@ -187,6 +222,7 @@ export default function ViewSong() {
     <SongPlayerProvider videoId={videoId}>
       {playMode ? (
         <PlayChrome
+          ref={playChromeRef}
           header={
             <PageHeader
               compact
@@ -240,6 +276,8 @@ export default function ViewSong() {
       ) : null}
 
       <div
+        ref={playMode ? surfaceRef : undefined}
+        {...(playMode ? gestureProps : {})}
         className={setNav ? (playMode ? "pb-20" : "pb-24 md:pb-20") : undefined}
       >
         <Song

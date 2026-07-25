@@ -26,7 +26,7 @@ export function FullscreenToggle({
       title={active ? "Exit fullscreen" : "Fullscreen"}
       className={
         compact
-          ? "inline-flex items-center justify-center min-h-8 min-w-8 rounded-md border border-zinc-700 text-indigo-300 hover:text-gray-200 hover:bg-zinc-800/50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 light:border-zinc-200 light:text-indigo-700 light:hover:text-zinc-900 light:hover:bg-zinc-100 stage:border-white stage:text-white stage:hover:bg-white/10 stage:focus-visible:outline-white"
+          ? "inline-flex items-center justify-center min-h-9 min-w-9 rounded-md border border-zinc-700 text-indigo-300 hover:text-gray-200 hover:bg-zinc-800/50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 light:border-zinc-200 light:text-indigo-700 light:hover:text-zinc-900 light:hover:bg-zinc-100 stage:border-white stage:text-white stage:hover:bg-white/10 stage:focus-visible:outline-white"
           : "inline-flex items-center justify-center gap-1.5 min-h-11 min-w-11 px-2.5 rounded-md border border-zinc-700 text-indigo-300 hover:text-gray-200 hover:bg-zinc-800/50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 light:border-zinc-200 light:text-indigo-700 light:hover:text-zinc-900 light:hover:bg-zinc-100 stage:border-white stage:text-white stage:hover:bg-white/10 stage:focus-visible:outline-white"
       }
     >
