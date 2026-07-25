@@ -20,15 +20,19 @@ import {
 } from "@/modules/repertoires/utils/repertoire.catalog"
 import { ROUTES } from "@/config/navigation"
 import { touchRepertoire } from "@/modules/repertoires/utils/repertoire.factory"
+import { useGigLock } from "@/modules/repertoires/context/GigLockContext"
+import { GigLockToggle } from "@/modules/repertoires/components/GigLockToggle"
 
 function SetCard({
   rep,
   mutating,
+  readOnly,
   onTogglePin,
   onDelete,
 }: {
   rep: Repertoire
   mutating: boolean
+  readOnly?: boolean
   onTogglePin: (rep: Repertoire) => void
   onDelete: (rep: Repertoire) => Promise<void>
 }) {
@@ -51,33 +55,35 @@ function SetCard({
             {dateLabel ? ` · ${dateLabel}` : ""}
           </p>
         </Link>
-        <div className="flex gap-2 shrink-0">
-          <IconButton
-            aria-label={pinned ? `Unpin ${rep.title}` : `Pin ${rep.title}`}
-            aria-pressed={pinned}
-            onClick={() => onTogglePin(rep)}
-            disabled={mutating}
-            className={pinned ? "text-amber-400 border-amber-500/40" : ""}
-          >
-            {pinned ? <PinOff size={16} /> : <Pin size={16} />}
-          </IconButton>
-          <ConfirmDialog
-            title="Delete set?"
-            description={`Delete "${rep.title}"? This cannot be undone.`}
-            confirmLabel="Delete"
-            cancelLabel="Cancel"
-            onConfirm={() => onDelete(rep)}
-            trigger={
-              <IconButton
-                variant="danger"
-                aria-label={`Delete ${rep.title}`}
-                disabled={mutating}
-              >
-                <Trash size={16} />
-              </IconButton>
-            }
-          />
-        </div>
+        {!readOnly ? (
+          <div className="flex gap-2 shrink-0">
+            <IconButton
+              aria-label={pinned ? `Unpin ${rep.title}` : `Pin ${rep.title}`}
+              aria-pressed={pinned}
+              onClick={() => onTogglePin(rep)}
+              disabled={mutating}
+              className={pinned ? "text-amber-400 border-amber-500/40" : ""}
+            >
+              {pinned ? <PinOff size={16} /> : <Pin size={16} />}
+            </IconButton>
+            <ConfirmDialog
+              title="Delete set?"
+              description={`Delete "${rep.title}"? This cannot be undone.`}
+              confirmLabel="Delete"
+              cancelLabel="Cancel"
+              onConfirm={() => onDelete(rep)}
+              trigger={
+                <IconButton
+                  variant="danger"
+                  aria-label={`Delete ${rep.title}`}
+                  disabled={mutating}
+                >
+                  <Trash size={16} />
+                </IconButton>
+              }
+            />
+          </div>
+        ) : null}
       </div>
     </Panel>
   )
@@ -92,6 +98,7 @@ export function RepertoireList() {
     updateRepertoire,
   } = useRepertoires()
   const { songs } = useSongs()
+  const { locked: gigLocked } = useGigLock()
   const navigate = useNavigate()
   const [search, setSearch] = useState("")
 
@@ -136,18 +143,26 @@ export function RepertoireList() {
       <EmptyState
         icon={<ListMusic size={48} />}
         title="No sets yet"
-        description="Create a set for your next gig night."
+        description={
+          gigLocked
+            ? "Gig lock is on — unlock to create sets."
+            : "Create a set for your next gig night."
+        }
         action={
-          <Button
-            type="button"
-            variant="save"
-            className="min-h-11 inline-flex items-center gap-2 mx-auto"
-            onClick={handleCreate}
-            disabled={mutating}
-          >
-            <Plus size={16} />
-            Create your first set
-          </Button>
+          gigLocked ? (
+            <GigLockToggle />
+          ) : (
+            <Button
+              type="button"
+              variant="save"
+              className="min-h-11 inline-flex items-center gap-2 mx-auto"
+              onClick={handleCreate}
+              disabled={mutating}
+            >
+              <Plus size={16} />
+              Create your first set
+            </Button>
+          )
         }
       />
     )
@@ -165,16 +180,20 @@ export function RepertoireList() {
             onChange={(e) => setSearch(e.target.value)}
           />
         </div>
-        <Button
-          type="button"
-          variant="primary"
-          className="inline-flex items-center gap-2 shrink-0"
-          onClick={handleCreate}
-          disabled={mutating}
-        >
-          <Plus size={16} />
-          New set
-        </Button>
+        {gigLocked ? (
+          <GigLockToggle />
+        ) : (
+          <Button
+            type="button"
+            variant="primary"
+            className="inline-flex items-center gap-2 shrink-0"
+            onClick={handleCreate}
+            disabled={mutating}
+          >
+            <Plus size={16} />
+            New set
+          </Button>
+        )}
       </div>
 
       {filtered.length === 0 ? (
@@ -194,6 +213,7 @@ export function RepertoireList() {
                     <SetCard
                       rep={rep}
                       mutating={mutating}
+                      readOnly={gigLocked}
                       onTogglePin={handleTogglePin}
                       onDelete={handleDelete}
                     />
@@ -220,6 +240,7 @@ export function RepertoireList() {
                     <SetCard
                       rep={rep}
                       mutating={mutating}
+                      readOnly={gigLocked}
                       onTogglePin={handleTogglePin}
                       onDelete={handleDelete}
                     />

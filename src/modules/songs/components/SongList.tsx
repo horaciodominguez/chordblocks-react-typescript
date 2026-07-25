@@ -31,6 +31,8 @@ import {
   type SongSort,
 } from "@/modules/songs/utils/songCatalog"
 import { findRepertoiresReferencingSong } from "@/modules/repertoires/utils/repertoire.catalog"
+import { useGigLock } from "@/modules/repertoires/context/GigLockContext"
+import { GigLockToggle } from "@/modules/repertoires/components/GigLockToggle"
 import type { Song } from "@/modules/songs/types/song.types"
 
 type CatalogView = "list" | "artists"
@@ -64,6 +66,7 @@ function parseView(value: string | null): CatalogView {
 export const SongList = () => {
   const { songs, deleteSong, mutating } = useSongs()
   const { repertoires } = useRepertoires()
+  const { locked: gigLocked } = useGigLock()
   const navigate = useNavigate()
   const [searchParams, setSearchParams] = useSearchParams()
 
@@ -120,9 +123,13 @@ export const SongList = () => {
       <EmptyState
         icon={<Music size={48} />}
         title="No songs yet"
-        description="Create your first chord progression to get started."
-        actionLabel="Create your first song"
-        onAction={() => navigate(ROUTES.newSong)}
+        description={
+          gigLocked
+            ? "Gig lock is on — hold the lock icon on a song in Play to unlock, then create songs."
+            : "Create your first chord progression to get started."
+        }
+        actionLabel={gigLocked ? undefined : "Create your first song"}
+        onAction={gigLocked ? undefined : () => navigate(ROUTES.newSong)}
       />
     )
   }
@@ -229,14 +236,16 @@ export const SongList = () => {
             >
               <AudioLines width={18} height={18} />
             </Link>
-            <Link
-              className={actionBtnClass}
-              to={ROUTES.songEdit(song.id)}
-              aria-label={`Edit ${song.title}`}
-            >
-              <Edit width={18} height={18} />
-            </Link>
-            {deleteSongActions(song)}
+            {!gigLocked ? (
+              <Link
+                className={actionBtnClass}
+                to={ROUTES.songEdit(song.id)}
+                aria-label={`Edit ${song.title}`}
+              >
+                <Edit width={18} height={18} />
+              </Link>
+            ) : null}
+            {!gigLocked ? deleteSongActions(song) : null}
           </div>
         </div>
       </div>
@@ -268,14 +277,16 @@ export const SongList = () => {
         >
           <AudioLines width={16} height={16} />
         </Link>
-        <Link
-          className={actionBtnClass}
-          to={ROUTES.songEdit(song.id)}
-          aria-label={`Edit ${song.title}`}
-        >
-          <Edit width={16} height={16} />
-        </Link>
-        {deleteSongActions(song)}
+        {!gigLocked ? (
+          <Link
+            className={actionBtnClass}
+            to={ROUTES.songEdit(song.id)}
+            aria-label={`Edit ${song.title}`}
+          >
+            <Edit width={16} height={16} />
+          </Link>
+        ) : null}
+        {!gigLocked ? deleteSongActions(song) : null}
       </div>
     </li>
   )
@@ -304,15 +315,18 @@ export const SongList = () => {
             />
           </div>
           <div className="flex flex-wrap gap-2 shrink-0">
-            <Button
-              type="button"
-              variant="primary"
-              className="inline-flex items-center gap-2"
-              onClick={() => navigate(ROUTES.newSong)}
-            >
-              <Plus size={16} />
-              New song
-            </Button>
+            {gigLocked ? <GigLockToggle /> : null}
+            {!gigLocked ? (
+              <Button
+                type="button"
+                variant="primary"
+                className="inline-flex items-center gap-2"
+                onClick={() => navigate(ROUTES.newSong)}
+              >
+                <Plus size={16} />
+                New song
+              </Button>
+            ) : null}
             <Button
               variant="primary"
               onClick={() => setShowFilters((v) => !v)}

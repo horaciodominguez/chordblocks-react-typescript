@@ -22,6 +22,8 @@ import { removeItem } from "@/modules/repertoires/utils/repertoire.edit"
 import { touchRepertoire } from "@/modules/repertoires/utils/repertoire.factory"
 import { formatRepertoireDate } from "@/modules/repertoires/utils/repertoire.catalog"
 import { ROUTES } from "@/config/navigation"
+import { useGigLock } from "@/modules/repertoires/context/GigLockContext"
+import { GigLockToggle } from "@/modules/repertoires/components/GigLockToggle"
 
 export default function ViewRepertoire() {
   const { id } = useParams<{ id: string }>()
@@ -29,6 +31,7 @@ export default function ViewRepertoire() {
   const { getRepertoire, updateRepertoire, mutating, initialLoading } =
     useRepertoires()
   const { songs } = useSongs()
+  const { locked: gigLocked } = useGigLock()
   const [editingTitle, setEditingTitle] = useState(false)
   const [titleDraft, setTitleDraft] = useState("")
 
@@ -148,15 +151,19 @@ export default function ViewRepertoire() {
         title={repertoire.title}
         backTo={ROUTES.sets}
         actions={
-          <IconButton
-            aria-label={pinned ? "Unpin set" : "Pin set"}
-            aria-pressed={pinned}
-            onClick={togglePin}
-            disabled={mutating}
-            className={pinned ? "text-amber-400 border-amber-500/40" : ""}
-          >
-            {pinned ? <PinOff size={16} /> : <Pin size={16} />}
-          </IconButton>
+          gigLocked ? (
+            <GigLockToggle />
+          ) : (
+            <IconButton
+              aria-label={pinned ? "Unpin set" : "Pin set"}
+              aria-pressed={pinned}
+              onClick={togglePin}
+              disabled={mutating}
+              className={pinned ? "text-amber-400 border-amber-500/40" : ""}
+            >
+              {pinned ? <PinOff size={16} /> : <Pin size={16} />}
+            </IconButton>
+          )
         }
       />
 
@@ -197,6 +204,7 @@ export default function ViewRepertoire() {
               {dateLabel ? ` · ${dateLabel}` : ""}
             </p>
             <div className="flex flex-wrap gap-2">
+              {gigLocked ? <GigLockToggle /> : null}
               <Button
                 type="button"
                 variant="save"
@@ -206,22 +214,26 @@ export default function ViewRepertoire() {
               >
                 Play
               </Button>
-              <Button
-                type="button"
-                variant="secondary"
-                className="min-h-11"
-                onClick={startRename}
-              >
-                Rename
-              </Button>
-              <Button
-                type="button"
-                variant="primary"
-                className="min-h-11"
-                onClick={() => navigate(ROUTES.setEdit(repertoire.id))}
-              >
-                Edit set
-              </Button>
+              {!gigLocked ? (
+                <Button
+                  type="button"
+                  variant="secondary"
+                  className="min-h-11"
+                  onClick={startRename}
+                >
+                  Rename
+                </Button>
+              ) : null}
+              {!gigLocked ? (
+                <Button
+                  type="button"
+                  variant="primary"
+                  className="min-h-11"
+                  onClick={() => navigate(ROUTES.setEdit(repertoire.id))}
+                >
+                  Edit set
+                </Button>
+              ) : null}
               <Button
                 type="button"
                 variant="secondary"
@@ -244,23 +256,29 @@ export default function ViewRepertoire() {
             {missingCount === 1 ? "" : "s"} in this set.
           </p>
           <div className="flex flex-wrap gap-2">
-            <Button
-              type="button"
-              variant="secondary"
-              className="min-h-11"
-              onClick={removeMissing}
-              disabled={mutating}
-            >
-              Remove broken refs
-            </Button>
-            <Button
-              type="button"
-              variant="primary"
-              className="min-h-11"
-              onClick={() => navigate(ROUTES.setEdit(repertoire.id))}
-            >
-              Edit set
-            </Button>
+            {!gigLocked ? (
+              <Button
+                type="button"
+                variant="secondary"
+                className="min-h-11"
+                onClick={removeMissing}
+                disabled={mutating}
+              >
+                Remove broken refs
+              </Button>
+            ) : null}
+            {!gigLocked ? (
+              <Button
+                type="button"
+                variant="primary"
+                className="min-h-11"
+                onClick={() => navigate(ROUTES.setEdit(repertoire.id))}
+              >
+                Edit set
+              </Button>
+            ) : (
+              <GigLockToggle />
+            )}
           </div>
         </div>
       ) : null}
@@ -268,9 +286,15 @@ export default function ViewRepertoire() {
       {flatItems.length === 0 ? (
         <EmptyState
           title="No songs in this set yet"
-          description="Add songs from your library to start playing."
-          actionLabel="Add songs"
-          onAction={() => navigate(ROUTES.setEdit(repertoire.id))}
+          description={
+            gigLocked
+              ? "Gig lock is on — unlock to add songs."
+              : "Add songs from your library to start playing."
+          }
+          actionLabel={gigLocked ? undefined : "Add songs"}
+          onAction={
+            gigLocked ? undefined : () => navigate(ROUTES.setEdit(repertoire.id))
+          }
         />
       ) : (
         <div className="flex flex-col gap-4">

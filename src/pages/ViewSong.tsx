@@ -20,6 +20,8 @@ import { useFullscreen } from "@/modules/repertoires/hooks/useFullscreen"
 import { usePlayGestures } from "@/modules/repertoires/hooks/usePlayGestures"
 import { WakeLockIndicator } from "@/modules/repertoires/components/WakeLockIndicator"
 import { FullscreenToggle } from "@/modules/repertoires/components/FullscreenToggle"
+import { GigLockToggle } from "@/modules/repertoires/components/GigLockToggle"
+import { useGigLock } from "@/modules/repertoires/context/GigLockContext"
 import { FontScaleControl } from "@/modules/songs/components/ui/FontScaleControl"
 import { StageModeToggle } from "@/modules/songs/components/ui/StageModeToggle"
 import {
@@ -65,6 +67,7 @@ export default function ViewSong() {
 
   const wakeLock = useWakeLock(playMode)
   const fullscreen = useFullscreen()
+  const { locked: gigLocked } = useGigLock()
   const playChromeRef = useRef<HTMLDivElement | null>(null)
 
   const goNextInSet = useCallback(() => {
@@ -185,6 +188,7 @@ export default function ViewSong() {
 
   const headerActions = playMode ? (
     <>
+      <GigLockToggle compact />
       <WakeLockIndicator status={wakeLock} compact />
       <FullscreenToggle
         compact
@@ -211,10 +215,14 @@ export default function ViewSong() {
           <span>Set</span>
         </PageHeaderLink>
       ) : null}
-      <PageHeaderLink to={editHref}>
-        <Edit size={16} />
-        <span className="hidden sm:inline">Edit</span>
-      </PageHeaderLink>
+      {gigLocked ? (
+        <GigLockToggle />
+      ) : (
+        <PageHeaderLink to={editHref}>
+          <Edit size={16} />
+          <span className="hidden sm:inline">Edit</span>
+        </PageHeaderLink>
+      )}
     </>
   )
 

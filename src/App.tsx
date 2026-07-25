@@ -5,6 +5,7 @@ import { useRepertoires } from "./modules/repertoires/hooks/useRepertoires"
 import LoaderSpinner from "./components/ui/LoaderSpinner"
 import { AppShell } from "./components/layout/AppShell"
 import { RouteSuspense } from "./components/layout/RouteSuspense"
+import { GigLockGuard } from "./components/routing/GigLockGuard"
 import { useTheme } from "./modules/ui/hooks/useTheme"
 import { lazyWithRetry } from "./utils/lazyWithRetry"
 
@@ -52,11 +53,32 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/songs" element={<Songs />} />
             <Route path="/song/:id" element={<ViewSong />} />
-            <Route path="/song/:id/edit" element={<EditSong />} />
-            <Route path="/new" element={<NewSong />} />
+            <Route
+              path="/song/:id/edit"
+              element={
+                <GigLockGuard>
+                  <EditSong />
+                </GigLockGuard>
+              }
+            />
+            <Route
+              path="/new"
+              element={
+                <GigLockGuard>
+                  <NewSong />
+                </GigLockGuard>
+              }
+            />
             <Route path="/repertoires" element={<Repertoires />} />
             <Route path="/repertoires/:id" element={<ViewRepertoire />} />
-            <Route path="/repertoires/:id/edit" element={<EditRepertoire />} />
+            <Route
+              path="/repertoires/:id/edit"
+              element={
+                <GigLockGuard>
+                  <EditRepertoire />
+                </GigLockGuard>
+              }
+            />
             <Route path="/settings" element={<Settings />} />
             {UITest ? <Route path="/uitest" element={<UITest />} /> : null}
             <Route path="*" element={<NotFound />} />
