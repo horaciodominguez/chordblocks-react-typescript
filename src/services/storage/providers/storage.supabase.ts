@@ -6,14 +6,11 @@ import {
   parseStoredSong,
   parseStoredSongs,
 } from "@/modules/songs/validation/parseStoredSong"
-
-function log(...args: unknown[]) {
-  if (import.meta.env.DEV) console.log(...args)
-}
+import { devLog, devWarn } from "@/utils/devLog"
 
 export const supabaseStorage = {
   getSongs: async (userId: string): Promise<Song[]> => {
-    log("supabaseStorage.getSongs", userId)
+    devLog("supabaseStorage.getSongs", userId)
     const { data, error } = await supabase
       .from("songs")
       .select("data")
@@ -27,7 +24,7 @@ export const supabaseStorage = {
   },
 
   saveSong: async (userId: string, song: Song): Promise<void> => {
-    log("supabaseStorage.saveSong", userId, song.id)
+    devLog("supabaseStorage.saveSong", userId, song.id)
     await supabase.auth.getSession()
 
     const draft: Song = {
@@ -78,7 +75,7 @@ export const supabaseStorage = {
   },
 
   deleteSong: async (userId: string, id: string) => {
-    log("supabaseStorage.deleteSong", userId, id)
+    devLog("supabaseStorage.deleteSong", userId, id)
     const { error } = await supabase
       .from("songs")
       .delete()
@@ -90,12 +87,12 @@ export const supabaseStorage = {
     try {
       await deleteSongImage(userId, id)
     } catch (err) {
-      if (import.meta.env.DEV) console.warn("deleteSongImage failed", err)
+      devWarn("deleteSongImage failed", err)
     }
   },
 
   getRepertoires: async (userId: string): Promise<Repertoire[]> => {
-    log("supabaseStorage.getRepertoires", userId)
+    devLog("supabaseStorage.getRepertoires", userId)
     const { data, error } = await supabase
       .from("repertoires")
       .select("data")
@@ -106,7 +103,7 @@ export const supabaseStorage = {
   },
 
   saveRepertoire: async (userId: string, rep: Repertoire): Promise<void> => {
-    log("supabaseStorage.saveRepertoire", userId, rep.id)
+    devLog("supabaseStorage.saveRepertoire", userId, rep.id)
     await supabase.auth.getSession()
 
     const draft: Repertoire = {
@@ -136,7 +133,7 @@ export const supabaseStorage = {
   },
 
   deleteRepertoire: async (userId: string, id: string) => {
-    log("supabaseStorage.deleteRepertoire", userId, id)
+    devLog("supabaseStorage.deleteRepertoire", userId, id)
     const { error } = await supabase
       .from("repertoires")
       .delete()

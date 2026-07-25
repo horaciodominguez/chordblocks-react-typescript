@@ -83,6 +83,14 @@ npm run build
 
 Optional scripts: `npm run lint`, `npm run format`, `npm run format:check`.
 
+Verbose storage traces are **off by default**. In DEV, enable them with:
+
+```js
+localStorage.setItem("chordblocks:debug", "1")
+```
+
+then reload (`removeItem` / `"0"` to silence again). Real failures still use `console.error`.
+
 ### Auth redirects (magic link) + phone on LAN
 
 The app sets `emailRedirectTo` to **`window.location.origin`**. Nothing in the app hardcodes port 3000.

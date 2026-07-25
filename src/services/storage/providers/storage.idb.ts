@@ -15,6 +15,7 @@ import {
   parseStoredSong,
   parseStoredSongs,
 } from "@/modules/songs/validation/parseStoredSong"
+import { devLog } from "@/utils/devLog"
 
 const DB_NAME = "ChordBlocks"
 const STORE = "songs"
@@ -32,10 +33,6 @@ const LAST_USER_KEY = "chordblocks:lastUserId"
 const DB_VERSION = 4
 
 type ChordBlocksDB = IDBPDatabase
-
-function log(...args: unknown[]) {
-  if (import.meta.env.DEV) console.log(...args)
-}
 
 let migrateOnce: Promise<void> | null = null
 
@@ -100,13 +97,13 @@ async function getDb() {
 
 export const idbStorage = {
   async getSongs(): Promise<Song[]> {
-    log("💾 idbStorage.getSongs")
+    devLog("💾 idbStorage.getSongs")
     const db = await getDb()
     return parseStoredSongs(await db.getAll(STORE), "idb.songs")
   },
 
   async saveSong(song: Song) {
-    log("💾 idbStorage.saveSong", song.id)
+    devLog("💾 idbStorage.saveSong", song.id)
     const db = await getDb()
     await db.put(STORE, song)
   },
@@ -119,7 +116,7 @@ export const idbStorage = {
   },
 
   async clearSongs() {
-    log("💾 idbStorage.clearSongs")
+    devLog("💾 idbStorage.clearSongs")
     const db = await getDb()
     await db.clear(STORE)
   },
@@ -129,7 +126,7 @@ export const idbStorage = {
    * (offline recreate / edit after delete intent).
    */
   async addPending(song: Song) {
-    log("💾 idbStorage.addPending", song.id)
+    devLog("💾 idbStorage.addPending", song.id)
     const db = await getDb()
     await db.delete(PENDING_DELETES, song.id)
     await db.put(PENDING, song)
@@ -151,14 +148,14 @@ export const idbStorage = {
   },
 
   async clearPending() {
-    log("💾 idbStorage.clearPending")
+    devLog("💾 idbStorage.clearPending")
     const db = await getDb()
     await db.clear(PENDING)
     await db.clear(PENDING_DELETES)
   },
 
   async deleteSong(id: string) {
-    log("💾 idbStorage.deleteSong", id)
+    devLog("💾 idbStorage.deleteSong", id)
     const db = await getDb()
     await db.delete(STORE, id)
   },
@@ -168,7 +165,7 @@ export const idbStorage = {
    * (offline delete after edit — delete is the latest intent).
    */
   async addPendingDelete(id: string) {
-    log("💾 idbStorage.addPendingDelete", id)
+    devLog("💾 idbStorage.addPendingDelete", id)
     const db = await getDb()
     await db.delete(PENDING, id)
     const entry: PendingDelete = {
@@ -188,13 +185,13 @@ export const idbStorage = {
   // --- Repertoires ---
 
   async getRepertoires(): Promise<Repertoire[]> {
-    log("💾 idbStorage.getRepertoires")
+    devLog("💾 idbStorage.getRepertoires")
     const db = await getDb()
     return (await db.getAll(REPERTOIRES)) as Repertoire[]
   },
 
   async saveRepertoire(rep: Repertoire) {
-    log("💾 idbStorage.saveRepertoire", rep.id)
+    devLog("💾 idbStorage.saveRepertoire", rep.id)
     const db = await getDb()
     await db.put(REPERTOIRES, rep)
   },
@@ -205,7 +202,7 @@ export const idbStorage = {
   },
 
   async deleteRepertoire(id: string) {
-    log("💾 idbStorage.deleteRepertoire", id)
+    devLog("💾 idbStorage.deleteRepertoire", id)
     const db = await getDb()
     await db.delete(REPERTOIRES, id)
   },
@@ -275,7 +272,7 @@ export const idbStorage = {
 
   /** Wipe all local songs/sets/pending and forget last user (explicit logout clear). */
   async clearAllLocalData(): Promise<void> {
-    log("💾 idbStorage.clearAllLocalData")
+    devLog("💾 idbStorage.clearAllLocalData")
     await idbStorage.clearSongs()
     await idbStorage.clearPending()
     await idbStorage.clearRepertoires()

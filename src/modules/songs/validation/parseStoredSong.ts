@@ -1,9 +1,12 @@
 import { SongSchema, type SongParsed } from "@/modules/songs/schemas/song.schema"
 import type { Song } from "@/modules/songs/types/song.types"
+import { isDevDebug } from "@/utils/devLog"
 
 export type ParseStoredSongResult =
   | { ok: true; song: Song }
   | { ok: false; error: string }
+
+const warnedInvalidSongs = new Set<string>()
 
 function formatIssues(raw: unknown): string {
   const res = SongSchema.safeParse(raw)
@@ -16,7 +19,8 @@ function formatIssues(raw: unknown): string {
 
 /**
  * Validate a song document from IDB / Supabase / import payload.
- * Returns null and logs when the document is corrupt — never throws.
+ * Returns null when corrupt — never throws.
+ * Warns once per id (or when chordblocks:debug is on) to avoid console spam.
  */
 export function parseStoredSong(
   raw: unknown,
@@ -30,10 +34,14 @@ export function parseStoredSong(
     raw && typeof raw === "object" && "id" in raw
       ? String((raw as { id: unknown }).id)
       : "?"
-  console.warn(
-    `[${source}] skipping invalid song ${id}:`,
-    formatIssues(raw),
-  )
+  const key = `${source}:${id}`
+  if (isDevDebug() || !warnedInvalidSongs.has(key)) {
+    warnedInvalidSongs.add(key)
+    console.warn(
+      `[${source}] skipping invalid song ${id}:`,
+      formatIssues(raw),
+    )
+  }
   return null
 }
 
