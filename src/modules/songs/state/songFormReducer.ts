@@ -43,6 +43,7 @@ export type Action =
   | { type: "SET_GENRE"; v: string }
   | { type: "SET_YEAR"; v: number }
   | { type: "SET_MAIN_KEY"; v: string | undefined }
+  | { type: "SET_BPM"; v: number | undefined }
   | { type: "SET_YOUTUBE_URL"; v: string | undefined }
   | { type: "SET_TIME_SIGNATURE"; v: TimeSignature }
   | { type: "SET_IMAGE_BASE64"; v: string | null }
@@ -65,6 +66,7 @@ export type Action =
   | { type: "CLEAR_DUPLICATED_SECTION" }
   | { type: "SET_PENDING_SECTION_REPEATS"; v: number }
   | { type: "SET_PENDING_SECTION_LABEL"; v: string | undefined }
+  | { type: "SET_PENDING_SECTION_CUE_TIME"; v: number | undefined }
   | { type: "CANCEL_SECTION" }
   | { type: "FINALIZE_SECTION" }
   | { type: "RESET" }
@@ -115,6 +117,17 @@ export const reducer = (
       return {
         ...state,
         song: action.v ? { ...state.song, mainKey: action.v } : { ...rest },
+      }
+    }
+
+    case "SET_BPM": {
+      const { bpm: _, ...rest } = state.song
+      return {
+        ...state,
+        song:
+          action.v !== undefined
+            ? { ...state.song, bpm: action.v }
+            : { ...rest },
       }
     }
 
@@ -519,6 +532,17 @@ export const reducer = (
       }
     }
 
+    case "SET_PENDING_SECTION_CUE_TIME": {
+      const { cueTime: _, ...rest } = state.pendingSection
+      return {
+        ...state,
+        pendingSection:
+          action.v !== undefined
+            ? { ...state.pendingSection, cueTime: action.v }
+            : { ...rest },
+      }
+    }
+
     case "CANCEL_SECTION": {
       return {
         ...state,
@@ -551,6 +575,9 @@ export const reducer = (
         repeats: state.pendingSection.repeats,
         ...(state.pendingSection.label?.trim()
           ? { label: state.pendingSection.label.trim() }
+          : {}),
+        ...(typeof state.pendingSection.cueTime === "number"
+          ? { cueTime: state.pendingSection.cueTime }
           : {}),
       }
 
@@ -656,6 +683,9 @@ export const reducer = (
         bars: state.pendingSection.bars,
         repeats: state.pendingSection.repeats,
         ...(label ? { label } : {}),
+        ...(typeof state.pendingSection.cueTime === "number"
+          ? { cueTime: state.pendingSection.cueTime }
+          : {}),
       }
 
       return {

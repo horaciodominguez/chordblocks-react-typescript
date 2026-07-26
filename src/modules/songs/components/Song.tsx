@@ -2,6 +2,7 @@ import type { Song as SongType } from "@/modules/songs/types/song.types"
 import type { SongDensity } from "@/modules/songs/types/density.types"
 import type { AtrilFontScale } from "@/modules/songs/types/fontScale.types"
 import { SectionTag } from "@/modules/songs/components/ui/SectionTag"
+import { formatCueTime } from "@/modules/songs/utils/scrollSync"
 import { FontScaleControl } from "@/modules/songs/components/ui/FontScaleControl"
 import { panelFlatClass } from "@/components/ui/Panel"
 import { Section } from "./Section"
@@ -185,6 +186,14 @@ export const Song = ({
                 </span>
               </span>
             ) : null}
+            {song.bpm ? (
+              <span>
+                BPM:{" "}
+                <span className="font-semibold text-zinc-200 light:text-zinc-900">
+                  {song.bpm}
+                </span>
+              </span>
+            ) : null}
             <span>
               Meter:{" "}
               <span className="font-semibold text-zinc-200 light:text-zinc-900">
@@ -343,6 +352,7 @@ export const Song = ({
             {...(performanceMode
               ? {
                   "data-play-section": "",
+                  "data-section-id": section.id,
                   id: `play-section-${section.id}`,
                 }
               : {})}
@@ -359,6 +369,11 @@ export const Song = ({
                   ×{section.repeats}
                 </span>
               )}
+              {typeof section.cueTime === "number" ? (
+                <span className="text-[10px] font-semibold tabular-nums text-amber-400/90 select-none light:text-amber-700 stage:text-zinc-300">
+                  {formatCueTime(section.cueTime)}
+                </span>
+              ) : null}
             </div>
             <Section
               section={section}

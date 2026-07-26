@@ -13,6 +13,7 @@ import { Copy, SquarePen, Trash2 } from "lucide-react"
 import { SectionEditor } from "./SectionEditor"
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog"
 import SectionsReorder from "./SectionsReorder"
+import { formatCueTime } from "@/modules/songs/utils/scrollSync"
 
 type Props = {
   dispatch: React.Dispatch<Action>
@@ -57,6 +58,14 @@ export function SongFormPendingSection({ dispatch, state }: Props) {
                       ×{section.repeats}
                     </span>
                   )}
+                  {typeof section.cueTime === "number" ? (
+                    <span
+                      className="text-[10px] font-semibold uppercase tracking-wide text-amber-400/90 light:text-amber-700"
+                      title="Play sync cue"
+                    >
+                      Sync {formatCueTime(section.cueTime)}
+                    </span>
+                  ) : null}
                   <button
                     type="button"
                     aria-label={`Edit ${section.type} section`}

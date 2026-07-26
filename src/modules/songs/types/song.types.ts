@@ -11,6 +11,12 @@ export interface Song {
   /** Reference key of the chart as written (transpose anchor). Optional. */
   mainKey?: string
 
+  /**
+   * Tempo in beats per minute (quarter-note pulse relative to `timeSignature`).
+   * Used for duration estimate and Play auto-scroll. Optional.
+   */
+  bpm?: number
+
   /** YouTube link used as listening reference (raw URL as entered). Optional. */
   youtubeUrl?: string
 

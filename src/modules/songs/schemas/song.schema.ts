@@ -75,6 +75,11 @@ export const SectionSchema = z.object({
   ),
   bars: z.array(BarSchema).min(1, "Section must have at least one bar"),
   repeats: z.number().int().min(1, "Min repeats is 1"),
+  cueTime: z.preprocess((v) => {
+    if (v === "" || v === null || v === undefined) return undefined
+    const n = typeof v === "number" ? v : Number(v)
+    return Number.isFinite(n) ? n : undefined
+  }, z.number().int().min(0).max(3 * 60 * 60).optional()),
 })
 
 export const TimeSignatureSchema = z.object({
@@ -97,6 +102,11 @@ export const SongSchema = z.object({
     (v) => (v === "" || v === null || v === undefined ? undefined : v),
     z.string().min(1).optional(),
   ),
+  bpm: z.preprocess((v) => {
+    if (v === "" || v === null || v === undefined) return undefined
+    const n = typeof v === "number" ? v : Number(v)
+    return Number.isFinite(n) ? n : undefined
+  }, z.number().int().min(40).max(240).optional()),
   youtubeUrl: z.preprocess(
     (v) => (v === "" || v === null || v === undefined ? undefined : v),
     z

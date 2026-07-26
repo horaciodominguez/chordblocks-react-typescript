@@ -19,6 +19,11 @@ import type React from "react"
 import { BlockPicker, REST_TOKEN, riffToken, SOLO_TOKEN } from "./BlockPicker"
 import Input from "@/components/ui/Input"
 import InputField from "@/components/ui/InputField"
+import {
+  formatCueTime,
+  parseCueTimeInput,
+} from "@/modules/songs/utils/scrollSync"
+import { useEffect, useState } from "react"
 
 type Props = {
   dispatch: React.Dispatch<Action>
@@ -27,6 +32,36 @@ type Props = {
 }
 
 export function SectionEditor({ state, dispatch, onStopEditing }: Props) {
+  const [cueDraft, setCueDraft] = useState("")
+
+  useEffect(() => {
+    setCueDraft(
+      typeof state.pendingSection.cueTime === "number"
+        ? formatCueTime(state.pendingSection.cueTime)
+        : "",
+    )
+  }, [state.pendingSection.id, state.pendingSection.cueTime])
+
+  const commitCueDraft = (raw: string) => {
+    const trimmed = raw.trim()
+    if (trimmed === "") {
+      dispatch({ type: "SET_PENDING_SECTION_CUE_TIME", v: undefined })
+      setCueDraft("")
+      return
+    }
+    const parsed = parseCueTimeInput(trimmed)
+    if (parsed === undefined) {
+      setCueDraft(
+        typeof state.pendingSection.cueTime === "number"
+          ? formatCueTime(state.pendingSection.cueTime)
+          : "",
+      )
+      return
+    }
+    dispatch({ type: "SET_PENDING_SECTION_CUE_TIME", v: parsed })
+    setCueDraft(formatCueTime(parsed))
+  }
+
   return (
     <div className="border border-gray-700 bg-black/20 rounded-md p-3 sm:p-4 shadow-sm light:border-zinc-200 light:bg-white/90">
       <div className="mb-4 flex flex-col sm:flex-row gap-4">
@@ -104,6 +139,37 @@ export function SectionEditor({ state, dispatch, onStopEditing }: Props) {
           />
           <p className="text-xs text-zinc-500 mt-1 light:text-zinc-600">
             Keep-style name shown as [A]. Leave empty to show the section type.
+          </p>
+        </div>
+      )}
+
+      {state.pendingSection.id !== "" && (
+        <div className="mb-4">
+          <InputField
+            label="Sync time (optional)"
+            name="sectionCueTime"
+            alwaysEditable
+            placeholder="m:ss — e.g. 1:22"
+            value={cueDraft}
+            onChange={(e) => {
+              const next = e.target.value
+              setCueDraft(next)
+              const trimmed = next.trim()
+              if (trimmed === "") {
+                dispatch({ type: "SET_PENDING_SECTION_CUE_TIME", v: undefined })
+                return
+              }
+              const parsed = parseCueTimeInput(trimmed)
+              if (parsed !== undefined) {
+                dispatch({ type: "SET_PENDING_SECTION_CUE_TIME", v: parsed })
+              }
+            }}
+            onBlur={() => commitCueDraft(cueDraft)}
+          />
+          <p className="text-xs text-zinc-500 mt-1 light:text-zinc-600">
+            Play auto-scroll cue: when the song/video reaches this time, this
+            section should be at the top. Mark only the parts you need — scroll
+            stops at the last cue.
           </p>
         </div>
       )}
@@ -260,6 +326,7 @@ export function SectionEditor({ state, dispatch, onStopEditing }: Props) {
               variant="primary"
               className="min-h-11"
               onClick={() => {
+                commitCueDraft(cueDraft)
                 dispatch({
                   type:
                     state.editingSectionId === null ||

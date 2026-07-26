@@ -24,6 +24,8 @@ export function SetSongNav({ nav, playMode = false }: Props) {
   return (
     <nav
       aria-label="Set navigation"
+      data-set-song-nav=""
+      data-no-autoscroll-pause=""
       className={`no-print fixed inset-x-0 z-20
         border-t border-zinc-800 bg-zinc-950/95 backdrop-blur-md
         light:border-zinc-200 light:bg-white/95

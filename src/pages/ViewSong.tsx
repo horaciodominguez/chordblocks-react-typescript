@@ -25,6 +25,7 @@ import { useGigLock } from "@/modules/repertoires/context/GigLockContext"
 import { PrintChartButton } from "@/components/ui/PrintChartButton"
 import { FontScaleControl } from "@/modules/songs/components/ui/FontScaleControl"
 import { StageModeToggle } from "@/modules/songs/components/ui/StageModeToggle"
+import { AutoScrollControl } from "@/modules/songs/components/ui/AutoScrollControl"
 import {
   readAtrilFontScale,
   writeAtrilFontScale,
@@ -33,7 +34,13 @@ import {
   readStageMode,
   writeStageMode,
 } from "@/modules/songs/utils/stageModePreference"
+import {
+  readAutoScrollPreference,
+  writeAutoScrollPreference,
+} from "@/modules/songs/utils/autoScrollPreference"
+import type { AutoScrollSpeed } from "@/modules/songs/types/autoScroll.types"
 import type { AtrilFontScale } from "@/modules/songs/types/fontScale.types"
+import { usePlayAutoScroll } from "@/modules/repertoires/hooks/usePlayAutoScroll"
 import { Edit, ListMusic, Play, X } from "lucide-react"
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { ROUTES } from "@/config/navigation"
@@ -95,22 +102,32 @@ export default function ViewSong() {
     )
   }, [navigate, setNav])
 
+  const [fontScale, setFontScale] = useState<AtrilFontScale>(() =>
+    readAtrilFontScale(),
+  )
+  const [stageMode, setStageMode] = useState(() => readStageMode())
+  const [autoScrollPrefs, setAutoScrollPrefs] = useState(() =>
+    readAutoScrollPreference(),
+  )
   const { surfaceRef, gestureProps } = usePlayGestures({
     enabled: playMode,
     onSwipeNext: setNav ? goNextInSet : undefined,
     onSwipePrev: setNav ? goPrevInSet : undefined,
     chromeInsetRef: playChromeRef,
   })
-
-  const [fontScale, setFontScale] = useState<AtrilFontScale>(() =>
-    readAtrilFontScale(),
-  )
-  const [stageMode, setStageMode] = useState(() => readStageMode())
+  const autoScroll = usePlayAutoScroll({
+    playMode,
+    speed: autoScrollPrefs.speed,
+    sections: song?.songSections ?? [],
+    chromeInsetRef: playChromeRef,
+    chartRootRef: surfaceRef,
+  })
 
   useEffect(() => {
     if (!playMode) return
     setFontScale(readAtrilFontScale())
     setStageMode(readStageMode())
+    setAutoScrollPrefs(readAutoScrollPreference())
   }, [playMode])
 
   useEffect(() => {
@@ -126,6 +143,14 @@ export default function ViewSong() {
   const setStageModeAndPersist = (next: boolean) => {
     setStageMode(next)
     writeStageMode(next)
+  }
+
+  const setAutoScrollSpeed = (speed: AutoScrollSpeed) => {
+    setAutoScrollPrefs((prev) => {
+      const next = { ...prev, speed }
+      writeAutoScrollPreference(next)
+      return next
+    })
   }
 
   const itemNotes = setNav?.current.item.notes?.trim() || ""
@@ -231,7 +256,8 @@ export default function ViewSong() {
 
   return (
     <SongPlayerProvider videoId={videoId}>
-      <div className="no-print">
+      {/* Tall wrapper: sticky PlayChrome + chart must share one parent. */}
+      <div>
         {playMode ? (
           <PlayChrome
             ref={playChromeRef}
@@ -255,23 +281,53 @@ export default function ViewSong() {
                   enabled={stageMode}
                   onChange={setStageModeAndPersist}
                 />
+                <AutoScrollControl
+                  compact
+                  runState={autoScroll.runState}
+                  speed={autoScrollPrefs.speed}
+                  hasCues={autoScroll.hasCues}
+                  cueCount={autoScroll.cueCount}
+                  elapsedLabel={autoScroll.elapsedLabel}
+                  lastCueLabel={autoScroll.lastCueLabel}
+                  pastLastCue={autoScroll.pastLastCue}
+                  onToggleRun={autoScroll.toggle}
+                  onSpeedChange={setAutoScrollSpeed}
+                />
               </>
             }
             notes={itemNotes}
           />
         ) : (
-          <>
+          <div className="no-print">
             <PageHeader
               title={song.title}
               backTo={backTo}
               actions={headerActions}
             />
             {itemNotes ? <SetItemNotes notes={itemNotes} /> : null}
-          </>
+            {invalidSetContext ? (
+              <div className="mb-3 rounded-md border border-amber-500/30 bg-amber-400/5 px-3 py-2 text-sm text-amber-200/90">
+                Set context is invalid or incomplete. Showing the song from your
+                library.{" "}
+                <Link
+                  to={ROUTES.sets}
+                  className="underline hover:text-amber-100"
+                >
+                  Back to sets
+                </Link>
+              </div>
+            ) : null}
+            {setNav ? (
+              <p className="text-xs text-zinc-500 mb-2 -mt-2 light:text-zinc-600">
+                {setNav.repertoireTitle} · {setNav.current.index + 1} of{" "}
+                {setNav.total}
+              </p>
+            ) : null}
+          </div>
         )}
 
-        {invalidSetContext ? (
-          <div className="mb-3 rounded-md border border-amber-500/30 bg-amber-400/5 px-3 py-2 text-sm text-amber-200/90">
+        {playMode && invalidSetContext ? (
+          <div className="no-print mb-3 rounded-md border border-amber-500/30 bg-amber-400/5 px-3 py-2 text-sm text-amber-200/90">
             Set context is invalid or incomplete. Showing the song from your
             library.{" "}
             <Link to={ROUTES.sets} className="underline hover:text-amber-100">
@@ -280,48 +336,44 @@ export default function ViewSong() {
           </div>
         ) : null}
 
-        {!playMode && setNav ? (
-          <p className="text-xs text-zinc-500 mb-2 -mt-2 light:text-zinc-600">
-            {setNav.repertoireTitle} · {setNav.current.index + 1} of{" "}
-            {setNav.total}
-          </p>
-        ) : null}
-      </div>
-
-      <div
-        data-print-root=""
-        ref={playMode ? surfaceRef : undefined}
-        {...(playMode ? gestureProps : {})}
-        className={setNav ? (playMode ? "pb-20" : "pb-24 md:pb-20") : undefined}
-      >
-        <header className="hidden print:block mb-3">
-          <h1>{song.title}</h1>
-          <p className="print-meta">
-            {song.artist}
-            {song.mainKey ? ` · Key ${song.mainKey}` : ""}
-            {` · ${song.timeSignature.beatsPerMeasure}/${song.timeSignature.noteValue}`}
-            {itemNotes ? ` · Cue: ${itemNotes}` : ""}
-          </p>
-        </header>
-        <Song
-          song={song}
-          baseSemitones={setNav?.current.item.transposeSemitones ?? 0}
-          performanceMode={playMode}
-          artistHref={`${ROUTES.songs}?view=artists&artist=${encodeURIComponent(normalizeArtistKey(song.artist))}`}
-          atril={
-            playMode
-              ? {
-                  fontScale,
-                  onFontScaleChange: setFontScaleAndPersist,
-                  stageMode,
-                  onStageModeChange: setStageModeAndPersist,
-                  externalToolbar: true,
-                }
-              : undefined
+        <div
+          data-print-root=""
+          ref={playMode ? surfaceRef : undefined}
+          {...(playMode ? gestureProps : {})}
+          className={
+            setNav ? (playMode ? "pb-20" : "pb-24 md:pb-20") : undefined
           }
-        />
-        <div className="no-print">
-          <PlayerDockSpacer />
+        >
+          <header className="hidden print:block mb-3">
+            <h1>{song.title}</h1>
+            <p className="print-meta">
+              {song.artist}
+              {song.mainKey ? ` · Key ${song.mainKey}` : ""}
+              {song.bpm ? ` · ${song.bpm} BPM` : ""}
+              {` · ${song.timeSignature.beatsPerMeasure}/${song.timeSignature.noteValue}`}
+              {itemNotes ? ` · Cue: ${itemNotes}` : ""}
+            </p>
+          </header>
+          <Song
+            song={song}
+            baseSemitones={setNav?.current.item.transposeSemitones ?? 0}
+            performanceMode={playMode}
+            artistHref={`${ROUTES.songs}?view=artists&artist=${encodeURIComponent(normalizeArtistKey(song.artist))}`}
+            atril={
+              playMode
+                ? {
+                    fontScale,
+                    onFontScaleChange: setFontScaleAndPersist,
+                    stageMode,
+                    onStageModeChange: setStageModeAndPersist,
+                    externalToolbar: true,
+                  }
+                : undefined
+            }
+          />
+          <div className="no-print">
+            <PlayerDockSpacer />
+          </div>
         </div>
       </div>
       {setNav ? <SetSongNav nav={setNav} playMode={playMode} /> : null}

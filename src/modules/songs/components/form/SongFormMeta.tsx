@@ -155,6 +155,32 @@ export function SongFormMeta({ dispatch, state, song }: Props) {
             tabIndex={6}
           />
         </div>
+        <div className="w-full sm:w-28">
+          <InputField
+            label="BPM"
+            name="bpm"
+            type="number"
+            alwaysEditable
+            placeholder="—"
+            onChange={(e) => {
+              const raw = e.target.value.trim()
+              if (raw === "") {
+                dispatch({ type: "SET_BPM", v: undefined })
+                return
+              }
+              const value = Number(raw)
+              if (Number.isNaN(value)) return
+              const clamped = Math.min(240, Math.max(40, Math.round(value)))
+              dispatch({ type: "SET_BPM", v: clamped })
+            }}
+            value={song.bpm?.toString() ?? ""}
+            tabIndex={7}
+          />
+          <p className="text-[11px] text-zinc-500 mt-1 light:text-zinc-600">
+            Tempo (info / future metronome). Play scroll uses section Sync
+            times.
+          </p>
+        </div>
         <div className="w-full sm:w-32">
           <InputField
             label="Year"
@@ -168,7 +194,7 @@ export function SongFormMeta({ dispatch, state, song }: Props) {
               })
             }}
             value={song.year.toString()}
-            tabIndex={7}
+            tabIndex={8}
             icon={<Calendar size={16} />}
           />
         </div>
@@ -190,7 +216,7 @@ export function SongFormMeta({ dispatch, state, song }: Props) {
             }
           }}
           value={song.youtubeUrl ?? ""}
-          tabIndex={8}
+          tabIndex={9}
           icon={<Youtube size={16} />}
         />
         {song.youtubeUrl && !isValidYouTubeUrl(song.youtubeUrl) ? (

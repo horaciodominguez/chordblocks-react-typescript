@@ -11,6 +11,11 @@ export interface SongSection {
   label?: string
   bars: Bar[]
   repeats: number
+  /**
+   * Wall-clock cue for Play auto-scroll (seconds from song/video t=0).
+   * Optional — unmarked sections are skipped; scroll stops at the last cue.
+   */
+  cueTime?: number
 }
 
 export type PendingSectionType = SectionType | ""
@@ -21,4 +26,5 @@ export interface PendingSongSection {
   label?: string
   bars: Bar[]
   repeats: number
+  cueTime?: number
 }
