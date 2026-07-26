@@ -48,3 +48,8 @@ export function isSyncTimeoutError(
   if (!(err instanceof Error)) return false
   return err.message === "sync timeout" || err.message === "timeout"
 }
+
+/** Expected when a newer sync preempts an in-flight one — not a failure. */
+export function isSyncPreemptError(err: unknown): boolean {
+  return err instanceof SyncAbortedError && err.message === "preempted"
+}

@@ -118,10 +118,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       applySyncResult(result)
     } catch (err) {
       if (isSyncAbortError(err)) {
-        if (showToastOnFail && isSyncTimeoutError(err)) {
-          toast.error("Sync failed or timed out. Showing local data.")
+        if (isSyncTimeoutError(err)) {
+          if (showToastOnFail) {
+            toast.error("Sync failed or timed out. Showing local data.")
+          }
+          console.error("syncAll aborted:", err)
         }
-        console.error("syncAll aborted:", err)
+        // preempted / other aborts are expected — stay quiet
         return
       }
       console.error("syncAll error:", err)
@@ -144,8 +147,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       applySyncResult(result)
     } catch (err) {
       if (isSyncAbortError(err)) {
-        console.error("resolveSyncConflicts aborted:", err)
         if (isSyncTimeoutError(err)) {
+          console.error("resolveSyncConflicts aborted:", err)
           toast.error("Could not apply sync choices. Try again.")
         }
         return
@@ -178,6 +181,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           : "Local-only items queued for upload.",
       )
     } catch (err) {
+      if (isSyncAbortError(err)) {
+        if (isSyncTimeoutError(err)) {
+          console.error("resolveSyncOrphans aborted:", err)
+          toast.error("Could not apply orphan choice. Try again.")
+        }
+        return
+      }
       console.error("resolveSyncOrphans error:", err)
       toast.error("Could not apply orphan choice. Try again.")
     } finally {
@@ -286,12 +296,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
               if (!result) return
               applySyncResult(result)
             } catch (err) {
-              console.error("syncAll error:", err)
-              if (isSyncTimeoutError(err)) {
-                toast.error("Sync failed or timed out. Showing local data.")
-              } else if (!isSyncAbortError(err)) {
-                toast.error("Sync failed or timed out. Showing local data.")
+              if (isSyncAbortError(err)) {
+                if (isSyncTimeoutError(err)) {
+                  toast.error("Sync failed or timed out. Showing local data.")
+                  console.error("syncAll aborted:", err)
+                }
+                return
               }
+              console.error("syncAll error:", err)
+              toast.error("Sync failed or timed out. Showing local data.")
             }
           })()
         }

@@ -24,7 +24,7 @@ export function AppDialog({
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 light:bg-zinc-900/40" />
         <Dialog.Content
-          aria-describedby={description ? descriptionId : undefined}
+          aria-describedby={descriptionId}
           className={`
             fixed z-50 focus:outline-none
             bg-zinc-900 shadow-xl p-4 sm:p-6
@@ -42,14 +42,17 @@ export function AppDialog({
               {title}
             </Dialog.Title>
           )}
-          {description && (
-            <Dialog.Description
-              id={descriptionId}
-              className="text-sm text-zinc-400 mb-4 light:text-zinc-600"
-            >
-              {description}
-            </Dialog.Description>
-          )}
+          {/* Always render Description so Radix does not warn (sr-only when no copy). */}
+          <Dialog.Description
+            id={descriptionId}
+            className={
+              description
+                ? "text-sm text-zinc-400 mb-4 light:text-zinc-600"
+                : "sr-only"
+            }
+          >
+            {description ?? title ?? "Dialog"}
+          </Dialog.Description>
           {children}
         </Dialog.Content>
       </Dialog.Portal>

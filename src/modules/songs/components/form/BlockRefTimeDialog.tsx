@@ -1,6 +1,6 @@
 import { useState } from "react"
 import * as Dialog from "@radix-ui/react-dialog"
-import { Clock } from "lucide-react"
+import { Youtube } from "lucide-react"
 import { AppDialog } from "@/components/ui/AppDialog"
 import Button from "@/components/ui/Button"
 import Input from "@/components/ui/Input"
@@ -20,7 +20,7 @@ type Props = {
 
 /**
  * Edit-mode control to set where a riff/solo is heard in the song's
- * YouTube reference. Renders a clock button that opens a small dialog.
+ * YouTube reference. Renders a YouTube button that opens a small dialog.
  */
 export function BlockRefTimeDialog({
   blockLabel,
@@ -48,7 +48,7 @@ export function BlockRefTimeDialog({
               : "text-zinc-400 hover:text-zinc-200 light:text-zinc-600 light:hover:text-zinc-900"
           }`}
         >
-          <Clock className="w-4 h-4" />
+          <Youtube className="w-4 h-4" />
           {refTime !== undefined ? formatSeconds(refTime) : null}
         </button>
       }

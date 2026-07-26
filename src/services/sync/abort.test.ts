@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest"
 import {
   SyncAbortedError,
   isSyncAbortError,
+  isSyncPreemptError,
   isSyncTimeoutError,
   throwIfAborted,
 } from "./abort"
@@ -52,5 +53,10 @@ describe("isSyncAbortError / isSyncTimeoutError", () => {
   it("detects timeout via error message", () => {
     expect(isSyncTimeoutError(new Error("sync timeout"))).toBe(true)
     expect(isSyncTimeoutError(new SyncAbortedError("timeout"))).toBe(true)
+  })
+
+  it("detects preempted abort", () => {
+    expect(isSyncPreemptError(new SyncAbortedError("preempted"))).toBe(true)
+    expect(isSyncPreemptError(new SyncAbortedError("timeout"))).toBe(false)
   })
 })
