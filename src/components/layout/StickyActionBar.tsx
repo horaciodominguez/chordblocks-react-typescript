@@ -3,14 +3,16 @@ type Props = {
   className?: string
 }
 
+/**
+ * Form actions row (Cancel / Save) at the end of the form — not sticky.
+ */
 export function StickyActionBar({ children, className = "" }: Props) {
   return (
     <div
-      className={`sticky bottom-0 z-20 -mx-4 px-4 py-3 mt-4
-        bg-zinc-950/90 backdrop-blur-md border-t border-zinc-800
-        light:bg-white/95 light:border-zinc-200
-        flex justify-end gap-3
-        pb-[max(0.75rem,env(safe-area-inset-bottom))]
+      className={`mt-4 flex flex-wrap items-center justify-end gap-3
+        border-t border-zinc-700/50 pt-4
+        light:border-zinc-200
+        stage:border-zinc-700
         ${className}`}
     >
       {children}

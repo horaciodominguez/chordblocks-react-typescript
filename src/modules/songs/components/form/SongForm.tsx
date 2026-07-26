@@ -83,7 +83,7 @@ export const SongForm = ({ handleAddSong, initialSong, onCancel }: Props) => {
   }
 
   return (
-    <form onSubmit={onSubmit} className="flex flex-col gap-2 text-white">
+    <form onSubmit={onSubmit} className="flex flex-col gap-4 text-white">
       <div className={`flex flex-col gap-4 ${panelFlatClass}`}>
         <SongFormMeta dispatch={dispatch} state={state} song={state.song} />
 
