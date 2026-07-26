@@ -4,7 +4,6 @@ import { BottomNav } from "@/components/layout/BottomNav"
 import { useLocation } from "react-router-dom"
 import { isPlayModeParam } from "@/modules/repertoires/utils/repertoire.navigation"
 import { isEditPath } from "@/config/navigation"
-import { PLAY_SHELL_WIDTH_CLASS } from "@/config/layout"
 
 type Props = {
   children: React.ReactNode
@@ -37,8 +36,7 @@ export function AppShell({ children }: Props) {
         id="main-content"
         className={`
           font-sans
-          ${PLAY_SHELL_WIDTH_CLASS}
-          px-3 md:px-5 lg:px-6 py-2
+          w-full
           flex flex-col
           min-h-screen
           pb-[calc(4rem+env(safe-area-inset-bottom))]

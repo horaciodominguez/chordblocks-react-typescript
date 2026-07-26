@@ -23,6 +23,7 @@ import { FullscreenToggle } from "@/modules/repertoires/components/FullscreenTog
 import { GigLockToggle } from "@/modules/repertoires/components/GigLockToggle"
 import { useGigLock } from "@/modules/repertoires/context/GigLockContext"
 import { PrintChartButton } from "@/components/ui/PrintChartButton"
+import { PLAY_SHELL_WIDTH_CLASS } from "@/config/layout"
 import { FontScaleControl } from "@/modules/songs/components/ui/FontScaleControl"
 import { StageModeToggle } from "@/modules/songs/components/ui/StageModeToggle"
 import { AutoScrollControl } from "@/modules/songs/components/ui/AutoScrollControl"
@@ -327,12 +328,16 @@ export default function ViewSong() {
         )}
 
         {playMode && invalidSetContext ? (
-          <div className="no-print mb-3 rounded-md border border-amber-500/30 bg-amber-400/5 px-3 py-2 text-sm text-amber-200/90">
-            Set context is invalid or incomplete. Showing the song from your
-            library.{" "}
-            <Link to={ROUTES.sets} className="underline hover:text-amber-100">
-              Back to sets
-            </Link>
+          <div
+            className={`${PLAY_SHELL_WIDTH_CLASS} px-3 md:px-5 lg:px-6 no-print mb-3`}
+          >
+            <div className="rounded-md border border-amber-500/30 bg-amber-400/5 px-3 py-2 text-sm text-amber-200/90">
+              Set context is invalid or incomplete. Showing the song from your
+              library.{" "}
+              <Link to={ROUTES.sets} className="underline hover:text-amber-100">
+                Back to sets
+              </Link>
+            </div>
           </div>
         ) : null}
 
@@ -340,9 +345,12 @@ export default function ViewSong() {
           data-print-root=""
           ref={playMode ? surfaceRef : undefined}
           {...(playMode ? gestureProps : {})}
-          className={
-            setNav ? (playMode ? "pb-20" : "pb-24 md:pb-20") : undefined
-          }
+          className={[
+            playMode ? `${PLAY_SHELL_WIDTH_CLASS} px-3 md:px-5 lg:px-6 py-2` : "",
+            setNav ? (playMode ? "pb-20" : "pb-24 md:pb-20") : "",
+          ]
+            .filter(Boolean)
+            .join(" ") || undefined}
         >
           <header className="hidden print:block mb-3">
             <h1>{song.title}</h1>
