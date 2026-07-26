@@ -9,6 +9,7 @@ import {
   buildAllFingerings,
   FLAT_ALIASES,
   SUFFIXES,
+  slashFlatAliases,
 } from "./chordFingerings.mjs"
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
@@ -151,6 +152,11 @@ function main() {
     }
   }
 
+  const slashAliases = slashFlatAliases()
+  for (const { id, href } of slashAliases) {
+    body.push(`<symbol id="${id}"><use href="#${href}"/></symbol>`)
+  }
+
   const svg = [
     `<svg xmlns="http://www.w3.org/2000/svg" style="display:none" xmlns:xlink="http://www.w3.org/1999/xlink">`,
     ...body,
@@ -163,7 +169,8 @@ function main() {
   }
 
   writeFileSync(OUT, svg, "utf8")
-  const aliasCount = Object.keys(FLAT_ALIASES).length * SUFFIXES.length
+  const aliasCount =
+    Object.keys(FLAT_ALIASES).length * SUFFIXES.length + slashAliases.length
   console.log(
     `Wrote ${OUT} (${ids.length} diagrams + ${aliasCount} aliases, ${Buffer.byteLength(svg)} bytes)`,
   )

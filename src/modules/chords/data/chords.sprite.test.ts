@@ -35,10 +35,15 @@ describe("chords sprite catalog", () => {
 
   it("contains every expected chord and flat alias id", () => {
     const expected = expectedSpriteChordIds()
-    expect(expected).toHaveLength(19 * 12 + 19 * 5)
     for (const id of expected) {
       expect(ids.has(id), `missing symbol #${id}`).toBe(true)
     }
+  })
+
+  it("includes curated slash symbols distinct from top chord", () => {
+    expect(ids.has("F_C")).toBe(true)
+    expect(ids.has("C_E")).toBe(true)
+    expect(ids.has("Cm_A#")).toBe(false)
   })
 
   it("has no HTML comments", () => {

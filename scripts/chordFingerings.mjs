@@ -418,6 +418,36 @@ const OPEN_SHAPES = {
 }
 
 /**
+ * Hand-curated slash / inversion shapes only (no algorithmic expansion).
+ * Sprite ids use `_` for `/` (XML-safe): C/E → C_E.
+ * @type {Record<string, Shape>}
+ */
+export const SLASH_SHAPES = {
+  C_E: { frets: [0, 3, 2, 0, 1, 0], baseFret: 1 },
+  C_G: { frets: [3, 3, 2, 0, 1, 0], baseFret: 1 },
+  "D_F#": { frets: [2, 0, 0, 2, 3, 2], baseFret: 1 },
+  D_A: { frets: [null, 0, 0, 2, 3, 2], baseFret: 1 },
+  "E_G#": { frets: [4, 2, 2, 1, 0, 0], baseFret: 1 },
+  E_B: { frets: [null, 2, 2, 1, 0, 0], baseFret: 1 },
+  F_A: { frets: [null, 0, 3, 2, 1, 1], baseFret: 1 },
+  F_C: { frets: [null, 3, 3, 2, 1, 1], baseFret: 1 },
+  G_B: { frets: [null, 2, 0, 0, 0, 3], baseFret: 1 },
+  G_D: { frets: [null, null, 0, 0, 0, 3], baseFret: 1 },
+  "A_C#": { frets: [null, 4, 2, 2, 2, 0], baseFret: 1 },
+  A_E: { frets: [0, 0, 2, 2, 2, 0], baseFret: 1 },
+  Am_C: { frets: [null, 3, 2, 2, 1, 0], baseFret: 1 },
+  Am_E: { frets: [0, 0, 2, 2, 1, 0], baseFret: 1 },
+  Am_G: { frets: [3, 0, 2, 2, 1, 0], baseFret: 1 },
+  Dm_F: { frets: [1, null, 0, 2, 3, 1], baseFret: 1 },
+  Dm_A: { frets: [null, 0, 0, 2, 3, 1], baseFret: 1 },
+  Em_G: { frets: [3, 2, 2, 0, 0, 0], baseFret: 1 },
+  Em_B: { frets: [null, 2, 2, 0, 0, 0], baseFret: 1 },
+  "D7_F#": { frets: [2, 0, 0, 2, 1, 2], baseFret: 1 },
+  C7_E: { frets: [0, 3, 2, 3, 1, 0], baseFret: 1 },
+  G7_B: { frets: [null, 2, 0, 0, 0, 1], baseFret: 1 },
+}
+
+/**
  * Prefer A-shape for roots that sit well on string 5 (C, C#, D, D#, A, A#, B…),
  * E-shape for F–G# family. Open shapes override when listed.
  */
@@ -427,8 +457,20 @@ function preferAShape(rootIndex) {
   return [0, 1, 2, 3, 9, 10, 11].includes(rootIndex)
 }
 
+/** Encode chart slash name to sprite id (`C/E` → `C_E`). */
+export function slashChordToSpriteId(chordName) {
+  const slash = chordName.indexOf("/")
+  if (slash < 0) return chordName
+  return `${chordName.slice(0, slash)}_${chordName.slice(slash + 1)}`
+}
+
+/** Sprite ids for curated slash shapes. */
+export function slashSpriteIds() {
+  return Object.keys(SLASH_SHAPES)
+}
+
 /**
- * Build all 228 chord shapes.
+ * Build all chord shapes (open/barre + curated slash).
  * @returns {Record<string, Shape>}
  */
 export function buildAllFingerings() {
@@ -459,6 +501,41 @@ export function buildAllFingerings() {
     }
   }
 
+  for (const [id, shape] of Object.entries(SLASH_SHAPES)) {
+    out[id] = cloneShape(shape)
+  }
+
+  return out
+}
+
+const SHARP_TO_FLAT = Object.fromEntries(
+  Object.entries(FLAT_ALIASES).map(([flat, sharp]) => [sharp, flat]),
+)
+
+/**
+ * Flat-spelling aliases for slash symbols (`D_F#` → `D_Gb`, etc.).
+ * @returns {{ id: string, href: string }[]}
+ */
+export function slashFlatAliases() {
+  /** @type {{ id: string, href: string }[]} */
+  const out = []
+  for (const id of Object.keys(SLASH_SHAPES)) {
+    const sep = id.lastIndexOf("_")
+    if (sep < 0) continue
+    const top = id.slice(0, sep)
+    const bass = id.slice(sep + 1)
+    const m = top.match(/^([A-G]#?)(.*)$/)
+    if (!m) continue
+    const topRoot = m[1]
+    const topSuffix = m[2]
+    const flatTop = SHARP_TO_FLAT[topRoot]
+    const flatBass = SHARP_TO_FLAT[bass]
+    if (flatTop) out.push({ id: `${flatTop}${topSuffix}_${bass}`, href: id })
+    if (flatBass) out.push({ id: `${top}_${flatBass}`, href: id })
+    if (flatTop && flatBass) {
+      out.push({ id: `${flatTop}${topSuffix}_${flatBass}`, href: id })
+    }
+  }
   return out
 }
 

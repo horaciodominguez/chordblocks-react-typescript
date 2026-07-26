@@ -1,12 +1,12 @@
+import { resolveDiagramSpriteId } from "@/modules/chords/data/chordFingerings"
+
 export type Props = {
   chordName: string
   size?: number
 }
 
 export default function ChordDiagram({ chordName, size }: Props) {
-  const diagramId = chordName.includes("/")
-    ? chordName.slice(0, chordName.indexOf("/"))
-    : chordName
+  const diagramId = resolveDiagramSpriteId(chordName)
 
   return (
     <>

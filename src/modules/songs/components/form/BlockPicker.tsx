@@ -8,6 +8,7 @@ import ChordDiagram from "@/modules/chords/components/ChordDiagram"
 import Rest from "@/modules/chords/components/Rest"
 import { RiffMarker } from "@/modules/chords/components/RiffMarker"
 import { SoloMarker } from "@/modules/chords/components/SoloMarker"
+import { slashVariationsForPitch } from "@/modules/chords/data/chordFingerings"
 import { chordsData } from "@/modules/chords/data/chords"
 import type { Chord as ChordType } from "@/modules/chords/types/chord.types"
 import * as Dialog from "@radix-ui/react-dialog"
@@ -54,6 +55,18 @@ export function BlockPicker({
   const [accidental, setAccidental] = useState<"" | "#" | "b">("")
   const [riffLabel, setRiffLabel] = useState("")
   const VARIATIONS = chordsData[root] ?? []
+  const pitch = `${root}${accidental}`
+  const slashVariations = slashVariationsForPitch(pitch)
+  const variantTiles = [
+    ...VARIATIONS.map((v: ChordType) => ({
+      key: `${v.root}${accidental}${v.suffix}`,
+      chordName: `${v.root}${accidental}${v.suffix}`,
+    })),
+    ...slashVariations.map((s) => ({
+      key: s.name,
+      chordName: `${root}${accidental}${s.suffix}`,
+    })),
+  ]
 
   const DISALLOW_SHARP = ["E", "B"]
   const DISALLOW_FLAT = ["F", "C"]
@@ -215,18 +228,18 @@ export function BlockPicker({
           className="grid max-h-[50vh] grid-cols-2 gap-2 overflow-y-auto sm:grid-cols-3 md:grid-cols-4"
           id="variants"
         >
-          {VARIATIONS.map((v: ChordType) => (
-            <Dialog.Close asChild key={v.name}>
+          {variantTiles.map((tile) => (
+            <Dialog.Close asChild key={tile.key}>
               <button
-                id={v.name}
+                id={tile.key}
                 type="button"
                 onClick={() => {
-                  handleSelect(`${v.root}${accidental}${v.suffix}`)
+                  handleSelect(tile.chordName)
                 }}
                 className="flex flex-col items-center rounded-lg border border-gray-800 bg-zinc-900/10 p-3 hover:bg-indigo-600/10 hover:text-white min-h-11 light:border-zinc-200 light:bg-white/90 light:hover:bg-indigo-100 light:hover:text-zinc-900"
               >
-                <Chord chord={`${v.root}${accidental}${v.suffix}`} />
-                <ChordDiagram chordName={`${v.root}${accidental}${v.suffix}`} />
+                <Chord chord={tile.chordName} />
+                <ChordDiagram chordName={tile.chordName} />
               </button>
             </Dialog.Close>
           ))}
