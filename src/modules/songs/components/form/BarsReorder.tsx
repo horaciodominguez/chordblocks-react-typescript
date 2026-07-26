@@ -36,6 +36,7 @@ type Props = {
 function SortableBar({
   bar,
   index,
+  isLastBar,
   timeSignature,
   onReorderBlocks,
   onDeleteChord,
@@ -45,6 +46,7 @@ function SortableBar({
 }: {
   bar: Bar
   index: number
+  isLastBar: boolean
   timeSignature: TimeSignature
   onReorderBlocks: (barId: string, chords: Bar["blocks"]) => void
   onDeleteChord: (chordId: string) => void
@@ -91,6 +93,7 @@ function SortableBar({
         onUpdateDuration={onUpdateDuration}
         onUpdateRefTime={onUpdateRefTime}
         hasYoutubeUrl={hasYoutubeUrl}
+        showMeasureSeparator={!isLastBar}
       />
     </div>
   )
@@ -139,6 +142,7 @@ export default function BarsReorder({
               key={bar.id}
               bar={bar}
               index={i}
+              isLastBar={i === section.bars.length - 1}
               timeSignature={timeSignature}
               onReorderBlocks={onReorderBlocks}
               onDeleteChord={onDeleteChord}

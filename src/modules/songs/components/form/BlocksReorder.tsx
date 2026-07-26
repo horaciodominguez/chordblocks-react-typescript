@@ -17,11 +17,12 @@ import {
   useSortable,
 } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
-import { useState } from "react"
+import { Fragment, useState } from "react"
 import { createPortal } from "react-dom"
 import type { Bar } from "../../types/bar.types"
 import type { TimeSignature } from "../../types/song.types"
 import { allowedBlockDurations } from "../../utils/beats"
+import { BarSeparator } from "../ui/BarSeparator"
 import SectionChords from "../ui/SectionBlocks"
 import type { Block as BlockType } from "@/modules/songs/types/block.types"
 import { Block } from "../Block"
@@ -34,6 +35,7 @@ type Props = {
   onUpdateDuration?: (blockId: string, duration: number) => void
   onUpdateRefTime?: (blockId: string, refTime: number | undefined) => void
   hasYoutubeUrl?: boolean
+  showMeasureSeparator?: boolean
 }
 
 function SortableBlock({
@@ -105,6 +107,7 @@ export default function ChordsReorder({
   onUpdateDuration,
   onUpdateRefTime,
   hasYoutubeUrl,
+  showMeasureSeparator = false,
 }: Props) {
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -137,18 +140,20 @@ export default function ChordsReorder({
         items={bar.blocks.map((c) => c.id)}
         strategy={horizontalListSortingStrategy}
       >
-        <SectionChords>
-          {bar.blocks.map((block) => (
-            <SortableBlock
-              key={block.id}
-              bar={bar}
-              block={block}
-              timeSignature={timeSignature}
-              onDeleteChord={onDeleteChord}
-              onUpdateDuration={onUpdateDuration}
-              onUpdateRefTime={onUpdateRefTime}
-              hasYoutubeUrl={hasYoutubeUrl}
-            />
+        <SectionChords showMeasureSeparator={showMeasureSeparator}>
+          {bar.blocks.map((block, blockIndex) => (
+            <Fragment key={block.id}>
+              {blockIndex > 0 && <BarSeparator />}
+              <SortableBlock
+                bar={bar}
+                block={block}
+                timeSignature={timeSignature}
+                onDeleteChord={onDeleteChord}
+                onUpdateDuration={onUpdateDuration}
+                onUpdateRefTime={onUpdateRefTime}
+                hasYoutubeUrl={hasYoutubeUrl}
+              />
+            </Fragment>
           ))}
         </SectionChords>
       </SortableContext>
