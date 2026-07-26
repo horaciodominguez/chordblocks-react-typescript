@@ -181,8 +181,12 @@ export function SectionEditor({ state, dispatch, onStopEditing }: Props) {
               <BlockPicker
                 beatsPerMeasure={state.song.timeSignature.beatsPerMeasure}
                 label="Block"
-                onSelect={(chordName) =>
-                  dispatch({ type: "ADD_BLOCK_TEMPORARY", v: chordName })
+                onSelect={(chordName, voicing) =>
+                  dispatch({
+                    type: "ADD_BLOCK_TEMPORARY",
+                    v: chordName,
+                    ...(voicing != null && voicing > 0 ? { voicing } : {}),
+                  })
                 }
                 pendingBeats={state.pendingBeats}
                 selectedValue={
@@ -292,6 +296,13 @@ export function SectionEditor({ state, dispatch, onStopEditing }: Props) {
                 type: "UPDATE_BLOCK_DURATION",
                 blockId,
                 duration,
+              })
+            }}
+            onUpdateVoicing={(blockId, voicing) => {
+              dispatch({
+                type: "UPDATE_BLOCK_VOICING",
+                blockId,
+                voicing,
               })
             }}
             onUpdateRefTime={(blockId, refTime) => {

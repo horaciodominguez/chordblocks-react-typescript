@@ -2,11 +2,17 @@ import { resolveDiagramSpriteId } from "@/modules/chords/data/chordFingerings"
 
 export type Props = {
   chordName: string
+  /** 0 = primary; 1 = v2; 2 = v3. Missing alts fall back to primary. */
+  voicing?: number
   size?: number
 }
 
-export default function ChordDiagram({ chordName, size }: Props) {
-  const diagramId = resolveDiagramSpriteId(chordName)
+export default function ChordDiagram({
+  chordName,
+  voicing = 0,
+  size,
+}: Props) {
+  const diagramId = resolveDiagramSpriteId(chordName, voicing)
 
   return (
     <>

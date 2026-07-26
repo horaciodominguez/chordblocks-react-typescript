@@ -448,6 +448,76 @@ export const SLASH_SHAPES = {
 }
 
 /**
+ * Hand-curated alternate voicings for the same chord name (S3.3).
+ * Index 0 → sprite `Name__v2`, index 1 → `Name__v3`. Primary stays `Name`.
+ * @type {Record<string, Shape[]>}
+ */
+export const ALT_VOICINGS = {
+  C: [
+    {
+      frets: [null, 3, 5, 5, 5, 3],
+      baseFret: 3,
+      barre: { fret: 3, fromString: 5, toString: 1 },
+    },
+    {
+      frets: [8, 10, 10, 9, 8, 8],
+      baseFret: 8,
+      barre: { fret: 8, fromString: 6, toString: 1 },
+    },
+  ],
+  D: [
+    {
+      frets: [null, 5, 7, 7, 7, 5],
+      baseFret: 5,
+      barre: { fret: 5, fromString: 5, toString: 1 },
+    },
+  ],
+  E: [
+    {
+      frets: [null, 7, 9, 9, 9, 7],
+      baseFret: 7,
+      barre: { fret: 7, fromString: 5, toString: 1 },
+    },
+  ],
+  F: [{ frets: [null, null, 3, 2, 1, 1], baseFret: 1 }],
+  G: [
+    {
+      frets: [3, 5, 5, 4, 3, 3],
+      baseFret: 3,
+      barre: { fret: 3, fromString: 6, toString: 1 },
+    },
+  ],
+  A: [
+    {
+      frets: [5, 7, 7, 6, 5, 5],
+      baseFret: 5,
+      barre: { fret: 5, fromString: 6, toString: 1 },
+    },
+  ],
+  Am: [
+    {
+      frets: [5, 7, 7, 5, 5, 5],
+      baseFret: 5,
+      barre: { fret: 5, fromString: 6, toString: 1 },
+    },
+  ],
+  Dm: [
+    {
+      frets: [null, 5, 7, 7, 6, 5],
+      baseFret: 5,
+      barre: { fret: 5, fromString: 5, toString: 1 },
+    },
+  ],
+  Em: [
+    {
+      frets: [null, 7, 9, 9, 8, 7],
+      baseFret: 7,
+      barre: { fret: 7, fromString: 5, toString: 1 },
+    },
+  ],
+}
+
+/**
  * Prefer A-shape for roots that sit well on string 5 (C, C#, D, D#, A, A#, B…),
  * E-shape for F–G# family. Open shapes override when listed.
  */
@@ -469,8 +539,20 @@ export function slashSpriteIds() {
   return Object.keys(SLASH_SHAPES)
 }
 
+/** Alternate voicing sprite ids (`C__v2`, …). */
+export function altVoicingSpriteIds() {
+  /** @type {string[]} */
+  const ids = []
+  for (const [name, shapes] of Object.entries(ALT_VOICINGS)) {
+    shapes.forEach((_, i) => {
+      ids.push(`${name}__v${i + 2}`)
+    })
+  }
+  return ids
+}
+
 /**
- * Build all chord shapes (open/barre + curated slash).
+ * Build all chord shapes (open/barre + curated slash + alt voicings).
  * @returns {Record<string, Shape>}
  */
 export function buildAllFingerings() {
@@ -503,6 +585,12 @@ export function buildAllFingerings() {
 
   for (const [id, shape] of Object.entries(SLASH_SHAPES)) {
     out[id] = cloneShape(shape)
+  }
+
+  for (const [name, shapes] of Object.entries(ALT_VOICINGS)) {
+    shapes.forEach((shape, i) => {
+      out[`${name}__v${i + 2}`] = cloneShape(shape)
+    })
   }
 
   return out

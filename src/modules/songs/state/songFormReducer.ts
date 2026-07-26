@@ -48,12 +48,17 @@ export type Action =
   | { type: "SET_TIME_SIGNATURE"; v: TimeSignature }
   | { type: "SET_IMAGE_BASE64"; v: string | null }
   | { type: "ADD_SECTION_TYPE"; v: SectionType }
-  | { type: "ADD_BLOCK_TEMPORARY"; v: string }
+  | { type: "ADD_BLOCK_TEMPORARY"; v: string; voicing?: number }
   | { type: "ADD_REST" }
   | { type: "ADD_BEATS"; v: string }
   | { type: "ADD_BLOCK" }
   | { type: "DELETE_BLOCK"; v: string }
   | { type: "UPDATE_BLOCK_DURATION"; blockId: string; duration: number }
+  | {
+      type: "UPDATE_BLOCK_VOICING"
+      blockId: string
+      voicing: number
+    }
   | {
       type: "UPDATE_BLOCK_REF_TIME"
       blockId: string
@@ -230,6 +235,10 @@ export const reducer = (
       const chordName = action.v.includes(":")
         ? action.v.split(":")[0]
         : action.v
+      const voicing =
+        typeof action.voicing === "number" && action.voicing > 0
+          ? action.voicing
+          : undefined
 
       return {
         ...state,
@@ -238,7 +247,10 @@ export const reducer = (
           type: "chord",
           duration: 0,
           position: 0,
-          chord: { name: chordName },
+          chord: {
+            name: chordName,
+            ...(voicing != null ? { voicing } : {}),
+          },
         } as Block,
       }
     }
@@ -341,6 +353,41 @@ export const reducer = (
         pendingSection: { ...state.pendingSection, bars: updatedBars },
         availableBeats,
         pendingBeats: nextBeatsValue(availableBeats),
+      }
+    }
+
+    case "UPDATE_BLOCK_VOICING": {
+      if (state.pendingSection.id === "") return state
+
+      const { blockId, voicing } = action
+      if (!Number.isInteger(voicing) || voicing < 0) return state
+
+      let found = false
+      const updatedBars = state.pendingSection.bars.map((bar) => {
+        const blockIndex = bar.blocks.findIndex((b) => b.id === blockId)
+        if (blockIndex === -1) return bar
+
+        const block = bar.blocks[blockIndex]
+        if (block.type !== "chord" || !block.chord?.name) return bar
+
+        found = true
+        const blocks = [...bar.blocks]
+        const nextChord =
+          voicing > 0
+            ? { ...block.chord, voicing }
+            : (() => {
+                const { voicing: _, ...rest } = block.chord
+                return rest
+              })()
+        blocks[blockIndex] = { ...block, chord: nextChord }
+        return { ...bar, blocks }
+      })
+
+      if (!found) return state
+
+      return {
+        ...state,
+        pendingSection: { ...state.pendingSection, bars: updatedBars },
       }
     }
 
@@ -776,6 +823,10 @@ export const reducer = (
             ...(parsed?.root != null ? { root: parsed.root } : {}),
             ...(parsed?.suffix != null ? { suffix: parsed.suffix } : {}),
             ...(parsed?.type != null ? { type: parsed.type } : {}),
+            ...(pendingBlock.chord.voicing != null &&
+            pendingBlock.chord.voicing > 0
+              ? { voicing: pendingBlock.chord.voicing }
+              : {}),
           },
         }
       }

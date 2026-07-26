@@ -46,6 +46,13 @@ describe("chords sprite catalog", () => {
     expect(ids.has("Cm_A#")).toBe(false)
   })
 
+  it("includes curated alternate voicing symbols", () => {
+    expect(ids.has("C__v2")).toBe(true)
+    expect(ids.has("C__v3")).toBe(true)
+    expect(ids.has("G__v2")).toBe(true)
+    expect(ids.has("Am__v2")).toBe(true)
+  })
+
   it("has no HTML comments", () => {
     expect(svg.includes("<!--")).toBe(false)
   })

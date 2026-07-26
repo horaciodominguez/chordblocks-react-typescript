@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest"
-import { sectionBarsColClass } from "@/modules/songs/components/ui/SectionBars"
+import { sectionBarsColClass } from "@/modules/songs/components/ui/sectionBarsLayout"
 
 describe("sectionBarsColClass (guide)", () => {
   it("uses a single column when bars are dense (4+ blocks)", () => {

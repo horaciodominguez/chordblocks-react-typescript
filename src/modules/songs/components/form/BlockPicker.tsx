@@ -5,10 +5,14 @@ import Label from "@/components/ui/Label"
 import { Select } from "@/components/ui/Select"
 import Chord from "@/modules/chords/components/Chord"
 import ChordDiagram from "@/modules/chords/components/ChordDiagram"
+import { VoicingDots } from "@/modules/chords/components/VoicingDots"
 import Rest from "@/modules/chords/components/Rest"
 import { RiffMarker } from "@/modules/chords/components/RiffMarker"
 import { SoloMarker } from "@/modules/chords/components/SoloMarker"
-import { slashVariationsForPitch } from "@/modules/chords/data/chordFingerings"
+import {
+  slashVariationsForPitch,
+  voicingCount,
+} from "@/modules/chords/data/chordFingerings"
 import { chordsData } from "@/modules/chords/data/chords"
 import type { Chord as ChordType } from "@/modules/chords/types/chord.types"
 import * as Dialog from "@radix-ui/react-dialog"
@@ -36,7 +40,8 @@ export function isRiffToken(token: string): boolean {
 }
 
 type Props = {
-  onSelect: (chordName: string) => void
+  /** `voicing` is omitted / 0 for primary fingering. */
+  onSelect: (chordName: string, voicing?: number) => void
   pendingBeats: string
   beatsPerMeasure: number
   selectedValue?: string
@@ -54,6 +59,8 @@ export function BlockPicker({
   const ROOTS = Object.keys(chordsData)
   const [accidental, setAccidental] = useState<"" | "#" | "b">("")
   const [riffLabel, setRiffLabel] = useState("")
+  /** Preview voicing per tile chord name (picker only). */
+  const [tileVoicing, setTileVoicing] = useState<Record<string, number>>({})
   const VARIATIONS = chordsData[root] ?? []
   const pitch = `${root}${accidental}`
   const slashVariations = slashVariationsForPitch(pitch)
@@ -73,10 +80,6 @@ export function BlockPicker({
 
   const isSharpAllowed = (r: string) => !DISALLOW_SHARP.includes(r)
   const isFlatAllowed = (r: string) => !DISALLOW_FLAT.includes(r)
-
-  const handleSelect = (chordName: string) => {
-    onSelect(chordName)
-  }
 
   const selectedRiffLabel =
     selectedValue && isRiffToken(selectedValue)
@@ -228,21 +231,47 @@ export function BlockPicker({
           className="grid max-h-[50vh] grid-cols-2 gap-2 overflow-y-auto sm:grid-cols-3 md:grid-cols-4"
           id="variants"
         >
-          {variantTiles.map((tile) => (
-            <Dialog.Close asChild key={tile.key}>
-              <button
-                id={tile.key}
-                type="button"
-                onClick={() => {
-                  handleSelect(tile.chordName)
-                }}
-                className="flex flex-col items-center rounded-lg border border-gray-800 bg-zinc-900/10 p-3 hover:bg-indigo-600/10 hover:text-white min-h-11 light:border-zinc-200 light:bg-white/90 light:hover:bg-indigo-100 light:hover:text-zinc-900"
+          {variantTiles.map((tile) => {
+            const count = voicingCount(tile.chordName)
+            const active = tileVoicing[tile.chordName] ?? 0
+            return (
+              <div
+                key={tile.key}
+                className="flex flex-col items-center rounded-lg border border-gray-800 bg-zinc-900/10 p-3 light:border-zinc-200 light:bg-white/90"
               >
-                <Chord chord={tile.chordName} />
-                <ChordDiagram chordName={tile.chordName} />
-              </button>
-            </Dialog.Close>
-          ))}
+                <Dialog.Close asChild>
+                  <button
+                    id={tile.key}
+                    type="button"
+                    onClick={() => {
+                      onSelect(
+                        tile.chordName,
+                        active > 0 ? active : undefined,
+                      )
+                    }}
+                    className="flex w-full flex-col items-center hover:text-white min-h-11 light:hover:text-zinc-900"
+                  >
+                    <Chord chord={tile.chordName} />
+                    <ChordDiagram
+                      chordName={tile.chordName}
+                      voicing={active}
+                    />
+                  </button>
+                </Dialog.Close>
+                <VoicingDots
+                  count={count}
+                  active={active}
+                  chordLabel={tile.chordName}
+                  onChange={(index) =>
+                    setTileVoicing((prev) => ({
+                      ...prev,
+                      [tile.chordName]: index,
+                    }))
+                  }
+                />
+              </div>
+            )
+          })}
         </div>
       </AppDialog>
     </>

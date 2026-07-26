@@ -10,6 +10,7 @@ const oneOfNumbers = (allowed: readonly number[], message: string) =>
 
 const ChordSchema = z.object({
   name: z.string().min(1, "Chord name is required"),
+  voicing: z.number().int().min(0).max(8).optional(),
 })
 
 const ChordBlockSchema = z.object({

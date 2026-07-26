@@ -107,6 +107,7 @@ function transposeBlock(block: Block, semitones: number): Block {
 
   const newName = transposeChordName(block.chord.name, semitones)
   const parsed = parseChordName(newName)
+  const voicing = block.chord.voicing
 
   return {
     ...block,
@@ -116,6 +117,7 @@ function transposeBlock(block: Block, semitones: number): Block {
       ...(parsed?.root != null ? { root: parsed.root } : {}),
       ...(parsed?.suffix != null ? { suffix: parsed.suffix } : {}),
       ...(parsed?.type != null ? { type: parsed.type } : {}),
+      ...(voicing != null && voicing > 0 ? { voicing } : {}),
     },
   }
 }

@@ -3,6 +3,10 @@ import Chord from "@/modules/chords/components/Chord"
 import { Rest } from "@/modules/chords/components/Rest"
 import { RiffMarker } from "@/modules/chords/components/RiffMarker"
 import { SoloMarker } from "@/modules/chords/components/SoloMarker"
+import {
+  nextVoicingIndex,
+  voicingCount,
+} from "@/modules/chords/data/chordFingerings"
 import { chordFlexStyle } from "@/modules/chords/utils/chord.utils"
 import type { Block as BlockType } from "@/modules/songs/types/block.types"
 import type { TimeSignature } from "@/modules/songs/types/song.types"
@@ -22,6 +26,8 @@ type Props = {
   onDelete?: React.MouseEventHandler<HTMLButtonElement>
   onUpdateDuration?: (duration: number) => void
   durationOptions?: readonly number[]
+  /** Edit mode: cycle alternate fingering for this chord. */
+  onUpdateVoicing?: (voicing: number) => void
   /** Edit mode: set/edit the YouTube reference time of a riff/solo block. */
   onUpdateRefTime?: (refTime: number | undefined) => void
   /** Edit mode: whether the song has a YouTube link (hint in time dialog). */
@@ -59,11 +65,13 @@ function BlockContent({
   if (block.type === "solo") {
     return <SoloMarker refTime={block.refTime} onSeek={onSeek} />
   }
+  const chordName = block.chord?.name ?? ""
+  const voicing = block.chord?.voicing ?? 0
   return (
     <>
-      <Chord chord={block.chord?.name} />
+      <Chord chord={chordName} />
       {showDiagram && !isGuide && (
-        <ChordDiagram chordName={block.chord?.name ?? ""} />
+        <ChordDiagram chordName={chordName} voicing={voicing} />
       )}
     </>
   )
@@ -81,6 +89,7 @@ export const Block = forwardRef<HTMLDivElement, Props>(
       onDelete,
       onUpdateDuration,
       durationOptions,
+      onUpdateVoicing,
       onUpdateRefTime,
       hasYoutubeUrl,
       showDiagram,
@@ -88,17 +97,27 @@ export const Block = forwardRef<HTMLDivElement, Props>(
     },
     ref,
   ) => {
-    const hasControls = !!(dragStyle || onDelete || onUpdateDuration)
+    const { open } = useSongPlayer()
     const isGuide = density === "guide"
+    const hasControls = !!(
+      dragStyle ||
+      onDelete ||
+      onUpdateDuration ||
+      onUpdateVoicing
+    )
 
-    const player = useSongPlayer()
-    const refTime = block.refTime
-    const onSeek =
-      !hasControls && player.videoId && refTime !== undefined
-        ? () => player.open(refTime)
-        : undefined
+    const chordName =
+      block.type === "chord" ? (block.chord?.name ?? "") : ""
+    const currentVoicing = block.chord?.voicing ?? 0
+    const voicings = chordName ? voicingCount(chordName) : 1
+    const canCycleVoicing =
+      !!onUpdateVoicing && block.type === "chord" && voicings > 1
 
     const isTimedBlockType = block.type === "riff" || block.type === "solo"
+    const onSeek =
+      isTimedBlockType && block.refTime != null
+        ? () => open(block.refTime)
+        : undefined
 
     return (
       <div
@@ -155,6 +174,21 @@ export const Block = forwardRef<HTMLDivElement, Props>(
                   ))}
                 </select>
               )}
+
+            {canCycleVoicing && (
+              <button
+                type="button"
+                className="text-xs font-semibold tabular-nums bg-zinc-800 border border-zinc-600 text-zinc-200 rounded px-1.5 py-1 min-h-9 min-w-9 light:bg-white light:border-zinc-300 light:text-zinc-900"
+                aria-label={`Cycle voicing (v${currentVoicing + 1} of ${voicings})`}
+                title={`Voicing v${currentVoicing + 1}/${voicings}`}
+                onPointerDown={(e) => e.stopPropagation()}
+                onClick={() =>
+                  onUpdateVoicing!(nextVoicingIndex(chordName, currentVoicing))
+                }
+              >
+                v{currentVoicing + 1}
+              </button>
+            )}
 
             {onUpdateRefTime && isTimedBlockType && (
               <BlockRefTimeDialog

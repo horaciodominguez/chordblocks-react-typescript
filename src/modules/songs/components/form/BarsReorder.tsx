@@ -29,6 +29,7 @@ type Props = {
   onReorderBlocks: (barId: string, blocks: Bar["blocks"]) => void
   onDeleteChord: (chordId: string) => void
   onUpdateDuration?: (blockId: string, duration: number) => void
+  onUpdateVoicing?: (blockId: string, voicing: number) => void
   onUpdateRefTime?: (blockId: string, refTime: number | undefined) => void
   hasYoutubeUrl?: boolean
 }
@@ -41,6 +42,7 @@ function SortableBar({
   onReorderBlocks,
   onDeleteChord,
   onUpdateDuration,
+  onUpdateVoicing,
   onUpdateRefTime,
   hasYoutubeUrl,
 }: {
@@ -51,6 +53,7 @@ function SortableBar({
   onReorderBlocks: (barId: string, chords: Bar["blocks"]) => void
   onDeleteChord: (chordId: string) => void
   onUpdateDuration?: (blockId: string, duration: number) => void
+  onUpdateVoicing?: (blockId: string, voicing: number) => void
   onUpdateRefTime?: (blockId: string, refTime: number | undefined) => void
   hasYoutubeUrl?: boolean
 }) {
@@ -91,6 +94,7 @@ function SortableBar({
         onReorder={onReorderBlocks}
         onDeleteChord={onDeleteChord}
         onUpdateDuration={onUpdateDuration}
+        onUpdateVoicing={onUpdateVoicing}
         onUpdateRefTime={onUpdateRefTime}
         hasYoutubeUrl={hasYoutubeUrl}
         showMeasureSeparator={!isLastBar}
@@ -106,6 +110,7 @@ export default function BarsReorder({
   onReorderBlocks,
   onDeleteChord,
   onUpdateDuration,
+  onUpdateVoicing,
   onUpdateRefTime,
   hasYoutubeUrl,
 }: Props) {
@@ -147,6 +152,7 @@ export default function BarsReorder({
               onReorderBlocks={onReorderBlocks}
               onDeleteChord={onDeleteChord}
               onUpdateDuration={onUpdateDuration}
+              onUpdateVoicing={onUpdateVoicing}
               onUpdateRefTime={onUpdateRefTime}
               hasYoutubeUrl={hasYoutubeUrl}
             />

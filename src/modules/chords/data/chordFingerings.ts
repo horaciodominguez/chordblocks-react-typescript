@@ -76,7 +76,38 @@ export const SLASH_SPRITE_IDS = [
   "G7_B",
 ] as const
 
+/**
+ * Alternate voicing sprite ids (`C__v2`). Must match ALT_VOICINGS in chordFingerings.mjs.
+ * Primary voicing is always the bare chord id (`C`); these are extras only.
+ */
+export const ALT_VOICING_SPRITE_IDS = [
+  "C__v2",
+  "C__v3",
+  "D__v2",
+  "E__v2",
+  "F__v2",
+  "G__v2",
+  "A__v2",
+  "Am__v2",
+  "Dm__v2",
+  "Em__v2",
+] as const
+
 const SLASH_SPRITE_ID_SET = new Set<string>(SLASH_SPRITE_IDS)
+const ALT_VOICING_SPRITE_ID_SET = new Set<string>(ALT_VOICING_SPRITE_IDS)
+
+/** Max voicing index+1 per base sprite id (O(1)). Primary-only chords are absent (= 1). */
+const VOICING_COUNT_BY_BASE: Map<string, number> = (() => {
+  const map = new Map<string, number>()
+  for (const id of ALT_VOICING_SPRITE_IDS) {
+    const m = id.match(/^(.*)__v(\d+)$/)
+    if (!m) continue
+    const base = m[1]
+    const n = Number(m[2])
+    map.set(base, Math.max(map.get(base) ?? 1, n))
+  }
+  return map
+})()
 
 const SHARP_TO_FLAT = Object.fromEntries(
   Object.entries(FLAT_ALIASES).map(([flat, sharp]) => [sharp, flat]),
@@ -131,13 +162,14 @@ export function expectedSpriteChordIds(): string[] {
   }
   ids.push(...SLASH_SPRITE_IDS)
   ids.push(...expectedSlashFlatAliasIds())
+  ids.push(...ALT_VOICING_SPRITE_IDS)
   return ids
 }
 
 /** True when a curated slash sprite exists for this chart name. */
 export function hasCuratedSlashFingering(chordName: string): boolean {
   if (!chordName.includes("/")) return false
-  return SLASH_SPRITE_ID_SET.has(resolveDiagramSpriteId(chordName))
+  return SLASH_SPRITE_ID_SET.has(resolveBaseSpriteId(chordName))
 }
 
 /**
@@ -150,8 +182,7 @@ export function slashVariationsForPitch(pitch: string): {
   type: "slash"
   name: string
 }[] {
-  const lookup =
-    FLAT_ALIASES[pitch as keyof typeof FLAT_ALIASES] ?? pitch
+  const lookup = FLAT_ALIASES[pitch as keyof typeof FLAT_ALIASES] ?? pitch
   const out: { suffix: string; type: "slash"; name: string }[] = []
   for (const id of SLASH_SPRITE_IDS) {
     const sep = id.lastIndexOf("_")
@@ -160,8 +191,7 @@ export function slashVariationsForPitch(pitch: string): {
     const { root, suffix: quality } = splitRootSuffix(top)
     if (root !== lookup) continue
     const suffix = `${quality}/${bass}`
-    const displayTop =
-      pitch === lookup ? top : `${pitch}${quality}`
+    const displayTop = pitch === lookup ? top : `${pitch}${quality}`
     out.push({
       suffix,
       type: "slash",
@@ -172,10 +202,10 @@ export function slashVariationsForPitch(pitch: string): {
 }
 
 /**
- * Resolve chord name to sprite symbol id.
- * Known slash → underscore id; unknown slash → top chord (no invention).
+ * Base sprite id for a chart name (slash → `_`, unknown slash → top).
+ * Does not apply alternate voicing suffixes.
  */
-export function resolveDiagramSpriteId(chordName: string): string {
+export function resolveBaseSpriteId(chordName: string): string {
   if (!chordName.includes("/")) return chordName
 
   const encoded = slashChordToSpriteId(chordName)
@@ -188,4 +218,39 @@ export function resolveDiagramSpriteId(chordName: string): string {
   if (SLASH_SPRITE_ID_SET.has(sharpEncoded)) return sharpEncoded
 
   return top
+}
+
+/** How many voicings exist for this chart name (1 = primary only). */
+export function voicingCount(chordName: string): number {
+  const base = resolveBaseSpriteId(chordName)
+  return VOICING_COUNT_BY_BASE.get(base) ?? 1
+}
+
+/** Clamp a stored voicing index into the available range. */
+export function clampVoicingIndex(chordName: string, voicing = 0): number {
+  const count = voicingCount(chordName)
+  if (!Number.isFinite(voicing) || voicing < 0) return 0
+  return Math.min(Math.floor(voicing), count - 1)
+}
+
+export function nextVoicingIndex(chordName: string, voicing = 0): number {
+  const count = voicingCount(chordName)
+  if (count <= 1) return 0
+  return (clampVoicingIndex(chordName, voicing) + 1) % count
+}
+
+/**
+ * Resolve chord name (+ optional voicing index) to sprite symbol id.
+ * Missing alt → fall back to primary (no invention).
+ * `voicing` 0 → primary (`C`); 1 → `C__v2`; 2 → `C__v3`.
+ */
+export function resolveDiagramSpriteId(
+  chordName: string,
+  voicing = 0,
+): string {
+  const base = resolveBaseSpriteId(chordName)
+  const index = clampVoicingIndex(chordName, voicing)
+  if (index <= 0) return base
+  const alt = `${base}__v${index + 1}`
+  return ALT_VOICING_SPRITE_ID_SET.has(alt) ? alt : base
 }
