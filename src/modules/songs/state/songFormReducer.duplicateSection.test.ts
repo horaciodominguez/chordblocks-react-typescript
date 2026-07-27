@@ -28,7 +28,6 @@ const section: SongSection = {
         {
           id: "riff-a",
           type: "riff",
-          label: "Riff 1",
           duration: 1,
           position: 3,
         },

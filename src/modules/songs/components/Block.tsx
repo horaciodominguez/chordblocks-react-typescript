@@ -1,12 +1,7 @@
 import ChordDiagram from "@/modules/chords/components/ChordDiagram"
 import Chord from "@/modules/chords/components/Chord"
 import { Rest } from "@/modules/chords/components/Rest"
-import { RiffMarker } from "@/modules/chords/components/RiffMarker"
-import { SoloMarker } from "@/modules/chords/components/SoloMarker"
-import { FeelMarker } from "@/modules/chords/components/FeelMarker"
-import {
-  isFeelMarkerId,
-} from "@/modules/songs/constants/feel"
+import { InstrumentalMarker } from "@/modules/chords/components/InstrumentalMarker"
 import {
   nextVoicingIndex,
   voicingCount,
@@ -67,15 +62,10 @@ function BlockContent({
     )
   }
   if (block.type === "riff") {
-    return (
-      <RiffMarker label={block.label} refTime={block.refTime} onSeek={onSeek} />
-    )
+    return <InstrumentalMarker kind="riff" refTime={block.refTime} onSeek={onSeek} />
   }
   if (block.type === "solo") {
-    return <SoloMarker refTime={block.refTime} onSeek={onSeek} />
-  }
-  if (block.type === "feel" && block.label && isFeelMarkerId(block.label)) {
-    return <FeelMarker feelId={block.label} />
+    return <InstrumentalMarker kind="solo" refTime={block.refTime} onSeek={onSeek} />
   }
   const chordName = block.chord?.name ?? ""
   const voicing = block.chord?.voicing ?? 0
@@ -229,9 +219,7 @@ export const Block = forwardRef<HTMLDivElement, Props>(
 
             {onUpdateRefTime && isTimedBlockType && (
               <BlockRefTimeDialog
-                blockLabel={
-                  block.type === "riff" ? block.label?.trim() || "Riff" : "Solo"
-                }
+                blockLabel={block.type === "riff" ? "Riff" : "Solo"}
                 refTime={block.refTime}
                 hasYoutubeUrl={hasYoutubeUrl}
                 onSave={onUpdateRefTime}

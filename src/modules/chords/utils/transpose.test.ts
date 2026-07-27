@@ -150,7 +150,6 @@ describe("transposeSong", () => {
           {
             id: "b-riff",
             type: "riff",
-            label: "Riff 1",
             duration: 4,
             position: 1,
             refTime: 45,
@@ -175,7 +174,6 @@ describe("transposeSong", () => {
     const riff = projected.songSections[0].bars[2].blocks[0]
     const solo = projected.songSections[0].bars[3].blocks[0]
     expect(riff.type).toBe("riff")
-    expect(riff.label).toBe("Riff 1")
     expect(riff.chord).toBeUndefined()
     expect(riff.refTime).toBe(45)
     expect(solo.type).toBe("solo")

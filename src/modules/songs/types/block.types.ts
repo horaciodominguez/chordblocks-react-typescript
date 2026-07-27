@@ -1,6 +1,6 @@
 import type { Chord } from "@/modules/chords/types/chord.types"
 
-export type BlockType = "chord" | "rest" | "riff" | "solo" | "feel"
+export type BlockType = "chord" | "rest" | "riff" | "solo"
 
 export interface Block {
   id: string
@@ -8,8 +8,6 @@ export interface Block {
   duration: number
   position: number
   chord?: Chord
-  /** Riff name (type "riff") or feel marker id (type "feel"). */
-  label?: string
   /**
    * Reference time in the song's YouTube video, in seconds.
    * Only for types "riff" and "solo".

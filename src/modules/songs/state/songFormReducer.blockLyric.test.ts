@@ -49,7 +49,6 @@ const sectionWithBlocks = {
         {
           id: "riff-1",
           type: "riff",
-          label: "Riff 1",
           duration: 1,
           position: 3,
         },

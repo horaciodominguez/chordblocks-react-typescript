@@ -22,7 +22,7 @@ describe("SongSchema riff/solo blocks", () => {
         {
           id: "sec-1",
           type: "OTHER",
-          label: "Riff 1",
+          label: "A",
           repeats: 1,
           bars: [
             {
@@ -32,7 +32,6 @@ describe("SongSchema riff/solo blocks", () => {
                 {
                   id: "b1",
                   type: "riff",
-                  label: "Riff 1",
                   duration: 4,
                   position: 1,
                 },
@@ -64,7 +63,7 @@ describe("SongSchema riff/solo blocks", () => {
     expect(result.success).toBe(true)
   })
 
-  it("accepts riff without label", () => {
+  it("strips legacy riff label on parse", () => {
     const result = SongSchema.safeParse({
       ...baseSong,
       songSections: [
@@ -80,6 +79,7 @@ describe("SongSchema riff/solo blocks", () => {
                 {
                   id: "b1",
                   type: "riff",
+                  label: "Riff 1",
                   duration: 4,
                   position: 1,
                 },
@@ -90,6 +90,11 @@ describe("SongSchema riff/solo blocks", () => {
       ],
     })
     expect(result.success).toBe(true)
+    if (result.success) {
+      const block = result.data.songSections[0].bars[0].blocks[0]
+      expect(block.type).toBe("riff")
+      expect((block as { label?: string }).label).toBeUndefined()
+    }
   })
 
   it("accepts optional lyric on chord/rest and strips blank", () => {
@@ -135,7 +140,7 @@ describe("SongSchema riff/solo blocks", () => {
     }
   })
 
-  it("accepts feel blocks", () => {
+  it("strips legacy feel blocks when mixed with valid blocks", () => {
     const result = SongSchema.safeParse({
       ...baseSong,
       songSections: [
@@ -149,11 +154,18 @@ describe("SongSchema riff/solo blocks", () => {
               position: 1,
               blocks: [
                 {
-                  id: "b1",
+                  id: "b-feel",
                   type: "feel",
                   label: "stop",
                   duration: 2,
                   position: 1,
+                },
+                {
+                  id: "b-chord",
+                  type: "chord",
+                  duration: 2,
+                  position: 2,
+                  chord: { name: "C" },
                 },
               ],
             },
@@ -162,5 +174,10 @@ describe("SongSchema riff/solo blocks", () => {
       ],
     })
     expect(result.success).toBe(true)
+    if (result.success) {
+      const blocks = result.data.songSections[0].bars[0].blocks
+      expect(blocks).toHaveLength(1)
+      expect(blocks[0].type).toBe("chord")
+    }
   })
 })

@@ -35,7 +35,6 @@ const sectionWithMarkers = {
         {
           id: "riff-1",
           type: "riff",
-          label: "Riff 1",
           duration: 2,
           position: 1,
         },

@@ -15,7 +15,6 @@ import type {
 } from "../types/section.types"
 
 import type { Block } from "@/modules/songs/types/block.types"
-import { isFeelMarkerId } from "@/modules/songs/constants/feel"
 import {
   bakeTranspose,
   transposeChordName,
@@ -311,7 +310,7 @@ export const reducer = (
     case "ADD_BLOCK_TEMPORARY": {
       const REST_TOKEN = "__REST__"
       const SOLO_TOKEN = "__SOLO__"
-      const RIFF_PREFIX = "__RIFF:"
+      const RIFF_TOKEN = "__RIFF__"
 
       if (action.v === REST_TOKEN) {
         return {
@@ -337,8 +336,11 @@ export const reducer = (
         }
       }
 
-      if (action.v.startsWith(RIFF_PREFIX) && action.v.endsWith("__")) {
-        const inner = action.v.slice(RIFF_PREFIX.length, -2).trim()
+      // Exact token, or legacy `__RIFF:label__` (label discarded).
+      if (
+        action.v === RIFF_TOKEN ||
+        (action.v.startsWith("__RIFF:") && action.v.endsWith("__"))
+      ) {
         return {
           ...state,
           pendingBlock: {
@@ -346,23 +348,6 @@ export const reducer = (
             type: "riff",
             duration: 0,
             position: 0,
-            ...(inner ? { label: inner } : {}),
-          } as Block,
-        }
-      }
-
-      const FEEL_PREFIX = "__FEEL:"
-      if (action.v.startsWith(FEEL_PREFIX) && action.v.endsWith("__")) {
-        const inner = action.v.slice(FEEL_PREFIX.length, -2)
-        if (!isFeelMarkerId(inner)) return state
-        return {
-          ...state,
-          pendingBlock: {
-            id: uuidv4(),
-            type: "feel",
-            duration: 0,
-            position: 0,
-            label: inner,
           } as Block,
         }
       }
@@ -842,9 +827,6 @@ export const reducer = (
             ...block,
             ...(block.type === "chord" && block.chord
               ? { chord: { ...block.chord } }
-              : {}),
-            ...(block.type === "riff" && block.label?.trim()
-              ? { label: block.label.trim() }
               : {}),
           })),
         })),

@@ -21,10 +21,6 @@ import type React from "react"
 import { BlockPicker } from "./BlockPicker"
 import { AddBlockSlot } from "./AddBlockSlot"
 import { DraftBlockInsert } from "./DraftBlockInsert"
-import {
-  feelMarkerLabel,
-  isFeelMarkerId,
-} from "@/modules/songs/constants/feel"
 import Input from "@/components/ui/Input"
 import InputField from "@/components/ui/InputField"
 import { effectiveTimeSignature } from "@/modules/songs/utils/effectiveTimeSignature"
@@ -50,7 +46,6 @@ function hasConfirmablePendingBlock(
     block.type === "rest" ||
     block.type === "riff" ||
     block.type === "solo" ||
-    block.type === "feel" ||
     !!block.chord?.name
   )
 }
@@ -152,10 +147,8 @@ export function SectionEditor({ state, dispatch, onStopEditing }: Props) {
         : pb?.type === "solo"
           ? "Solo"
           : pb?.type === "riff"
-            ? pb.label?.trim() || "Riff"
-            : pb?.type === "feel" && pb.label && isFeelMarkerId(pb.label)
-              ? feelMarkerLabel(pb.label)
-              : (pb?.chord?.name ?? "Block")
+            ? "Riff"
+            : (pb?.chord?.name ?? "Block")
     toast.info(`Block ${label} added to pending section`)
   }
 

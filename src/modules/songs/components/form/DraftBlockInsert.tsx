@@ -3,11 +3,8 @@ import { Select } from "@/components/ui/Select"
 import Chord from "@/modules/chords/components/Chord"
 import ChordDiagram from "@/modules/chords/components/ChordDiagram"
 import Rest from "@/modules/chords/components/Rest"
-import { RiffMarker } from "@/modules/chords/components/RiffMarker"
-import { SoloMarker } from "@/modules/chords/components/SoloMarker"
-import { FeelMarker } from "@/modules/chords/components/FeelMarker"
+import { InstrumentalMarker } from "@/modules/chords/components/InstrumentalMarker"
 import { chordFlexStyle } from "@/modules/chords/utils/chord.utils"
-import { isFeelMarkerId } from "@/modules/songs/constants/feel"
 import type { Block } from "@/modules/songs/types/block.types"
 import type { TimeSignature } from "@/modules/songs/types/song.types"
 import { Check, X } from "lucide-react"
@@ -44,13 +41,10 @@ function DraftPreview({
     )
   }
   if (block.type === "riff") {
-    return <RiffMarker label={block.label} />
+    return <InstrumentalMarker kind="riff" />
   }
   if (block.type === "solo") {
-    return <SoloMarker />
-  }
-  if (block.type === "feel" && block.label && isFeelMarkerId(block.label)) {
-    return <FeelMarker feelId={block.label} />
+    return <InstrumentalMarker kind="solo" />
   }
   const chordName = block.chord?.name ?? ""
   const voicing = block.chord?.voicing ?? 0
@@ -79,7 +73,6 @@ export function DraftBlockInsert({
     (block.type === "rest" ||
       block.type === "riff" ||
       block.type === "solo" ||
-      block.type === "feel" ||
       !!block.chord?.name)
 
   return (

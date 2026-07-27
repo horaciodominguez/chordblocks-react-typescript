@@ -1,15 +1,13 @@
 import { AppDialog } from "@/components/ui/AppDialog"
 import Button from "@/components/ui/Button"
-import Input, { controlSurfaceClass } from "@/components/ui/Input"
+import { controlSurfaceClass } from "@/components/ui/Input"
 import Label from "@/components/ui/Label"
 import { Select } from "@/components/ui/Select"
 import Chord from "@/modules/chords/components/Chord"
 import ChordDiagram from "@/modules/chords/components/ChordDiagram"
 import { VoicingDots } from "@/modules/chords/components/VoicingDots"
 import Rest from "@/modules/chords/components/Rest"
-import { RiffMarker } from "@/modules/chords/components/RiffMarker"
-import { SoloMarker } from "@/modules/chords/components/SoloMarker"
-import { FeelMarker } from "@/modules/chords/components/FeelMarker"
+import { InstrumentalMarker } from "@/modules/chords/components/InstrumentalMarker"
 import { playChordPreview } from "@/modules/chords/audio/playChordPreview"
 import {
   slashVariationsForPitch,
@@ -17,35 +15,26 @@ import {
 } from "@/modules/chords/data/chordFingerings"
 import { chordsData } from "@/modules/chords/data/chords"
 import type { Chord as ChordType } from "@/modules/chords/types/chord.types"
-import {
-  FEEL_MARKER_IDS,
-  feelToken,
-  isFeelToken,
-  parseFeelToken,
-} from "@/modules/songs/constants/feel"
 import * as Dialog from "@radix-ui/react-dialog"
 import { Volume2 } from "lucide-react"
 import { useState } from "react"
 
 export const REST_TOKEN = "__REST__"
 export const SOLO_TOKEN = "__SOLO__"
+export const RIFF_TOKEN = "__RIFF__"
+
+/** @deprecated Use RIFF_TOKEN — kept for any leftover `__RIFF:…__` callers. */
 export const RIFF_TOKEN_PREFIX = "__RIFF:"
 
-export function riffToken(label?: string): string {
-  const trimmed = label?.trim()
-  return `${RIFF_TOKEN_PREFIX}${trimmed ?? ""}__`
-}
-
-export function parseRiffToken(token: string): string | undefined {
-  if (!token.startsWith(RIFF_TOKEN_PREFIX) || !token.endsWith("__")) {
-    return undefined
-  }
-  const inner = token.slice(RIFF_TOKEN_PREFIX.length, -2)
-  return inner.trim() || undefined
+export function riffToken(_label?: string): string {
+  return RIFF_TOKEN
 }
 
 export function isRiffToken(token: string): boolean {
-  return token.startsWith(RIFF_TOKEN_PREFIX) && token.endsWith("__")
+  return (
+    token === RIFF_TOKEN ||
+    (token.startsWith(RIFF_TOKEN_PREFIX) && token.endsWith("__"))
+  )
 }
 
 type Props = {
@@ -76,7 +65,6 @@ function BlockPickerBody({
   const [root, setRoot] = useState("C")
   const ROOTS = Object.keys(chordsData)
   const [accidental, setAccidental] = useState<"" | "#" | "b">("")
-  const [riffLabel, setRiffLabel] = useState("")
   const [tileVoicing, setTileVoicing] = useState<Record<string, number>>({})
   const VARIATIONS = chordsData[root] ?? []
   const pitch = `${root}${accidental}`
@@ -169,6 +157,19 @@ function BlockPickerBody({
           </Dialog.Close>
         </div>
         <div>
+          <Label htmlFor="riff">Riff</Label>
+          <Dialog.Close asChild>
+            <Button
+              id="riff"
+              variant="primary"
+              onClick={() => onSelect(RIFF_TOKEN)}
+              className="w-full flex flex-row gap-2 justify-center items-center min-h-11"
+            >
+              <InstrumentalMarker kind="riff" />
+            </Button>
+          </Dialog.Close>
+        </div>
+        <div>
           <Label htmlFor="solo">Solo</Label>
           <Dialog.Close asChild>
             <Button
@@ -177,50 +178,10 @@ function BlockPickerBody({
               onClick={() => onSelect(SOLO_TOKEN)}
               className="w-full flex flex-row gap-2 justify-center items-center min-h-11"
             >
-              <SoloMarker />
+              <InstrumentalMarker kind="solo" />
             </Button>
           </Dialog.Close>
         </div>
-        <div>
-          <Label htmlFor="riff-label">Riff</Label>
-          <div className="flex gap-2 items-end">
-            <Input
-              id="riff-label"
-              name="riff-label"
-              alwaysEditable
-              value={riffLabel}
-              onChange={(e) => setRiffLabel(e.target.value)}
-              placeholder="Riff 1"
-              className="flex-1 min-w-0"
-            />
-            <Dialog.Close asChild>
-              <Button
-                type="button"
-                variant="primary"
-                onClick={() => onSelect(riffToken(riffLabel))}
-                className="min-h-11 shrink-0 px-3"
-              >
-                Add
-              </Button>
-            </Dialog.Close>
-          </div>
-        </div>
-      </div>
-
-      <Label>Feel</Label>
-      <div className="flex flex-wrap gap-2 mb-4">
-        {FEEL_MARKER_IDS.map((id) => (
-          <Dialog.Close asChild key={id}>
-            <Button
-              type="button"
-              variant="secondary"
-              onClick={() => onSelect(feelToken(id))}
-              className="min-h-11"
-            >
-              <FeelMarker feelId={id} />
-            </Button>
-          </Dialog.Close>
-        ))}
       </div>
 
       <Label htmlFor="variants">Variants</Label>
@@ -298,11 +259,6 @@ export function BlockPicker({
   open,
   onOpenChange,
 }: Props) {
-  const selectedRiffLabel =
-    selectedValue && isRiffToken(selectedValue)
-      ? parseRiffToken(selectedValue)
-      : undefined
-
   const trigger =
     headless ? undefined : (
       <Button variant="primary" className="w-full min-h-11">
@@ -316,11 +272,9 @@ export function BlockPicker({
               <span className="sr-only">Rest selected</span>
             </span>
           ) : selectedValue === SOLO_TOKEN ? (
-            <SoloMarker />
+            <InstrumentalMarker kind="solo" />
           ) : isRiffToken(selectedValue) ? (
-            <RiffMarker label={selectedRiffLabel} />
-          ) : isFeelToken(selectedValue) ? (
-            <FeelMarker feelId={parseFeelToken(selectedValue)!} />
+            <InstrumentalMarker kind="riff" />
           ) : (
             <span>
               <Chord chord={selectedValue} asText={false} />
