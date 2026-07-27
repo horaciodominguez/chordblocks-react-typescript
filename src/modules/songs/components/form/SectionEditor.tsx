@@ -471,6 +471,7 @@ export function SectionEditor({ state, dispatch, onStopEditing }: Props) {
             open={pickerOpen}
             onOpenChange={setPickerOpen}
             beatsPerMeasure={sectionTs.beatsPerMeasure}
+            noteValue={sectionTs.noteValue}
             pendingBeats={state.pendingBeats}
             onSelect={(chordName, voicing) => {
               dispatch({

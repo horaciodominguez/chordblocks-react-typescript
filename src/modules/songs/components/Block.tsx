@@ -58,6 +58,7 @@ function BlockContent({
       <Rest
         duration={block.duration}
         beatsPerMeasure={timeSignature.beatsPerMeasure}
+        noteValue={timeSignature.noteValue}
       />
     )
   }

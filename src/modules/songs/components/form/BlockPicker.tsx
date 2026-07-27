@@ -51,16 +51,19 @@ type Props = {
   headless?: boolean
   open?: boolean
   onOpenChange?: (open: boolean) => void
+  noteValue?: number
 }
 
 function BlockPickerBody({
   onSelect,
   pendingBeats,
   beatsPerMeasure,
+  noteValue = 4,
 }: {
   onSelect: (chordName: string, voicing?: number) => void
   pendingBeats: string
   beatsPerMeasure: number
+  noteValue?: number
 }) {
   const [root, setRoot] = useState("C")
   const ROOTS = Object.keys(chordsData)
@@ -151,6 +154,7 @@ function BlockPickerBody({
               <Rest
                 duration={Number(pendingBeats) || 1}
                 beatsPerMeasure={beatsPerMeasure || 4}
+                noteValue={noteValue}
               />
               Add Rest
             </Button>
@@ -258,6 +262,7 @@ export function BlockPicker({
   headless = false,
   open,
   onOpenChange,
+  noteValue = 4,
 }: Props) {
   const trigger =
     headless ? undefined : (
@@ -268,6 +273,7 @@ export function BlockPicker({
               <Rest
                 duration={Number(pendingBeats) || 1}
                 beatsPerMeasure={beatsPerMeasure || 4}
+                noteValue={noteValue}
               />
               <span className="sr-only">Rest selected</span>
             </span>
@@ -301,6 +307,7 @@ export function BlockPicker({
           onSelect={onSelect}
           pendingBeats={pendingBeats}
           beatsPerMeasure={beatsPerMeasure}
+          noteValue={noteValue}
         />
       </AppDialog>
     </>

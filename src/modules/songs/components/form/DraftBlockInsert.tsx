@@ -37,6 +37,7 @@ function DraftPreview({
       <Rest
         duration={duration}
         beatsPerMeasure={timeSignature.beatsPerMeasure}
+        noteValue={timeSignature.noteValue}
       />
     )
   }

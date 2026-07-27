@@ -1,71 +1,54 @@
-import React from "react"
+import { restGlyphsForDuration } from "@/modules/chords/utils/restSymbols"
 
 type Props = {
   duration: number
   beatsPerMeasure?: number
+  /** Time-signature denominator (2, 4, or 8). Default 4. */
+  noteValue?: number
 }
 
-export const Rest: React.FC<Props> = ({ duration, beatsPerMeasure = 4 }) => {
-  const ratio = duration / beatsPerMeasure
-
-  let symbol = "𝄽"
-  let label = "Quarter rest"
-  let type: "whole" | "half" | "quarter" | "eighth" | "sixteenth" = "quarter"
-
-  if (ratio >= 1) {
-    symbol = "𝄼"
-    label = "Whole rest"
-    type = "whole"
-  } else if (ratio >= 0.5) {
-    symbol = "𝄻"
-    label = "Half rest"
-    type = "half"
-  } else if (ratio >= 0.25) {
-    symbol = "𝄽"
-    label = "Quarter rest"
-    type = "quarter"
-  } else if (ratio >= 0.125) {
-    symbol = "𝄾"
-    label = "Eighth rest"
-    type = "eighth"
-  } else {
-    symbol = "𝄽"
-    label = `Rest (${duration} beats)`
-    type = "sixteenth"
-  }
+export function Rest({
+  duration,
+  beatsPerMeasure = 4,
+  noteValue = 4,
+}: Props) {
+  const glyphs = restGlyphsForDuration(duration, beatsPerMeasure, noteValue)
+  const aria = glyphs.map((g) => g.label).join(", ")
 
   return (
     <span
       role="img"
-      aria-label={label}
-      title={label}
-      className={`inline-flex items-center justify-center text-2xl`}
+      aria-label={aria}
+      title={aria}
+      className="inline-flex items-center justify-center gap-0.5 text-2xl"
       style={{ lineHeight: 1 }}
     >
-      <span>
-        <picture>
+      {glyphs.map((glyph, i) => (
+        <span
+          key={`${glyph.kind}-${glyph.dotted ? "d" : "p"}-${i}`}
+          className="relative inline-flex items-center justify-center"
+        >
           <svg
-            className={` w-[24px] h-[24px]`}
+            className="h-6 w-6 text-white light:text-zinc-900"
             xmlns="http://www.w3.org/2000/svg"
-            fill="none"
+            fill="currentColor"
+            aria-hidden
           >
             <use
-              href={`/assets/rests-sprite.svg#${type}-rest`}
-              className="text-white"
-              fill="currentColor"
+              href={`/assets/rests-sprite.svg#${glyph.kind}-rest`}
               width={24}
               height={24}
             />
           </svg>
-        </picture>
-      </span>
-      <span
-        className="sr-only"
-        style={{ fontVariantLigatures: "no-common-ligatures" }}
-      >
-        {symbol}
-      </span>
-      <span className="sr-only">{label}</span>
+          {glyph.dotted ? (
+            <span
+              aria-hidden
+              className="ml-0.5 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-current"
+            />
+          ) : null}
+        </span>
+      ))}
+      <span className="sr-only">{aria}</span>
     </span>
   )
 }
