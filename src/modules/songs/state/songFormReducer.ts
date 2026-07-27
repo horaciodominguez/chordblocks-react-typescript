@@ -8,6 +8,7 @@ import type {
 import { beatsCap, nextBeatsValue, remainingBeats, barCapacity, normalizePickupBeats } from "../utils/beats"
 import { effectiveTimeSignature } from "../utils/effectiveTimeSignature"
 import { repackBarsToCapacity } from "../utils/repackBarsToCapacity"
+import { padBarsWithRests } from "../utils/padBarsWithRests"
 import type {
   PendingSongSection,
   SectionType,
@@ -817,19 +818,18 @@ export const reducer = (
       if (state.pendingSection.id === "" || state.pendingSection.type === "")
         return state
 
+      const sectionBpm = pendingBeatsPerMeasure(state)
+      const sectionPickup = pendingPickupBeats(state)
+      const paddedBars = padBarsWithRests(
+        state.pendingSection.bars,
+        sectionBpm,
+        sectionPickup,
+      )
+
       const sectionToAdd: SongSection = {
         id: state.pendingSection.id,
         type: state.pendingSection.type as SectionType,
-        bars: state.pendingSection.bars.map((bar) => ({
-          ...bar,
-
-          blocks: bar.blocks.map((block) => ({
-            ...block,
-            ...(block.type === "chord" && block.chord
-              ? { chord: { ...block.chord } }
-              : {}),
-          })),
-        })),
+        bars: paddedBars,
         repeats: state.pendingSection.repeats,
         ...sectionOptionalFields(
           state.pendingSection,
@@ -933,10 +933,18 @@ export const reducer = (
       )
         return state
 
+      const sectionBpm = pendingBeatsPerMeasure(state)
+      const sectionPickup = pendingPickupBeats(state)
+      const paddedBars = padBarsWithRests(
+        state.pendingSection.bars,
+        sectionBpm,
+        sectionPickup,
+      )
+
       const updated: SongSection = {
         id: state.pendingSection.id,
         type: state.pendingSection.type,
-        bars: state.pendingSection.bars,
+        bars: paddedBars,
         repeats: state.pendingSection.repeats,
         ...sectionOptionalFields(
           state.pendingSection,

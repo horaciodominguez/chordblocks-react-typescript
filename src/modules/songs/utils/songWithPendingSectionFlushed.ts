@@ -6,6 +6,7 @@ import type {
 import type { SongFormState } from "@/modules/songs/state/songFormReducer"
 import { effectiveTimeSignature } from "@/modules/songs/utils/effectiveTimeSignature"
 import { normalizePickupBeats } from "@/modules/songs/utils/beats"
+import { padBarsWithRests } from "@/modules/songs/utils/padBarsWithRests"
 
 function sectionFromPending(
   pending: SongFormState["pendingSection"],
@@ -21,7 +22,7 @@ function sectionFromPending(
   return {
     id: pending.id,
     type: pending.type as SectionType,
-    bars: pending.bars,
+    bars: padBarsWithRests(pending.bars, bpm, pickup),
     repeats: pending.repeats,
     ...(pending.label?.trim() ? { label: pending.label.trim() } : {}),
     ...(typeof pending.cueTime === "number" ? { cueTime: pending.cueTime } : {}),
