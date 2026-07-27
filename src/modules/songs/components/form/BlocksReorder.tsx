@@ -37,6 +37,7 @@ type Props = {
   onUpdateDuration?: (blockId: string, duration: number) => void
   onUpdateVoicing?: (blockId: string, voicing: number) => void
   onUpdateRefTime?: (blockId: string, refTime: number | undefined) => void
+  onUpdateLyric?: (blockId: string, lyric: string | undefined) => void
   hasYoutubeUrl?: boolean
   showMeasureSeparator?: boolean
   isPickup?: boolean
@@ -51,6 +52,7 @@ function SortableBlock({
   onUpdateDuration,
   onUpdateVoicing,
   onUpdateRefTime,
+  onUpdateLyric,
   hasYoutubeUrl,
 }: {
   bar: Bar
@@ -61,6 +63,7 @@ function SortableBlock({
   onUpdateDuration?: (blockId: string, duration: number) => void
   onUpdateVoicing?: (blockId: string, voicing: number) => void
   onUpdateRefTime?: (blockId: string, refTime: number | undefined) => void
+  onUpdateLyric?: (blockId: string, lyric: string | undefined) => void
   hasYoutubeUrl?: boolean
 }) {
   const {
@@ -102,6 +105,11 @@ function SortableBlock({
           ? (refTime) => onUpdateRefTime(block.id, refTime)
           : undefined
       }
+      onUpdateLyric={
+        onUpdateLyric
+          ? (lyric) => onUpdateLyric(block.id, lyric)
+          : undefined
+      }
       hasYoutubeUrl={hasYoutubeUrl}
       showDiagram
       durationOptions={allowedBlockDurations(
@@ -123,6 +131,7 @@ export default function ChordsReorder({
   onUpdateDuration,
   onUpdateVoicing,
   onUpdateRefTime,
+  onUpdateLyric,
   hasYoutubeUrl,
   showMeasureSeparator = false,
   isPickup = false,
@@ -179,6 +188,7 @@ export default function ChordsReorder({
                 onUpdateDuration={onUpdateDuration}
                 onUpdateVoicing={onUpdateVoicing}
                 onUpdateRefTime={onUpdateRefTime}
+                onUpdateLyric={onUpdateLyric}
                 hasYoutubeUrl={hasYoutubeUrl}
               />
             </Fragment>

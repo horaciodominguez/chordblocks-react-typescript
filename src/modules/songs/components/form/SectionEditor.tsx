@@ -427,6 +427,13 @@ export function SectionEditor({ state, dispatch, onStopEditing }: Props) {
                 refTime,
               })
             }}
+            onUpdateLyric={(blockId, lyric) => {
+              dispatch({
+                type: "UPDATE_BLOCK_LYRIC",
+                blockId,
+                lyric,
+              })
+            }}
             hasYoutubeUrl={Boolean(state.song.youtubeUrl)}
           />
 

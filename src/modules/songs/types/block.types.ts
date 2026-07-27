@@ -15,4 +15,9 @@ export interface Block {
    * Only for types "riff" and "solo".
    */
   refTime?: number
+  /**
+   * Optional lyric fragment aligned under this block (atril / edit).
+   * Empty / omitted = no lyric for this beat span.
+   */
+  lyric?: string
 }

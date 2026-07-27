@@ -91,4 +91,47 @@ describe("SongSchema riff/solo blocks", () => {
     })
     expect(result.success).toBe(true)
   })
+
+  it("accepts optional lyric on chord/rest and strips blank", () => {
+    const withLyric = SongSchema.safeParse({
+      ...baseSong,
+      songSections: [
+        {
+          id: "sec-1",
+          type: "VERSE",
+          repeats: 1,
+          bars: [
+            {
+              id: "bar-1",
+              position: 1,
+              blocks: [
+                {
+                  id: "b1",
+                  type: "chord",
+                  duration: 2,
+                  position: 1,
+                  chord: { name: "C" },
+                  lyric: "  Hello  ",
+                },
+                {
+                  id: "b2",
+                  type: "rest",
+                  duration: 2,
+                  position: 2,
+                  lyric: "",
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    })
+    expect(withLyric.success).toBe(true)
+    if (withLyric.success) {
+      expect(withLyric.data.songSections[0].bars[0].blocks[0].lyric).toBe(
+        "Hello",
+      )
+      expect(withLyric.data.songSections[0].bars[0].blocks[1].lyric).toBeUndefined()
+    }
+  })
 })

@@ -36,6 +36,7 @@ function sampleSong(): Song {
                 duration: 4,
                 position: 1,
                 chord: { name: "Bm" },
+                lyric: "Looking out",
               },
             ],
           },
@@ -120,6 +121,9 @@ describe("transposeSong", () => {
 
     expect(projected.mainKey).toBe("Cm")
     expect(projected.songSections[0].bars[0].blocks[0].chord?.name).toBe("Cm")
+    expect(projected.songSections[0].bars[0].blocks[0].lyric).toBe(
+      "Looking out",
+    )
     expect(projected.songSections[0].bars[1].blocks[0].chord?.name).toBe("Gm7")
 
     expect(original.mainKey).toBe(originalKey)

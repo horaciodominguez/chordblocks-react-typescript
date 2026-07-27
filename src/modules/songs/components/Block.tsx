@@ -13,6 +13,7 @@ import type { TimeSignature } from "@/modules/songs/types/song.types"
 import type { SongDensity } from "@/modules/songs/types/density.types"
 import { useSongPlayer } from "@/modules/player/hooks/useSongPlayer"
 import { BlockRefTimeDialog } from "./form/BlockRefTimeDialog"
+import { BlockLyricDialog } from "./form/BlockLyricDialog"
 import { ArrowLeftRight, Trash } from "lucide-react"
 import React, { forwardRef } from "react"
 
@@ -30,6 +31,8 @@ type Props = {
   onUpdateVoicing?: (voicing: number) => void
   /** Edit mode: set/edit the YouTube reference time of a riff/solo block. */
   onUpdateRefTime?: (refTime: number | undefined) => void
+  /** Edit mode: set/clear lyric fragment under this block. */
+  onUpdateLyric?: (lyric: string | undefined) => void
   /** Edit mode: whether the song has a YouTube link (hint in time dialog). */
   hasYoutubeUrl?: boolean
   showDiagram?: boolean
@@ -91,6 +94,7 @@ export const Block = forwardRef<HTMLDivElement, Props>(
       durationOptions,
       onUpdateVoicing,
       onUpdateRefTime,
+      onUpdateLyric,
       hasYoutubeUrl,
       showDiagram,
       density = "bars",
@@ -103,7 +107,8 @@ export const Block = forwardRef<HTMLDivElement, Props>(
       dragStyle ||
       onDelete ||
       onUpdateDuration ||
-      onUpdateVoicing
+      onUpdateVoicing ||
+      onUpdateLyric
     )
 
     const chordName =
@@ -119,6 +124,8 @@ export const Block = forwardRef<HTMLDivElement, Props>(
         ? () => open(block.refTime)
         : undefined
 
+    const lyric = block.lyric?.trim()
+
     return (
       <div
         ref={ref}
@@ -133,18 +140,34 @@ export const Block = forwardRef<HTMLDivElement, Props>(
           ...(dragStyle ?? {}),
         }}
       >
-        <div
-          className={`flex flex-col items-center w-full ${
-            isGuide ? "gap-1 overflow-visible" : "gap-4 min-w-0 overflow-hidden"
-          }`}
-        >
-          <BlockContent
-            block={block}
-            timeSignature={timeSignature}
-            showDiagram={showDiagram}
-            isGuide={isGuide}
-            onSeek={onSeek}
-          />
+        <div className="flex flex-col items-center w-full min-w-0 gap-0.5">
+          <div
+            className={`flex flex-col items-center w-full ${
+              isGuide
+                ? "gap-1 overflow-visible"
+                : "gap-4 min-w-0 overflow-hidden"
+            }`}
+          >
+            <BlockContent
+              block={block}
+              timeSignature={timeSignature}
+              showDiagram={showDiagram}
+              isGuide={isGuide}
+              onSeek={onSeek}
+            />
+          </div>
+          {lyric ? (
+            <span
+              className={`w-full text-center font-normal leading-tight text-zinc-300 light:text-zinc-600 stage:text-white/85 ${
+                isGuide
+                  ? "text-[10px] truncate max-w-full"
+                  : "text-[11px] line-clamp-2 break-words"
+              }`}
+              title={lyric}
+            >
+              {lyric}
+            </span>
+          ) : null}
         </div>
 
         {hasControls && (
@@ -188,6 +211,10 @@ export const Block = forwardRef<HTMLDivElement, Props>(
               >
                 v{currentVoicing + 1}
               </button>
+            )}
+
+            {onUpdateLyric && (
+              <BlockLyricDialog lyric={block.lyric} onSave={onUpdateLyric} />
             )}
 
             {onUpdateRefTime && isTimedBlockType && (

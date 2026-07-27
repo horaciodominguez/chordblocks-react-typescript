@@ -13,12 +13,24 @@ const ChordSchema = z.object({
   voicing: z.number().int().min(0).max(8).optional(),
 })
 
+/** Lyric fragment under a block; blank → omitted. */
+const LyricSchema = z.preprocess(
+  (v) => {
+    if (v === "" || v === null || v === undefined) return undefined
+    if (typeof v !== "string") return v
+    const t = v.trim()
+    return t === "" ? undefined : t
+  },
+  z.string().min(1).max(80).optional(),
+)
+
 const ChordBlockSchema = z.object({
   id: z.string(),
   type: z.literal("chord"),
   chord: ChordSchema,
   duration: z.number().int().min(1, "Min duration is 1").max(12, "Max is 12"),
   position: z.number().int().min(1, "Min position is 1"),
+  lyric: LyricSchema,
 })
 
 const RestBlockSchema = z.object({
@@ -26,6 +38,7 @@ const RestBlockSchema = z.object({
   type: z.literal("rest"),
   duration: z.number().int().min(1, "Min duration is 1").max(12, "Max is 12"),
   position: z.number().int().min(1, "Min position is 1"),
+  lyric: LyricSchema,
 })
 
 const RefTimeSchema = z
@@ -44,6 +57,7 @@ const RiffBlockSchema = z.object({
   duration: z.number().int().min(1, "Min duration is 1").max(12, "Max is 12"),
   position: z.number().int().min(1, "Min position is 1"),
   refTime: RefTimeSchema,
+  lyric: LyricSchema,
 })
 
 const SoloBlockSchema = z.object({
@@ -52,6 +66,7 @@ const SoloBlockSchema = z.object({
   duration: z.number().int().min(1, "Min duration is 1").max(12, "Max is 12"),
   position: z.number().int().min(1, "Min position is 1"),
   refTime: RefTimeSchema,
+  lyric: LyricSchema,
 })
 
 export const BlockSchema = z.discriminatedUnion("type", [

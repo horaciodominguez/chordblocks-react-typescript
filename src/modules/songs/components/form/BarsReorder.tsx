@@ -31,6 +31,7 @@ type Props = {
   onUpdateDuration?: (blockId: string, duration: number) => void
   onUpdateVoicing?: (blockId: string, voicing: number) => void
   onUpdateRefTime?: (blockId: string, refTime: number | undefined) => void
+  onUpdateLyric?: (blockId: string, lyric: string | undefined) => void
   hasYoutubeUrl?: boolean
 }
 
@@ -46,6 +47,7 @@ function SortableBar({
   onUpdateDuration,
   onUpdateVoicing,
   onUpdateRefTime,
+  onUpdateLyric,
   hasYoutubeUrl,
 }: {
   bar: Bar
@@ -59,6 +61,7 @@ function SortableBar({
   onUpdateDuration?: (blockId: string, duration: number) => void
   onUpdateVoicing?: (blockId: string, voicing: number) => void
   onUpdateRefTime?: (blockId: string, refTime: number | undefined) => void
+  onUpdateLyric?: (blockId: string, lyric: string | undefined) => void
   hasYoutubeUrl?: boolean
 }) {
   const {
@@ -104,6 +107,7 @@ function SortableBar({
         onUpdateDuration={onUpdateDuration}
         onUpdateVoicing={onUpdateVoicing}
         onUpdateRefTime={onUpdateRefTime}
+        onUpdateLyric={onUpdateLyric}
         hasYoutubeUrl={hasYoutubeUrl}
         showMeasureSeparator={!isLastBar}
       />
@@ -120,6 +124,7 @@ export default function BarsReorder({
   onUpdateDuration,
   onUpdateVoicing,
   onUpdateRefTime,
+  onUpdateLyric,
   hasYoutubeUrl,
 }: Props) {
   const sensors = useSensors(
@@ -164,6 +169,7 @@ export default function BarsReorder({
               onUpdateDuration={onUpdateDuration}
               onUpdateVoicing={onUpdateVoicing}
               onUpdateRefTime={onUpdateRefTime}
+              onUpdateLyric={onUpdateLyric}
               hasYoutubeUrl={hasYoutubeUrl}
             />
           ))}

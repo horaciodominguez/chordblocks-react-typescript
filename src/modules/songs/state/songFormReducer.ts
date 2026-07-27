@@ -66,6 +66,11 @@ export type Action =
       blockId: string
       refTime: number | undefined
     }
+  | {
+      type: "UPDATE_BLOCK_LYRIC"
+      blockId: string
+      lyric: string | undefined
+    }
   | { type: "REORDER_BARS_IN_SECTION"; sectionId: string; order: string[] }
   | { type: "REORDER_BLOCKS"; barId: string; order: string[] }
   | { type: "REORDER_SECTIONS"; order: string[] }
@@ -533,6 +538,44 @@ export const reducer = (
           blocks[blockIndex] = rest
         } else {
           blocks[blockIndex] = { ...block, refTime }
+        }
+        return { ...bar, blocks }
+      })
+
+      if (!found) return state
+
+      return {
+        ...state,
+        pendingSection: { ...state.pendingSection, bars: updatedBars },
+      }
+    }
+
+    case "UPDATE_BLOCK_LYRIC": {
+      if (state.pendingSection.id === "") return state
+
+      const { blockId } = action
+      const raw = action.lyric
+      const lyric =
+        raw === undefined || raw === null
+          ? undefined
+          : typeof raw === "string"
+            ? raw.trim() || undefined
+            : undefined
+      if (lyric !== undefined && lyric.length > 80) return state
+
+      let found = false
+      const updatedBars = state.pendingSection.bars.map((bar) => {
+        const blockIndex = bar.blocks.findIndex((b) => b.id === blockId)
+        if (blockIndex === -1) return bar
+
+        found = true
+        const block = bar.blocks[blockIndex]
+        const blocks = [...bar.blocks]
+        if (lyric === undefined) {
+          const { lyric: _, ...rest } = block
+          blocks[blockIndex] = rest
+        } else {
+          blocks[blockIndex] = { ...block, lyric }
         }
         return { ...bar, blocks }
       })
