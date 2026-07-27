@@ -19,6 +19,11 @@ export interface SongSection {
   cueTime?: number
   /** Optional meter override; omit to use Song.timeSignature. */
   timeSignature?: TimeSignature
+  /**
+   * Anacrusis: first bar capacity in beats (1 … meter-1).
+   * Omit for a full first measure.
+   */
+  pickupBeats?: number
 }
 
 export type PendingSectionType = SectionType | ""
@@ -31,4 +36,5 @@ export interface PendingSongSection {
   repeats: number
   cueTime?: number
   timeSignature?: TimeSignature
+  pickupBeats?: number
 }

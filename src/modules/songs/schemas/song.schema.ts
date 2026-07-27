@@ -87,6 +87,11 @@ export const SectionSchema = z.object({
     return Number.isFinite(n) ? n : undefined
   }, z.number().int().min(0).max(3 * 60 * 60).optional()),
   timeSignature: TimeSignatureSchema.optional(),
+  pickupBeats: z.preprocess((v) => {
+    if (v === "" || v === null || v === undefined) return undefined
+    const n = typeof v === "number" ? v : Number(v)
+    return Number.isFinite(n) ? n : undefined
+  }, z.number().int().min(1).max(11).optional()),
 })
 
 export const SongSchema = z.object({

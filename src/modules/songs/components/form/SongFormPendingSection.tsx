@@ -78,6 +78,14 @@ export function SongFormPendingSection({ dispatch, state }: Props) {
                       {formatTimeSignature(section.timeSignature)}
                     </span>
                   ) : null}
+                  {section.pickupBeats ? (
+                    <span
+                      className="text-[10px] font-semibold tabular-nums text-cyan-400 light:text-cyan-700"
+                      title="Pickup / anacrusis"
+                    >
+                      Pickup {section.pickupBeats}
+                    </span>
+                  ) : null}
                   <button
                     type="button"
                     aria-label={`Edit ${section.type} section`}

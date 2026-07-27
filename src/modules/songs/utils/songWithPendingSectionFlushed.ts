@@ -4,12 +4,19 @@ import type {
   SongSection,
 } from "@/modules/songs/types/section.types"
 import type { SongFormState } from "@/modules/songs/state/songFormReducer"
+import { effectiveTimeSignature } from "@/modules/songs/utils/effectiveTimeSignature"
+import { normalizePickupBeats } from "@/modules/songs/utils/beats"
 
 function sectionFromPending(
   pending: SongFormState["pendingSection"],
+  songTs: Song["timeSignature"],
 ): SongSection | null {
   if (pending.id === "" || pending.type === "") return null
   if (pending.bars.length === 0) return null
+
+  const bpm = effectiveTimeSignature(songTs, pending.timeSignature)
+    .beatsPerMeasure
+  const pickup = normalizePickupBeats(pending.pickupBeats, bpm)
 
   return {
     id: pending.id,
@@ -18,6 +25,10 @@ function sectionFromPending(
     repeats: pending.repeats,
     ...(pending.label?.trim() ? { label: pending.label.trim() } : {}),
     ...(typeof pending.cueTime === "number" ? { cueTime: pending.cueTime } : {}),
+    ...(pending.timeSignature
+      ? { timeSignature: { ...pending.timeSignature } }
+      : {}),
+    ...(pickup != null ? { pickupBeats: pickup } : {}),
   }
 }
 
@@ -31,7 +42,10 @@ export function songWithPendingSectionFlushed(state: SongFormState): {
   didFlush: boolean
   error?: string
 } {
-  const built = sectionFromPending(state.pendingSection)
+  const built = sectionFromPending(
+    state.pendingSection,
+    state.song.timeSignature,
+  )
   if (!built) {
     if (state.pendingSection.id !== "" && state.pendingSection.bars.length === 0) {
       return {

@@ -27,8 +27,13 @@ export const Section = ({
     <SectionBars id={section.id} section={section} density={density}>
       {section.bars.map((bar, index) => {
         const isLastBar = index === section.bars.length - 1
+        const isPickup = index === 0 && Boolean(section.pickupBeats)
         return (
-          <SectionBlocks key={bar.id} showMeasureSeparator={!isLastBar}>
+          <SectionBlocks
+            key={bar.id}
+            showMeasureSeparator={!isLastBar}
+            isPickup={isPickup}
+          >
             {bar.blocks.map((block, blockIndex) => (
               <Fragment key={block.id}>
                 {blockIndex > 0 && <BarSeparator />}

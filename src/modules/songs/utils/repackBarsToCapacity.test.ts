@@ -50,4 +50,30 @@ describe("repackBarsToCapacity", () => {
       [3],
     ])
   })
+
+  it("packs a short first bar when pickupBeats is set", () => {
+    const input = [
+      bar([
+        { id: "a", duration: 1 },
+        { id: "b", duration: 4 },
+      ]),
+    ]
+    const out = repackBarsToCapacity(input, 4, 1)
+    expect(out.map((b) => b.blocks.map((bl) => bl.duration))).toEqual([
+      [1],
+      [4],
+    ])
+    expect(out[0].blocks[0].id).toBe("a")
+    expect(out[1].blocks[0].id).toBe("b")
+  })
+
+  it("clamps an oversized first block into the pickup bar", () => {
+    const out = repackBarsToCapacity(
+      [bar([{ id: "a", duration: 4 }])],
+      4,
+      1,
+    )
+    expect(out).toHaveLength(1)
+    expect(out[0].blocks[0].duration).toBe(1)
+  })
 })

@@ -38,6 +38,8 @@ function SortableBar({
   bar,
   index,
   isLastBar,
+  isPickup,
+  pickupBeats,
   timeSignature,
   onReorderBlocks,
   onDeleteChord,
@@ -49,6 +51,8 @@ function SortableBar({
   bar: Bar
   index: number
   isLastBar: boolean
+  isPickup: boolean
+  pickupBeats?: number
   timeSignature: TimeSignature
   onReorderBlocks: (barId: string, chords: Bar["blocks"]) => void
   onDeleteChord: (chordId: string) => void
@@ -84,12 +88,16 @@ function SortableBar({
         className="flex items-center gap-2 cursor-grab touch-none text-xs
                   opacity-100 md:opacity-0 md:hover:opacity-100 transition
                   text-zinc-400 hover:text-zinc-200 mb-1 min-h-8 px-1 light:text-zinc-600 light:hover:text-zinc-900"
-        aria-label={`Drag bar ${index + 1}`}
+        aria-label={isPickup ? "Drag pickup bar" : `Drag bar ${index + 1}`}
       >
-        <ArrowLeftRight className="w-4 h-4" /> Bar {index + 1}
+        <ArrowLeftRight className="w-4 h-4" />{" "}
+        {isPickup ? `Pickup (${pickupBeats})` : `Bar ${index + 1}`}
       </div>
       <BlocksReorder
         bar={bar}
+        barIndex={index}
+        pickupBeats={pickupBeats}
+        isPickup={isPickup}
         timeSignature={timeSignature}
         onReorder={onReorderBlocks}
         onDeleteChord={onDeleteChord}
@@ -148,6 +156,8 @@ export default function BarsReorder({
               bar={bar}
               index={i}
               isLastBar={i === section.bars.length - 1}
+              isPickup={i === 0 && Boolean(section.pickupBeats)}
+              pickupBeats={section.pickupBeats}
               timeSignature={timeSignature}
               onReorderBlocks={onReorderBlocks}
               onDeleteChord={onDeleteChord}

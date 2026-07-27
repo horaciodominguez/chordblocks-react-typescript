@@ -250,6 +250,37 @@ export function SectionEditor({ state, dispatch, onStopEditing }: Props) {
 
       {state.pendingSection.id !== "" && (
         <div className="mb-4">
+          <Select
+            name="sectionPickupBeats"
+            label="Pickup (anacrusis)"
+            options={[
+              "Off",
+              ...Array.from(
+                { length: Math.max(0, sectionTs.beatsPerMeasure - 1) },
+                (_, i) => String(i + 1),
+              ),
+            ]}
+            value={
+              state.pendingSection.pickupBeats != null
+                ? String(state.pendingSection.pickupBeats)
+                : "Off"
+            }
+            onChange={(e) => {
+              const raw = e.target.value
+              dispatch({
+                type: "SET_PENDING_SECTION_PICKUP_BEATS",
+                v: raw === "Off" ? undefined : parseInt(raw, 10),
+              })
+            }}
+          />
+          <p className="text-xs text-zinc-500 mt-1 light:text-zinc-600">
+            Incomplete first bar (e.g. 1 beat before the first full measure).
+          </p>
+        </div>
+      )}
+
+      {state.pendingSection.id !== "" && (
+        <div className="mb-4">
           <div className="flex flex-col sm:flex-row gap-4">
             <div className="w-full sm:w-1/2">
               <BlockPicker
@@ -343,6 +374,11 @@ export function SectionEditor({ state, dispatch, onStopEditing }: Props) {
             {hasMeterOverride ? (
               <span className="text-[10px] font-semibold tabular-nums text-violet-400 light:text-violet-700">
                 {sectionTs.beatsPerMeasure}/{sectionTs.noteValue}
+              </span>
+            ) : null}
+            {state.pendingSection.pickupBeats ? (
+              <span className="text-[10px] font-semibold tabular-nums text-cyan-400 light:text-cyan-700">
+                Pickup {state.pendingSection.pickupBeats}
               </span>
             ) : null}
           </div>

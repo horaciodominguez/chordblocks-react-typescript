@@ -5,7 +5,7 @@ import type {
   TimeSignature,
 } from "@/modules/songs/types/song.types"
 
-import { beatsCap, nextBeatsValue, remainingBeats } from "../utils/beats"
+import { beatsCap, nextBeatsValue, remainingBeats, barCapacity, normalizePickupBeats } from "../utils/beats"
 import { effectiveTimeSignature } from "../utils/effectiveTimeSignature"
 import { repackBarsToCapacity } from "../utils/repackBarsToCapacity"
 import type {
@@ -78,6 +78,10 @@ export type Action =
       type: "SET_PENDING_SECTION_TIME_SIGNATURE"
       v: TimeSignature | undefined
     }
+  | {
+      type: "SET_PENDING_SECTION_PICKUP_BEATS"
+      v: number | undefined
+    }
   | { type: "CANCEL_SECTION" }
   | { type: "FINALIZE_SECTION" }
   | { type: "RESET" }
@@ -113,14 +117,42 @@ function pendingBeatsPerMeasure(state: SongFormState): number {
   ).beatsPerMeasure
 }
 
+function pendingPickupBeats(state: SongFormState): number | undefined {
+  return normalizePickupBeats(
+    state.pendingSection.pickupBeats,
+    pendingBeatsPerMeasure(state),
+  )
+}
+
+function sectionOptionalFields(
+  pending: PendingSongSection,
+  songTs: TimeSignature,
+): Pick<SongSection, "label" | "cueTime" | "timeSignature" | "pickupBeats"> {
+  const bpm = effectiveTimeSignature(songTs, pending.timeSignature)
+    .beatsPerMeasure
+  const pickup = normalizePickupBeats(pending.pickupBeats, bpm)
+  return {
+    ...(pending.label?.trim() ? { label: pending.label.trim() } : {}),
+    ...(typeof pending.cueTime === "number" ? { cueTime: pending.cueTime } : {}),
+    ...(pending.timeSignature
+      ? { timeSignature: { ...pending.timeSignature } }
+      : {}),
+    ...(pickup != null ? { pickupBeats: pickup } : {}),
+  }
+}
+
 function availableFromBars(
   bars: { blocks: { duration: number }[] }[],
   bpm: number,
+  pickupBeats?: number,
 ): number {
-  const lastBar = bars[bars.length - 1]
-  if (!lastBar) return beatsCap(bpm, bpm)
-  const used = lastBar.blocks.reduce((a, c) => a + c.duration, 0)
-  return beatsCap(bpm, bpm - used)
+  if (bars.length === 0) return barCapacity(bpm, 0, pickupBeats)
+  const lastIndex = bars.length - 1
+  const cap = barCapacity(bpm, lastIndex, pickupBeats)
+  const used = bars[lastIndex].blocks.reduce((a, c) => a + c.duration, 0)
+  const rem = cap - used
+  if (rem > 0) return rem
+  return barCapacity(bpm, bars.length, pickupBeats)
 }
 
 export const reducer = (
@@ -180,9 +212,15 @@ export const reducer = (
           ? state.song.songSections
           : state.song.songSections.map((section) => {
               if (section.timeSignature) return section
+              const pickup = normalizePickupBeats(
+                section.pickupBeats,
+                newBpm,
+              )
+              const { pickupBeats: _, ...rest } = section
               return {
-                ...section,
-                bars: repackBarsToCapacity(section.bars, newBpm),
+                ...rest,
+                ...(pickup != null ? { pickupBeats: pickup } : {}),
+                bars: repackBarsToCapacity(section.bars, newBpm, pickup),
               }
             })
 
@@ -195,9 +233,22 @@ export const reducer = (
         !pendingSection.timeSignature &&
         oldBpm !== newBpm
       ) {
-        const bars = repackBarsToCapacity(pendingSection.bars, newBpm)
-        pendingSection = { ...pendingSection, bars }
-        availableBeats = availableFromBars(bars, newBpm)
+        const pickup = normalizePickupBeats(
+          pendingSection.pickupBeats,
+          newBpm,
+        )
+        const bars = repackBarsToCapacity(
+          pendingSection.bars,
+          newBpm,
+          pickup,
+        )
+        const { pickupBeats: __, ...pendingRest } = pendingSection
+        pendingSection = {
+          ...pendingRest,
+          bars,
+          ...(pickup != null ? { pickupBeats: pickup } : {}),
+        }
+        availableBeats = availableFromBars(bars, newBpm, pickup)
         pendingBeats = nextBeatsValue(availableBeats)
       } else if (pendingSection.id === "") {
         availableBeats = newBpm
@@ -328,6 +379,7 @@ export const reducer = (
         return state
 
       const bpm = pendingBeatsPerMeasure(state)
+      const pickup = pendingPickupBeats(state)
       const beats = Math.max(1, parseInt(state.pendingBeats, 10) || 0)
       const bars = [...state.pendingSection.bars]
       const i = bars.length - 1
@@ -335,41 +387,45 @@ export const reducer = (
 
       let position = 1
       if (lastBar) {
-        const rem = remainingBeats(lastBar, bpm)
+        const rem = remainingBeats(lastBar, barCapacity(bpm, i, pickup))
         if (beats <= rem) position = lastBar.blocks.length + 1
       }
+
+      const targetIndex = lastBar
+        ? remainingBeats(lastBar, barCapacity(bpm, i, pickup)) >= beats
+          ? i
+          : i + 1
+        : 0
+      const targetCap = barCapacity(bpm, targetIndex, pickup)
 
       const newBlock: Block = {
         ...state.pendingBlock,
         id: uuidv4(),
-        duration: Math.min(beats, bpm),
+        duration: Math.min(beats, targetCap),
         position,
       }
 
       if (lastBar) {
-        const rem = remainingBeats(lastBar, bpm)
+        const rem = remainingBeats(lastBar, barCapacity(bpm, i, pickup))
         if (beats <= rem) {
           bars[i] = { ...lastBar, blocks: [...lastBar.blocks, newBlock] }
         } else {
           bars.push({
             id: uuidv4(),
-            blocks: [newBlock],
+            blocks: [{ ...newBlock, position: 1 }],
             position: bars.length + 1,
           })
         }
       } else {
         bars.push({
           id: uuidv4(),
-          blocks: [newBlock],
+          blocks: [{ ...newBlock, position: 1 }],
           position: 1,
         })
       }
 
       const filteredBars = bars.filter((bar) => bar.blocks.length > 0)
-      const lastAfter = filteredBars[filteredBars.length - 1]
-      const availableBeats = lastAfter
-        ? beatsCap(bpm, remainingBeats(lastAfter, bpm))
-        : beatsCap(bpm, bpm)
+      const availableBeats = availableFromBars(filteredBars, bpm, pickup)
 
       return {
         ...state,
@@ -384,16 +440,18 @@ export const reducer = (
       if (state.pendingSection.id === "") return state
 
       const bpm = pendingBeatsPerMeasure(state)
+      const pickup = pendingPickupBeats(state)
       const { blockId, duration } = action
       if (duration < 1 || duration > 12) return state
 
       let found = false
-      const updatedBars = state.pendingSection.bars.map((bar) => {
+      const updatedBars = state.pendingSection.bars.map((bar, barIndex) => {
         const blockIndex = bar.blocks.findIndex((b) => b.id === blockId)
         if (blockIndex === -1) return bar
 
+        const cap = barCapacity(bpm, barIndex, pickup)
         const block = bar.blocks[blockIndex]
-        const maxDuration = block.duration + remainingBeats(bar, bpm)
+        const maxDuration = block.duration + remainingBeats(bar, cap)
         if (duration > maxDuration) return bar
 
         found = true
@@ -404,10 +462,7 @@ export const reducer = (
 
       if (!found) return state
 
-      const lastBar = updatedBars[updatedBars.length - 1]
-      const availableBeats = lastBar
-        ? beatsCap(bpm, remainingBeats(lastBar, bpm))
-        : beatsCap(bpm, bpm)
+      const availableBeats = availableFromBars(updatedBars, bpm, pickup)
 
       return {
         ...state,
@@ -494,6 +549,7 @@ export const reducer = (
       if (state.pendingSection.id === "") return state
 
       const bpm = pendingBeatsPerMeasure(state)
+      const pickup = pendingPickupBeats(state)
 
       let updatedBars = state.pendingSection.bars
         .map((bar) => {
@@ -512,10 +568,7 @@ export const reducer = (
         position: index + 1,
       }))
 
-      const lastAfterDelete = updatedBars[updatedBars.length - 1]
-      const availableBeats = lastAfterDelete
-        ? beatsCap(bpm, remainingBeats(lastAfterDelete, bpm))
-        : beatsCap(bpm, bpm)
+      const availableBeats = availableFromBars(updatedBars, bpm, pickup)
 
       return {
         ...state,
@@ -664,8 +717,35 @@ export const reducer = (
         state.song.timeSignature,
         nextPending.timeSignature,
       ).beatsPerMeasure
-      const bars = repackBarsToCapacity(nextPending.bars, bpm)
-      const availableBeats = availableFromBars(bars, bpm)
+      const pickup = normalizePickupBeats(nextPending.pickupBeats, bpm)
+      const { pickupBeats: __, ...withoutPickup } = nextPending
+      const normalized: PendingSongSection = {
+        ...withoutPickup,
+        ...(pickup != null ? { pickupBeats: pickup } : {}),
+      }
+      const bars = repackBarsToCapacity(normalized.bars, bpm, pickup)
+      const availableBeats = availableFromBars(bars, bpm, pickup)
+
+      return {
+        ...state,
+        pendingSection: { ...normalized, bars },
+        availableBeats,
+        pendingBeats: nextBeatsValue(availableBeats),
+      }
+    }
+
+    case "SET_PENDING_SECTION_PICKUP_BEATS": {
+      if (state.pendingSection.id === "") return state
+
+      const bpm = pendingBeatsPerMeasure(state)
+      const pickup = normalizePickupBeats(action.v, bpm)
+      const { pickupBeats: _, ...rest } = state.pendingSection
+      const nextPending: PendingSongSection = {
+        ...rest,
+        ...(pickup != null ? { pickupBeats: pickup } : {}),
+      }
+      const bars = repackBarsToCapacity(nextPending.bars, bpm, pickup)
+      const availableBeats = availableFromBars(bars, bpm, pickup)
 
       return {
         ...state,
@@ -705,15 +785,10 @@ export const reducer = (
           })),
         })),
         repeats: state.pendingSection.repeats,
-        ...(state.pendingSection.label?.trim()
-          ? { label: state.pendingSection.label.trim() }
-          : {}),
-        ...(typeof state.pendingSection.cueTime === "number"
-          ? { cueTime: state.pendingSection.cueTime }
-          : {}),
-        ...(state.pendingSection.timeSignature
-          ? { timeSignature: { ...state.pendingSection.timeSignature } }
-          : {}),
+        ...sectionOptionalFields(
+          state.pendingSection,
+          state.song.timeSignature,
+        ),
       }
 
       const bpm = state.song.timeSignature.beatsPerMeasure
@@ -777,11 +852,9 @@ export const reducer = (
         state.song.timeSignature,
         sectionToEdit?.timeSignature,
       ).beatsPerMeasure
+      const pickup = normalizePickupBeats(sectionToEdit?.pickupBeats, bpm)
       const bars = sectionToEdit?.bars ?? []
-      const lastBar = bars[bars.length - 1]
-      const availableBeats = lastBar
-        ? beatsCap(bpm, remainingBeats(lastBar, bpm))
-        : beatsCap(bpm, bpm)
+      const availableBeats = availableFromBars(bars, bpm, pickup)
 
       return {
         ...state,
@@ -814,19 +887,15 @@ export const reducer = (
       )
         return state
 
-      const label = state.pendingSection.label?.trim()
       const updated: SongSection = {
         id: state.pendingSection.id,
         type: state.pendingSection.type,
         bars: state.pendingSection.bars,
         repeats: state.pendingSection.repeats,
-        ...(label ? { label } : {}),
-        ...(typeof state.pendingSection.cueTime === "number"
-          ? { cueTime: state.pendingSection.cueTime }
-          : {}),
-        ...(state.pendingSection.timeSignature
-          ? { timeSignature: { ...state.pendingSection.timeSignature } }
-          : {}),
+        ...sectionOptionalFields(
+          state.pendingSection,
+          state.song.timeSignature,
+        ),
       }
 
       return {

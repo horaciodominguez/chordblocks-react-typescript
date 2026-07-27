@@ -21,7 +21,7 @@ import { Fragment, useState } from "react"
 import { createPortal } from "react-dom"
 import type { Bar } from "../../types/bar.types"
 import type { TimeSignature } from "../../types/song.types"
-import { allowedBlockDurations } from "../../utils/beats"
+import { allowedBlockDurations, barCapacity } from "../../utils/beats"
 import { BarSeparator } from "../ui/BarSeparator"
 import SectionChords from "../ui/SectionBlocks"
 import type { Block as BlockType } from "@/modules/songs/types/block.types"
@@ -29,6 +29,8 @@ import { Block } from "../Block"
 
 type Props = {
   bar: Bar
+  barIndex: number
+  pickupBeats?: number
   timeSignature: TimeSignature
   onReorder?: (barId: string, blocks: BlockType[]) => void
   onDeleteChord?: (chordId: string) => void
@@ -37,10 +39,12 @@ type Props = {
   onUpdateRefTime?: (blockId: string, refTime: number | undefined) => void
   hasYoutubeUrl?: boolean
   showMeasureSeparator?: boolean
+  isPickup?: boolean
 }
 
 function SortableBlock({
   bar,
+  barCapacityBeats,
   block,
   timeSignature,
   onDeleteChord,
@@ -50,6 +54,7 @@ function SortableBlock({
   hasYoutubeUrl,
 }: {
   bar: Bar
+  barCapacityBeats: number
   block: BlockType
   timeSignature: TimeSignature
   onDeleteChord?: (chordId: string) => void
@@ -102,7 +107,7 @@ function SortableBlock({
       durationOptions={allowedBlockDurations(
         bar,
         block.id,
-        timeSignature.beatsPerMeasure,
+        barCapacityBeats,
       )}
     />
   )
@@ -110,6 +115,8 @@ function SortableBlock({
 
 export default function ChordsReorder({
   bar,
+  barIndex = 0,
+  pickupBeats,
   timeSignature,
   onReorder,
   onDeleteChord,
@@ -118,7 +125,13 @@ export default function ChordsReorder({
   onUpdateRefTime,
   hasYoutubeUrl,
   showMeasureSeparator = false,
+  isPickup = false,
 }: Props) {
+  const capacity = barCapacity(
+    timeSignature.beatsPerMeasure,
+    barIndex,
+    pickupBeats,
+  )
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: { distance: 8 },
@@ -150,12 +163,16 @@ export default function ChordsReorder({
         items={bar.blocks.map((c) => c.id)}
         strategy={horizontalListSortingStrategy}
       >
-        <SectionChords showMeasureSeparator={showMeasureSeparator}>
+        <SectionChords
+          showMeasureSeparator={showMeasureSeparator}
+          isPickup={isPickup}
+        >
           {bar.blocks.map((block, blockIndex) => (
             <Fragment key={block.id}>
               {blockIndex > 0 && <BarSeparator />}
               <SortableBlock
                 bar={bar}
+                barCapacityBeats={capacity}
                 block={block}
                 timeSignature={timeSignature}
                 onDeleteChord={onDeleteChord}

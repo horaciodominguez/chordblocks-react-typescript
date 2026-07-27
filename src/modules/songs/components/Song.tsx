@@ -383,6 +383,14 @@ export const Song = ({
                   {formatTimeSignature(section.timeSignature)}
                 </span>
               ) : null}
+              {section.pickupBeats ? (
+                <span
+                  className="text-[10px] font-semibold tabular-nums text-cyan-400/90 select-none light:text-cyan-700 stage:text-zinc-300"
+                  title="Pickup / anacrusis"
+                >
+                  Pickup {section.pickupBeats}
+                </span>
+              ) : null}
             </div>
             <Section
               section={section}
