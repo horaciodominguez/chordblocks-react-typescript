@@ -5,6 +5,8 @@ import type {
 } from "@/modules/songs/state/songFormReducer"
 import {
   BLOCK_BEAT_VALUES,
+  BEAT_VALUES,
+  noteValues,
   SECTION_OPTIONS,
 } from "@/modules/songs/constants/song"
 import type {
@@ -19,6 +21,7 @@ import type React from "react"
 import { BlockPicker, REST_TOKEN, riffToken, SOLO_TOKEN } from "./BlockPicker"
 import Input from "@/components/ui/Input"
 import InputField from "@/components/ui/InputField"
+import { effectiveTimeSignature } from "@/modules/songs/utils/effectiveTimeSignature"
 import {
   formatCueTime,
   parseCueTimeInput,
@@ -33,6 +36,11 @@ type Props = {
 
 export function SectionEditor({ state, dispatch, onStopEditing }: Props) {
   const [cueDraft, setCueDraft] = useState("")
+  const sectionTs = effectiveTimeSignature(
+    state.song.timeSignature,
+    state.pendingSection.timeSignature,
+  )
+  const hasMeterOverride = state.pendingSection.timeSignature != null
 
   useEffect(() => {
     setCueDraft(
@@ -176,10 +184,76 @@ export function SectionEditor({ state, dispatch, onStopEditing }: Props) {
 
       {state.pendingSection.id !== "" && (
         <div className="mb-4">
+          <div className="flex flex-col sm:flex-row gap-3 items-end">
+            <div className="flex gap-3 w-full sm:w-auto">
+              <div className="flex-1 sm:w-24">
+                <Select
+                  name="sectionBeatsPerMeasure"
+                  label="Section beats"
+                  options={BEAT_VALUES}
+                  value={sectionTs.beatsPerMeasure.toString()}
+                  onChange={(e) => {
+                    dispatch({
+                      type: "SET_PENDING_SECTION_TIME_SIGNATURE",
+                      v: {
+                        beatsPerMeasure: parseInt(e.target.value, 10),
+                        noteValue: sectionTs.noteValue,
+                      },
+                    })
+                  }}
+                />
+              </div>
+              <div className="flex-1 sm:w-24">
+                <Select
+                  name="sectionNoteValue"
+                  label="Section note"
+                  options={noteValues}
+                  value={sectionTs.noteValue.toString()}
+                  onChange={(e) => {
+                    dispatch({
+                      type: "SET_PENDING_SECTION_TIME_SIGNATURE",
+                      v: {
+                        beatsPerMeasure: sectionTs.beatsPerMeasure,
+                        noteValue: parseInt(e.target.value, 10),
+                      },
+                    })
+                  }}
+                />
+              </div>
+            </div>
+            {hasMeterOverride ? (
+              <Button
+                type="button"
+                variant="secondary"
+                className="min-h-11 shrink-0"
+                onClick={() =>
+                  dispatch({
+                    type: "SET_PENDING_SECTION_TIME_SIGNATURE",
+                    v: undefined,
+                  })
+                }
+              >
+                Use song {state.song.timeSignature.beatsPerMeasure}/
+                {state.song.timeSignature.noteValue}
+              </Button>
+            ) : (
+              <p className="text-xs text-zinc-500 pb-2 light:text-zinc-600">
+                Using song default (
+                {state.song.timeSignature.beatsPerMeasure}/
+                {state.song.timeSignature.noteValue}). Change selects to
+                override.
+              </p>
+            )}
+          </div>
+        </div>
+      )}
+
+      {state.pendingSection.id !== "" && (
+        <div className="mb-4">
           <div className="flex flex-col sm:flex-row gap-4">
             <div className="w-full sm:w-1/2">
               <BlockPicker
-                beatsPerMeasure={state.song.timeSignature.beatsPerMeasure}
+                beatsPerMeasure={sectionTs.beatsPerMeasure}
                 label="Block"
                 onSelect={(chordName, voicing) =>
                   dispatch({
@@ -266,11 +340,16 @@ export function SectionEditor({ state, dispatch, onStopEditing }: Props) {
                 ×{state.pendingSection.repeats}
               </span>
             )}
+            {hasMeterOverride ? (
+              <span className="text-[10px] font-semibold tabular-nums text-violet-400 light:text-violet-700">
+                {sectionTs.beatsPerMeasure}/{sectionTs.noteValue}
+              </span>
+            ) : null}
           </div>
 
           <BarsReorder
             section={state.pendingSection as SongSection}
-            timeSignature={state.song.timeSignature}
+            timeSignature={sectionTs}
             onReorder={(newBars) =>
               dispatch({
                 type: "REORDER_BARS_IN_SECTION",

@@ -14,6 +14,10 @@ import { SectionEditor } from "./SectionEditor"
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog"
 import SectionsReorder from "./SectionsReorder"
 import { formatCueTime } from "@/modules/songs/utils/scrollSync"
+import {
+  effectiveTimeSignature,
+  formatTimeSignature,
+} from "@/modules/songs/utils/effectiveTimeSignature"
 
 type Props = {
   dispatch: React.Dispatch<Action>
@@ -66,6 +70,14 @@ export function SongFormPendingSection({ dispatch, state }: Props) {
                       Sync {formatCueTime(section.cueTime)}
                     </span>
                   ) : null}
+                  {section.timeSignature ? (
+                    <span
+                      className="text-[10px] font-semibold tabular-nums text-violet-400 light:text-violet-700"
+                      title="Section meter override"
+                    >
+                      {formatTimeSignature(section.timeSignature)}
+                    </span>
+                  ) : null}
                   <button
                     type="button"
                     aria-label={`Edit ${section.type} section`}
@@ -116,7 +128,10 @@ export function SongFormPendingSection({ dispatch, state }: Props) {
                 {section.id !== state?.editingSectionId ? (
                   <Section
                     section={section}
-                    timeSignature={state.song.timeSignature}
+                    timeSignature={effectiveTimeSignature(
+                      state.song.timeSignature,
+                      section.timeSignature,
+                    )}
                   />
                 ) : (
                   <SectionEditor

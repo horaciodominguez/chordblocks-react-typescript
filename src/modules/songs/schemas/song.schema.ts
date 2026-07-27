@@ -67,6 +67,11 @@ export const BarSchema = z.object({
   position: z.number().int().min(1, "Min position is 1"),
 })
 
+export const TimeSignatureSchema = z.object({
+  beatsPerMeasure: oneOfNumbers(BEAT_VALUES, "Beats must be one of 2-12"),
+  noteValue: oneOfNumbers(noteValues, "Note value must be 2, 4 or 8"),
+})
+
 export const SectionSchema = z.object({
   id: z.string(),
   type: z.enum(SECTION_OPTIONS),
@@ -81,11 +86,7 @@ export const SectionSchema = z.object({
     const n = typeof v === "number" ? v : Number(v)
     return Number.isFinite(n) ? n : undefined
   }, z.number().int().min(0).max(3 * 60 * 60).optional()),
-})
-
-export const TimeSignatureSchema = z.object({
-  beatsPerMeasure: oneOfNumbers(BEAT_VALUES, "Beats must be one of 2-12"),
-  noteValue: oneOfNumbers(noteValues, "Note value must be 2, 4 or 8"),
+  timeSignature: TimeSignatureSchema.optional(),
 })
 
 export const SongSchema = z.object({

@@ -39,9 +39,6 @@ export function SongFormMeta({ dispatch, state, song }: Props) {
     reader.readAsDataURL(file)
   }
 
-  const timeSigDisabled =
-    state.song.songSections.length > 0 || state.pendingSection.id !== ""
-
   return (
     <>
       <div className="mb-4">
@@ -98,8 +95,7 @@ export function SongFormMeta({ dispatch, state, song }: Props) {
                 })
               }}
               value={song.timeSignature.beatsPerMeasure.toString()}
-              disabled={timeSigDisabled}
-              disabledMessage="Cannot change time signature after adding sections. Delete sections to change."
+              disabled={false}
               tabIndex={3}
             />
           </div>
@@ -118,13 +114,19 @@ export function SongFormMeta({ dispatch, state, song }: Props) {
                 })
               }}
               value={song.timeSignature.noteValue.toString()}
-              disabled={timeSigDisabled}
-              disabledMessage="Cannot change time signature after adding sections. Delete sections to change."
+              disabled={false}
               tabIndex={4}
             />
           </div>
         </div>
       </div>
+      {(state.song.songSections.length > 0 ||
+        state.pendingSection.id !== "") && (
+        <p className="text-xs text-zinc-500 -mt-2 mb-4 light:text-zinc-600">
+          Song meter is the default. Sections without their own meter are
+          re-packed if you change Beats.
+        </p>
+      )}
 
       <div className="mb-4 flex flex-col sm:flex-row gap-3">
         <div className="w-full sm:flex-1">

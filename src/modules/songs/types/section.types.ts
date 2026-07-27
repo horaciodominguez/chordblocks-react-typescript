@@ -1,6 +1,7 @@
 import { SECTION_OPTIONS } from "@/modules/songs/constants/song"
 
 import type { Bar } from "./bar.types"
+import type { TimeSignature } from "./song.types"
 
 export type SectionType = (typeof SECTION_OPTIONS)[number]
 
@@ -16,6 +17,8 @@ export interface SongSection {
    * Optional — unmarked sections are skipped; scroll stops at the last cue.
    */
   cueTime?: number
+  /** Optional meter override; omit to use Song.timeSignature. */
+  timeSignature?: TimeSignature
 }
 
 export type PendingSectionType = SectionType | ""
@@ -27,4 +30,5 @@ export interface PendingSongSection {
   bars: Bar[]
   repeats: number
   cueTime?: number
+  timeSignature?: TimeSignature
 }

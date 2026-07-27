@@ -3,6 +3,10 @@ import type { SongDensity } from "@/modules/songs/types/density.types"
 import type { AtrilFontScale } from "@/modules/songs/types/fontScale.types"
 import { SectionTag } from "@/modules/songs/components/ui/SectionTag"
 import { formatCueTime } from "@/modules/songs/utils/scrollSync"
+import {
+  effectiveTimeSignature,
+  formatTimeSignature,
+} from "@/modules/songs/utils/effectiveTimeSignature"
 import { FontScaleControl } from "@/modules/songs/components/ui/FontScaleControl"
 import { panelFlatClass } from "@/components/ui/Panel"
 import { Section } from "./Section"
@@ -374,10 +378,18 @@ export const Song = ({
                   {formatCueTime(section.cueTime)}
                 </span>
               ) : null}
+              {section.timeSignature ? (
+                <span className="text-[10px] font-semibold tabular-nums text-violet-400/90 select-none light:text-violet-700 stage:text-zinc-300">
+                  {formatTimeSignature(section.timeSignature)}
+                </span>
+              ) : null}
             </div>
             <Section
               section={section}
-              timeSignature={displaySong.timeSignature}
+              timeSignature={effectiveTimeSignature(
+                displaySong.timeSignature,
+                section.timeSignature,
+              )}
               showDiagram={diagramsEnabled}
               density={effectiveDensity}
             />

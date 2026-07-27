@@ -6,6 +6,8 @@ import type {
 } from "@/modules/songs/types/song.types"
 
 import { beatsCap, nextBeatsValue, remainingBeats } from "../utils/beats"
+import { effectiveTimeSignature } from "../utils/effectiveTimeSignature"
+import { repackBarsToCapacity } from "../utils/repackBarsToCapacity"
 import type {
   PendingSongSection,
   SectionType,
@@ -72,6 +74,10 @@ export type Action =
   | { type: "SET_PENDING_SECTION_REPEATS"; v: number }
   | { type: "SET_PENDING_SECTION_LABEL"; v: string | undefined }
   | { type: "SET_PENDING_SECTION_CUE_TIME"; v: number | undefined }
+  | {
+      type: "SET_PENDING_SECTION_TIME_SIGNATURE"
+      v: TimeSignature | undefined
+    }
   | { type: "CANCEL_SECTION" }
   | { type: "FINALIZE_SECTION" }
   | { type: "RESET" }
@@ -98,6 +104,23 @@ export const initialSong: SongType = {
   songSections: [] as SongSection[],
   createdAt: new Date().toISOString(),
   updatedAt: new Date().toISOString(),
+}
+
+function pendingBeatsPerMeasure(state: SongFormState): number {
+  return effectiveTimeSignature(
+    state.song.timeSignature,
+    state.pendingSection.timeSignature,
+  ).beatsPerMeasure
+}
+
+function availableFromBars(
+  bars: { blocks: { duration: number }[] }[],
+  bpm: number,
+): number {
+  const lastBar = bars[bars.length - 1]
+  if (!lastBar) return beatsCap(bpm, bpm)
+  const used = lastBar.blocks.reduce((a, c) => a + c.duration, 0)
+  return beatsCap(bpm, bpm - used)
 }
 
 export const reducer = (
@@ -147,14 +170,52 @@ export const reducer = (
       }
     }
 
-    case "SET_TIME_SIGNATURE":
+    case "SET_TIME_SIGNATURE": {
+      const nextSongTs = { ...state.song.timeSignature, ...action.v }
+      const oldBpm = state.song.timeSignature.beatsPerMeasure
+      const newBpm = nextSongTs.beatsPerMeasure
+
+      const songSections =
+        oldBpm === newBpm
+          ? state.song.songSections
+          : state.song.songSections.map((section) => {
+              if (section.timeSignature) return section
+              return {
+                ...section,
+                bars: repackBarsToCapacity(section.bars, newBpm),
+              }
+            })
+
+      let pendingSection = state.pendingSection
+      let availableBeats = state.availableBeats
+      let pendingBeats = state.pendingBeats
+
+      if (
+        pendingSection.id !== "" &&
+        !pendingSection.timeSignature &&
+        oldBpm !== newBpm
+      ) {
+        const bars = repackBarsToCapacity(pendingSection.bars, newBpm)
+        pendingSection = { ...pendingSection, bars }
+        availableBeats = availableFromBars(bars, newBpm)
+        pendingBeats = nextBeatsValue(availableBeats)
+      } else if (pendingSection.id === "") {
+        availableBeats = newBpm
+        pendingBeats = String(newBpm)
+      }
+
       return {
         ...state,
         song: {
           ...state.song,
-          timeSignature: { ...state.song.timeSignature, ...action.v },
+          timeSignature: nextSongTs,
+          songSections,
         },
+        pendingSection,
+        availableBeats,
+        pendingBeats,
       }
+    }
 
     case "SET_IMAGE_BASE64":
       return {
@@ -266,7 +327,7 @@ export const reducer = (
       )
         return state
 
-      const bpm = state.song.timeSignature.beatsPerMeasure
+      const bpm = pendingBeatsPerMeasure(state)
       const beats = Math.max(1, parseInt(state.pendingBeats, 10) || 0)
       const bars = [...state.pendingSection.bars]
       const i = bars.length - 1
@@ -281,7 +342,7 @@ export const reducer = (
       const newBlock: Block = {
         ...state.pendingBlock,
         id: uuidv4(),
-        duration: beats,
+        duration: Math.min(beats, bpm),
         position,
       }
 
@@ -322,7 +383,7 @@ export const reducer = (
     case "UPDATE_BLOCK_DURATION": {
       if (state.pendingSection.id === "") return state
 
-      const bpm = state.song.timeSignature.beatsPerMeasure
+      const bpm = pendingBeatsPerMeasure(state)
       const { blockId, duration } = action
       if (duration < 1 || duration > 12) return state
 
@@ -432,7 +493,7 @@ export const reducer = (
     case "DELETE_BLOCK": {
       if (state.pendingSection.id === "") return state
 
-      const bpm = state.song.timeSignature.beatsPerMeasure
+      const bpm = pendingBeatsPerMeasure(state)
 
       let updatedBars = state.pendingSection.bars
         .map((bar) => {
@@ -590,6 +651,30 @@ export const reducer = (
       }
     }
 
+    case "SET_PENDING_SECTION_TIME_SIGNATURE": {
+      if (state.pendingSection.id === "") return state
+
+      const { timeSignature: _, ...rest } = state.pendingSection
+      const nextPending: PendingSongSection =
+        action.v !== undefined
+          ? { ...state.pendingSection, timeSignature: { ...action.v } }
+          : { ...rest }
+
+      const bpm = effectiveTimeSignature(
+        state.song.timeSignature,
+        nextPending.timeSignature,
+      ).beatsPerMeasure
+      const bars = repackBarsToCapacity(nextPending.bars, bpm)
+      const availableBeats = availableFromBars(bars, bpm)
+
+      return {
+        ...state,
+        pendingSection: { ...nextPending, bars },
+        availableBeats,
+        pendingBeats: nextBeatsValue(availableBeats),
+      }
+    }
+
     case "CANCEL_SECTION": {
       return {
         ...state,
@@ -625,6 +710,9 @@ export const reducer = (
           : {}),
         ...(typeof state.pendingSection.cueTime === "number"
           ? { cueTime: state.pendingSection.cueTime }
+          : {}),
+        ...(state.pendingSection.timeSignature
+          ? { timeSignature: { ...state.pendingSection.timeSignature } }
           : {}),
       }
 
@@ -685,7 +773,10 @@ export const reducer = (
       const sectionToEdit = state.song.songSections.find(
         (s) => s.id === action.v,
       )
-      const bpm = state.song.timeSignature.beatsPerMeasure
+      const bpm = effectiveTimeSignature(
+        state.song.timeSignature,
+        sectionToEdit?.timeSignature,
+      ).beatsPerMeasure
       const bars = sectionToEdit?.bars ?? []
       const lastBar = bars[bars.length - 1]
       const availableBeats = lastBar
@@ -732,6 +823,9 @@ export const reducer = (
         ...(label ? { label } : {}),
         ...(typeof state.pendingSection.cueTime === "number"
           ? { cueTime: state.pendingSection.cueTime }
+          : {}),
+        ...(state.pendingSection.timeSignature
+          ? { timeSignature: { ...state.pendingSection.timeSignature } }
           : {}),
       }
 
