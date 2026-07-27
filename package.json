@@ -22,6 +22,8 @@
     "preview": "vite preview",
     "test": "vitest run",
     "generate:chords-sprite": "node scripts/generate-chords-sprite.mjs",
+    "generate:chord-shapes": "node scripts/generate-chord-shapes-json.mjs",
+    "generate:chords": "npm run generate:chords-sprite && npm run generate:chord-shapes",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },

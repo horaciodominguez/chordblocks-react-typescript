@@ -19,6 +19,7 @@ import { SectionTag } from "@/modules/songs/components/ui/SectionTag"
 import BarsReorder from "./BarsReorder"
 import type React from "react"
 import { BlockPicker, REST_TOKEN, riffToken, SOLO_TOKEN } from "./BlockPicker"
+import { feelToken, feelMarkerLabel, isFeelMarkerId, type FeelMarkerId } from "@/modules/songs/constants/feel"
 import Input from "@/components/ui/Input"
 import InputField from "@/components/ui/InputField"
 import { effectiveTimeSignature } from "@/modules/songs/utils/effectiveTimeSignature"
@@ -302,7 +303,10 @@ export function SectionEditor({ state, dispatch, onStopEditing }: Props) {
                         ? SOLO_TOKEN
                         : state.pendingBlock.type === "riff"
                           ? riffToken(state.pendingBlock.label)
-                          : state.pendingBlock.chord?.name
+                          : state.pendingBlock.type === "feel" &&
+                              state.pendingBlock.label
+                            ? feelToken(state.pendingBlock.label as FeelMarkerId)
+                            : state.pendingBlock.chord?.name
                     : undefined
                 }
               />
@@ -332,6 +336,7 @@ export function SectionEditor({ state, dispatch, onStopEditing }: Props) {
         (state.pendingBlock.type === "rest" ||
           state.pendingBlock.type === "riff" ||
           state.pendingBlock.type === "solo" ||
+          state.pendingBlock.type === "feel" ||
           !!state.pendingBlock.chord?.name) && (
           <div className="mb-4 flex gap-4 mt-4 justify-end">
             <Button
@@ -348,7 +353,11 @@ export function SectionEditor({ state, dispatch, onStopEditing }: Props) {
                       ? "Solo"
                       : pb?.type === "riff"
                         ? pb.label?.trim() || "Riff"
-                        : (pb?.chord?.name ?? "Block")
+                        : pb?.type === "feel" &&
+                            pb.label &&
+                            isFeelMarkerId(pb.label)
+                          ? feelMarkerLabel(pb.label)
+                          : (pb?.chord?.name ?? "Block")
                 toast.info(`Block ${label} added to pending section`)
               }}
             >

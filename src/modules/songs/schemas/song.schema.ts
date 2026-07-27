@@ -1,5 +1,6 @@
 import { z } from "zod"
 import { SECTION_OPTIONS, BEAT_VALUES, noteValues } from "../constants/song"
+import { FEEL_MARKER_IDS } from "../constants/feel"
 import { isValidYouTubeUrl } from "../utils/youtube"
 
 const oneOfNumbers = (allowed: readonly number[], message: string) =>
@@ -69,11 +70,21 @@ const SoloBlockSchema = z.object({
   lyric: LyricSchema,
 })
 
+const FeelBlockSchema = z.object({
+  id: z.string(),
+  type: z.literal("feel"),
+  label: z.enum(FEEL_MARKER_IDS),
+  duration: z.number().int().min(1, "Min duration is 1").max(12, "Max is 12"),
+  position: z.number().int().min(1, "Min position is 1"),
+  lyric: LyricSchema,
+})
+
 export const BlockSchema = z.discriminatedUnion("type", [
   ChordBlockSchema,
   RestBlockSchema,
   RiffBlockSchema,
   SoloBlockSchema,
+  FeelBlockSchema,
 ])
 
 export const BarSchema = z.object({

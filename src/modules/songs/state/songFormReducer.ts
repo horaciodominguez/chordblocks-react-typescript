@@ -15,6 +15,7 @@ import type {
 } from "../types/section.types"
 
 import type { Block } from "@/modules/songs/types/block.types"
+import { isFeelMarkerId } from "@/modules/songs/constants/feel"
 import {
   bakeTranspose,
   transposeChordName,
@@ -345,6 +346,22 @@ export const reducer = (
             duration: 0,
             position: 0,
             ...(inner ? { label: inner } : {}),
+          } as Block,
+        }
+      }
+
+      const FEEL_PREFIX = "__FEEL:"
+      if (action.v.startsWith(FEEL_PREFIX) && action.v.endsWith("__")) {
+        const inner = action.v.slice(FEEL_PREFIX.length, -2)
+        if (!isFeelMarkerId(inner)) return state
+        return {
+          ...state,
+          pendingBlock: {
+            id: uuidv4(),
+            type: "feel",
+            duration: 0,
+            position: 0,
+            label: inner,
           } as Block,
         }
       }

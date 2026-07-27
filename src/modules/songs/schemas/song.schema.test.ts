@@ -134,4 +134,33 @@ describe("SongSchema riff/solo blocks", () => {
       expect(withLyric.data.songSections[0].bars[0].blocks[1].lyric).toBeUndefined()
     }
   })
+
+  it("accepts feel blocks", () => {
+    const result = SongSchema.safeParse({
+      ...baseSong,
+      songSections: [
+        {
+          id: "sec-1",
+          type: "VERSE",
+          repeats: 1,
+          bars: [
+            {
+              id: "bar-1",
+              position: 1,
+              blocks: [
+                {
+                  id: "b1",
+                  type: "feel",
+                  label: "stop",
+                  duration: 2,
+                  position: 1,
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    })
+    expect(result.success).toBe(true)
+  })
 })

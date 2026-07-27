@@ -9,6 +9,7 @@ import { LoginForm } from "@/modules/auth/components/LoginForm"
 import { LogoutButton } from "@/modules/auth/components/LogoutButton"
 import { SyncStatusIndicator } from "@/modules/auth/components/SyncStatusIndicator"
 import { ThemePicker } from "@/modules/ui/components/ThemePicker"
+import { ChordPreviewToggle } from "@/modules/chords/components/ChordPreviewToggle"
 
 const TABS = [
   { id: "data", label: "Data" },
@@ -119,6 +120,15 @@ export default function Settings() {
               Choose how ChordBlocks looks on this device.
             </p>
             <ThemePicker />
+          </div>
+          <div>
+            <h2 className="text-sm font-medium text-zinc-200 mb-1 light:text-zinc-900">
+              Editor sound
+            </h2>
+            <p className="text-sm text-zinc-500 mb-3 light:text-zinc-600">
+              Optional chord preview when building sections (not in Play mode).
+            </p>
+            <ChordPreviewToggle />
           </div>
         </div>
       )}

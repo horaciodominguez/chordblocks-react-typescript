@@ -9,13 +9,22 @@ import { VoicingDots } from "@/modules/chords/components/VoicingDots"
 import Rest from "@/modules/chords/components/Rest"
 import { RiffMarker } from "@/modules/chords/components/RiffMarker"
 import { SoloMarker } from "@/modules/chords/components/SoloMarker"
+import { FeelMarker } from "@/modules/chords/components/FeelMarker"
+import { playChordPreview } from "@/modules/chords/audio/playChordPreview"
 import {
   slashVariationsForPitch,
   voicingCount,
 } from "@/modules/chords/data/chordFingerings"
 import { chordsData } from "@/modules/chords/data/chords"
 import type { Chord as ChordType } from "@/modules/chords/types/chord.types"
+import {
+  FEEL_MARKER_IDS,
+  feelToken,
+  isFeelToken,
+  parseFeelToken,
+} from "@/modules/songs/constants/feel"
 import * as Dialog from "@radix-ui/react-dialog"
+import { Volume2 } from "lucide-react"
 import { useState } from "react"
 
 export const REST_TOKEN = "__REST__"
@@ -106,6 +115,8 @@ export function BlockPicker({
                 <SoloMarker />
               ) : isRiffToken(selectedValue) ? (
                 <RiffMarker label={selectedRiffLabel} />
+              ) : isFeelToken(selectedValue) ? (
+                <FeelMarker feelId={parseFeelToken(selectedValue)!} />
               ) : (
                 <span>
                   <Chord chord={selectedValue} asText={false} />
@@ -226,6 +237,22 @@ export function BlockPicker({
           </div>
         </div>
 
+        <Label>Feel</Label>
+        <div className="flex flex-wrap gap-2 mb-4">
+          {FEEL_MARKER_IDS.map((id) => (
+            <Dialog.Close asChild key={id}>
+              <Button
+                type="button"
+                variant="secondary"
+                onClick={() => onSelect(feelToken(id))}
+                className="min-h-11"
+              >
+                <FeelMarker feelId={id} />
+              </Button>
+            </Dialog.Close>
+          ))}
+        </div>
+
         <Label htmlFor="variants">Variants</Label>
         <div
           className="grid max-h-[50vh] grid-cols-2 gap-2 overflow-y-auto sm:grid-cols-3 md:grid-cols-4"
@@ -262,13 +289,27 @@ export function BlockPicker({
                   count={count}
                   active={active}
                   chordLabel={tile.chordName}
-                  onChange={(index) =>
+                  onChange={(index) => {
                     setTileVoicing((prev) => ({
                       ...prev,
                       [tile.chordName]: index,
                     }))
-                  }
+                  }}
                 />
+                <button
+                  type="button"
+                  aria-label={`Preview ${tile.chordName}`}
+                  title="Preview chord"
+                  onPointerDown={(e) => e.stopPropagation()}
+                  onClick={(e) => {
+                    e.preventDefault()
+                    e.stopPropagation()
+                    playChordPreview(tile.chordName, active)
+                  }}
+                  className="mt-1 flex items-center justify-center min-h-9 min-w-9 rounded-md text-zinc-400 hover:text-cyan-400 hover:bg-zinc-800/50 light:text-zinc-600 light:hover:text-cyan-700 light:hover:bg-zinc-100"
+                >
+                  <Volume2 className="w-4 h-4" />
+                </button>
               </div>
             )
           })}
