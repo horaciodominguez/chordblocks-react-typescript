@@ -2,11 +2,14 @@ import { useId } from "react"
 import * as Dialog from "@radix-ui/react-dialog"
 
 type AppDialogProps = {
-  trigger: React.ReactNode
+  /** Omit when using controlled `open` without a visible trigger. */
+  trigger?: React.ReactNode
   title?: string
   description?: string
   children: React.ReactNode
   className?: string
+  open?: boolean
+  onOpenChange?: (open: boolean) => void
 }
 
 export function AppDialog({
@@ -15,12 +18,15 @@ export function AppDialog({
   description,
   children,
   className = "",
+  open,
+  onOpenChange,
 }: AppDialogProps) {
   const descriptionId = useId()
+  const controlled = open !== undefined && onOpenChange !== undefined
 
   return (
-    <Dialog.Root>
-      <Dialog.Trigger asChild>{trigger}</Dialog.Trigger>
+    <Dialog.Root {...(controlled ? { open, onOpenChange } : {})}>
+      {trigger ? <Dialog.Trigger asChild>{trigger}</Dialog.Trigger> : null}
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 light:bg-zinc-900/40" />
         <Dialog.Content
@@ -42,7 +48,6 @@ export function AppDialog({
               {title}
             </Dialog.Title>
           )}
-          {/* Always render Description so Radix does not warn (sr-only when no copy). */}
           <Dialog.Description
             id={descriptionId}
             className={

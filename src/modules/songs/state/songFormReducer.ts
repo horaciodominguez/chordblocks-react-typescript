@@ -54,7 +54,8 @@ export type Action =
   | { type: "ADD_BLOCK_TEMPORARY"; v: string; voicing?: number }
   | { type: "ADD_REST" }
   | { type: "ADD_BEATS"; v: string }
-  | { type: "ADD_BLOCK" }
+  | { type: "ADD_BLOCK"; newBlockId?: string }
+  | { type: "CLEAR_PENDING_BLOCK" }
   | { type: "DELETE_BLOCK"; v: string }
   | { type: "UPDATE_BLOCK_DURATION"; blockId: string; duration: number }
   | {
@@ -392,6 +393,9 @@ export const reducer = (
     case "ADD_BEATS":
       return { ...state, pendingBeats: action.v }
 
+    case "CLEAR_PENDING_BLOCK":
+      return { ...state, pendingBlock: undefined }
+
     case "ADD_BLOCK": {
       if (
         state.pendingSection.id === "" ||
@@ -422,7 +426,7 @@ export const reducer = (
 
       const newBlock: Block = {
         ...state.pendingBlock,
-        id: uuidv4(),
+        id: action.newBlockId ?? uuidv4(),
         duration: Math.min(beats, targetCap),
         position,
       }

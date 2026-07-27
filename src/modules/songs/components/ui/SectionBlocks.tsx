@@ -19,7 +19,7 @@ export default function SectionBlocks({
 }: Props) {
   return (
     <div
-      className={`relative flex w-full items-stretch py-2 min-w-0 guide:min-w-min guide:py-1.5 guide:pr-2 ${
+      className={`relative flex h-full w-full items-stretch py-2 min-w-0 guide:min-w-min guide:py-1.5 guide:pr-2 ${
         showMeasureSeparator ? measureSeparatorClass : ""
       } ${isPickup ? pickupClass : ""}`}
     >

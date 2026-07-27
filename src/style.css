@@ -62,6 +62,8 @@
   --animate-section-highlight: song-section-highlight 550ms ease-in-out 3;
   --animate-section-highlight-light: song-section-highlight-light 550ms
     ease-in-out 3;
+  --animate-block-commit: block-commit-flash 600ms ease-out 1;
+  --animate-block-commit-light: block-commit-flash-light 600ms ease-out 1;
 }
 
 @keyframes song-section-highlight {
@@ -87,6 +89,30 @@
   50% {
     background-color: color-mix(in srgb, #4f46e5 12%, transparent);
     box-shadow: 0 0 0 2px color-mix(in srgb, #6366f1 35%, transparent);
+  }
+}
+
+@keyframes block-commit-flash {
+  0% {
+    background-color: color-mix(in srgb, #6366f1 28%, transparent);
+    box-shadow: 0 0 0 2px color-mix(in srgb, #818cf8 70%, transparent);
+  }
+
+  100% {
+    background-color: transparent;
+    box-shadow: 0 0 0 0 transparent;
+  }
+}
+
+@keyframes block-commit-flash-light {
+  0% {
+    background-color: color-mix(in srgb, #4f46e5 18%, transparent);
+    box-shadow: 0 0 0 2px color-mix(in srgb, #6366f1 45%, transparent);
+  }
+
+  100% {
+    background-color: transparent;
+    box-shadow: 0 0 0 0 transparent;
   }
 }
 

@@ -17,7 +17,7 @@ import {
   useSortable,
 } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
-import { Fragment, useState } from "react"
+import { Fragment, useState, type ReactNode } from "react"
 import { createPortal } from "react-dom"
 import type { Bar } from "../../types/bar.types"
 import type { TimeSignature } from "../../types/song.types"
@@ -41,6 +41,10 @@ type Props = {
   hasYoutubeUrl?: boolean
   showMeasureSeparator?: boolean
   isPickup?: boolean
+  /** Briefly highlight a newly committed block. */
+  flashBlockId?: string | null
+  /** Trailing UI in this bar’s flex row (e.g. Add Block filling remaining beats). */
+  endSlot?: ReactNode
 }
 
 function SortableBlock({
@@ -54,6 +58,7 @@ function SortableBlock({
   onUpdateRefTime,
   onUpdateLyric,
   hasYoutubeUrl,
+  flash,
 }: {
   bar: Bar
   barCapacityBeats: number
@@ -65,6 +70,7 @@ function SortableBlock({
   onUpdateRefTime?: (blockId: string, refTime: number | undefined) => void
   onUpdateLyric?: (blockId: string, lyric: string | undefined) => void
   hasYoutubeUrl?: boolean
+  flash?: boolean
 }) {
   const {
     attributes,
@@ -80,6 +86,11 @@ function SortableBlock({
       ref={setNodeRef}
       timeSignature={timeSignature}
       block={block}
+      className={
+        flash
+          ? "rounded-md motion-safe:animate-block-commit motion-safe:light:animate-block-commit-light"
+          : undefined
+      }
       dragStyle={{
         transform: CSS.Transform.toString(transform),
         transition,
@@ -135,6 +146,8 @@ export default function ChordsReorder({
   hasYoutubeUrl,
   showMeasureSeparator = false,
   isPickup = false,
+  flashBlockId,
+  endSlot,
 }: Props) {
   const capacity = barCapacity(
     timeSignature.beatsPerMeasure,
@@ -190,9 +203,11 @@ export default function ChordsReorder({
                 onUpdateRefTime={onUpdateRefTime}
                 onUpdateLyric={onUpdateLyric}
                 hasYoutubeUrl={hasYoutubeUrl}
+                flash={flashBlockId === block.id}
               />
             </Fragment>
           ))}
+          {endSlot}
         </SectionChords>
       </SortableContext>
 

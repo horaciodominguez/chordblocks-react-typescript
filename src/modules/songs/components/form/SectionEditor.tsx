@@ -18,8 +18,13 @@ import { toast } from "sonner"
 import { SectionTag } from "@/modules/songs/components/ui/SectionTag"
 import BarsReorder from "./BarsReorder"
 import type React from "react"
-import { BlockPicker, REST_TOKEN, riffToken, SOLO_TOKEN } from "./BlockPicker"
-import { feelToken, feelMarkerLabel, isFeelMarkerId, type FeelMarkerId } from "@/modules/songs/constants/feel"
+import { BlockPicker } from "./BlockPicker"
+import { AddBlockSlot } from "./AddBlockSlot"
+import { DraftBlockInsert } from "./DraftBlockInsert"
+import {
+  feelMarkerLabel,
+  isFeelMarkerId,
+} from "@/modules/songs/constants/feel"
 import Input from "@/components/ui/Input"
 import InputField from "@/components/ui/InputField"
 import { effectiveTimeSignature } from "@/modules/songs/utils/effectiveTimeSignature"
@@ -27,7 +32,9 @@ import {
   formatCueTime,
   parseCueTimeInput,
 } from "@/modules/songs/utils/scrollSync"
+import { nextBeatsValue, remainingBeats, barCapacity } from "@/modules/songs/utils/beats"
 import { useEffect, useState } from "react"
+import { v4 as uuidv4 } from "uuid"
 
 type Props = {
   dispatch: React.Dispatch<Action>
@@ -35,13 +42,49 @@ type Props = {
   onStopEditing: () => void
 }
 
+function hasConfirmablePendingBlock(
+  block: SongFormState["pendingBlock"],
+): boolean {
+  if (!block) return false
+  return (
+    block.type === "rest" ||
+    block.type === "riff" ||
+    block.type === "solo" ||
+    block.type === "feel" ||
+    !!block.chord?.name
+  )
+}
+
 export function SectionEditor({ state, dispatch, onStopEditing }: Props) {
   const [cueDraft, setCueDraft] = useState("")
+  const [pickerOpen, setPickerOpen] = useState(false)
+  const [flashBlockId, setFlashBlockId] = useState<string | null>(null)
   const sectionTs = effectiveTimeSignature(
     state.song.timeSignature,
     state.pendingSection.timeSignature,
   )
   const hasMeterOverride = state.pendingSection.timeSignature != null
+  const showDraft = hasConfirmablePendingBlock(state.pendingBlock)
+  const beatOptions = BLOCK_BEAT_VALUES.filter((v) => v <= state.availableBeats)
+
+  const bars = state.pendingSection.bars
+  const lastBarIndex = bars.length - 1
+  const lastBar = lastBarIndex >= 0 ? bars[lastBarIndex] : undefined
+  const lastBarRemaining = lastBar
+    ? remainingBeats(
+        lastBar,
+        barCapacity(
+          sectionTs.beatsPerMeasure,
+          lastBarIndex,
+          state.pendingSection.pickupBeats,
+        ),
+      )
+    : 0
+  /** Space left in the last measure → slot sits to the right and fills it. */
+  const slotInline = Boolean(lastBar && lastBarRemaining > 0)
+  const slotBeats = slotInline
+    ? lastBarRemaining
+    : sectionTs.beatsPerMeasure
 
   useEffect(() => {
     setCueDraft(
@@ -50,6 +93,24 @@ export function SectionEditor({ state, dispatch, onStopEditing }: Props) {
         : "",
     )
   }, [state.pendingSection.id, state.pendingSection.cueTime])
+
+  useEffect(() => {
+    if (!flashBlockId) return
+    const t = window.setTimeout(() => setFlashBlockId(null), 700)
+    return () => window.clearTimeout(t)
+  }, [flashBlockId])
+
+  useEffect(() => {
+    if (!showDraft) return
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        e.preventDefault()
+        dispatch({ type: "CLEAR_PENDING_BLOCK" })
+      }
+    }
+    window.addEventListener("keydown", onKeyDown)
+    return () => window.removeEventListener("keydown", onKeyDown)
+  }, [showDraft, dispatch])
 
   const commitCueDraft = (raw: string) => {
     const trimmed = raw.trim()
@@ -70,6 +131,49 @@ export function SectionEditor({ state, dispatch, onStopEditing }: Props) {
     dispatch({ type: "SET_PENDING_SECTION_CUE_TIME", v: parsed })
     setCueDraft(formatCueTime(parsed))
   }
+
+  const openPicker = () => {
+    dispatch({
+      type: "ADD_BEATS",
+      v: nextBeatsValue(state.availableBeats || sectionTs.beatsPerMeasure),
+    })
+    setPickerOpen(true)
+  }
+
+  const confirmDraft = () => {
+    const pb = state.pendingBlock
+    if (!hasConfirmablePendingBlock(pb)) return
+    const newBlockId = uuidv4()
+    dispatch({ type: "ADD_BLOCK", newBlockId })
+    setFlashBlockId(newBlockId)
+    const label =
+      pb?.type === "rest"
+        ? "Rest"
+        : pb?.type === "solo"
+          ? "Solo"
+          : pb?.type === "riff"
+            ? pb.label?.trim() || "Riff"
+            : pb?.type === "feel" && pb.label && isFeelMarkerId(pb.label)
+              ? feelMarkerLabel(pb.label)
+              : (pb?.chord?.name ?? "Block")
+    toast.info(`Block ${label} added to pending section`)
+  }
+
+  const appendSlot =
+    showDraft && state.pendingBlock ? (
+      <DraftBlockInsert
+        block={state.pendingBlock}
+        timeSignature={sectionTs}
+        pendingBeats={state.pendingBeats}
+        beatOptions={beatOptions}
+        slotBeats={slotBeats}
+        onBeatsChange={(v) => dispatch({ type: "ADD_BEATS", v })}
+        onConfirm={confirmDraft}
+        onCancel={() => dispatch({ type: "CLEAR_PENDING_BLOCK" })}
+      />
+    ) : (
+      <AddBlockSlot onClick={openPicker} beats={slotBeats} />
+    )
 
   return (
     <div className="border border-gray-700 bg-black/20 rounded-md p-3 sm:p-4 shadow-sm light:border-zinc-200 light:bg-white/90">
@@ -282,92 +386,6 @@ export function SectionEditor({ state, dispatch, onStopEditing }: Props) {
 
       {state.pendingSection.id !== "" && (
         <div className="mb-4">
-          <div className="flex flex-col sm:flex-row gap-4">
-            <div className="w-full sm:w-1/2">
-              <BlockPicker
-                beatsPerMeasure={sectionTs.beatsPerMeasure}
-                label="Block"
-                onSelect={(chordName, voicing) =>
-                  dispatch({
-                    type: "ADD_BLOCK_TEMPORARY",
-                    v: chordName,
-                    ...(voicing != null && voicing > 0 ? { voicing } : {}),
-                  })
-                }
-                pendingBeats={state.pendingBeats}
-                selectedValue={
-                  state.pendingBlock
-                    ? state.pendingBlock.type === "rest"
-                      ? REST_TOKEN
-                      : state.pendingBlock.type === "solo"
-                        ? SOLO_TOKEN
-                        : state.pendingBlock.type === "riff"
-                          ? riffToken(state.pendingBlock.label)
-                          : state.pendingBlock.type === "feel" &&
-                              state.pendingBlock.label
-                            ? feelToken(state.pendingBlock.label as FeelMarkerId)
-                            : state.pendingBlock.chord?.name
-                    : undefined
-                }
-              />
-            </div>
-            <div className="w-full sm:w-1/2">
-              <Select
-                name="addBeats"
-                label="Beats"
-                options={BLOCK_BEAT_VALUES.filter(
-                  (v) => v <= state.availableBeats,
-                )}
-                onChange={(e) => {
-                  if (e.target.value) {
-                    dispatch({ type: "ADD_BEATS", v: e.target.value })
-                  }
-                }}
-                value={state.pendingBeats}
-              />
-            </div>
-          </div>
-        </div>
-      )}
-
-      {state.pendingSection.id !== "" &&
-        state.pendingBlock &&
-        state.pendingBeats !== "" &&
-        (state.pendingBlock.type === "rest" ||
-          state.pendingBlock.type === "riff" ||
-          state.pendingBlock.type === "solo" ||
-          state.pendingBlock.type === "feel" ||
-          !!state.pendingBlock.chord?.name) && (
-          <div className="mb-4 flex gap-4 mt-4 justify-end">
-            <Button
-              type="button"
-              variant="primary"
-              className="min-h-11"
-              onClick={() => {
-                dispatch({ type: "ADD_BLOCK" })
-                const pb = state.pendingBlock
-                const label =
-                  pb?.type === "rest"
-                    ? "Rest"
-                    : pb?.type === "solo"
-                      ? "Solo"
-                      : pb?.type === "riff"
-                        ? pb.label?.trim() || "Riff"
-                        : pb?.type === "feel" &&
-                            pb.label &&
-                            isFeelMarkerId(pb.label)
-                          ? feelMarkerLabel(pb.label)
-                          : (pb?.chord?.name ?? "Block")
-                toast.info(`Block ${label} added to pending section`)
-              }}
-            >
-              Add Block
-            </Button>
-          </div>
-        )}
-
-      {state.pendingSection.bars.length > 0 && (
-        <div className="mb-4">
           <h2 className="mb-4">Pending Section</h2>
 
           <div className="mb-4 flex items-center gap-2">
@@ -392,58 +410,83 @@ export function SectionEditor({ state, dispatch, onStopEditing }: Props) {
             ) : null}
           </div>
 
-          <BarsReorder
-            section={state.pendingSection as SongSection}
-            timeSignature={sectionTs}
-            onReorder={(newBars) =>
+          {state.pendingSection.bars.length > 0 ? (
+            <BarsReorder
+              section={state.pendingSection as SongSection}
+              timeSignature={sectionTs}
+              flashBlockId={flashBlockId}
+              lastBarEndSlot={slotInline ? appendSlot : undefined}
+              afterBarsSlot={!slotInline ? appendSlot : undefined}
+              onReorder={(newBars) =>
+                dispatch({
+                  type: "REORDER_BARS_IN_SECTION",
+                  sectionId: state.pendingSection.id,
+                  order: newBars.map((b) => b.id),
+                })
+              }
+              onReorderBlocks={(barId, newBlocks) =>
+                dispatch({
+                  type: "REORDER_BLOCKS",
+                  barId,
+                  order: newBlocks.map((c) => c.id),
+                })
+              }
+              onDeleteChord={(blockId) => {
+                dispatch({
+                  type: "DELETE_BLOCK",
+                  v: blockId,
+                })
+              }}
+              onUpdateDuration={(blockId, duration) => {
+                dispatch({
+                  type: "UPDATE_BLOCK_DURATION",
+                  blockId,
+                  duration,
+                })
+              }}
+              onUpdateVoicing={(blockId, voicing) => {
+                dispatch({
+                  type: "UPDATE_BLOCK_VOICING",
+                  blockId,
+                  voicing,
+                })
+              }}
+              onUpdateRefTime={(blockId, refTime) => {
+                dispatch({
+                  type: "UPDATE_BLOCK_REF_TIME",
+                  blockId,
+                  refTime,
+                })
+              }}
+              onUpdateLyric={(blockId, lyric) => {
+                dispatch({
+                  type: "UPDATE_BLOCK_LYRIC",
+                  blockId,
+                  lyric,
+                })
+              }}
+              hasYoutubeUrl={Boolean(state.song.youtubeUrl)}
+            />
+          ) : (
+            <div className="flex min-h-48 w-full min-w-0 max-w-sm items-stretch">
+              {appendSlot}
+            </div>
+          )}
+
+          <BlockPicker
+            headless
+            open={pickerOpen}
+            onOpenChange={setPickerOpen}
+            beatsPerMeasure={sectionTs.beatsPerMeasure}
+            pendingBeats={state.pendingBeats}
+            onSelect={(chordName, voicing) => {
               dispatch({
-                type: "REORDER_BARS_IN_SECTION",
-                sectionId: state.pendingSection.id,
-                order: newBars.map((b) => b.id),
+                type: "ADD_BLOCK_TEMPORARY",
+                v: chordName,
+                ...(voicing != null && voicing > 0 ? { voicing } : {}),
               })
-            }
-            onReorderBlocks={(barId, newBlocks) =>
-              dispatch({
-                type: "REORDER_BLOCKS",
-                barId,
-                order: newBlocks.map((c) => c.id),
-              })
-            }
-            onDeleteChord={(blockId) => {
-              dispatch({
-                type: "DELETE_BLOCK",
-                v: blockId,
-              })
+              setPickerOpen(false)
             }}
-            onUpdateDuration={(blockId, duration) => {
-              dispatch({
-                type: "UPDATE_BLOCK_DURATION",
-                blockId,
-                duration,
-              })
-            }}
-            onUpdateVoicing={(blockId, voicing) => {
-              dispatch({
-                type: "UPDATE_BLOCK_VOICING",
-                blockId,
-                voicing,
-              })
-            }}
-            onUpdateRefTime={(blockId, refTime) => {
-              dispatch({
-                type: "UPDATE_BLOCK_REF_TIME",
-                blockId,
-                refTime,
-              })
-            }}
-            onUpdateLyric={(blockId, lyric) => {
-              dispatch({
-                type: "UPDATE_BLOCK_LYRIC",
-                blockId,
-                lyric,
-              })
-            }}
-            hasYoutubeUrl={Boolean(state.song.youtubeUrl)}
           />
 
           <div className="mb-4 flex flex-wrap gap-3 mt-4 justify-end">

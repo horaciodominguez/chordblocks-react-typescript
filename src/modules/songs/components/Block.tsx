@@ -41,6 +41,8 @@ type Props = {
   hasYoutubeUrl?: boolean
   showDiagram?: boolean
   density?: SongDensity
+  /** Extra classes on the root (e.g. commit flash). */
+  className?: string
 }
 
 function BlockContent({
@@ -105,6 +107,7 @@ export const Block = forwardRef<HTMLDivElement, Props>(
       hasYoutubeUrl,
       showDiagram,
       density = "bars",
+      className = "",
     },
     ref,
   ) => {
@@ -140,7 +143,7 @@ export const Block = forwardRef<HTMLDivElement, Props>(
           isGuide
             ? "min-h-[var(--atril-block-min-h,1.75rem)] min-w-0 px-1.5"
             : "min-h-10 min-w-0 px-1"
-        } ${hasControls ? "min-h-16 py-2 pb-8" : isGuide ? "py-1" : "py-2"}`}
+        } ${hasControls ? "min-h-16 py-2 pb-8" : isGuide ? "py-1" : "py-2"} ${className}`}
         style={{
           ...chordFlexStyle(block.duration, { guide: isGuide }),
           visibility: isDragging ? "hidden" : "visible",

@@ -21,6 +21,7 @@ import type { TimeSignature } from "../../types/song.types"
 import { ArrowLeftRight } from "lucide-react"
 import SectionBar from "../ui/SectionBars"
 import type { SongSection } from "../../types/section.types"
+import type { ReactNode } from "react"
 
 type Props = {
   section: SongSection
@@ -33,12 +34,19 @@ type Props = {
   onUpdateRefTime?: (blockId: string, refTime: number | undefined) => void
   onUpdateLyric?: (blockId: string, lyric: string | undefined) => void
   hasYoutubeUrl?: boolean
+  flashBlockId?: string | null
+  /** Inside the last bar’s flex row when that measure still has free beats. */
+  lastBarEndSlot?: ReactNode
+  /**
+   * Next grid cell after the last bar when that measure is full.
+   * Stays on the same row if the section grid has a free column; wraps below only then.
+   */
+  afterBarsSlot?: ReactNode
 }
 
 function SortableBar({
   bar,
   index,
-  isLastBar,
   isPickup,
   pickupBeats,
   timeSignature,
@@ -49,10 +57,12 @@ function SortableBar({
   onUpdateRefTime,
   onUpdateLyric,
   hasYoutubeUrl,
+  flashBlockId,
+  endSlot,
+  showMeasureSeparator,
 }: {
   bar: Bar
   index: number
-  isLastBar: boolean
   isPickup: boolean
   pickupBeats?: number
   timeSignature: TimeSignature
@@ -63,6 +73,9 @@ function SortableBar({
   onUpdateRefTime?: (blockId: string, refTime: number | undefined) => void
   onUpdateLyric?: (blockId: string, lyric: string | undefined) => void
   hasYoutubeUrl?: boolean
+  flashBlockId?: string | null
+  endSlot?: ReactNode
+  showMeasureSeparator: boolean
 }) {
   const {
     attributes,
@@ -83,7 +96,7 @@ function SortableBar({
     <div
       ref={setNodeRef}
       style={style}
-      className="BAR-EDITION-WRAP mb-2 py-2 pb-2 pt-0 min-w-0"
+      className="BAR-EDITION-WRAP mb-2 flex h-full min-h-0 min-w-0 flex-col py-2 pb-2 pt-0"
     >
       <div
         {...attributes}
@@ -96,21 +109,25 @@ function SortableBar({
         <ArrowLeftRight className="w-4 h-4" />{" "}
         {isPickup ? `Pickup (${pickupBeats})` : `Bar ${index + 1}`}
       </div>
-      <BlocksReorder
-        bar={bar}
-        barIndex={index}
-        pickupBeats={pickupBeats}
-        isPickup={isPickup}
-        timeSignature={timeSignature}
-        onReorder={onReorderBlocks}
-        onDeleteChord={onDeleteChord}
-        onUpdateDuration={onUpdateDuration}
-        onUpdateVoicing={onUpdateVoicing}
-        onUpdateRefTime={onUpdateRefTime}
-        onUpdateLyric={onUpdateLyric}
-        hasYoutubeUrl={hasYoutubeUrl}
-        showMeasureSeparator={!isLastBar}
-      />
+      <div className="flex min-h-0 flex-1 flex-col">
+        <BlocksReorder
+          bar={bar}
+          barIndex={index}
+          pickupBeats={pickupBeats}
+          isPickup={isPickup}
+          timeSignature={timeSignature}
+          onReorder={onReorderBlocks}
+          onDeleteChord={onDeleteChord}
+          onUpdateDuration={onUpdateDuration}
+          onUpdateVoicing={onUpdateVoicing}
+          onUpdateRefTime={onUpdateRefTime}
+          onUpdateLyric={onUpdateLyric}
+          hasYoutubeUrl={hasYoutubeUrl}
+          showMeasureSeparator={showMeasureSeparator}
+          flashBlockId={flashBlockId}
+          endSlot={endSlot}
+        />
+      </div>
     </div>
   )
 }
@@ -126,6 +143,9 @@ export default function BarsReorder({
   onUpdateRefTime,
   onUpdateLyric,
   hasYoutubeUrl,
+  flashBlockId,
+  lastBarEndSlot,
+  afterBarsSlot,
 }: Props) {
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -144,6 +164,8 @@ export default function BarsReorder({
     onReorder(arrayMove(section.bars, oldIndex, newIndex))
   }
 
+  const showAfterSlot = Boolean(afterBarsSlot)
+
   return (
     <DndContext
       sensors={sensors}
@@ -155,25 +177,46 @@ export default function BarsReorder({
           items={section.bars.map((b) => b.id)}
           strategy={horizontalListSortingStrategy}
         >
-          {section.bars.map((bar, i) => (
-            <SortableBar
-              key={bar.id}
-              bar={bar}
-              index={i}
-              isLastBar={i === section.bars.length - 1}
-              isPickup={i === 0 && Boolean(section.pickupBeats)}
-              pickupBeats={section.pickupBeats}
-              timeSignature={timeSignature}
-              onReorderBlocks={onReorderBlocks}
-              onDeleteChord={onDeleteChord}
-              onUpdateDuration={onUpdateDuration}
-              onUpdateVoicing={onUpdateVoicing}
-              onUpdateRefTime={onUpdateRefTime}
-              onUpdateLyric={onUpdateLyric}
-              hasYoutubeUrl={hasYoutubeUrl}
-            />
-          ))}
+          {section.bars.map((bar, i) => {
+            const isLastBar = i === section.bars.length - 1
+            return (
+              <SortableBar
+                key={bar.id}
+                bar={bar}
+                index={i}
+                isPickup={i === 0 && Boolean(section.pickupBeats)}
+                pickupBeats={section.pickupBeats}
+                timeSignature={timeSignature}
+                onReorderBlocks={onReorderBlocks}
+                onDeleteChord={onDeleteChord}
+                onUpdateDuration={onUpdateDuration}
+                onUpdateVoicing={onUpdateVoicing}
+                onUpdateRefTime={onUpdateRefTime}
+                onUpdateLyric={onUpdateLyric}
+                hasYoutubeUrl={hasYoutubeUrl}
+                flashBlockId={flashBlockId}
+                endSlot={isLastBar ? lastBarEndSlot : undefined}
+                showMeasureSeparator={
+                  !isLastBar || (isLastBar && showAfterSlot)
+                }
+              />
+            )
+          })}
         </SortableContext>
+
+        {showAfterSlot ? (
+          <div className="BAR-EDITION-WRAP mb-2 flex h-full min-h-0 min-w-0 flex-col py-2 pb-2 pt-0">
+            <div
+              className="mb-1 min-h-8 px-1 text-xs text-zinc-500 light:text-zinc-600"
+              aria-hidden
+            >
+              &nbsp;
+            </div>
+            <div className="relative flex min-h-0 w-full flex-1 items-stretch py-2">
+              {afterBarsSlot}
+            </div>
+          </div>
+        ) : null}
       </SectionBar>
     </DndContext>
   )
