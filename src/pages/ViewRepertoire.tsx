@@ -1,5 +1,5 @@
 import { Link, useNavigate, useParams } from "react-router-dom"
-import { Download, Pin, PinOff } from "lucide-react"
+import { Copy, Download, Pin, PinOff } from "lucide-react"
 import { useRepertoires } from "@/modules/repertoires/hooks/useRepertoires"
 import { useSongs } from "@/modules/songs/hooks/useSongs"
 import { PageHeader } from "@/components/layout/PageHeader"
@@ -28,8 +28,13 @@ import { GigLockToggle } from "@/modules/repertoires/components/GigLockToggle"
 export default function ViewRepertoire() {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
-  const { getRepertoire, updateRepertoire, mutating, initialLoading } =
-    useRepertoires()
+  const {
+    getRepertoire,
+    duplicateRepertoire,
+    updateRepertoire,
+    mutating,
+    initialLoading,
+  } = useRepertoires()
   const { songs } = useSongs()
   const { locked: gigLocked } = useGigLock()
   const [editingTitle, setEditingTitle] = useState(false)
@@ -134,6 +139,17 @@ export default function ViewRepertoire() {
     }
   }
 
+  const duplicateSet = async () => {
+    try {
+      const copy = await duplicateRepertoire(repertoire.id)
+      toast.success(`Set duplicated as "${copy.title}"`)
+      navigate(ROUTES.set(copy.id))
+    } catch (err) {
+      console.error(err)
+      toast.error("Could not duplicate set")
+    }
+  }
+
   const removeMissing = async () => {
     let next = repertoire
     for (const { item } of flatItems) {
@@ -232,6 +248,18 @@ export default function ViewRepertoire() {
                   onClick={() => navigate(ROUTES.setEdit(repertoire.id))}
                 >
                   Edit set
+                </Button>
+              ) : null}
+              {!gigLocked ? (
+                <Button
+                  type="button"
+                  variant="secondary"
+                  className="min-h-11 inline-flex items-center gap-2"
+                  onClick={duplicateSet}
+                  disabled={mutating}
+                >
+                  <Copy size={16} />
+                  Duplicate
                 </Button>
               ) : null}
               <Button

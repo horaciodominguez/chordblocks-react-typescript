@@ -1,5 +1,13 @@
 import { Link, useNavigate } from "react-router-dom"
-import { ListMusic, Pin, PinOff, Plus, Search, Trash } from "lucide-react"
+import {
+  Copy,
+  ListMusic,
+  Pin,
+  PinOff,
+  Plus,
+  Search,
+  Trash,
+} from "lucide-react"
 import { useRepertoires } from "@/modules/repertoires/hooks/useRepertoires"
 import { useSongs } from "@/modules/songs/hooks/useSongs"
 import Panel from "@/components/ui/Panel"
@@ -28,12 +36,14 @@ function SetCard({
   mutating,
   readOnly,
   onTogglePin,
+  onDuplicate,
   onDelete,
 }: {
   rep: Repertoire
   mutating: boolean
   readOnly?: boolean
   onTogglePin: (rep: Repertoire) => void
+  onDuplicate: (rep: Repertoire) => Promise<void>
   onDelete: (rep: Repertoire) => Promise<void>
 }) {
   const itemCount = countRepertoireItems(rep)
@@ -66,6 +76,13 @@ function SetCard({
             >
               {pinned ? <PinOff size={16} /> : <Pin size={16} />}
             </IconButton>
+            <IconButton
+              aria-label={`Duplicate ${rep.title}`}
+              onClick={() => onDuplicate(rep)}
+              disabled={mutating}
+            >
+              <Copy size={16} />
+            </IconButton>
             <ConfirmDialog
               title="Delete set?"
               description={`Delete "${rep.title}"? This cannot be undone.`}
@@ -94,6 +111,7 @@ export function RepertoireList() {
     repertoires,
     mutating,
     addRepertoire,
+    duplicateRepertoire,
     deleteRepertoire,
     updateRepertoire,
   } = useRepertoires()
@@ -136,6 +154,17 @@ export function RepertoireList() {
   const handleDelete = async (rep: Repertoire) => {
     await deleteRepertoire(rep.id)
     toast.success("Set deleted")
+  }
+
+  const handleDuplicate = async (rep: Repertoire) => {
+    try {
+      const copy = await duplicateRepertoire(rep.id)
+      toast.success(`Set duplicated as "${copy.title}"`)
+      navigate(ROUTES.set(copy.id))
+    } catch (err) {
+      console.error(err)
+      toast.error("Could not duplicate set")
+    }
   }
 
   if (!repertoires.length) {
@@ -215,6 +244,7 @@ export function RepertoireList() {
                       mutating={mutating}
                       readOnly={gigLocked}
                       onTogglePin={handleTogglePin}
+                      onDuplicate={handleDuplicate}
                       onDelete={handleDelete}
                     />
                   </li>
@@ -242,6 +272,7 @@ export function RepertoireList() {
                       mutating={mutating}
                       readOnly={gigLocked}
                       onTogglePin={handleTogglePin}
+                      onDuplicate={handleDuplicate}
                       onDelete={handleDelete}
                     />
                   </li>

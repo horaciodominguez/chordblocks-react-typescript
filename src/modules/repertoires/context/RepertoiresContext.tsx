@@ -15,7 +15,10 @@ import {
   saveRepertoireWithSync,
 } from "@/services/sync/syncManager"
 import { useAuth } from "@/modules/auth/context/AuthContext"
-import { createEmptyRepertoire } from "@/modules/repertoires/utils/repertoire.factory"
+import {
+  createEmptyRepertoire,
+  duplicateRepertoire,
+} from "@/modules/repertoires/utils/repertoire.factory"
 import { RepertoireSchema } from "@/modules/repertoires/schemas/repertoire.schema"
 
 type RepertoiresContextValue = {
@@ -23,6 +26,7 @@ type RepertoiresContextValue = {
   initialLoading: boolean
   mutating: boolean
   addRepertoire: (title?: string) => Promise<Repertoire>
+  duplicateRepertoire: (id: string) => Promise<Repertoire>
   updateRepertoire: (rep: Repertoire) => Promise<void>
   deleteRepertoire: (id: string) => Promise<void>
   getRepertoire: (id: string) => Repertoire | undefined
@@ -121,6 +125,26 @@ export function RepertoiresProvider({ children }: { children: ReactNode }) {
     [refreshRepertoires],
   )
 
+  const duplicateRepertoireById = useCallback(
+    async (id: string) => {
+      const source = repertoires.find((rep) => rep.id === id)
+      if (!source) {
+        throw new Error(`Repertoire not found: ${id}`)
+      }
+
+      setMutating(true)
+      try {
+        const copy = RepertoireSchema.parse(duplicateRepertoire(source))
+        await saveRepertoireWithSync(copy)
+        await refreshRepertoires()
+        return copy
+      } finally {
+        setMutating(false)
+      }
+    },
+    [repertoires, refreshRepertoires],
+  )
+
   const deleteRepertoire = useCallback(
     async (id: string) => {
       setMutating(true)
@@ -145,6 +169,7 @@ export function RepertoiresProvider({ children }: { children: ReactNode }) {
       initialLoading,
       mutating,
       addRepertoire,
+      duplicateRepertoire: duplicateRepertoireById,
       updateRepertoire,
       deleteRepertoire,
       getRepertoire,
@@ -155,6 +180,7 @@ export function RepertoiresProvider({ children }: { children: ReactNode }) {
       initialLoading,
       mutating,
       addRepertoire,
+      duplicateRepertoireById,
       updateRepertoire,
       deleteRepertoire,
       getRepertoire,
