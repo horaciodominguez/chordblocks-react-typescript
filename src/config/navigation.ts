@@ -42,20 +42,20 @@ export const NAV_ITEMS: NavItem[] = [
     matchPrefixes: ["/"],
   },
   {
-    id: "songs",
-    to: ROUTES.songs,
-    label: "Songs",
-    icon: ListMusic,
-    end: false,
-    matchPrefixes: ["/songs", "/song", "/new"],
-  },
-  {
     id: "sets",
     to: ROUTES.sets,
     label: "Sets",
     icon: Library,
     end: false,
     matchPrefixes: ["/repertoires"],
+  },
+  {
+    id: "songs",
+    to: ROUTES.songs,
+    label: "Songs",
+    icon: ListMusic,
+    end: false,
+    matchPrefixes: ["/songs", "/song", "/new"],
   },
   {
     id: "settings",

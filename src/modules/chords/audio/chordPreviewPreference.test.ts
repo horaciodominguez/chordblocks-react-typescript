@@ -7,16 +7,14 @@ import {
 
 describe("chordPreviewPreference", () => {
   beforeEach(() => {
+    const store: Record<string, string> = {}
     vi.stubGlobal("localStorage", {
-      store: {} as Record<string, string>,
-      getItem(key: string) {
-        return this.store[key] ?? null
+      getItem: (key: string) => store[key] ?? null,
+      setItem: (key: string, value: string) => {
+        store[key] = value
       },
-      setItem(key: string, value: string) {
-        this.store[key] = value
-      },
-      removeItem(key: string) {
-        delete this.store[key]
+      removeItem: (key: string) => {
+        delete store[key]
       },
     })
   })
