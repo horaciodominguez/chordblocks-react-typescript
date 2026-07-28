@@ -19,6 +19,7 @@ import {
   createEmptyRepertoire,
   duplicateRepertoire,
 } from "@/modules/repertoires/utils/repertoire.factory"
+import { addItemToGroup } from "@/modules/repertoires/utils/repertoire.edit"
 import { RepertoireSchema } from "@/modules/repertoires/schemas/repertoire.schema"
 
 type RepertoiresContextValue = {
@@ -27,6 +28,10 @@ type RepertoiresContextValue = {
   mutating: boolean
   addRepertoire: (title?: string) => Promise<Repertoire>
   duplicateRepertoire: (id: string) => Promise<Repertoire>
+  addSongToRepertoire: (
+    repertoireId: string,
+    songId: string,
+  ) => Promise<Repertoire>
   updateRepertoire: (rep: Repertoire) => Promise<void>
   deleteRepertoire: (id: string) => Promise<void>
   getRepertoire: (id: string) => Repertoire | undefined
@@ -145,6 +150,32 @@ export function RepertoiresProvider({ children }: { children: ReactNode }) {
     [repertoires, refreshRepertoires],
   )
 
+  const addSongToRepertoire = useCallback(
+    async (repertoireId: string, songId: string) => {
+      const source = repertoires.find((rep) => rep.id === repertoireId)
+      if (!source) {
+        throw new Error(`Repertoire not found: ${repertoireId}`)
+      }
+      const firstGroup = source.groups[0]
+      if (!firstGroup) {
+        throw new Error(`Repertoire has no groups: ${repertoireId}`)
+      }
+
+      setMutating(true)
+      try {
+        const next = RepertoireSchema.parse(
+          addItemToGroup(source, firstGroup.id, songId),
+        )
+        await saveRepertoireWithSync(next)
+        await refreshRepertoires()
+        return next
+      } finally {
+        setMutating(false)
+      }
+    },
+    [repertoires, refreshRepertoires],
+  )
+
   const deleteRepertoire = useCallback(
     async (id: string) => {
       setMutating(true)
@@ -170,6 +201,7 @@ export function RepertoiresProvider({ children }: { children: ReactNode }) {
       mutating,
       addRepertoire,
       duplicateRepertoire: duplicateRepertoireById,
+      addSongToRepertoire,
       updateRepertoire,
       deleteRepertoire,
       getRepertoire,
@@ -181,6 +213,7 @@ export function RepertoiresProvider({ children }: { children: ReactNode }) {
       mutating,
       addRepertoire,
       duplicateRepertoireById,
+      addSongToRepertoire,
       updateRepertoire,
       deleteRepertoire,
       getRepertoire,

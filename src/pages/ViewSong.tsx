@@ -2,6 +2,8 @@ import { Song } from "@/modules/songs/components/Song"
 import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom"
 import { useSong } from "@/modules/songs/hooks/useSong"
 import { useRepertoires } from "@/modules/repertoires/hooks/useRepertoires"
+import { AppDialog } from "@/components/ui/AppDialog"
+import Button from "@/components/ui/Button"
 import PageState from "@/components/ui/PageState"
 import { PageHeader, PageHeaderLink } from "@/components/layout/PageHeader"
 import { PlayChrome } from "@/components/layout/PlayChrome"
@@ -42,11 +44,13 @@ import {
 import type { AutoScrollSpeed } from "@/modules/songs/types/autoScroll.types"
 import type { AtrilFontScale } from "@/modules/songs/types/fontScale.types"
 import { usePlayAutoScroll } from "@/modules/repertoires/hooks/usePlayAutoScroll"
-import { Edit, ListMusic, Play, X } from "lucide-react"
+import { Edit, ListMusic, ListPlus, Play, X } from "lucide-react"
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import { toast } from "sonner"
 import { ROUTES } from "@/config/navigation"
 import { normalizeArtistKey } from "@/modules/songs/utils/songCatalog"
 import { parseYouTubeVideoId } from "@/modules/songs/utils/youtube"
+import { countRepertoireItems } from "@/modules/repertoires/utils/repertoire.catalog"
 import { SongPlayerProvider } from "@/modules/player/context/SongPlayerContext"
 import {
   YouTubeDock,
@@ -58,7 +62,8 @@ export default function ViewSong() {
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
   const { song, loading } = useSong(id)
-  const { getRepertoire, repertoires } = useRepertoires()
+  const { getRepertoire, repertoires, addSongToRepertoire, mutating } =
+    useRepertoires()
 
   const repertoireId = searchParams.get("repertoireId")
   const itemId = searchParams.get("itemId")
@@ -110,6 +115,7 @@ export default function ViewSong() {
   const [autoScrollPrefs, setAutoScrollPrefs] = useState(() =>
     readAutoScrollPreference(),
   )
+  const [addToSetOpen, setAddToSetOpen] = useState(false)
   const { surfaceRef, gestureProps } = usePlayGestures({
     enabled: playMode,
     onSwipeNext: setNav ? goNextInSet : undefined,
@@ -152,6 +158,18 @@ export default function ViewSong() {
       writeAutoScrollPreference(next)
       return next
     })
+  }
+
+  const handleAddToSet = async (repertoireId: string) => {
+    if (!song) return
+    try {
+      const updated = await addSongToRepertoire(repertoireId, song.id)
+      setAddToSetOpen(false)
+      toast.success(`Added "${song.title}" to "${updated.title}"`)
+    } catch (err) {
+      console.error(err)
+      toast.error("Could not add song to set")
+    }
   }
 
   const itemNotes = setNav?.current.item.notes?.trim() || ""
@@ -243,6 +261,60 @@ export default function ViewSong() {
           <ListMusic size={16} />
           <span>Set</span>
         </PageHeaderLink>
+      ) : null}
+      {!gigLocked ? (
+        <AppDialog
+          open={addToSetOpen}
+          onOpenChange={setAddToSetOpen}
+          title="Add song to set"
+          description={`Choose a set for "${song.title}". The song will be added to its first group.`}
+          trigger={
+            <Button
+              type="button"
+              variant="secondary"
+              className="min-h-10 inline-flex items-center gap-1.5"
+              disabled={mutating}
+            >
+              <ListPlus size={16} />
+              <span className="hidden sm:inline">Add to set</span>
+            </Button>
+          }
+        >
+          {repertoires.length === 0 ? (
+            <div className="flex flex-col gap-3">
+              <p className="text-sm text-zinc-400 light:text-zinc-600">
+                You do not have any sets yet.
+              </p>
+              <Link
+                to={ROUTES.sets}
+                className="text-sm text-indigo-300 underline light:text-indigo-700"
+                onClick={() => setAddToSetOpen(false)}
+              >
+                Create a set
+              </Link>
+            </div>
+          ) : (
+            <ul className="flex flex-col gap-2">
+              {repertoires.map((repertoire) => (
+                <li key={repertoire.id}>
+                  <button
+                    type="button"
+                    className="w-full rounded-md border border-zinc-700 px-3 py-3 text-left hover:bg-zinc-800/70 light:border-zinc-200 light:hover:bg-zinc-100"
+                    onClick={() => void handleAddToSet(repertoire.id)}
+                    disabled={mutating}
+                  >
+                    <span className="block truncate text-sm font-medium text-zinc-100 light:text-zinc-900">
+                      {repertoire.title}
+                    </span>
+                    <span className="block text-xs text-zinc-500 light:text-zinc-600">
+                      {countRepertoireItems(repertoire)} songs
+                    </span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
+        </AppDialog>
       ) : null}
       {gigLocked ? (
         <GigLockToggle />
